@@ -27,11 +27,13 @@ public class Robot extends IterativeRobot {
   public void robotInit() {
     
     leftMain = new WPI_TalonSRX(15);
-		rightMain = new WPI_TalonSRX(1);
-		leftSlave = new WPI_TalonSRX(14);
-		rightSlave = new WPI_TalonSRX(2);
-		leftSlave.follow(leftMain);
-    rightSlave.follow(rightMain);
+    rightMain = new WPI_TalonSRX(1);
+    leftSlave = new WPI_TalonSRX(14);
+    rightSlave = new WPI_TalonSRX(2);
+    leftSlave.follow(leftMain);
+	rightSlave.follow(rightMain);
+
+	//for the lulz
     
   }
 
