@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 public class Robot extends IterativeRobot {
   
 
-  public static WPI_TalonSRX leftMain;
+	public static WPI_TalonSRX leftMain;
 	public static WPI_TalonSRX rightMain;
 	public static WPI_TalonSRX leftSlave;
 	public static WPI_TalonSRX rightSlave;
