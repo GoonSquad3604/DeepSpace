@@ -32,7 +32,8 @@ public class Robot extends IterativeRobot {
     rightSlave = new WPI_TalonSRX(2);
     leftSlave.follow(leftMain);
 	rightSlave.follow(rightMain);
-	
+
+	//for the lulz
     
   }
 
