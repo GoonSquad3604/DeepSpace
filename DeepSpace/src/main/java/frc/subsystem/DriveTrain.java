@@ -6,24 +6,32 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
 public class DriveTrain extends DifferentialDrive{
 
-    private WPI_TalonSRX frontRight, frontLeft, rearRight, rearLeft;
+    private WPI_TalonSRX leftFront, leftRear, rightFront, rightRear;
     
-    private DriveTrain(WPI_TalonSRX frontLeft, WPI_TalonSRX frontRight, WPI_TalonSRX rearLeft, WPI_TalonSRX rearRight){
+    private DriveTrain(WPI_TalonSRX leftFront, WPI_TalonSRX leftRear, WPI_TalonSRX rightFront, WPI_TalonSRX rightRear){
 
-        super(new SpeedControllerGroup(frontLeft, rearLeft), new SpeedControllerGroup(frontRight, rearRight));
+        super(new SpeedControllerGroup(leftFront, leftRear), new SpeedControllerGroup(rightFront, rightRear));
         
-        this.frontLeft = frontLeft;
-        this.frontRight = frontRight;
-        this.rearLeft = rearLeft;
-        this.rearRight = rearRight;
+        this.leftFront = leftFront;
+        this.leftRear = leftRear;
+        this.rightFront = rightFront;
+        this.rightRear = rightRear;
             
     }
 
-    public DriveTrain(int frontLeft, int frontRight, int rearLeft, int rearRight){
+    public DriveTrain(int leftFrontID, int leftRearID, int rightFrontID, int rightRearID){
         
-        this(new WPI_TalonSRX(frontLeft), new WPI_TalonSRX(frontRight), 
-        new WPI_TalonSRX(frontLeft), new WPI_TalonSRX(frontRight));
+        this(new WPI_TalonSRX(leftFrontID), new WPI_TalonSRX(leftRearID), 
+        new WPI_TalonSRX(rightFrontID), new WPI_TalonSRX(rightRearID));
 
+    }
+
+    public int getLeftPosition(){
+        return leftFront.getSelectedSensorPosition(0);
+    }
+
+    public int getRightPosition(){
+        return rightFront.getSelectedSensorPosition(0);
     }
 
 }

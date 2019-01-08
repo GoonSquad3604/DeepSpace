@@ -2,12 +2,41 @@ package frc.robot;
 
 public class Constants{
 
-    //Talon IDs
-    public static int frontLeftID = 0;
-    public static int frontRightID = 0;
-    public static int rearRightID = 0;
-    public static int rearLeftID = 0;
+    /*********/
+    /*General*/
+    /*********/
 
-    public static int elevatorID = 0;
+    public static int kTimeoutMs = 10;
+
+    /***********/
+    /*Talon IDs*/
+    /***********/
+
+    public static final int kLeftFrontID = 0;
+    public static final int kLeftRearID = 0;
+    public static final int kRightFrontID = 0;
+    public static final int kRightRearID = 0;
+
+    public static final int kElevatorID = 0;
+
+    /*******************/
+    /*Elevator Settings*/
+    /*******************/
+    
+    //PID
+    public static final double kElevatorP = 0.0;
+    public static final double kElevatorI = 0.0;
+    public static final double kElevatorD = 0.0;
+    public static final double kElevatorF = 0.0;
+
+    //Rocket hatch encoder positions
+    public static final int kBottomRocketHatch = 0;
+    public static final int kMiddleRocketHatch = 0;
+    public static final int kTopRocketHatch = 0;
+
+    //Rocket cargo encoder positions
+    public static final int kBottomRocketCargo = 0;
+    public static final int kMiddleRocketCargo = 0;
+    public static final int kTopRocketCargo = 0;
 
 }
