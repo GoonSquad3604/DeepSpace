@@ -26,4 +26,12 @@ public class DriveTrain extends DifferentialDrive{
 
     }
 
+    public int getLeftPosition(){
+        return leftFront.getSelectedSensorPosition(0);
+    }
+
+    public int getRightPosition(){
+        return rightFront.getSelectedSensorPosition(0);
+    }
+
 }
