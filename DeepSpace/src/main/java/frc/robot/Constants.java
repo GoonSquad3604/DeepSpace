@@ -10,7 +10,4 @@ public class Constants{
 
     public static int elevatorID = 0;
 
-
-
-
 }
