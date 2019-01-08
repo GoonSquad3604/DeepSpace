@@ -8,6 +8,4 @@ public class Elevator extends WPI_TalonSRX{
         super(motorID);
     }
 
-    
-
 }
