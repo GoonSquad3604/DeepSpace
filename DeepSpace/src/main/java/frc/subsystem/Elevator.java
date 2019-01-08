@@ -9,11 +9,18 @@ public class Elevator extends WPI_TalonSRX{
         
         super(elevatorID);
         
-        this.config_kP(0, Constants.kElevatorP, Constants.kTimeoutMs);
-        this.config_kI(0, Constants.kElevatorI, Constants.kTimeoutMs);
-        this.config_kD(0, Constants.kElevatorD, Constants.kTimeoutMs);
-        this.config_kF(0, Constants.kElevatorF, Constants.kTimeoutMs);
-    
+        //Cargo Settings
+        config_kP(0, Constants.kElevatorCargoP, Constants.kTimeoutMs);
+        config_kI(0, Constants.kElevatorCargoI, Constants.kTimeoutMs);
+        config_kD(0, Constants.kElevatorCargoD, Constants.kTimeoutMs);
+        config_kF(0, Constants.kElevatorCargoF, Constants.kTimeoutMs);
+
+        //Hatch Settings
+        config_kP(1, Constants.kElevatorHatchP, Constants.kTimeoutMs);
+        config_kI(1, Constants.kElevatorHatchI, Constants.kTimeoutMs);
+        config_kD(1, Constants.kElevatorHatchD, Constants.kTimeoutMs);
+        config_kF(1, Constants.kElevatorHatchF, Constants.kTimeoutMs);
+
     }
 
 }
