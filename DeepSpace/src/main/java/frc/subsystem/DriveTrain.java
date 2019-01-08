@@ -3,6 +3,7 @@ package frc.subsystem;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import frc.robot.Constants;
 
 public class DriveTrain extends DifferentialDrive{
 
@@ -32,6 +33,13 @@ public class DriveTrain extends DifferentialDrive{
 
     public int getRightPosition(){
         return rightFront.getSelectedSensorPosition(0);
+    }
+
+    public void resetDriveTrain(){
+        leftFront.configFactoryDefault(Constants.kTimeoutMs);
+        leftRear.configFactoryDefault(Constants.kTimeoutMs);
+        rightFront.configFactoryDefault(Constants.kTimeoutMs);
+        rightRear.configFactoryDefault(Constants.kTimeoutMs);
     }
 
 }
