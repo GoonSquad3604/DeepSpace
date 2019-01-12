@@ -1,7 +1,6 @@
 package frc.subsystem;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.Constants;
 
@@ -11,12 +10,15 @@ public class DriveTrain extends DifferentialDrive{
     
     private DriveTrain(WPI_TalonSRX leftFront, WPI_TalonSRX leftRear, WPI_TalonSRX rightFront, WPI_TalonSRX rightRear){
 
-        super(new SpeedControllerGroup(leftFront, leftRear), new SpeedControllerGroup(rightFront, rightRear));
+        super(leftFront, rightFront);
         
         this.leftFront = leftFront;
         this.leftRear = leftRear;
         this.rightFront = rightFront;
         this.rightRear = rightRear;
+
+        this.leftRear.follow(leftFront);
+        this.rightRear.follow(rightFront);
             
     }
 
