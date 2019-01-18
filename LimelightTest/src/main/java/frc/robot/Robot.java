@@ -27,7 +27,12 @@ public class Robot extends TimedRobot {
   
   private final int ocelateTime = 90;
   private int time = 0;
+  private double turnAmount = 0.5;
   private boolean ocelating = false;
+
+  private final double kpAim = -0.1;
+  private final double kpDistance = -0.1;
+  private final double aimCommand = 0.5;
 
   //Initializing all the objects
   @Override
@@ -49,59 +54,17 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousPeriodic() 
   {
-    /*
     if(stage == 0)
     {
-      //Moves right until it finds a target
+      drive.arcadeDrive(0,-.4);
       if(limelight.doesTargetExist())
       {
         stage++;
       }
-      else
-      {
-        drive.arcadeDrive(0,0.6);
-      }
     }
     else if(stage == 1)
     {
-      double skew = Math.abs(limelight.getTargetSkew());
-      //If the target is on the left, move right. If the target is on the right, move left.
-      if(skew>80)
-      {
-        if(ocelating)
-        {
-          drive.arcadeDrive(0,0.5);
-        }
-        else
-        {
-          drive.arcadeDrive(0,0.6);
-        } 
-      }
-      else if(skew<10)
-      {
-        if(ocelating)
-        {
-          drive.arcadeDrive(0,-0.5);
-        }
-        else
-        {
-          drive.arcadeDrive(0,-0.6);
-        } 
-      }
-      else
-      {
-        ocelating = true;
-        if(time>ocelateTime)
-        {
-          stage++;
-        }
-      }
-      if(ocelating)
-      {
-        time++;
-      }
     }
-    System.out.println(time);*/
   }
 
   @Override
