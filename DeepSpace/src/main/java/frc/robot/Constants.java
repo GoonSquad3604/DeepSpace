@@ -49,4 +49,5 @@ public class Constants{
     public static final int kMiddleRocketCargo = 0;
     public static final int kTopRocketCargo = 0;
 
+    public static final double kPulsePerInch = 51.0;
 }

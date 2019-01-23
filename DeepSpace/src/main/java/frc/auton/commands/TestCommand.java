@@ -1,5 +1,4 @@
-package frc.auton;
-
+package frc.auton.commands;
 public class TestCommand implements AutonCommand
 {
 
@@ -19,5 +18,10 @@ public class TestCommand implements AutonCommand
     public double getStatus() 
     {
         return 0;
+    }
+
+    @Override
+    public void init() {
+
     }
 }

@@ -1,4 +1,4 @@
-package frc.auton;
+package frc.auton.commands;
 public interface AutonCommand
 {
     //Will return true when the command has completed.
@@ -7,4 +7,11 @@ public interface AutonCommand
     void runTask();
     //Returns an int. May be useful at times where you need to get feedback.
     double getStatus();
+    //Resets things.
+    default void resetThings()
+    {
+        //TODO
+    }
+    //Called when this command begins
+    void init();
 }

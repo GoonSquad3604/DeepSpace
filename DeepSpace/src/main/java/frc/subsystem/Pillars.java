@@ -4,7 +4,7 @@ import frc.robot.Constants;
 
 public class Pillars{
 
-    public void Pillars(){
+    public Pillars(){
        //TODO
     }
 
