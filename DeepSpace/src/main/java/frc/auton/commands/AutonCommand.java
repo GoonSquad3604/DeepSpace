@@ -7,11 +7,6 @@ public interface AutonCommand
     void runTask();
     //Returns an int. May be useful at times where you need to get feedback.
     double getStatus();
-    //Resets things.
-    default void resetThings()
-    {
-        //TODO
-    }
     //Called when this command begins
     void init();
 }

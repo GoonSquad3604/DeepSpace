@@ -8,6 +8,7 @@ public class Constants{
 
     public static int kTimeoutMs = 10;
 
+
     /***********/
     /*Talon IDs*/
     /***********/
@@ -50,4 +51,15 @@ public class Constants{
     public static final int kTopRocketCargo = 0;
 
     public static final double kPulsePerInch = 51.0;
+
+    public static final double kDt = 0;
+    public static final double kVelocity = 0;
+    public static final double kAcceleration = 0;
+    public static final double kJerk = 0;
+
+    public static final double kP = 0;
+    public static final double kI = 0;
+    public static final double kD = 0;
+    public static final double kVelocityRatio = 0;
+    public static final double kAccelerationRatio = 0;
 }
