@@ -1,5 +1,6 @@
 package frc.auton;
 import frc.auton.commands.CmdDumbSpin;
+//
 //A higly dumb auton. It is very dumb.
 public class DumbAuton extends Auton
 {

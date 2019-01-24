@@ -2,7 +2,7 @@ package frc.auton.commands;
 
 import edu.wpi.first.wpilibj.XboxController;
 import frc.subsystem.DriveTrain;
-
+//
 public class CmdTeleop implements AutonCommand{
 
     //Runs when there is no command. Does Teleoperated Stuffs.
@@ -24,7 +24,7 @@ public class CmdTeleop implements AutonCommand{
     @Override
     public void runTask() 
     {
-
+        drive.arcadeDrive(-driveStick.getRawAxis(1),driveStick.getRawAxis(4));
     }
 
     @Override
