@@ -4,15 +4,19 @@ import javax.lang.model.util.ElementScanner6;
 
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Robot;
+import frc.subsystem.DriveTrain;
 
 public class CmdDriveReverse implements AutonCommand
 {
+    //Drives the robot backwards based on a timer.
     Timer t;
     double time;
-    public CmdDriveReverse(double time)
+    private DriveTrain drive;
+    public CmdDriveReverse(double time, DriveTrain drive)
     {
         t = new Timer();
         this.time = time;
+        this.drive = drive;
 
     }
     @Override
@@ -30,7 +34,7 @@ public class CmdDriveReverse implements AutonCommand
 
     @Override
     public void runTask() {
-        Robot.getDriveTrain().arcadeDrive(0.6,0);
+        drive.arcadeDrive(0.6,0);
     }
 
     @Override

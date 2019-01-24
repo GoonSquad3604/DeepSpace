@@ -4,32 +4,24 @@ import javax.lang.model.util.ElementScanner6;
 
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Robot;
-
-public class CmdWait implements AutonCommand
+import frc.subsystem.DriveTrain;
+public class CmdDumbSpin implements AutonCommand
 {
-    //Just waits
-    Timer t;
-    double time;
-    public CmdWait(double time)
+    //Spins the bot dumbly. !!!ONLY FOR USE IN TESTS!!!s
+    private DriveTrain drive;
+    public CmdDumbSpin(DriveTrain drive)
     {
-        t = new Timer();
-        t.start();
-        this.time = time;
+        this.drive = drive;
     }
     @Override
-    public boolean isFinished() {
-        if(t.get()>time)
-        {
-            return true;
-        }
-        else
-        {
+    public boolean isFinished() 
+    {
             return false;
-        }
     }
 
     @Override
     public void runTask() {
+        drive.arcadeDrive(-0.0,0.6);
     }
 
     @Override
@@ -39,7 +31,6 @@ public class CmdWait implements AutonCommand
 
     @Override
     public void init() {
-        t.reset();
     }
 
 }

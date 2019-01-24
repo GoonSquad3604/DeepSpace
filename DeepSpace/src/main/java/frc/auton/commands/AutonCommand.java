@@ -9,4 +9,9 @@ public interface AutonCommand
     double getStatus();
     //Called when this command begins
     void init();
+    //finalizes things. Is blank by default.
+    default void end()
+    {
+        ;
+    }
 }

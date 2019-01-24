@@ -62,4 +62,7 @@ public class Constants{
     public static final double kD = 0;
     public static final double kVelocityRatio = 0;
     public static final double kAccelerationRatio = 0;
+
+    public static final double kRobotWidth = 0;
+    public static final double kWheelDiameter = 0;
 }

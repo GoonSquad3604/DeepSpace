@@ -4,16 +4,20 @@ import javax.lang.model.util.ElementScanner6;
 
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Robot;
+import frc.subsystem.DriveTrain;
 
 public class CmdDriveTime implements AutonCommand
 {
-    Timer t;
-    double time;
-    public CmdDriveTime(double time)
+    //Drives the robot forwards based on a timer.
+    private Timer t;
+    private double time;
+    private DriveTrain drive;
+    public CmdDriveTime(double time, DriveTrain drive)
     {
         t = new Timer();
         t.start();
         this.time = time;
+        this.drive = drive;
     }
     @Override
     public boolean isFinished() {
@@ -27,10 +31,9 @@ public class CmdDriveTime implements AutonCommand
             return false;
         }
     }
-
     @Override
     public void runTask() {
-        Robot.getDriveTrain().arcadeDrive(-0.6,0);
+        drive.arcadeDrive(-0.6,0);
     }
 
     @Override
