@@ -1,5 +1,7 @@
 package frc.robot;
-
+/***********/
+/*CONSTANTS*/
+/***********/
 public class Constants{
 
     /*********/
@@ -65,4 +67,5 @@ public class Constants{
 
     public static final double kRobotWidth = 0;
     public static final double kWheelDiameter = 0;
+
 }
