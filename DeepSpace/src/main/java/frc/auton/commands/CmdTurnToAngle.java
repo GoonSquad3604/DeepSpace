@@ -7,6 +7,8 @@
 
 package frc.auton.commands;
 
+import com.ctre.phoenix.sensors.PigeonIMU;
+import frc.robot.Constants;
 import frc.subsystem.DriveTrain;
 
 /**
@@ -15,13 +17,23 @@ import frc.subsystem.DriveTrain;
 public class CmdTurnToAngle implements AutonCommand{
 
 
-    private DriveTrain drive;
-    private double angle;
+    private DriveTrain driveTrain;
+    private PigeonIMU gyro;
+    private double targetAngle;
+    private double P = Constants.kTurnP;
+    private double I = Constants.kTurnI;
+    private double D = Constants.kTurnD;
+    private double integral = 0;
+    private double derivative = 0;
+    private double previous_error = 0; 
+    private double setpoint = 0;
+    double[] ypr = new double[3];
 
-    public CmdTurnToAngle(DriveTrain drive, double angle)
+    public CmdTurnToAngle(DriveTrain driveTrain, PigeonIMU gyro, double targetAngle)
     {
-        this.drive = drive;
-        this.angle = angle;
+        this.driveTrain = driveTrain;
+        this.targetAngle = targetAngle;
+        this.gyro = gyro;
     }
     @Override
     public boolean isFinished() {
@@ -30,7 +42,8 @@ public class CmdTurnToAngle implements AutonCommand{
 
     @Override
     public void runTask() {
-
+        gyro.getYawPitchRoll(ypr);
+        driveTrain.arcadeDrive(0, PID(targetAngle));
     }
 
     @Override
@@ -40,7 +53,17 @@ public class CmdTurnToAngle implements AutonCommand{
 
     @Override
     public void init() {
-
+        gyro.setYaw(0.0);
+        gyro.getYawPitchRoll(ypr);
     }
+
+    public double PID(double targetAngle){ 
+        double error = targetAngle - ypr[0]; // Error = Target - Actual
+        integral += (error*.02); // Integral is increased by the error*time (which is .02 seconds using normal IterativeRobot)
+        derivative = (error - previous_error) / .02;
+        return P*error + I*integral + D*derivative;
+    }
+
+
 
 }
