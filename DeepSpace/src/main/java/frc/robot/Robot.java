@@ -11,13 +11,14 @@ import com.ctre.phoenix.sensors.PigeonIMU;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import frc.auton.Auton;
+import frc.auton.DumbAuton;
 import frc.auton.TestAuton;
 import frc.subsystem.*;
 
 public class Robot extends TimedRobot {
 
     private static DriveTrain drive;
-    private Auton test;
+    private Auton runningAuton;
     private PigeonIMU pigeon;
     private double yaw;
     @Override
@@ -42,16 +43,13 @@ public class Robot extends TimedRobot {
 
     @Override
     public void autonomousInit() {
-        test = new TestAuton();
-        System.out.println("!!!! !!!!" + test.size());
+        runningAuton = new DumbAuton();
+        System.out.println("!!!! !!!!" + runningAuton.size());
     }
 
     @Override
     public void autonomousPeriodic() {
-        if(!test.isFinished())
-        {
-            test.runAuton();
-        }
+        run();
     }
 
     @Override
@@ -60,20 +58,24 @@ public class Robot extends TimedRobot {
 
     @Override
     public void teleopPeriodic() {
-        
-    }
-
-    @Override
-    public void testInit() {
-    }
-
-    @Override
-    public void testPeriodic() {
+        run();
     }
     @Override
     public void disabledPeriodic()
     {
       
+    }
+
+    private void run()
+    {  
+        if(!runningAuton.isFinished())
+        {
+            runningAuton.runAuton();
+        }
+        else
+        {
+            runningAuton.runTeleop();
+        }
     }
 
 }

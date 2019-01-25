@@ -77,6 +77,7 @@ public abstract class Auton
         AutonCommand aCommand = autonQueue.peek();
         if(aCommand != null && aCommand.isFinished())
         {
+            aCommand.end();
             autonQueue.remove(aCommand);
             if(autonQueue.peek() != null)
             {
@@ -86,6 +87,11 @@ public abstract class Auton
         else if(aCommand != null)
         {
             aCommand.runTask();
+            if(driveStick.getXButton()) //Stops queue when X is pressed.
+            {
+                aCommand.end();
+                autonQueue.clear();
+            }
         }
     }
     public void runTeleop()

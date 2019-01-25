@@ -4,16 +4,16 @@
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
-
+//
 package frc.auton.exceptions;
 
 /**
  * Add your docs here.
  */
-public class UnsupportedSubsystemException extends RuntimeException{
+public class TooManyControllersException extends RuntimeException{
 
     private static final long serialVersionUID = 1L;
-    public UnsupportedSubsystemException()
+    public TooManyControllersException()
     {
         super();
     }
