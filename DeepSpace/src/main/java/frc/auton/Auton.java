@@ -59,7 +59,7 @@ public abstract class Auton
     }
 
     //Size of auton queue.
-    public int size()
+    public int getSize()
     {
         return autonQueue.size();
     }
