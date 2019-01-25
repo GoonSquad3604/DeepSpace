@@ -21,12 +21,14 @@ public abstract class Auton
     public Auton(Object... subsystems)
     {
         autonQueue = new LinkedList<AutonCommand>();
-        addCommands();
         //You can put subsystems into the constructor. This handles the subsystems added.
         for(int i=0; i<subsystems.length; i++)
         {
             loadSubsystem(subsystems[i]);
         }
+        //Calls the addCommands method in the extended file.
+        addCommands();
+ 
         defaultCommand = new CmdTeleop(drive,driveStick,operateStick);
     }
 
@@ -37,7 +39,7 @@ public abstract class Auton
             {
                 drive = (DriveTrain)subsystem;  //It's a drivetrain, so make it the drivetrain.
             }
-            if(subsystem instanceof XboxController)
+            else if(subsystem instanceof XboxController)
             {
                 if(driveStick == null)
                 {

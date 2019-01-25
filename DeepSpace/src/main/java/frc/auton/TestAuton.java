@@ -4,6 +4,10 @@ import jaci.pathfinder.Waypoint;
 //
 public class TestAuton extends Auton
 {
+    public TestAuton(Object... subsystems)
+    {
+        super(subsystems);
+    }
     @Override
     protected void addCommands() {
         addCommand(new CmdDriveTime(1,drive));
