@@ -1,14 +1,21 @@
 package frc.subsystem;
 
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import frc.robot.Constants;
 
 public class Elevator extends WPI_TalonSRX{
 
-    public Elevator(int elevatorID){
+    private TalonSRX followerElevator;
+
+    public Elevator(int elevatorID, int followerElevatorID){
         
         super(elevatorID);
         
+        followerElevator = new TalonSRX(followerElevatorID);
+        followerElevator.setInverted(true);
+        followerElevator.follow(this);
+
         //Cargo Settings
         config_kP(0, Constants.kElevatorCargoP, Constants.kTimeoutMs);
         config_kI(0, Constants.kElevatorCargoI, Constants.kTimeoutMs);

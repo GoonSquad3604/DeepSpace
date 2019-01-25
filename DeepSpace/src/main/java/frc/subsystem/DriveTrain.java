@@ -24,8 +24,7 @@ public class DriveTrain extends DifferentialDrive{
 
     public DriveTrain(int leftFrontID, int leftRearID, int rightFrontID, int rightRearID){
         
-        this(new WPI_TalonSRX(leftFrontID), new WPI_TalonSRX(leftRearID), 
-        new WPI_TalonSRX(rightFrontID), new WPI_TalonSRX(rightRearID));
+        this(new WPI_TalonSRX(leftFrontID), new WPI_TalonSRX(leftRearID), new WPI_TalonSRX(rightFrontID), new WPI_TalonSRX(rightRearID));
 
     }
 
@@ -42,6 +41,22 @@ public class DriveTrain extends DifferentialDrive{
         leftRear.configFactoryDefault(Constants.kTimeoutMs);
         rightFront.configFactoryDefault(Constants.kTimeoutMs);
         rightRear.configFactoryDefault(Constants.kTimeoutMs);
+    }
+    public WPI_TalonSRX getLeftMotor()
+    {
+        return leftFront;
+    }
+    public WPI_TalonSRX getRightMotor()
+    {
+        return rightFront;
+    }
+    public WPI_TalonSRX getLeftSlave()
+    {
+        return leftRear;
+    }
+    public WPI_TalonSRX getRightSlave()
+    {
+        return rightRear;
     }
 
 }

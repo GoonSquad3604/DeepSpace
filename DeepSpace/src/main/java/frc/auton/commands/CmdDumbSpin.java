@@ -1,0 +1,37 @@
+package frc.auton.commands;
+
+import javax.lang.model.util.ElementScanner6;
+
+import edu.wpi.first.wpilibj.Timer;
+import frc.robot.Robot;
+import frc.subsystem.DriveTrain;
+//
+public class CmdDumbSpin implements AutonCommand
+{
+    //Spins the bot dumbly. !!!ONLY FOR USE IN TESTS!!!s
+    private DriveTrain drive;
+    public CmdDumbSpin(DriveTrain drive)
+    {
+        this.drive = drive;
+    }
+    @Override
+    public boolean isFinished() 
+    {
+            return false;
+    }
+
+    @Override
+    public void runTask() {
+        drive.arcadeDrive(-0.0,0.6);
+    }
+
+    @Override
+    public double getStatus() {
+        return 0;
+    }
+
+    @Override
+    public void init() {
+    }
+
+}
