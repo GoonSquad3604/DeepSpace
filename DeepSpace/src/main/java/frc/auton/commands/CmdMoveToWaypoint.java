@@ -59,11 +59,11 @@ public class CmdMoveToWaypoint implements AutonCommand
 
         leftFollow = new EncoderFollower(leftTrajectory);
         leftFollow.configureEncoder(0, 1024, Constants.kWheelDiameter);
-        leftFollow.configurePIDVA(Constants.kP, Constants.kI, Constants.kD, Constants.kVelocityRatio, Constants.kAccelerationRatio);
+        leftFollow.configurePIDVA(Constants.kDriveP, Constants.kDriveI, Constants.kDriveD, Constants.kVelocityRatio, Constants.kAccelerationRatio);
 
         rightFollow = new EncoderFollower(rightTrajectory);
         rightFollow.configureEncoder(0, 1024, Constants.kWheelDiameter);
-        rightFollow.configurePIDVA(Constants.kP, Constants.kI, Constants.kD, Constants.kVelocityRatio, Constants.kAccelerationRatio);
+        rightFollow.configurePIDVA(Constants.kDriveP, Constants.kDriveI, Constants.kDriveD, Constants.kVelocityRatio, Constants.kAccelerationRatio);
     }
 
 }
