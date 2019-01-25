@@ -10,14 +10,17 @@ package frc.robot;
 import com.ctre.phoenix.sensors.PigeonIMU;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.XboxController;
 import frc.auton.Auton;
+import frc.auton.BlankAuton;
 import frc.auton.DumbAuton;
 import frc.auton.TestAuton;
 import frc.subsystem.*;
 
 public class Robot extends TimedRobot {
 
-    private static DriveTrain drive;
+    private DriveTrain drive;
+    private XboxController driveStick; 
     private Auton runningAuton;
     private PigeonIMU pigeon;
     private double yaw;
@@ -27,6 +30,7 @@ public class Robot extends TimedRobot {
         drive = new DriveTrain(0,1,3,2);
         drive.getLeftMotor().setSelectedSensorPosition(0,0,0);
         pigeon = new PigeonIMU(drive.getRightSlave());
+        driveStick = new XboxController(0);
     }
     @Override
     public void robotPeriodic()
@@ -34,16 +38,16 @@ public class Robot extends TimedRobot {
         double[] ypr = new double[3];
         pigeon.getYawPitchRoll(ypr);
         yaw = ypr[0];
-        System.out.println(yaw);
+        //System.out.println(yaw);
     } 
-    public static DriveTrain getDriveTrain()
+    public DriveTrain getDriveTrain()
     {
         return drive;
     }
 
     @Override
     public void autonomousInit() {
-        runningAuton = new DumbAuton();
+        runningAuton = new DumbAuton(drive,driveStick);
         System.out.println("!!!! !!!!" + runningAuton.size());
     }
 
@@ -54,6 +58,7 @@ public class Robot extends TimedRobot {
 
     @Override
     public void teleopInit() {
+        runningAuton = new BlankAuton(drive,driveStick);
     }
 
     @Override
@@ -68,11 +73,11 @@ public class Robot extends TimedRobot {
 
     private void run()
     {  
-        if(!runningAuton.isFinished())
+        if(runningAuton != null && !runningAuton.isFinished())
         {
             runningAuton.runAuton();
         }
-        else
+        else if(runningAuton != null)
         {
             runningAuton.runTeleop();
         }
