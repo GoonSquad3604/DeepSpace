@@ -1,9 +1,6 @@
 package frc.auton.commands;
 
-import javax.lang.model.util.ElementScanner6;
-
 import edu.wpi.first.wpilibj.Timer;
-import frc.robot.Robot;
 import frc.subsystem.DriveTrain;
 
 public class CmdDriveTime implements AutonCommand

@@ -48,7 +48,7 @@ public class Robot extends TimedRobot {
     @Override
     public void autonomousInit() {
         runningAuton = new DumbAuton(drive,driveStick);
-        System.out.println("!!!! !!!!" + runningAuton.size());
+        System.out.println("!!!! !!!!" + runningAuton.getSize());
     }
 
     @Override
