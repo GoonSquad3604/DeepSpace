@@ -1,13 +1,9 @@
 package frc.auton;
 
-public class BlankAuton extends Auton
+public class BlankAuton
 {
-    public BlankAuton(Object... subsystems)
-    {
-        super(subsystems);
-    }
-    @Override
-    protected void addCommands() {
+    
+    public static void addCommands(Auton auton) {
 
     }
 
