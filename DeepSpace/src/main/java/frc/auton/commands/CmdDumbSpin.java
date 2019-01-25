@@ -19,6 +19,7 @@ public class CmdDumbSpin implements AutonCommand
 
     @Override
     public void runTask() {
+        System.out.println(drive);
         drive.arcadeDrive(-0.0,0.6);
     }
 

@@ -24,7 +24,7 @@ public class CmdTeleop implements AutonCommand{
     @Override
     public void runTask() 
     {
-        drive.arcadeDrive(-driveStick.getRawAxis(1),driveStick.getRawAxis(4));
+        drive.arcadeDrive(driveStick.getRawAxis(1),-driveStick.getRawAxis(4));
     }
 
     @Override
