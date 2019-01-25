@@ -8,7 +8,7 @@ import frc.auton.commands.*;
 import frc.auton.exceptions.TooManyControllersException;
 import frc.auton.exceptions.UnsupportedSubsystemException;
 import frc.subsystem.DriveTrain;
-//
+
 public abstract class Auton
 {
     //The queue of commands. Commands are added to it, and they are run in sequence.
@@ -121,7 +121,7 @@ public abstract class Auton
     @Override
     public String toString()
     {
-        String s = this.getClass().getName() + " WITH SIZE " + size() + "\n";
+        String s = this.getClass().getName() + " WITH SIZE " + getSize() + "\n";
         for(int i=0; i<autonQueue.size();i++)
         {
             s += autonQueue.getClass().getName() + "\n";
