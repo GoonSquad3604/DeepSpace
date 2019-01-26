@@ -1,6 +1,7 @@
-package frc.auton.commands;
+package frc.commands.drive;
 
 import edu.wpi.first.wpilibj.Timer;
+import frc.commands.AutonCommand;
 import frc.subsystem.DriveTrain;
 
 public class CmdDumbSpin implements AutonCommand
@@ -18,8 +19,8 @@ public class CmdDumbSpin implements AutonCommand
     }
 
     @Override
-    public void runTask() {
-        System.out.println(drive);
+    public void runTask() 
+    {
         drive.arcadeDrive(-0.0,0.6);
     }
 

@@ -1,6 +1,7 @@
 package frc.auton;
-import frc.auton.commands.CmdDumbSpin;
-//
+
+import frc.commands.drive.CmdDumbSpin;
+
 //A higly dumb auton. It is very dumb.
 public class DumbAuton
 {

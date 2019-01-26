@@ -1,4 +1,4 @@
-package frc.auton.commands;
+package frc.commands;
 
 public interface AutonCommand
 {

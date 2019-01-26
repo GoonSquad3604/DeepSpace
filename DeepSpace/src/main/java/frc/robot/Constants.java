@@ -1,7 +1,9 @@
 package frc.robot;
+
 /***********/
 /*CONSTANTS*/
 /***********/
+
 public class Constants{
 
     /*********/
@@ -9,7 +11,6 @@ public class Constants{
     /*********/
 
     public static int kTimeoutMs = 10;
-
 
     /***********/
     /*Talon IDs*/
@@ -77,5 +78,11 @@ public class Constants{
 
     public static final double kRobotWidth = 0;
     public static final double kWheelDiameter = 0;
+
+    /*******/
+    /*Auton*/
+    /*******/
+
+    public static final double kTurnError = 1.0; //Acceptable error (degrees) before ending turn
 
 }

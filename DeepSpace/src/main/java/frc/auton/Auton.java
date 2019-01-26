@@ -3,11 +3,15 @@ package frc.auton;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import com.ctre.phoenix.sensors.PigeonIMU;
+
 import edu.wpi.first.wpilibj.XboxController;
-import frc.auton.commands.*;
+import frc.commands.*;
+import frc.commands.special.CmdTeleop;
 import frc.auton.exceptions.TooManyControllersException;
 import frc.auton.exceptions.UnsupportedSubsystemException;
 import frc.subsystem.DriveTrain;
+import frc.vision.Limelight;
 
 public class Auton
 {
@@ -18,6 +22,8 @@ public class Auton
     private XboxController driveStick;
     private XboxController operateStick;
     private AutonCommand defaultCommand;
+    private PigeonIMU gyro;
+    private Limelight limelight;
     
     public DriveTrain getDrive()
     {
@@ -30,6 +36,14 @@ public class Auton
     public XboxController getOperateStick()
     {
         return operateStick;
+    }
+    public Limelight getLimelight()
+    {
+        return limelight;
+    }
+    public PigeonIMU getGyro()
+    {
+        return gyro;
     }
     public Auton(Object... subsystems)
     {
@@ -66,6 +80,14 @@ public class Auton
                     throw new TooManyControllersException();    //Uh oh, there's too many XboxControllers!
                 }
             }
+            else if(subsystem instanceof PigeonIMU)
+            {
+                gyro = (PigeonIMU)subsystem;
+            }
+            else if(subsystem instanceof Limelight)
+            {
+                limelight = (Limelight)subsystem;
+            }
             else if(subsystem != null)
             {
                 throw new UnsupportedSubsystemException(subsystem);  //HELP! I DON'T KNOW WHAT SUBSYSTEM THIS IS!!!
@@ -86,7 +108,6 @@ public class Auton
     //Runs the auton's latest command. Will be called in autonomousPeriodic.
     public void runAuton()
     {
-        System.out.println("running");
         if(!initted)
         {
             initAuton();
@@ -121,7 +142,14 @@ public class Auton
     {
         if(initted && (autonQueue.isEmpty() || autonQueue.peek() == null || autonQueue.size() == 0))
         {
-            defaultCommand.init();
+            if(defaultCommand instanceof CmdTeleop)
+            {
+                CmdTeleop teleop = (CmdTeleop) defaultCommand;
+                if(!teleop.getRunning())
+                {
+                    defaultCommand.init();
+                }
+            }
             return true;
         }
         return false;

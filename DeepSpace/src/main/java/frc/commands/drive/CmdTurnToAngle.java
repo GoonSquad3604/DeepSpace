@@ -5,11 +5,13 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.auton.commands;
+package frc.commands.drive;
 
 import com.ctre.phoenix.sensors.PigeonIMU;
+import frc.commands.AutonCommand;
 import frc.robot.Constants;
 import frc.subsystem.DriveTrain;
+import frc.vision.Limelight;
 
 /**
  * Add your docs here.
@@ -26,7 +28,7 @@ public class CmdTurnToAngle implements AutonCommand{
     private double integral = 0;
     private double derivative = 0;
     private double previous_error = 0; 
-    private double setpoint = 0;
+    private Limelight lime;
     double[] ypr = new double[3];
 
     public CmdTurnToAngle(DriveTrain driveTrain, PigeonIMU gyro, double targetAngle)
@@ -35,9 +37,17 @@ public class CmdTurnToAngle implements AutonCommand{
         this.targetAngle = targetAngle;
         this.gyro = gyro;
     }
+    public CmdTurnToAngle(DriveTrain driveTrain, PigeonIMU gyro, Limelight lime)
+    {
+        this.driveTrain = driveTrain;
+        this.targetAngle = -2000;
+        this.gyro = gyro;
+        this.lime = lime;
+    }
     @Override
     public boolean isFinished() {
-        return false;
+        gyro.getYawPitchRoll(ypr);
+        return Math.abs(targetAngle - ypr[0]) < Constants.kTurnError;
     }
 
     @Override
@@ -48,13 +58,18 @@ public class CmdTurnToAngle implements AutonCommand{
 
     @Override
     public double getStatus() {
-        return 0;
+        gyro.getYawPitchRoll(ypr);
+        return ypr[0];
     }
 
     @Override
     public void init() {
         gyro.setYaw(0.0);
         gyro.getYawPitchRoll(ypr);
+        if(lime != null)
+        {
+            targetAngle = lime.getTargetX();
+        }
     }
 
     public double PID(double targetAngle){ 
