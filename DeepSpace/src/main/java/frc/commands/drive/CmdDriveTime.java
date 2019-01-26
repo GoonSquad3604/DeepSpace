@@ -1,6 +1,7 @@
-package frc.auton.commands;
+package frc.commands.drive;
 
 import edu.wpi.first.wpilibj.Timer;
+import frc.commands.AutonCommand;
 import frc.subsystem.DriveTrain;
 
 public class CmdDriveTime implements AutonCommand

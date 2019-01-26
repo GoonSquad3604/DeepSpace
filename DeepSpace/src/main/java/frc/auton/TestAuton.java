@@ -1,8 +1,9 @@
 package frc.auton;
-import frc.auton.commands.*;
+import frc.commands.*;
+import frc.commands.drive.*;
 import jaci.pathfinder.Waypoint;
 //
-public class TestAuton extends Auton
+public class TestAuton
 {
     public static void addCommands(Auton auton) 
     {

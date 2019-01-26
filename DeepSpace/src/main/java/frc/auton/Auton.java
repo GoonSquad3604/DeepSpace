@@ -4,7 +4,8 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 import edu.wpi.first.wpilibj.XboxController;
-import frc.auton.commands.*;
+import frc.commands.*;
+import frc.commands.special.CmdTeleop;
 import frc.auton.exceptions.TooManyControllersException;
 import frc.auton.exceptions.UnsupportedSubsystemException;
 import frc.subsystem.DriveTrain;
@@ -86,7 +87,6 @@ public class Auton
     //Runs the auton's latest command. Will be called in autonomousPeriodic.
     public void runAuton()
     {
-        System.out.println("running");
         if(!initted)
         {
             initAuton();
@@ -121,7 +121,14 @@ public class Auton
     {
         if(initted && (autonQueue.isEmpty() || autonQueue.peek() == null || autonQueue.size() == 0))
         {
-            defaultCommand.init();
+            if(defaultCommand instanceof CmdTeleop)
+            {
+                CmdTeleop teleop = (CmdTeleop) defaultCommand;
+                if(!teleop.getRunning())
+                {
+                    defaultCommand.init();
+                }
+            }
             return true;
         }
         return false;
