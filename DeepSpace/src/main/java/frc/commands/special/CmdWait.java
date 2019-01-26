@@ -1,6 +1,7 @@
-package frc.commands;
+package frc.commands.special;
 
 import edu.wpi.first.wpilibj.Timer;
+import frc.commands.AutonCommand;
 
 public class CmdWait implements AutonCommand
 {
