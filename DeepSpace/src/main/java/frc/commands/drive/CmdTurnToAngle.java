@@ -5,9 +5,11 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.auton.commands;
+package frc.commands.drive;
 
 import com.ctre.phoenix.sensors.PigeonIMU;
+
+import frc.commands.AutonCommand;
 import frc.robot.Constants;
 import frc.subsystem.DriveTrain;
 

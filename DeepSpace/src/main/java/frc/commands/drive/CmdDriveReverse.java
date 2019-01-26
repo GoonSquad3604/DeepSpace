@@ -1,22 +1,27 @@
-package frc.auton.commands;
+package frc.commands.drive;
 
 import edu.wpi.first.wpilibj.Timer;
+import frc.commands.AutonCommand;
+import frc.subsystem.DriveTrain;
 
-public class CmdWait implements AutonCommand
+public class CmdDriveReverse implements AutonCommand
 {
-    //Just waits
+    //Drives the robot backwards based on a timer.
     Timer t;
     double time;
-    public CmdWait(double time)
+    private DriveTrain drive;
+    public CmdDriveReverse(double time, DriveTrain drive)
     {
         t = new Timer();
-        t.start();
         this.time = time;
+        this.drive = drive;
+
     }
     @Override
     public boolean isFinished() {
         if(t.get()>time)
         {
+            System.out.println("DON'T STOP ME NOOOOWWW...even though I will stop now");
             return true;
         }
         else
@@ -27,6 +32,7 @@ public class CmdWait implements AutonCommand
 
     @Override
     public void runTask() {
+        drive.arcadeDrive(0.6,0);
     }
 
     @Override
@@ -37,6 +43,7 @@ public class CmdWait implements AutonCommand
     @Override
     public void init() {
         t.reset();
+        t.start();
     }
 
 }

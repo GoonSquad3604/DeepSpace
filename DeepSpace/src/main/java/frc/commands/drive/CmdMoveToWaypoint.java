@@ -1,7 +1,8 @@
-package frc.auton.commands;
+package frc.commands.drive;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
+import frc.commands.AutonCommand;
 import frc.robot.Constants;
 import frc.subsystem.DriveTrain;
 import jaci.pathfinder.*;
