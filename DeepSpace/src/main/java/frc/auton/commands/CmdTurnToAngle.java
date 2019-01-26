@@ -38,7 +38,7 @@ public class CmdTurnToAngle implements AutonCommand{
     @Override
     public boolean isFinished() {
         gyro.getYawPitchRoll(ypr);
-        return Math.abs(targetAngle - ypr[0]) < 0.5;
+        return Math.abs(targetAngle - ypr[0]) < 1;
     }
 
     @Override
