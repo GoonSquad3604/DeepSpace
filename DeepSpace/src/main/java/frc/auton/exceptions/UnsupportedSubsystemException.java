@@ -16,6 +16,9 @@ public class UnsupportedSubsystemException extends RuntimeException{
     public UnsupportedSubsystemException(Object subsystem)
     {
         super();
-        System.err.println("UNKNOWN SUBSYSTEM " + subsystem.getClass().getName());
+        if(subsystem != null)
+        {
+            System.err.println("UNKNOWN SUBSYSTEM " + subsystem.getClass().getName());
+        }
     }
 }

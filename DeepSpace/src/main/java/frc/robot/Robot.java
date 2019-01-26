@@ -24,6 +24,7 @@ public class Robot extends TimedRobot {
     private Auton runningAuton;
     private PigeonIMU pigeon;
     private double yaw;
+    private Object[] subSystems = {drive,driveStick};
     @Override
     public void robotInit() 
     {
@@ -46,8 +47,10 @@ public class Robot extends TimedRobot {
     }
 
     @Override
-    public void autonomousInit() {
-        runningAuton = new DumbAuton(drive,driveStick);
+    public void autonomousInit() 
+    {
+        runningAuton = new Auton(drive,driveStick);
+        DumbAuton.addCommands(runningAuton);
         System.out.println("!!!! !!!!" + runningAuton.getSize());
     }
 
@@ -58,7 +61,8 @@ public class Robot extends TimedRobot {
 
     @Override
     public void teleopInit() {
-        runningAuton = new BlankAuton(drive,driveStick);
+        runningAuton = new Auton(drive,driveStick);
+        BlankAuton.addCommands(runningAuton);
     }
 
     @Override

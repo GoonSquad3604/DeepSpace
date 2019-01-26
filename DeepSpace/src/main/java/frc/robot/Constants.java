@@ -52,6 +52,10 @@ public class Constants{
     public static final int kMiddleRocketCargo = 0;
     public static final int kTopRocketCargo = 0;
 
+    /*************/
+    /*Drive Train*/
+    /*************/
+
     public static final double kPulsePerInch = 51.0;
 
     public static final double kDt = 0;
@@ -59,9 +63,15 @@ public class Constants{
     public static final double kAcceleration = 0;
     public static final double kJerk = 0;
 
-    public static final double kP = 0;
-    public static final double kI = 0;
-    public static final double kD = 0;
+    //Turn PID
+    public static final double kTurnP = 0;
+    public static final double kTurnI = 0;
+    public static final double kTurnD = 0;
+
+    //Drive PID
+    public static final double kDriveP = 0;
+    public static final double kDriveI = 0;
+    public static final double kDriveD = 0;
     public static final double kVelocityRatio = 0;
     public static final double kAccelerationRatio = 0;
 
