@@ -1,16 +1,16 @@
 package frc.commands.drive;
 
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.commands.AutonCommand;
-import frc.subsystem.DriveTrain;
 
 public class CmdDriveReverse implements AutonCommand
 {
     //Drives the robot backwards based on a timer.
     Timer t;
     double time;
-    private DriveTrain drive;
-    public CmdDriveReverse(double time, DriveTrain drive)
+    private DifferentialDrive drive;
+    public CmdDriveReverse(double time, DifferentialDrive drive)
     {
         t = new Timer();
         this.time = time;

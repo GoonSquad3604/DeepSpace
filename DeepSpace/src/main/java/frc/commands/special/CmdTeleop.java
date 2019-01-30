@@ -1,21 +1,21 @@
 package frc.commands.special;
 
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.auton.Auton;
 import frc.auton.DumbAuton;
 import frc.auton.TestAuton;
 import frc.commands.AutonCommand;
-import frc.subsystem.DriveTrain;
 
 public class CmdTeleop implements AutonCommand{
 
     //Runs when there is no command. Does Teleoperated Stuffs.
-    private DriveTrain drive;
+    private DifferentialDrive drive;
     private XboxController driveStick;
     private XboxController operateStick;
     private Auton auton;
     private boolean running;
-    public CmdTeleop(DriveTrain drive, XboxController driveStick, XboxController operateStick, Auton auton)
+    public CmdTeleop(DifferentialDrive drive, XboxController driveStick, XboxController operateStick, Auton auton)
     {
         this.driveStick = driveStick;
         this.operateStick = operateStick;

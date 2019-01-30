@@ -2,9 +2,9 @@ package frc.commands.drive;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.commands.AutonCommand;
 import frc.robot.Constants;
-import frc.subsystem.DriveTrain;
 import jaci.pathfinder.*;
 import jaci.pathfinder.followers.EncoderFollower;
 import jaci.pathfinder.modifiers.TankModifier;
@@ -13,14 +13,14 @@ public class CmdMoveToWaypoint implements AutonCommand
 {
     //Moves the robot to a waypoint using jaci pathfinder.
     private Waypoint[] waypoints;
-    private DriveTrain drive;
+    private DifferentialDrive drive;
     private EncoderFollower leftFollow, rightFollow;
     private Trajectory leftTrajectory, rightTrajectory;
     private Trajectory.Config config;
     private TankModifier modifier;
     private Trajectory trajectory;
 
-    public CmdMoveToWaypoint(DriveTrain drive, Waypoint... waypoints)
+    public CmdMoveToWaypoint(DifferentialDrive drive, Waypoint... waypoints)
     {
         this.waypoints = waypoints;
         this.drive = drive;

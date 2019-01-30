@@ -1,15 +1,15 @@
 package frc.subsystem;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.revrobotics.CANSparkMax;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.Constants;
 
 public class DriveTrain_SparkMAX extends DifferentialDrive{
 
-    private WPI_TalonSRX leftFront, leftRear, rightFront, rightRear;
+    private CANSparkMax leftFront, leftRear, rightFront, rightRear;
 
-    private DriveTrain_SparkMAX(WPI_TalonSRX leftFront, WPI_TalonSRX leftRear, 
-    WPI_TalonSRX rightFront, WPI_TalonSRX rightRear)
+    private DriveTrain_SparkMAX(CANSparkMax leftFront, CANSparkMax leftRear, 
+    CANSparkMax rightFront, CANSparkMax rightRear)
     {
 
         super(leftFront, rightFront);
@@ -26,45 +26,44 @@ public class DriveTrain_SparkMAX extends DifferentialDrive{
 
     public DriveTrain_SparkMAX(int leftFrontID, int leftRearID, int rightFrontID, int rightRearID)
     {
-        
-        this(new WPI_TalonSRX(leftFrontID), new WPI_TalonSRX(leftRearID), new WPI_TalonSRX(rightFrontID), new WPI_TalonSRX(rightRearID));
+        this(new CANSparkMax(leftFrontID, com.revrobotics.CANSparkMaxLowLevel.MotorType.kBrushless), 
+        new CANSparkMax(leftRearID, com.revrobotics.CANSparkMaxLowLevel.MotorType.kBrushless), 
+        new CANSparkMax(rightFrontID, com.revrobotics.CANSparkMaxLowLevel.MotorType.kBrushless), 
+        new CANSparkMax(rightRearID, com.revrobotics.CANSparkMaxLowLevel.MotorType.kBrushless));
 
     }
 
-    public int getLeftPosition()
+    public double getLeftPosition()
     {
-        return leftFront.getSelectedSensorPosition(0);
+        return leftFront.getEncoder().getPosition();
     }
 
-    public int getRightPosition()
+    public double getRightPosition()
     {
-        return rightFront.getSelectedSensorPosition(0);
+        return rightFront.getEncoder().getPosition();
     }
 
     public void resetDriveTrain()
     {
-        leftFront.configFactoryDefault(Constants.kTimeoutMs);
-        leftRear.configFactoryDefault(Constants.kTimeoutMs);
-        rightFront.configFactoryDefault(Constants.kTimeoutMs);
-        rightRear.configFactoryDefault(Constants.kTimeoutMs);
+        // TODO
     }
     
-    public WPI_TalonSRX getLeftMotor()
+    public CANSparkMax getLeftMotor()
     {
         return leftFront;
     }
     
-    public WPI_TalonSRX getRightMotor()
+    public CANSparkMax getRightMotor()
     {
         return rightFront;
     }
     
-    public WPI_TalonSRX getLeftSlave()
+    public CANSparkMax getLeftSlave()
     {
         return leftRear;
     }
     
-    public WPI_TalonSRX getRightSlave()
+    public CANSparkMax getRightSlave()
     {
         return rightRear;
     }
