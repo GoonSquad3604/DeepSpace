@@ -7,7 +7,8 @@ import frc.robot.Constants;
 public class DriveTrain extends DifferentialDrive{
 
     private WPI_TalonSRX leftFront, leftRear, rightFront, rightRear;
-    
+    private double speed = 0;
+    private double turn = 0;
     private DriveTrain(WPI_TalonSRX leftFront, WPI_TalonSRX leftRear, WPI_TalonSRX rightFront, WPI_TalonSRX rightRear){
 
         super(leftFront, rightFront);
@@ -57,6 +58,40 @@ public class DriveTrain extends DifferentialDrive{
     public WPI_TalonSRX getRightSlave()
     {
         return rightRear;
+    }
+    public void setTurn(double t)
+    {
+        this.turn = t;
+    }
+    public void setDrive(double d)
+    {
+        this.speed = d;
+    }
+    @Override
+    public void arcadeDrive(double s, double t)
+    {
+        if(s == Constants.kIgnoreDrive)
+        {
+            s = this.speed;
+        }
+        else
+        {
+            this.speed = s;
+        }
+        if(t == Constants.kIgnoreDrive)
+        {
+            t = this.turn;
+        }
+        else
+        {
+            this.turn = t;
+        }
+        super.arcadeDrive(s,t);
+
+    }
+    public void arcadeDrive()
+    {
+        super.arcadeDrive(this.speed,this.turn);
     }
 
 }

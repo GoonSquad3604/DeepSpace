@@ -1,8 +1,10 @@
 package frc.commands.special;
 
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import frc.auton.Auton;
 import frc.auton.DumbAuton;
+import frc.auton.LockOnAuton;
 import frc.auton.TestAuton;
 import frc.commands.AutonCommand;
 import frc.subsystem.DriveTrain;
@@ -47,6 +49,15 @@ public class CmdTeleop implements AutonCommand{
                 this.running = false;
                 this.end();
                 System.out.println("added to queue!");
+            }
+            if(driveStick.getBumper(Hand.kLeft) && running)
+            {
+                
+                LockOnAuton.addCommands(this.auton);
+                this.running = false;
+                this.end();
+                auton.initAuton();
+                System.out.println("added to queue! iygutdyetrdytrduurrr");
             }
         }
 
