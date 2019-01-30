@@ -4,11 +4,11 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.Constants;
 
-public class DriveTrain extends DifferentialDrive{
+public class DriveTrain_SparkMAX extends DifferentialDrive{
 
     private WPI_TalonSRX leftFront, leftRear, rightFront, rightRear;
 
-    private DriveTrain(WPI_TalonSRX leftFront, WPI_TalonSRX leftRear, 
+    private DriveTrain_SparkMAX(WPI_TalonSRX leftFront, WPI_TalonSRX leftRear, 
     WPI_TalonSRX rightFront, WPI_TalonSRX rightRear)
     {
 
@@ -24,7 +24,7 @@ public class DriveTrain extends DifferentialDrive{
             
     }
 
-    public DriveTrain(int leftFrontID, int leftRearID, int rightFrontID, int rightRearID)
+    public DriveTrain_SparkMAX(int leftFrontID, int leftRearID, int rightFrontID, int rightRearID)
     {
         
         this(new WPI_TalonSRX(leftFrontID), new WPI_TalonSRX(leftRearID), new WPI_TalonSRX(rightFrontID), new WPI_TalonSRX(rightRearID));
