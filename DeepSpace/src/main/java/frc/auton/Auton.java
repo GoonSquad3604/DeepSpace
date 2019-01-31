@@ -7,7 +7,7 @@ import com.ctre.phoenix.sensors.PigeonIMU;
 
 import edu.wpi.first.wpilibj.XboxController;
 import frc.commands.*;
-import frc.commands.special.CmdTeleop;
+import frc.commands.special.*;
 import frc.auton.exceptions.TooManyControllersException;
 import frc.auton.exceptions.UnsupportedSubsystemException;
 import frc.subsystem.DriveTrain;
@@ -53,9 +53,8 @@ public class Auton
         {
             loadSubsystem(subsystems[i]);
         }
-        defaultCommand = new CmdTeleop(drive,driveStick,operateStick,this);
+        defaultCommand = new CmdTeleop(drive, driveStick, operateStick, this);
         this.initted = false;
-        System.out.println("Ran Constructor");
     }
 
     //Loads in subsystems.
@@ -95,7 +94,7 @@ public class Auton
             }
             else
             {
-                System.err.println("ERROR: encountered a null subsystem!");
+                throw new NullPointerException("NULL SUBSYSTEM");
             }
     }
 
