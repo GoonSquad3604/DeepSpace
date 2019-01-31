@@ -65,9 +65,9 @@ public class Constants{
     public static final double kJerk = 0;
 
     //Turn PID
-    public static final double kTurnP = 0;
-    public static final double kTurnI = 0;
-    public static final double kTurnD = 0;
+    public static final double kTurnP = 0.08;
+    public static final double kTurnI = 0.0;
+    public static final double kTurnD = 0.0;
 
     //Drive PID
     public static final double kDriveP = 0;
@@ -85,4 +85,6 @@ public class Constants{
 
     public static final double kTurnError = 1.0; //Acceptable error (degrees) before ending turn
 
+    //A highly specific number that is used to tell the drivetrain to NOT move whatever it is in. Useful when merging commands.
+    public static final double kIgnoreDrive = 0.0128455731355933733083634403378339365501238233033000037443673447390304846743934939476;  
 }

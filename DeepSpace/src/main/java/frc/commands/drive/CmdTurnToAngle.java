@@ -8,6 +8,8 @@
 package frc.commands.drive;
 
 import com.ctre.phoenix.sensors.PigeonIMU;
+
+import edu.wpi.first.wpilibj.Timer;
 import frc.commands.AutonCommand;
 import frc.robot.Constants;
 import frc.subsystem.DriveTrain;
@@ -30,12 +32,15 @@ public class CmdTurnToAngle implements AutonCommand{
     private double previous_error = 0; 
     private Limelight lime;
     double[] ypr = new double[3];
+    private Timer correctTime;
+    private boolean runningTimer = false;
 
     public CmdTurnToAngle(DriveTrain driveTrain, PigeonIMU gyro, double targetAngle)
     {
         this.driveTrain = driveTrain;
         this.targetAngle = targetAngle;
         this.gyro = gyro;
+        correctTime = new Timer();
     }
     public CmdTurnToAngle(DriveTrain driveTrain, PigeonIMU gyro, Limelight lime)
     {
@@ -43,17 +48,36 @@ public class CmdTurnToAngle implements AutonCommand{
         this.targetAngle = -2000;
         this.gyro = gyro;
         this.lime = lime;
+        correctTime = new Timer();
     }
     @Override
     public boolean isFinished() {
         gyro.getYawPitchRoll(ypr);
-        return Math.abs(targetAngle - ypr[0]) < Constants.kTurnError;
+        if((Math.abs(targetAngle) - Math.abs(ypr[0]) < Constants.kTurnError))
+        {
+            if(!runningTimer)
+            {
+                correctTime.start();
+                runningTimer = true;
+            }
+            else if(correctTime.get()>.2)
+            {
+                return true;
+            }
+        }
+        else if(runningTimer)
+        {
+            runningTimer = false;
+            correctTime.reset();
+            correctTime.stop();
+        }
+        return false;
     }
 
     @Override
     public void runTask() {
         gyro.getYawPitchRoll(ypr);
-        driveTrain.arcadeDrive(0, PID(targetAngle));
+        driveTrain.arcadeDrive(Constants.kIgnoreDrive, PID(-targetAngle));
     }
 
     @Override

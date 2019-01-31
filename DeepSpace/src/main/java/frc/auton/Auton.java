@@ -82,6 +82,7 @@ public class Auton
             }
             else if(subsystem instanceof PigeonIMU)
             {
+                System.out.println("LOADED GYRO");
                 gyro = (PigeonIMU)subsystem;
             }
             else if(subsystem instanceof Limelight)
@@ -162,7 +163,10 @@ public class Auton
     //Called once at the beginning of auton.
     public void initAuton()
     {
-        autonQueue.peek().init();
+        if(autonQueue.peek() != null)
+        {
+            autonQueue.peek().init();
+        }
     }
     @Override
     public String toString()

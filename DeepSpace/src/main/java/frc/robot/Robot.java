@@ -16,6 +16,7 @@ import frc.auton.BlankAuton;
 import frc.auton.DumbAuton;
 import frc.auton.TestAuton;
 import frc.subsystem.*;
+import frc.vision.Limelight;
 
 public class Robot extends TimedRobot {
 
@@ -23,8 +24,9 @@ public class Robot extends TimedRobot {
     private XboxController driveStick; 
     private Auton runningAuton;
     private PigeonIMU pigeon;
+    private Limelight limelight;
     private double yaw;
-    private Object[] subSystems = {drive,driveStick};
+    private Object[] subSystems = {drive,driveStick,limelight,pigeon};
     @Override
     public void robotInit() 
     {
@@ -32,6 +34,7 @@ public class Robot extends TimedRobot {
         drive.getLeftMotor().setSelectedSensorPosition(0,0,0);
         pigeon = new PigeonIMU(drive.getRightSlave());
         driveStick = new XboxController(0);
+        limelight = new Limelight("limelight");
     }
     @Override
     public void robotPeriodic()
@@ -49,7 +52,7 @@ public class Robot extends TimedRobot {
     @Override
     public void autonomousInit() 
     {
-        runningAuton = new Auton(drive,driveStick);
+        runningAuton = new Auton(drive,driveStick,pigeon,limelight);
         DumbAuton.addCommands(runningAuton);
         System.out.println("!!!! !!!!" + runningAuton.getSize());
     }
@@ -61,7 +64,7 @@ public class Robot extends TimedRobot {
 
     @Override
     public void teleopInit() {
-        runningAuton = new Auton(drive,driveStick);
+        runningAuton = new Auton(drive,driveStick,pigeon,limelight);
         BlankAuton.addCommands(runningAuton);
     }
 
