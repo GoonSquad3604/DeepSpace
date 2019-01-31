@@ -35,7 +35,7 @@ public class Robot extends TimedRobot {
     public void robotInit() 
     {
         drive = new DriveTrain_SparkMAX(0,1,3,2);
-        //pigeon = new PigeonIMU(drive.getRightSlave());
+        pigeon = new PigeonIMU(drive.gyroTest());
         driveStick = new XboxController(0);
         limelight = new Limelight("limelight");
     }
