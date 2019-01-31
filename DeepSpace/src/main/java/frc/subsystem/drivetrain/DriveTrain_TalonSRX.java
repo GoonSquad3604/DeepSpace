@@ -76,6 +76,11 @@ public class DriveTrain_TalonSRX extends DriveTrain{
         rightRear.configFactoryDefault(Constants.kTimeoutMs);
     }
 
+    @Override
+    public com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX gyroTest() {
+        return null;
+    }
+
     
 
    

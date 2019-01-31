@@ -1,6 +1,7 @@
 package frc.subsystem.drivetrain;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.CANSparkMax;
 import frc.robot.Constants;
 
@@ -75,6 +76,11 @@ public class DriveTrain_SparkMAX extends DriveTrain{
     public void resetDriveTrain() {
 
     }
+
+    @Override
+    public WPI_TalonSRX gyroTest() {
+        return null;
+	}
 
     
 
