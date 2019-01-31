@@ -7,6 +7,7 @@
 
 package frc.subsystem.drivetrain;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
@@ -19,8 +20,12 @@ public abstract class DriveTrain extends DifferentialDrive{
         super(leftMotor, rightMotor);
     }
 
-    public abstract int getLeftPosition();
-    public abstract int getRightPosition();
+    public abstract void setLeft(double value);
+    public abstract void setRight(double value);
+    public abstract void setLeftPosition(double position);
+    public abstract void setRightPosition(double position);
+    public abstract double getLeftPosition();
+    public abstract double getRightPosition();
     public abstract void resetDriveTrain();
 
 }

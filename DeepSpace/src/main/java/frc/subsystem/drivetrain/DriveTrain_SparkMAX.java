@@ -1,14 +1,17 @@
 package frc.subsystem.drivetrain;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.revrobotics.CANSparkMax;
-
 import frc.robot.Constants;
 
 public class DriveTrain_SparkMAX extends DriveTrain{
 
     private CANSparkMax leftFront, leftRear, rightFront, rightRear;
     
+    /***************/
+    /*Constructors*/
+    /**************/
+
     private DriveTrain_SparkMAX(CANSparkMax leftFront, CANSparkMax leftRear, CANSparkMax rightFront, CANSparkMax rightRear){
 
         super(leftFront, rightFront);
@@ -32,13 +35,39 @@ public class DriveTrain_SparkMAX extends DriveTrain{
 
     }
 
+
+    /*********/
+    /*Methods*/
+    /*********/
+
+
     @Override
-    public int getLeftPosition() {
+    public void setLeft(double value) {
+
+    }
+
+    @Override
+    public void setRight(double value) {
+
+	}
+
+    @Override
+    public void setLeftPosition(double position) {
+
+    }
+
+    @Override
+    public void setRightPosition(double position) {
+
+    }
+
+    @Override
+    public double getLeftPosition() {
         return 0;
     }
 
     @Override
-    public int getRightPosition() {
+    public double getRightPosition() {
         return 0;
     }
 
@@ -46,5 +75,9 @@ public class DriveTrain_SparkMAX extends DriveTrain{
     public void resetDriveTrain() {
 
     }
+
+    
+
+    
 
 }

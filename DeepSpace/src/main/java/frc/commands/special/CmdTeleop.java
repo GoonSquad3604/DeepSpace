@@ -6,16 +6,17 @@ import frc.auton.Auton;
 import frc.auton.DumbAuton;
 import frc.auton.TestAuton;
 import frc.commands.AutonCommand;
+import frc.subsystem.drivetrain.*;
 
 public class CmdTeleop implements AutonCommand{
 
     //Runs when there is no command. Does Teleoperated Stuffs.
-    private DifferentialDrive drive;
+    private DriveTrain drive;
     private XboxController driveStick;
     private XboxController operateStick;
     private Auton auton;
     private boolean running;
-    public CmdTeleop(DifferentialDrive drive, XboxController driveStick, XboxController operateStick, Auton auton)
+    public CmdTeleop(DriveTrain drive, XboxController driveStick, XboxController operateStick, Auton auton)
     {
         this.driveStick = driveStick;
         this.operateStick = operateStick;
@@ -76,7 +77,7 @@ public class CmdTeleop implements AutonCommand{
     @Override
     public void end()
     {
-        drive.getLeftMotor().setSelectedSensorPosition(0);
-        drive.getRightMotor().setSelectedSensorPosition(0);
+        drive.setLeftPosition(0);
+        drive.setRightPosition(0);
     }
 }

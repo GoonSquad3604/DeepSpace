@@ -1,5 +1,6 @@
 package frc.subsystem.drivetrain;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import frc.robot.Constants;
 
@@ -7,6 +8,10 @@ public class DriveTrain_TalonSRX extends DriveTrain{
 
     private WPI_TalonSRX leftFront, leftRear, rightFront, rightRear;
     
+    /***************/
+    /*Constructors*/
+    /**************/
+
     private DriveTrain_TalonSRX(WPI_TalonSRX leftFront, WPI_TalonSRX leftRear, WPI_TalonSRX rightFront, WPI_TalonSRX rightRear){
 
         super(leftFront, rightFront);
@@ -27,20 +32,52 @@ public class DriveTrain_TalonSRX extends DriveTrain{
 
     }
 
-    // public int getLeftPosition(){
-    //     return leftFront.getSelectedSensorPosition(0);
-    // }
 
-    // public int getRightPosition(){
-    //     return rightFront.getSelectedSensorPosition(0);
-    // }
+    /*********/
+    /*Methods*/
+    /*********/
 
-    // public void resetDriveTrain(){
-    //     leftFront.configFactoryDefault(Constants.kTimeoutMs);
-    //     leftRear.configFactoryDefault(Constants.kTimeoutMs);
-    //     rightFront.configFactoryDefault(Constants.kTimeoutMs);
-    //     rightRear.configFactoryDefault(Constants.kTimeoutMs);
-    // }
+
+    @Override
+    public void setLeft(double value) {
+
+    }
+
+    @Override
+    public void setRight(double value) {
+
+	}
+
+    @Override
+    public void setLeftPosition(double position) {
+        leftFront.setSelectedSensorPosition((int)position);
+    }
+
+    @Override
+    public void setRightPosition(double position) {
+        rightFront.setSelectedSensorPosition((int)position);
+    }
+
+    @Override
+    public double getLeftPosition() {
+        return leftFront.getSelectedSensorPosition(0);
+    }
+
+    @Override
+    public double getRightPosition() {
+        return rightFront.getSelectedSensorPosition(0);
+    }
+
+    @Override
+    public void resetDriveTrain() {
+        leftFront.configFactoryDefault(Constants.kTimeoutMs);
+        leftRear.configFactoryDefault(Constants.kTimeoutMs);
+        rightFront.configFactoryDefault(Constants.kTimeoutMs);
+        rightRear.configFactoryDefault(Constants.kTimeoutMs);
+    }
+
+    
+
    
 
 }

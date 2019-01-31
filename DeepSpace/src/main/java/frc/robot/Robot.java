@@ -19,10 +19,11 @@ import frc.auton.BlankAuton;
 import frc.auton.DumbAuton;
 import frc.auton.TestAuton;
 import frc.subsystem.*;
+import frc.subsystem.drivetrain.*;
 
 public class Robot extends TimedRobot {
-    CANSparkMax TestleftFront = new CANSparkMax(1, com.revrobotics.CANSparkMaxLowLevel.MotorType.kBrushless);
-    private DifferentialDrive drive;
+    
+    private DriveTrain drive;
     private XboxController driveStick; 
     private Auton runningAuton;
     private PigeonIMU pigeon;
@@ -32,8 +33,7 @@ public class Robot extends TimedRobot {
     public void robotInit() 
     {
         drive = new DriveTrain_SparkMAX(0,1,3,2);
-        drive.getLeftMotor().setSelectedSensorPosition(0,0,0);
-        pigeon = new PigeonIMU(drive.getRightSlave());
+        //pigeon = new PigeonIMU(drive.getRightSlave());
         driveStick = new XboxController(0);
     }
     @Override
