@@ -19,4 +19,8 @@ public abstract class DriveTrain extends DifferentialDrive{
         super(leftMotor, rightMotor);
     }
 
+    public abstract int getLeftPosition();
+    public abstract int getRightPosition();
+    public abstract void resetDriveTrain();
+
 }

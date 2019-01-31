@@ -1,7 +1,6 @@
 package frc.subsystem.drivetrain;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.Constants;
 
 public class DriveTrain_TalonSRX extends DriveTrain{
@@ -28,35 +27,20 @@ public class DriveTrain_TalonSRX extends DriveTrain{
 
     }
 
-    public int getLeftPosition(){
-        return leftFront.getSelectedSensorPosition(0);
-    }
+    // public int getLeftPosition(){
+    //     return leftFront.getSelectedSensorPosition(0);
+    // }
 
-    public int getRightPosition(){
-        return rightFront.getSelectedSensorPosition(0);
-    }
+    // public int getRightPosition(){
+    //     return rightFront.getSelectedSensorPosition(0);
+    // }
 
-    public void resetDriveTrain(){
-        leftFront.configFactoryDefault(Constants.kTimeoutMs);
-        leftRear.configFactoryDefault(Constants.kTimeoutMs);
-        rightFront.configFactoryDefault(Constants.kTimeoutMs);
-        rightRear.configFactoryDefault(Constants.kTimeoutMs);
-    }
-    public WPI_TalonSRX getLeftMotor()
-    {
-        return leftFront;
-    }
-    public WPI_TalonSRX getRightMotor()
-    {
-        return rightFront;
-    }
-    public WPI_TalonSRX getLeftSlave()
-    {
-        return leftRear;
-    }
-    public WPI_TalonSRX getRightSlave()
-    {
-        return rightRear;
-    }
+    // public void resetDriveTrain(){
+    //     leftFront.configFactoryDefault(Constants.kTimeoutMs);
+    //     leftRear.configFactoryDefault(Constants.kTimeoutMs);
+    //     rightFront.configFactoryDefault(Constants.kTimeoutMs);
+    //     rightRear.configFactoryDefault(Constants.kTimeoutMs);
+    // }
+   
 
 }
