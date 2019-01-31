@@ -1,17 +1,16 @@
 package frc.commands.drive;
 
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.commands.AutonCommand;
-import frc.robot.Constants;
-import frc.subsystem.DriveTrain;
 
 public class CmdDriveTime implements AutonCommand
 {
     //Drives the robot forwards based on a timer.
     private Timer t;
     private double time;
-    private DriveTrain drive;
-    public CmdDriveTime(double time, DriveTrain drive)
+    private DifferentialDrive drive;
+    public CmdDriveTime(double time, DifferentialDrive drive)
     {
         t = new Timer();
         t.start();
