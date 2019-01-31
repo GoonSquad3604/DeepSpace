@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.commands.*;
 import frc.commands.special.*;
+import frc.subsystem.drivetrain.DriveTrain;
 import frc.auton.exceptions.TooManyControllersException;
 import frc.auton.exceptions.UnsupportedSubsystemException;
 import frc.vision.Limelight;
@@ -18,14 +19,14 @@ public class Auton
     //The queue of commands. Commands are added to it, and they are run in sequence.
     Queue<AutonCommand> autonQueue;
     private boolean initted = false;
-    private DifferentialDrive drive;
+    private DriveTrain drive;
     private XboxController driveStick;
     private XboxController operateStick;
     private AutonCommand defaultCommand;
     private PigeonIMU gyro;
     private Limelight limelight;
     
-    public DifferentialDrive getDrive()
+    public DriveTrain getDrive()
     {
         return drive;
     }
@@ -60,9 +61,9 @@ public class Auton
     //Loads in subsystems.
     private void loadSubsystem(Object subsystem)
     {
-        if(subsystem instanceof DifferentialDrive)
+        if(subsystem instanceof DriveTrain)
             {
-                drive = (DifferentialDrive)subsystem;  //It's a drivetrain, so make it the drivetrain.
+                drive = (DriveTrain)subsystem;  //It's a drivetrain, so make it the drivetrain.
             }
             else if(subsystem instanceof XboxController)
             {
