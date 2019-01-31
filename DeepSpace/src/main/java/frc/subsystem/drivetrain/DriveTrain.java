@@ -5,10 +5,18 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.subsystem;
+package frc.subsystem.drivetrain;
+
+import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
 /**
  * Add your docs here.
  */
-public class DriveTrain {
+public abstract class DriveTrain extends DifferentialDrive{
+
+    public DriveTrain(SpeedController leftMotor, SpeedController rightMotor){
+        super(leftMotor, rightMotor);
+    }
+
 }

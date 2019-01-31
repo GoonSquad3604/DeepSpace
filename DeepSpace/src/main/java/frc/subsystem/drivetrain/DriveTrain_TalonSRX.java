@@ -1,10 +1,10 @@
-package frc.subsystem;
+package frc.subsystem.drivetrain;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.Constants;
 
-public class DriveTrain_TalonSRX extends DifferentialDrive{
+public class DriveTrain_TalonSRX extends DriveTrain{
 
     private WPI_TalonSRX leftFront, leftRear, rightFront, rightRear;
     
