@@ -1,8 +1,7 @@
 package frc.commands.drive;
 
-import edu.wpi.first.wpilibj.Timer;
 import frc.commands.AutonCommand;
-import frc.subsystem.DriveTrain;
+import frc.subsystem.drivetrain.*;
 
 public class CmdDumbSpin implements AutonCommand
 {
@@ -15,13 +14,13 @@ public class CmdDumbSpin implements AutonCommand
     @Override
     public boolean isFinished() 
     {
-            return false;
+        return false;
     }
 
     @Override
     public void runTask() 
     {
-        drive.arcadeDrive(-0.0,0.6);
+        drive.arcadeDrive(-0.0, 0.6);
     }
 
     @Override

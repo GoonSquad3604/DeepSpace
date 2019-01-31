@@ -1,10 +1,9 @@
 package frc.commands.drive;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-
 import frc.commands.AutonCommand;
 import frc.robot.Constants;
-import frc.subsystem.DriveTrain;
+import frc.subsystem.drivetrain.*;
 import jaci.pathfinder.*;
 import jaci.pathfinder.followers.EncoderFollower;
 import jaci.pathfinder.modifiers.TankModifier;
@@ -33,8 +32,8 @@ public class CmdMoveToWaypoint implements AutonCommand
 
     @Override
     public void runTask() {
-        drive.getLeftMotor().set(ControlMode.PercentOutput, leftFollow.calculate(drive.getLeftMotor().getSelectedSensorPosition(0)));
-        drive.getRightMotor().set(ControlMode.PercentOutput, -rightFollow.calculate(-drive.getRightMotor().getSelectedSensorPosition(0)));
+        drive.setLeft(leftFollow.calculate((int)drive.getLeftPosition()));
+        drive.setRight(rightFollow.calculate((int)drive.getRightPosition()));
     }
 
     @Override
@@ -43,8 +42,8 @@ public class CmdMoveToWaypoint implements AutonCommand
     }
     @Override
     public void init() {
-        drive.getLeftMotor().setSelectedSensorPosition(0,0,Constants.kTimeoutMs);
-        drive.getRightMotor().setSelectedSensorPosition(0,0,Constants.kTimeoutMs);
+        drive.setLeftPosition(0);
+        drive.setRightPosition(0);
     }
     private void generateTrajectory(Waypoint[] points)
     {

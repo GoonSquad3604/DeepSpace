@@ -8,17 +8,21 @@
 package frc.robot;
 
 import com.ctre.phoenix.sensors.PigeonIMU;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.auton.Auton;
 import frc.auton.BlankAuton;
 import frc.auton.DumbAuton;
 import frc.auton.TestAuton;
 import frc.subsystem.*;
+import frc.subsystem.drivetrain.*;
 
 public class Robot extends TimedRobot {
-
+    
     private DriveTrain drive;
     private XboxController driveStick; 
     private Auton runningAuton;
@@ -28,9 +32,8 @@ public class Robot extends TimedRobot {
     @Override
     public void robotInit() 
     {
-        drive = new DriveTrain(0,1,3,2);
-        drive.getLeftMotor().setSelectedSensorPosition(0,0,0);
-        pigeon = new PigeonIMU(drive.getRightSlave());
+        drive = new DriveTrain_SparkMAX(0,1,3,2);
+        //pigeon = new PigeonIMU(drive.getRightSlave());
         driveStick = new XboxController(0);
     }
     @Override
@@ -41,7 +44,7 @@ public class Robot extends TimedRobot {
         yaw = ypr[0];
         //System.out.println(yaw);
     } 
-    public DriveTrain getDriveTrain()
+    public DifferentialDrive getDriveTrain()
     {
         return drive;
     }

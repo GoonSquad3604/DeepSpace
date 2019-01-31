@@ -1,11 +1,12 @@
 package frc.commands.special;
 
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.auton.Auton;
 import frc.auton.DumbAuton;
 import frc.auton.TestAuton;
 import frc.commands.AutonCommand;
-import frc.subsystem.DriveTrain;
+import frc.subsystem.drivetrain.*;
 
 public class CmdTeleop implements AutonCommand{
 
@@ -76,7 +77,7 @@ public class CmdTeleop implements AutonCommand{
     @Override
     public void end()
     {
-        drive.getLeftMotor().setSelectedSensorPosition(0);
-        drive.getRightMotor().setSelectedSensorPosition(0);
+        drive.setLeftPosition(0);
+        drive.setRightPosition(0);
     }
 }

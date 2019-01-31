@@ -6,11 +6,11 @@ import java.util.Queue;
 import com.ctre.phoenix.sensors.PigeonIMU;
 
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.commands.*;
 import frc.commands.special.CmdTeleop;
 import frc.auton.exceptions.TooManyControllersException;
 import frc.auton.exceptions.UnsupportedSubsystemException;
-import frc.subsystem.DriveTrain;
 import frc.vision.Limelight;
 
 public class Auton
@@ -18,14 +18,14 @@ public class Auton
     //The queue of commands. Commands are added to it, and they are run in sequence.
     Queue<AutonCommand> autonQueue;
     private boolean initted = false;
-    private DriveTrain drive;
+    private DifferentialDrive drive;
     private XboxController driveStick;
     private XboxController operateStick;
     private AutonCommand defaultCommand;
     private PigeonIMU gyro;
     private Limelight limelight;
     
-    public DriveTrain getDrive()
+    public DifferentialDrive getDrive()
     {
         return drive;
     }
@@ -61,9 +61,9 @@ public class Auton
     //Loads in subsystems.
     private void loadSubsystem(Object subsystem)
     {
-        if(subsystem instanceof DriveTrain)
+        if(subsystem instanceof DifferentialDrive)
             {
-                drive = (DriveTrain)subsystem;  //It's a drivetrain, so make it the drivetrain.
+                drive = (DifferentialDrive)subsystem;  //It's a drivetrain, so make it the drivetrain.
             }
             else if(subsystem instanceof XboxController)
             {
