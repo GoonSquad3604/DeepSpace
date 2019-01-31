@@ -30,7 +30,10 @@ public class CmdMerge implements AutonCommand
         //Runs the tasks of all commands.
         for(AutonCommand cmd : commands)
         {
-            cmd.runTask();
+            if(!cmd.isFinished())
+            {
+                cmd.runTask();
+            }
         }
 
     }
