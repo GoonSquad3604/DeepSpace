@@ -74,7 +74,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() 
   {
-    drive.arcadeDrive(-0.8*driveStick.getRawAxis(1), 0.8*driveStick.getRawAxis(4));
+    drive.arcadeDrive(0.8*driveStick.getRawAxis(1), 0.8*driveStick.getRawAxis(4));
     if(driveStick.getBumper(Hand.kLeft))
     {
       intake.set(1);

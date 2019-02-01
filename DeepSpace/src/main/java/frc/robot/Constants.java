@@ -44,14 +44,14 @@ public class Constants{
     public static final int kElevatorHatchAcc = 0;
 
     //Rocket hatch encoder positions
-    public static final int kBottomRocketHatch = 0;
-    public static final int kMiddleRocketHatch = 0;
-    public static final int kTopRocketHatch = 0;
+    public static final double kBottomRocketHatch = 0;
+    public static final double kMiddleRocketHatch = 0;
+    public static final double kTopRocketHatch = 0;
 
     //Rocket cargo encoder positions
-    public static final int kBottomRocketCargo = 0;
-    public static final int kMiddleRocketCargo = 0;
-    public static final int kTopRocketCargo = 0;
+    public static final double kBottomRocketCargo = 0;
+    public static final double kMiddleRocketCargo = 0;
+    public static final double kTopRocketCargo = 0;
 
     /*************/
     /*Drive Train*/
