@@ -22,6 +22,7 @@ public class Constants{
     public static final int kRightRearID = 0;
 
     public static final int kElevatorID = 0;
+    public static final int kOpenCloseID = 0;
 
     /*******************/
     /*Elevator Settings*/
@@ -42,16 +43,20 @@ public class Constants{
     public static final double kElevatorHatchF = 0.0;
     public static final int kElevatorHatchVel = 0;
     public static final int kElevatorHatchAcc = 0;
+    public static final double kopenCloseP = 0.0;
+    public static final double kopenCloseI = 0.0;
+    public static final double kopenCloseD = 0.0;
+    public static final double kopenCloseF = 0.0;
 
     //Rocket hatch encoder positions
-    public static final int kBottomRocketHatch = 0;
-    public static final int kMiddleRocketHatch = 0;
-    public static final int kTopRocketHatch = 0;
+    public static final double kBottomRocketHatch = 0;
+    public static final double kMiddleRocketHatch = 0;
+    public static final double kTopRocketHatch = 0;
 
     //Rocket cargo encoder positions
-    public static final int kBottomRocketCargo = 0;
-    public static final int kMiddleRocketCargo = 0;
-    public static final int kTopRocketCargo = 0;
+    public static final double kBottomRocketCargo = 0;
+    public static final double kMiddleRocketCargo = 0;
+    public static final double kTopRocketCargo = 0;
 
     /*************/
     /*Drive Train*/
@@ -85,6 +90,4 @@ public class Constants{
 
     public static final double kTurnError = 1.0; //Acceptable error (degrees) before ending turn
 
-    //A highly specific number that is used to tell the drivetrain to NOT move whatever it is in. Useful when merging commands.
-    public static final double kIgnoreDrive = 0.0128455731355933733083634403378339365501238233033000037443673447390304846743934939476;  
 }
