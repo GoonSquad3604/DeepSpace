@@ -85,6 +85,4 @@ public class Constants{
 
     public static final double kTurnError = 1.0; //Acceptable error (degrees) before ending turn
 
-    //A highly specific number that is used to tell the drivetrain to NOT move whatever it is in. Useful when merging commands.
-    public static final double kIgnoreDrive = 0.0128455731355933733083634403378339365501238233033000037443673447390304846743934939476;  
 }
