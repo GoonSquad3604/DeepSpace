@@ -28,21 +28,14 @@ public class Constants{
     /*Elevator Settings*/
     /*******************/
     
-    //PID Cargo
-    public static final double kElevatorCargoP = 0.0;
-    public static final double kElevatorCargoI = 0.0;
-    public static final double kElevatorCargoD = 0.0;
-    public static final double kElevatorCargoF = 0.0;
+    //PID Elevator
+    public static final double kElevatorP = 0.0;
+    public static final double kElevatorI = 0.0;
+    public static final double kElevatorD = 0.0;
+    public static final double kElevatorF = 0.0;
     public static final int kElevatorCargoVel = 0;
     public static final int kElevatorCargoAcc = 0;
 
-    //PID Hatch
-    public static final double kElevatorHatchP = 0.0;
-    public static final double kElevatorHatchI = 0.0;
-    public static final double kElevatorHatchD = 0.0;
-    public static final double kElevatorHatchF = 0.0;
-    public static final int kElevatorHatchVel = 0;
-    public static final int kElevatorHatchAcc = 0;
     public static final double kopenCloseP = 0.0;
     public static final double kopenCloseI = 0.0;
     public static final double kopenCloseD = 0.0;

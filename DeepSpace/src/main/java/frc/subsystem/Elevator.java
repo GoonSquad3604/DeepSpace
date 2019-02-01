@@ -1,5 +1,6 @@
 package frc.subsystem;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import frc.robot.Constants;
@@ -16,18 +17,27 @@ public class Elevator extends WPI_TalonSRX{
         followerElevator.setInverted(true);
         followerElevator.follow(this);
 
-        //Cargo Settings
-        config_kP(0, Constants.kElevatorCargoP, Constants.kTimeoutMs);
-        config_kI(0, Constants.kElevatorCargoI, Constants.kTimeoutMs);
-        config_kD(0, Constants.kElevatorCargoD, Constants.kTimeoutMs);
-        config_kF(0, Constants.kElevatorCargoF, Constants.kTimeoutMs);
+        //PID Settings
+        config_kP(0, Constants.kElevatorP, Constants.kTimeoutMs);
+        config_kI(0, Constants.kElevatorI, Constants.kTimeoutMs);
+        config_kD(0, Constants.kElevatorD, Constants.kTimeoutMs);
+        config_kF(0, Constants.kElevatorF, Constants.kTimeoutMs);
 
-        //Hatch Settings
-        config_kP(1, Constants.kElevatorHatchP, Constants.kTimeoutMs);
-        config_kI(1, Constants.kElevatorHatchI, Constants.kTimeoutMs);
-        config_kD(1, Constants.kElevatorHatchD, Constants.kTimeoutMs);
-        config_kF(1, Constants.kElevatorHatchF, Constants.kTimeoutMs);
+    }
 
+    public void moveElevator(double height)
+    {
+        this.
+        set(ControlMode.MotionMagic, height);
+    }
+
+    public void setHeight(double height){
+        setSelectedSensorPosition((int)height, 0, Constants.kTimeoutMs);
+    }
+
+    public double getHeight()
+    {
+        return getSelectedSensorPosition();
     }
 
 }
