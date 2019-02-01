@@ -10,7 +10,6 @@ package frc.robot;
 import com.ctre.phoenix.sensors.PigeonIMU;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -82,7 +81,7 @@ public class Robot extends TimedRobot
     {
         run();
     }
-    
+
     @Override
     public void disabledPeriodic()
     {
