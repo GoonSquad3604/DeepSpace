@@ -31,6 +31,7 @@ public class Robot extends TimedRobot {
   private CANSparkMax rightSlave;
   private Spark intake;
   private Spark hatchManipulator;
+  private Spark elevator;
   private final int intakeId = 0;
   private final int hmId = 3;
   private DifferentialDrive drive;
@@ -74,7 +75,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() 
   {
-    drive.arcadeDrive(-0.8*driveStick.getRawAxis(1), 0.8*driveStick.getRawAxis(4));
+    drive.arcadeDrive(0.8*driveStick.getRawAxis(1), 0.8*driveStick.getRawAxis(4));
     if(driveStick.getBumper(Hand.kLeft))
     {
       intake.set(1);

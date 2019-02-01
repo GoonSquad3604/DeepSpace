@@ -4,7 +4,8 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import frc.robot.Constants;
 
-public class DriveTrain_TalonSRX extends DriveTrain{
+public class DriveTrain_TalonSRX extends DriveTrain
+{
 
     private WPI_TalonSRX leftFront, leftRear, rightFront, rightRear;
     
@@ -12,7 +13,8 @@ public class DriveTrain_TalonSRX extends DriveTrain{
     /*Constructors*/
     /**************/
 
-    private DriveTrain_TalonSRX(WPI_TalonSRX leftFront, WPI_TalonSRX leftRear, WPI_TalonSRX rightFront, WPI_TalonSRX rightRear){
+    private DriveTrain_TalonSRX(WPI_TalonSRX leftFront, WPI_TalonSRX leftRear, WPI_TalonSRX rightFront, WPI_TalonSRX rightRear)
+    {
 
         super(leftFront, rightFront);
         
@@ -26,7 +28,8 @@ public class DriveTrain_TalonSRX extends DriveTrain{
             
     }
 
-    public DriveTrain_TalonSRX(int leftFrontID, int leftRearID, int rightFrontID, int rightRearID){
+    public DriveTrain_TalonSRX(int leftFrontID, int leftRearID, int rightFrontID, int rightRearID)
+    {
         
         this(new WPI_TalonSRX(leftFrontID), new WPI_TalonSRX(leftRearID), new WPI_TalonSRX(rightFrontID), new WPI_TalonSRX(rightRearID));
 
@@ -39,37 +42,44 @@ public class DriveTrain_TalonSRX extends DriveTrain{
 
 
     @Override
-    public void setLeft(double value) {
+    public void setLeft(double value) 
+    {
 
     }
 
     @Override
-    public void setRight(double value) {
+    public void setRight(double value) 
+    {
 
 	}
 
     @Override
-    public void setLeftPosition(double position) {
+    public void setLeftPosition(double position) 
+    {
         leftFront.setSelectedSensorPosition((int)position);
     }
 
     @Override
-    public void setRightPosition(double position) {
+    public void setRightPosition(double position) 
+    {
         rightFront.setSelectedSensorPosition((int)position);
     }
 
     @Override
-    public double getLeftPosition() {
+    public double getLeftPosition() 
+    {
         return leftFront.getSelectedSensorPosition(0);
     }
 
     @Override
-    public double getRightPosition() {
+    public double getRightPosition() 
+    {
         return rightFront.getSelectedSensorPosition(0);
     }
 
     @Override
-    public void resetDriveTrain() {
+    public void resetDriveTrain() 
+    {
         leftFront.configFactoryDefault(Constants.kTimeoutMs);
         leftRear.configFactoryDefault(Constants.kTimeoutMs);
         rightFront.configFactoryDefault(Constants.kTimeoutMs);
@@ -77,7 +87,8 @@ public class DriveTrain_TalonSRX extends DriveTrain{
     }
 
     @Override
-    public com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX gyroTest() {
+    public WPI_TalonSRX gyroTest() 
+    {
         return null;
     }
 

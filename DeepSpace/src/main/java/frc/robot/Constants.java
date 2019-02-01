@@ -4,7 +4,8 @@ package frc.robot;
 /*CONSTANTS*/
 /***********/
 
-public class Constants{
+public class Constants
+{
 
     /*********/
     /*General*/
@@ -22,36 +23,34 @@ public class Constants{
     public static final int kRightRearID = 0;
 
     public static final int kElevatorID = 0;
+    public static final int kOpenCloseID = 0;
 
     /*******************/
     /*Elevator Settings*/
     /*******************/
     
-    //PID Cargo
-    public static final double kElevatorCargoP = 0.0;
-    public static final double kElevatorCargoI = 0.0;
-    public static final double kElevatorCargoD = 0.0;
-    public static final double kElevatorCargoF = 0.0;
+    //PID Elevator
+    public static final double kElevatorP = 0.0;
+    public static final double kElevatorI = 0.0;
+    public static final double kElevatorD = 0.0;
+    public static final double kElevatorF = 0.0;
     public static final int kElevatorCargoVel = 0;
     public static final int kElevatorCargoAcc = 0;
 
-    //PID Hatch
-    public static final double kElevatorHatchP = 0.0;
-    public static final double kElevatorHatchI = 0.0;
-    public static final double kElevatorHatchD = 0.0;
-    public static final double kElevatorHatchF = 0.0;
-    public static final int kElevatorHatchVel = 0;
-    public static final int kElevatorHatchAcc = 0;
+    public static final double kopenCloseP = 0.0;
+    public static final double kopenCloseI = 0.0;
+    public static final double kopenCloseD = 0.0;
+    public static final double kopenCloseF = 0.0;
 
     //Rocket hatch encoder positions
-    public static final int kBottomRocketHatch = 0;
-    public static final int kMiddleRocketHatch = 0;
-    public static final int kTopRocketHatch = 0;
+    public static final double kBottomRocketHatch = 0;
+    public static final double kMiddleRocketHatch = 0;
+    public static final double kTopRocketHatch = 0;
 
     //Rocket cargo encoder positions
-    public static final int kBottomRocketCargo = 0;
-    public static final int kMiddleRocketCargo = 0;
-    public static final int kTopRocketCargo = 0;
+    public static final double kBottomRocketCargo = 0;
+    public static final double kMiddleRocketCargo = 0;
+    public static final double kTopRocketCargo = 0;
 
     /*************/
     /*Drive Train*/
@@ -85,4 +84,11 @@ public class Constants{
 
     public static final double kTurnError = 1.0; //Acceptable error (degrees) before ending turn
 
+    /**********/
+    /*Commands*/
+    /**********/
+
+    public static final double kElevatorError = 0;
+    public static final int kOpenBeak = 0;
+    public static final int kClosedBeak = 0;
 }
