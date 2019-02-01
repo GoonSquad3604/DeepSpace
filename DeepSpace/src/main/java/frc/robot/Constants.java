@@ -84,4 +84,11 @@ public class Constants
 
     public static final double kTurnError = 1.0; //Acceptable error (degrees) before ending turn
 
+    /**********/
+    /*Commands*/
+    /**********/
+
+    public static final double kElevatorError = 0;
+    public static final int kOpenBeak = 0;
+    public static final int kClosedBeak = 0;
 }

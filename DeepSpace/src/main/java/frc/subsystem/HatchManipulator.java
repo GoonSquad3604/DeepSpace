@@ -7,7 +7,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 public class HatchManipulator {
 
     private WPI_TalonSRX openClose, forwardBackwords;
-
+    private boolean open = true;
     public HatchManipulator(int openCloseID, int forwardBackwordsID)
     {
 
@@ -29,6 +29,18 @@ public class HatchManipulator {
 
         openClose.set(0);
 
+    }
+    public boolean getOpen()
+    {
+        return open;
+    }
+    public void setOpen(boolean b)
+    {
+        this.open = b;
+    }
+    public int getOpenCloseLocation()
+    {
+        return openClose.getSelectedSensorPosition();
     }
 
 }
