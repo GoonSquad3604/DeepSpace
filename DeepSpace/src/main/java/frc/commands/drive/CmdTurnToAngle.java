@@ -77,7 +77,7 @@ public class CmdTurnToAngle implements AutonCommand{
     @Override
     public void runTask() {
         gyro.getYawPitchRoll(ypr);
-        driveTrain.arcadeDrive(Constants.kIgnoreDrive, PID(-targetAngle));
+        driveTrain.arcadeDrive(0, PID(-targetAngle));
     }
 
     @Override
