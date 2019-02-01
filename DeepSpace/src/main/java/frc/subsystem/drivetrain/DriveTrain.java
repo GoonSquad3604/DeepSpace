@@ -16,9 +16,11 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 /**
  * Add your docs here.
  */
-public abstract class DriveTrain extends DifferentialDrive{
+public abstract class DriveTrain extends DifferentialDrive
+{
 
-    public DriveTrain(SpeedController leftMotor, SpeedController rightMotor){
+    public DriveTrain(SpeedController leftMotor, SpeedController rightMotor)
+    {
         super(leftMotor, rightMotor);
     }
 
