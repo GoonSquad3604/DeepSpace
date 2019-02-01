@@ -22,7 +22,8 @@ import frc.subsystem.*;
 import frc.subsystem.drivetrain.*;
 import frc.vision.Limelight;
 
-public class Robot extends TimedRobot {
+public class Robot extends TimedRobot 
+{
     
     private DriveTrain drive;
     private XboxController driveStick; 
@@ -31,6 +32,7 @@ public class Robot extends TimedRobot {
     private Limelight limelight;
     private double yaw;
     private Object[] subSystems = {drive,driveStick,limelight,pigeon};
+    
     @Override
     public void robotInit() 
     {
@@ -39,6 +41,7 @@ public class Robot extends TimedRobot {
         driveStick = new XboxController(0);
         limelight = new Limelight("limelight");
     }
+    
     @Override
     public void robotPeriodic()
     {
@@ -47,6 +50,7 @@ public class Robot extends TimedRobot {
         yaw = ypr[0];
         //System.out.println(yaw);
     } 
+    
     public DifferentialDrive getDriveTrain()
     {
         return drive;
@@ -61,20 +65,24 @@ public class Robot extends TimedRobot {
     }
 
     @Override
-    public void autonomousPeriodic() {
+    public void autonomousPeriodic() 
+    {
         run();
     }
 
     @Override
-    public void teleopInit() {
+    public void teleopInit() 
+    {
         runningAuton = new Auton(drive,driveStick,pigeon,limelight);
         BlankAuton.addCommands(runningAuton);
     }
 
     @Override
-    public void teleopPeriodic() {
+    public void teleopPeriodic() 
+    {
         run();
     }
+    
     @Override
     public void disabledPeriodic()
     {
