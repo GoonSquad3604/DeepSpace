@@ -22,6 +22,7 @@ public class Constants{
     public static final int kRightRearID = 0;
 
     public static final int kElevatorID = 0;
+    public static final int kOpenCloseID = 0;
 
     /*******************/
     /*Elevator Settings*/
@@ -42,6 +43,10 @@ public class Constants{
     public static final double kElevatorHatchF = 0.0;
     public static final int kElevatorHatchVel = 0;
     public static final int kElevatorHatchAcc = 0;
+    public static final double kopenCloseP = 0.0;
+    public static final double kopenCloseI = 0.0;
+    public static final double kopenCloseD = 0.0;
+    public static final double kopenCloseF = 0.0;
 
     //Rocket hatch encoder positions
     public static final double kBottomRocketHatch = 0;

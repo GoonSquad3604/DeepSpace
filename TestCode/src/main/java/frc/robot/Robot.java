@@ -31,6 +31,7 @@ public class Robot extends TimedRobot {
   private CANSparkMax rightSlave;
   private Spark intake;
   private Spark hatchManipulator;
+  private Spark elevator;
   private final int intakeId = 0;
   private final int hmId = 3;
   private DifferentialDrive drive;
