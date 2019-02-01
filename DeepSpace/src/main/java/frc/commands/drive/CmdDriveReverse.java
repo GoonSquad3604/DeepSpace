@@ -1,7 +1,6 @@
 package frc.commands.drive;
 
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.commands.AutonCommand;
 import frc.subsystem.drivetrain.DriveTrain;
 
@@ -20,15 +19,9 @@ public class CmdDriveReverse implements AutonCommand
     }
     @Override
     public boolean isFinished() {
-        if(t.get()>time)
-        {
-            System.out.println("DON'T STOP ME NOOOOWWW...even though I will stop now");
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        
+        return t.get()>time;
+       
     }
 
     @Override
