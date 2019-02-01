@@ -4,7 +4,8 @@ package frc.robot;
 /*CONSTANTS*/
 /***********/
 
-public class Constants{
+public class Constants
+{
 
     /*********/
     /*General*/
@@ -28,21 +29,14 @@ public class Constants{
     /*Elevator Settings*/
     /*******************/
     
-    //PID Cargo
-    public static final double kElevatorCargoP = 0.0;
-    public static final double kElevatorCargoI = 0.0;
-    public static final double kElevatorCargoD = 0.0;
-    public static final double kElevatorCargoF = 0.0;
+    //PID Elevator
+    public static final double kElevatorP = 0.0;
+    public static final double kElevatorI = 0.0;
+    public static final double kElevatorD = 0.0;
+    public static final double kElevatorF = 0.0;
     public static final int kElevatorCargoVel = 0;
     public static final int kElevatorCargoAcc = 0;
 
-    //PID Hatch
-    public static final double kElevatorHatchP = 0.0;
-    public static final double kElevatorHatchI = 0.0;
-    public static final double kElevatorHatchD = 0.0;
-    public static final double kElevatorHatchF = 0.0;
-    public static final int kElevatorHatchVel = 0;
-    public static final int kElevatorHatchAcc = 0;
     public static final double kopenCloseP = 0.0;
     public static final double kopenCloseI = 0.0;
     public static final double kopenCloseD = 0.0;
@@ -90,6 +84,11 @@ public class Constants{
 
     public static final double kTurnError = 1.0; //Acceptable error (degrees) before ending turn
 
-    //A highly specific number that is used to tell the drivetrain to NOT move whatever it is in. Useful when merging commands.
-    public static final double kIgnoreDrive = 0.0128455731355933733083634403378339365501238233033000037443673447390304846743934939476;  
+    /**********/
+    /*Commands*/
+    /**********/
+
+    public static final double kElevatorError = 0;
+    public static final int kOpenBeak = 0;
+    public static final int kClosedBeak = 0;
 }

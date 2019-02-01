@@ -80,7 +80,7 @@ public class Robot extends TimedRobot {
     //drive.arcadeDrive(-0.8*driveStick.getRawAxis(1), 0.6*driveStick.getRawAxis(4));
     if(driveStick.getBumper(Hand.kLeft))
     {
-      intake.set(1);
+      intake.set(.8);
       System.out.println("never gonna run around");
     }
     else if(driveStick.getBumper(Hand.kRight))

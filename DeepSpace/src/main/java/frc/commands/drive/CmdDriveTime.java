@@ -1,9 +1,9 @@
 package frc.commands.drive;
 
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.commands.AutonCommand;
-import frc.robot.Constants;
-import frc.subsystem.DriveTrain;
+import frc.subsystem.drivetrain.DriveTrain;
 
 public class CmdDriveTime implements AutonCommand
 {
@@ -22,7 +22,7 @@ public class CmdDriveTime implements AutonCommand
     public boolean isFinished() {
         if(t.get()>time)
         {
-            drive.setDrive(0);
+            drive.arcadeDrive(0,0);
             System.out.println("TAAAAAAAKE ONNNNNNNN MEEEEE");
             return true;
         }
@@ -33,7 +33,7 @@ public class CmdDriveTime implements AutonCommand
     }
     @Override
     public void runTask() {
-        drive.arcadeDrive(-0.4,Constants.kIgnoreDrive);
+        drive.arcadeDrive(-0.4,0);
     }
 
     @Override
@@ -48,7 +48,7 @@ public class CmdDriveTime implements AutonCommand
     @Override
     public void end()
     {
-        drive.setDrive(0);
+        drive.arcadeDrive(0,0);
     }
 
 }

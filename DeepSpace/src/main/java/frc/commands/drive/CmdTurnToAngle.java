@@ -12,7 +12,7 @@ import com.ctre.phoenix.sensors.PigeonIMU;
 import edu.wpi.first.wpilibj.Timer;
 import frc.commands.AutonCommand;
 import frc.robot.Constants;
-import frc.subsystem.DriveTrain;
+import frc.subsystem.drivetrain.*;
 import frc.vision.Limelight;
 
 /**
@@ -77,7 +77,7 @@ public class CmdTurnToAngle implements AutonCommand{
     @Override
     public void runTask() {
         gyro.getYawPitchRoll(ypr);
-        driveTrain.arcadeDrive(Constants.kIgnoreDrive, PID(-targetAngle));
+        driveTrain.arcadeDrive(0, PID(-targetAngle));
     }
 
     @Override

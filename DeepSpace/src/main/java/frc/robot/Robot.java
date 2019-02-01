@@ -8,18 +8,23 @@
 package frc.robot;
 
 import com.ctre.phoenix.sensors.PigeonIMU;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.auton.Auton;
 import frc.auton.BlankAuton;
 import frc.auton.DumbAuton;
 import frc.auton.TestAuton;
 import frc.subsystem.*;
+import frc.subsystem.drivetrain.*;
 import frc.vision.Limelight;
 
-public class Robot extends TimedRobot {
-
+public class Robot extends TimedRobot 
+{
+    
     private DriveTrain drive;
     private XboxController driveStick; 
     private Auton runningAuton;
@@ -27,15 +32,16 @@ public class Robot extends TimedRobot {
     private Limelight limelight;
     private double yaw;
     private Object[] subSystems = {drive,driveStick,limelight,pigeon};
+    
     @Override
     public void robotInit() 
     {
-        drive = new DriveTrain(0,1,3,2);
-        drive.getLeftMotor().setSelectedSensorPosition(0,0,0);
-        pigeon = new PigeonIMU(drive.getRightSlave());
+        drive = new DriveTrain_SparkMAX(0,1,3,2);
+        pigeon = new PigeonIMU(drive.gyroTest());
         driveStick = new XboxController(0);
         limelight = new Limelight("limelight");
     }
+    
     @Override
     public void robotPeriodic()
     {
@@ -44,7 +50,8 @@ public class Robot extends TimedRobot {
         yaw = ypr[0];
         //System.out.println(yaw);
     } 
-    public DriveTrain getDriveTrain()
+    
+    public DifferentialDrive getDriveTrain()
     {
         return drive;
     }
@@ -58,20 +65,24 @@ public class Robot extends TimedRobot {
     }
 
     @Override
-    public void autonomousPeriodic() {
+    public void autonomousPeriodic() 
+    {
         run();
     }
 
     @Override
-    public void teleopInit() {
+    public void teleopInit() 
+    {
         runningAuton = new Auton(drive,driveStick,pigeon,limelight);
         BlankAuton.addCommands(runningAuton);
     }
 
     @Override
-    public void teleopPeriodic() {
+    public void teleopPeriodic() 
+    {
         run();
     }
+    
     @Override
     public void disabledPeriodic()
     {
