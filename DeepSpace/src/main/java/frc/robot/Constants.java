@@ -4,7 +4,8 @@ package frc.robot;
 /*CONSTANTS*/
 /***********/
 
-public class Constants{
+public class Constants
+{
 
     /*********/
     /*General*/
