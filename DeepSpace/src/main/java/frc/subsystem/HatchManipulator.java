@@ -6,15 +6,15 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 public class HatchManipulator {
 
-    private WPI_TalonSRX openClose, forwardBackwords;
+    private WPI_TalonSRX openClose, forwardBackwards;
 
     public HatchManipulator(int openCloseID, int forwardBackwordsID)
     {
 
         openClose = new WPI_TalonSRX(openCloseID);
         openClose.setInverted(true);
-        forwardBackwords = new WPI_TalonSRX(forwardBackwordsID);
-        forwardBackwords.setInverted(true);
+        forwardBackwards = new WPI_TalonSRX(forwardBackwordsID);
+        forwardBackwards.setInverted(true);
 
     } 
     public void runOpen()

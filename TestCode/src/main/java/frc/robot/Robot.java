@@ -34,6 +34,7 @@ public class Robot extends TimedRobot {
   private Spark elevator;
   private final int intakeId = 0;
   private final int hmId = 3;
+  private final int elevatorID = 8;//TODO
   private DifferentialDrive drive;
   private XboxController driveStick;
   /**
@@ -50,6 +51,7 @@ public class Robot extends TimedRobot {
     rightSlave = new CANSparkMax(33, MotorType.kBrushless);
     intake = new Spark(intakeId);
     hatchManipulator = new Spark(hmId);
+    elevator  = new Spark(elevatorID);
     driveStick = new XboxController(0);
     
     leftMain.setParameter(ConfigParameter.kRampRate, 1);
@@ -103,6 +105,19 @@ public class Robot extends TimedRobot {
     else
     {
       hatchManipulator.set(0);
+    }
+
+    if(driveStick.getPOV()  == 0)
+    {
+      elevator.set(0.5);
+    }
+    else if(driveStick.getPOV() == 180)
+    {
+      elevator.set(-0.5);
+    }
+    else
+    {
+      elevator.set(0);
     }
   }
 
