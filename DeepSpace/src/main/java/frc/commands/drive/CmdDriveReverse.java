@@ -3,6 +3,7 @@ package frc.commands.drive;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.commands.AutonCommand;
+import frc.subsystem.drivetrain.DriveTrain;
 
 public class CmdDriveReverse implements AutonCommand
 {
@@ -10,7 +11,7 @@ public class CmdDriveReverse implements AutonCommand
     Timer t;
     double time;
     private DifferentialDrive drive;
-    public CmdDriveReverse(double time, DifferentialDrive drive)
+    public CmdDriveReverse(double time, DriveTrain drive)
     {
         t = new Timer();
         this.time = time;

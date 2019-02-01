@@ -77,7 +77,7 @@ public class DriveTrain_TalonSRX extends DriveTrain{
     }
 
     @Override
-    public com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX gyroTest() {
+    public WPI_TalonSRX gyroTest() {
         return null;
     }
 
