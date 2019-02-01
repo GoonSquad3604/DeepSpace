@@ -6,19 +6,29 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 public class CargoManipulator{
 
-    private TalonSRX intakeControlTop, intakeControlBottom, hinge; 
+    private WPI_TalonSRX intakeControlTop, intakeControlBottom, hinge; 
 
     public CargoManipulator(int intakeControlTopID, int intakeControlBottomID, int hingeID)
     {
 
-        intakeControlTop = new TalonSRX(intakeControlTopID);
+        intakeControlTop = new WPI_TalonSRX(intakeControlTopID);
         intakeControlTop.setInverted(true);
-        intakeControlBottom = new TalonSRX(intakeControlBottomID);
+        intakeControlBottom = new WPI_TalonSRX(intakeControlBottomID);
         intakeControlBottom.setInverted(true);
-        hinge = new TalonSRX(hingeID);
+        hinge = new WPI_TalonSRX(hingeID);
         hinge.setInverted(true);
-        
+
+    }
+    public void runIntake()
+    {
+        intakeControlTop.set(0.8);
+        intakeControlBottom.set(0.8);
     }
 
+    public void runDispense()
+    {
+        intakeControlTop.set(-0.8);
+        intakeControlBottom.set(-0.8);
+    }
 
 }
