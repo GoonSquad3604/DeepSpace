@@ -27,16 +27,18 @@ public class Elevator extends WPI_TalonSRX
 
     }
 
+    //Moves the elevator to the height.
     public void moveElevator(double height)
     {
-        this.
         set(ControlMode.MotionMagic, height);
     }
 
+    //Resets the sensor to a height.
     public void setHeight(double height){
         setSelectedSensorPosition((int)height, 0, Constants.kTimeoutMs);
     }
 
+    //Returns the height of the sensor.
     public double getHeight()
     {
         return getSelectedSensorPosition();
