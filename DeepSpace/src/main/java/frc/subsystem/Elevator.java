@@ -34,7 +34,8 @@ public class Elevator extends WPI_TalonSRX
     }
 
     //Resets the sensor to a height.
-    public void setHeight(double height){
+    public void setHeight(double height)
+    {
         setSelectedSensorPosition((int)height, 0, Constants.kTimeoutMs);
     }
 

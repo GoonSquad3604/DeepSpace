@@ -26,11 +26,12 @@ public class CmdMovePillarWheels implements AutonCommand
     @Override
     public void runTask() 
     {
-
+        pillars.moveWheels(distance);
     }
 
     @Override
-    public double getStatus() {
+    public double getStatus() 
+    {
         return 0;
     }
 
