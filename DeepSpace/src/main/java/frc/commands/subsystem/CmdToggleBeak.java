@@ -26,9 +26,6 @@ public class CmdToggleBeak implements AutonCommand
         }
         //Officially makes the beak object usable.
         this.beak = beak;
-        //Sets the opening value to the OPPOSITE (!) of the beak's current status.
-        //ie. If the beak is already open, "opening" is set to false.
-        opening = !beak.getOpen();
     }
     
     @Override
@@ -64,6 +61,14 @@ public class CmdToggleBeak implements AutonCommand
     @Override
     public void init() 
     {
-
+        //Sets the opening value to the OPPOSITE (!) of the beak's current status.
+        //ie. If the beak is already open, "opening" is set to false.
+        opening = !beak.getOpen();
+    }
+    
+    @Override
+    public void end()
+    {
+        beak.setOpen(opening);  //Updates the current position of the beak.
     }
 }
