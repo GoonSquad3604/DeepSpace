@@ -77,10 +77,10 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() 
   {
-    //drive.arcadeDrive(-0.8*driveStick.getRawAxis(1), 0.6*driveStick.getRawAxis(4));
+    drive.arcadeDrive(-0.8*driveStick.getRawAxis(1), 0.6*driveStick.getRawAxis(4));
     if(driveStick.getBumper(Hand.kLeft))
     {
-      intake.set(.8);
+      intake.set(1);
       System.out.println("never gonna run around");
     }
     else if(driveStick.getBumper(Hand.kRight))

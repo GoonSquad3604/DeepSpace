@@ -45,11 +45,11 @@ public class CmdToggleBeak implements AutonCommand
     {
         if(opening)
         {
-            beak.runOpen(); // Opens the beak if it started closed.
+            beak.runOpen(0.8); // Opens the beak if it started closed.
         }
         else
         {
-            beak.runClose();// Closes the beak if it started open.
+            beak.runClose(0.8);// Closes the beak if it started open.
         }
     }
 

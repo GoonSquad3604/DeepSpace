@@ -7,33 +7,59 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 public class CargoManipulator
 {
 
-    private WPI_TalonSRX intakeControlTop, intakeControlBottom, hinge; 
+    private WPI_TalonSRX intakeControl, hingeRight, hingeLeft; 
 
-    public CargoManipulator(int intakeControlTopID, int intakeControlBottomID, int hingeID)
+    public CargoManipulator(int intakeControlID, int hingeRightID, int hingeLeftID)
     {
 
-        intakeControlTop = new WPI_TalonSRX(intakeControlTopID);
-        intakeControlTop.setInverted(true);
-        intakeControlBottom = new WPI_TalonSRX(intakeControlBottomID);
-        intakeControlBottom.setInverted(true);
-        hinge = new WPI_TalonSRX(hingeID);
-        hinge.setInverted(true);
+        intakeControl = new WPI_TalonSRX(intakeControlID);
+        intakeControl.setInverted(true);
+        hingeRight = new WPI_TalonSRX(hingeRightID);
+        hingeRight.setInverted(true);
+        hingeLeft = new WPI_TalonSRX(hingeRightID);
+        hingeLeft.setInverted(true);
 
     }
 
     //Intakes cargo
     public void runIntake()
     {
-        intakeControlTop.set(0.8);
-        intakeControlBottom.set(0.8);
+
+        intakeControl.set(0.8);
+        
     }
 
     //Dispenses cargo
     public void runDispense()
     {
-        intakeControlTop.set(-0.8);
-        intakeControlBottom.set(-0.8);
+
+        intakeControl.set(-0.8);
+
     }
 
     //TODO Hinge-related stuff. Methods still need to be made.
+
+public void runHingeIntake(double amount)
+{
+
+        hingeRight.set(amount);
+        hingeLeft.set(amount);
+
+}
+
+public void runHingeSationary(double amount)
+{
+
+        hingeRight.set(amount);
+        hingeLeft.set(amount);
+
+}
+
+    public double getHingelocation()
+    {
+
+        return 0;
+
+    }
+
 }
