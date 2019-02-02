@@ -50,6 +50,7 @@ public class CmdTurnToAngle implements AutonCommand
         this.gyro = gyro;
         this.lime = lime;
         correctTime = new Timer();
+        this.lime.setPipeline(Constants.kReflectiveTapePipeline);
     }
 
     @Override
