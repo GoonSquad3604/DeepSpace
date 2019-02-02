@@ -15,7 +15,7 @@ public class CargoPlaceAuton
 
         auton.addCommand(new CmdTurnToAngle(auton.getDrive(),auton.getGyro(), auton.getLimelight()));
         auton.addCommand(new CmdMergeOnStatus(0,
-            new CmdDistance(auton.getLimelight()),
+            new CmdDistance(4,auton.getLimelight(),auton.getDrive()),
             new CmdMoveElevator(0, auton.getElevator())));
         auton.addCommand(new CmdDispenseForTime( 0.2, auton.getCargoManipulator()));
         auton.addCommand(new CmdDriveReverse(0.5, auton.getDrive()));

@@ -13,11 +13,10 @@ public class HatchPlaceAuton
     {
         auton.addCommand(new CmdTurnToAngle(auton.getDrive(),auton.getGyro(), auton.getLimelight()));
         auton.addCommand(new CmdMergeOnStatus(0,
-            new CmdDistance(auton.getLimelight()),
+            new CmdDistance(4,auton.getLimelight(),auton.getDrive()),
             new CmdMoveElevator(0, auton.getElevator())));
         auton.addCommand(new CmdToggleBeak(auton.getBeak()));
         auton.addCommand(new CmdDriveReverse(0.5, auton.getDrive()));
-
     }
     
 }

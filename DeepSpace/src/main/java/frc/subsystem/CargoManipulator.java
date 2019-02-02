@@ -1,7 +1,6 @@
 package frc.subsystem;
 
 import frc.robot.Constants;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 public class CargoManipulator
@@ -39,26 +38,18 @@ public class CargoManipulator
 
     //TODO Hinge-related stuff. Methods still need to be made.
 
-public void runHingeIntake(double amount)
-{
-
-        hingeRight.set(amount);
-        hingeLeft.set(amount);
-
-}
-
-public void runHingeSationary(double amount)
-{
-
-        hingeRight.set(amount);
-        hingeLeft.set(amount);
-
-}
-
-    public double getHingelocation()
+    public void runHinge(double amount)
     {
 
-        return 0;
+        hingeRight.set(amount);
+        hingeLeft.set(amount);
+
+    }
+
+    public double getHingeLocation()
+    {
+
+        return hingeRight.getSelectedSensorPosition();
 
     }
 
