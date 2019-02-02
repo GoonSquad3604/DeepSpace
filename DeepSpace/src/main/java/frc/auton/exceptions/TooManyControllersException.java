@@ -10,7 +10,8 @@ package frc.auton.exceptions;
 /**
  * Add your docs here.
  */
-public class TooManyControllersException extends RuntimeException{
+public class TooManyControllersException extends RuntimeException
+{
 
     private static final long serialVersionUID = 1L;
     public TooManyControllersException()

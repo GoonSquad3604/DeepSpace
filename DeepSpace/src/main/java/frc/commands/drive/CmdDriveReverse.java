@@ -10,6 +10,7 @@ public class CmdDriveReverse implements AutonCommand
     Timer t;
     double time;
     private DriveTrain drive;
+    
     public CmdDriveReverse(double time, DriveTrain drive)
     {
         t = new Timer();
@@ -17,6 +18,7 @@ public class CmdDriveReverse implements AutonCommand
         this.drive = drive;
 
     }
+    
     @Override
     public boolean isFinished() {
         

@@ -9,7 +9,8 @@ import frc.auton.TestAuton;
 import frc.commands.AutonCommand;
 import frc.subsystem.drivetrain.*;
 
-public class CmdTeleop implements AutonCommand{
+public class CmdTeleop implements AutonCommand
+{
 
     //Runs when there is no command. Does Teleoperated Stuffs.
     private DriveTrain drive;
@@ -17,6 +18,7 @@ public class CmdTeleop implements AutonCommand{
     private XboxController operateStick;
     private Auton auton;
     private boolean running;
+    
     public CmdTeleop(DriveTrain drive, XboxController driveStick, XboxController operateStick, Auton auton)
     {
         this.driveStick = driveStick;
@@ -24,6 +26,7 @@ public class CmdTeleop implements AutonCommand{
         this.drive = drive;
         this.auton = auton;
     }
+    
     @Override
     public boolean isFinished() 
     {
@@ -80,10 +83,12 @@ public class CmdTeleop implements AutonCommand{
         driveStick.getXButtonPressed();
         driveStick.getYButtonPressed();
     }
+    
     public boolean getRunning()
     {
         return running;
     }
+    
     @Override
     public void end()
     {

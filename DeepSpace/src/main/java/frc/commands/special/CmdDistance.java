@@ -13,7 +13,8 @@ import frc.vision.Limelight;
 /**
  * Add your docs here.
  */
-public class CmdDistance implements AutonCommand{
+public class CmdDistance implements AutonCommand
+{
 
     private Limelight limelight;
 

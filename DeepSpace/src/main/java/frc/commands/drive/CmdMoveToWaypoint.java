@@ -25,26 +25,33 @@ public class CmdMoveToWaypoint implements AutonCommand
         this.drive = drive;
         generateTrajectory(this.waypoints);
     }
+
     @Override
-    public boolean isFinished() {
+    public boolean isFinished() 
+    {
         return leftFollow.isFinished() && rightFollow.isFinished();
     }
 
     @Override
-    public void runTask() {
+    public void runTask() 
+    {
         drive.setLeft(leftFollow.calculate((int)drive.getLeftPosition()));
         drive.setRight(rightFollow.calculate((int)drive.getRightPosition()));
     }
 
     @Override
-    public double getStatus() {
+    public double getStatus() 
+    {
         return 0;
     }
+
     @Override
-    public void init() {
+    public void init() 
+    {
         drive.setLeftPosition(0);
         drive.setRightPosition(0);
     }
+    
     private void generateTrajectory(Waypoint[] points)
     {
         

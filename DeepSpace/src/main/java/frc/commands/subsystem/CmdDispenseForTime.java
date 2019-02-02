@@ -9,6 +9,7 @@ public class CmdDispenseForTime implements AutonCommand
     Timer timer;
     CargoManipulator cargo;
     double time;
+
     public CmdDispenseForTime(double time, CargoManipulator cargo)
     {
         if(cargo == null)
@@ -19,10 +20,11 @@ public class CmdDispenseForTime implements AutonCommand
         this.time = time;
         timer = new Timer();
     }
+
     @Override
     public boolean isFinished() 
     {
-        return timer.get()>=time;
+        return timer.get() >= time;
     }
 
     @Override
