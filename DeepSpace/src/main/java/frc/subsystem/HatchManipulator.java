@@ -22,67 +22,52 @@ public class HatchManipulator
     public void runOpen(double amount)
     {
         openClose.set(amount);
-
     }
 
     //Closes the beak
     public void runClose(double amount)
     {
-
         openClose.set(amount);
-
     }
 
 
     //pushes the manipulator forwards and pulls it back in back
     public void moveForwardBackwards(double amount)
     {
-
         forwardBackwards.set(amount);
-
     }
 
 
     public boolean getOpen()
     {
-
         return open;
-
     }
 
     public void setOpen(boolean b)
     {
-
         this.open = b;
-
     }
 
     //@return the encoder position of the beak.
     public double getOpenCloseLocation()
     {
-
         return 0;
-
     }
-
+    
+    //@return the encoder position of the  forward backwords beak moter .
     public double getforwardBackwardsLocation()
     {
-
         return 0;
-
     }
 
-	public boolean getForward() {
-        
+    public boolean getForward()
+    {
         return forward;
-
     }
 
     public void setForward(boolean f)
     {
-
         this.forward = f;
-
     }
    
 }

@@ -101,6 +101,7 @@ public class Constants
     /*********/
     /*Pillars*/
     /*********/
+    
     public static final double kPillarWheelDistance = 0;
     public static final double kPillarHeight = 0;
     
