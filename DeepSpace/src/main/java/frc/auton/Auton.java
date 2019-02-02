@@ -30,22 +30,27 @@ public class Auton
     {
         return drive;
     }
+
     public XboxController getDriveStick()
     {
         return driveStick;
     }
+
     public XboxController getOperateStick()
     {
         return operateStick;
     }
+
     public Limelight getLimelight()
     {
         return limelight;
     }
+
     public PigeonIMU getGyro()
     {
         return gyro;
     }
+
     public Auton(Object... subsystems)
     {
         autonQueue = new LinkedList<AutonCommand>();
@@ -134,10 +139,12 @@ public class Auton
             }
         }
     }
+
     public void runTeleop()
     {
         defaultCommand.runTask();
     }
+
     //Returns true if the auton is complete.
     public boolean isFinished()
     {
@@ -155,11 +162,12 @@ public class Auton
         }
         return false;
     }
-    //Yes
+    
     protected void addCommand(AutonCommand command)
     {
         autonQueue.add(command);
     }
+
     //Called once at the beginning of auton.
     public void initAuton()
     {
@@ -168,6 +176,7 @@ public class Auton
             autonQueue.peek().init();
         }
     }
+
     @Override
     public String toString()
     {
@@ -178,4 +187,5 @@ public class Auton
         }
         return s;
     }
+    
 }

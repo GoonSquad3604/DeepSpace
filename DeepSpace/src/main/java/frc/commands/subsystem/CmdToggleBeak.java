@@ -10,6 +10,7 @@ public class CmdToggleBeak implements AutonCommand
 {
     HatchManipulator beak;
     boolean opening = false;
+
     public CmdToggleBeak(HatchManipulator beak)
     {
         
@@ -20,6 +21,7 @@ public class CmdToggleBeak implements AutonCommand
         this.beak = beak;
         opening = !beak.getOpen();
     }
+    
     @Override
     public boolean isFinished() 
     {

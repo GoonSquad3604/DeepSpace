@@ -11,6 +11,7 @@ public class CmdDriveTime implements AutonCommand
     private Timer t;
     private double time;
     private DriveTrain drive;
+    
     public CmdDriveTime(double time, DriveTrain drive)
     {
         t = new Timer();
@@ -18,6 +19,7 @@ public class CmdDriveTime implements AutonCommand
         this.time = time;
         this.drive = drive;
     }
+
     @Override
     public boolean isFinished() {
         if(t.get()>time)
@@ -31,6 +33,7 @@ public class CmdDriveTime implements AutonCommand
             return false;
         }
     }
+
     @Override
     public void runTask() {
         drive.arcadeDrive(-0.4,0);

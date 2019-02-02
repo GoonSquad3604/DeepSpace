@@ -1,6 +1,7 @@
 package frc.auton.exceptions;
 
-public class UnsupportedSubsystemException extends RuntimeException{
+public class UnsupportedSubsystemException extends RuntimeException
+{
 
     private static final long serialVersionUID = 1L;
     public UnsupportedSubsystemException(Object subsystem)

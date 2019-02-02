@@ -9,12 +9,14 @@ public class CmdMergeOnStatus implements AutonCommand
     private AutonCommand[] commands;
     private double desiredStatus;
     private boolean runningAll;
+    
     public CmdMergeOnStatus(double desiredStatus,AutonCommand... commands)
     {
         this.commands = commands;
         this.desiredStatus = desiredStatus;
         runningAll = false;
     }
+    
     @Override
     public boolean isFinished() {
         //Will return true if ALL of the merged commands are true. Else, returns false.

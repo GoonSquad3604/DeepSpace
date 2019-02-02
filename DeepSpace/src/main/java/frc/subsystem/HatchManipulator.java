@@ -4,10 +4,12 @@ import frc.robot.Constants;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
-public class HatchManipulator {
+public class HatchManipulator 
+{
 
     private WPI_TalonSRX openClose, forwardBackwords;
     private boolean open = true;
+
     public HatchManipulator(int openCloseID, int forwardBackwordsID)
     {
 
@@ -17,6 +19,7 @@ public class HatchManipulator {
         forwardBackwords.setInverted(true);
 
     } 
+
     public void runOpen()
     {
 
@@ -30,14 +33,17 @@ public class HatchManipulator {
         openClose.set(0);
 
     }
+
     public boolean getOpen()
     {
         return open;
     }
+
     public void setOpen(boolean b)
     {
         this.open = b;
     }
+    
     public int getOpenCloseLocation()
     {
         return openClose.getSelectedSensorPosition();

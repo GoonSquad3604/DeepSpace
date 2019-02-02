@@ -4,7 +4,8 @@ import frc.robot.Constants;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
-public class CargoManipulator{
+public class CargoManipulator
+{
 
     private WPI_TalonSRX intakeControlTop, intakeControlBottom, hinge; 
 

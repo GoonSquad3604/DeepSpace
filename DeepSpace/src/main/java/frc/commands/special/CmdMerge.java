@@ -7,10 +7,12 @@ public class CmdMerge implements AutonCommand
 
     //A command that runs several commands at the same time.
     private AutonCommand[] commands;
+    
     public CmdMerge(AutonCommand... commands)
     {
         this.commands = commands;
     }
+    
     @Override
     public boolean isFinished() {
         //Will return true if ALL of the merged commands are true. Else, returns false.

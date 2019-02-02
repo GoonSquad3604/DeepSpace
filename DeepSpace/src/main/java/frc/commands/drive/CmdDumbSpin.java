@@ -7,10 +7,12 @@ public class CmdDumbSpin implements AutonCommand
 {
     //Spins the bot dumbly. !!!ONLY FOR USE IN TESTS!!!s
     private DriveTrain drive;
+    
     public CmdDumbSpin(DriveTrain drive)
     {
         this.drive = drive;
     }
+    
     @Override
     public boolean isFinished() 
     {
