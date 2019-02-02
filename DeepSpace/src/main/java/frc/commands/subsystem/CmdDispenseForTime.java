@@ -6,9 +6,9 @@ import frc.subsystem.CargoManipulator;
 
 public class CmdDispenseForTime implements AutonCommand
 {
-    Timer timer;
-    CargoManipulator cargo;
-    double time;
+    private Timer timer;
+    private CargoManipulator cargo;
+    private double time;
 
     public CmdDispenseForTime(double time, CargoManipulator cargo)
     {

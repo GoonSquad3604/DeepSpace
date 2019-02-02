@@ -10,7 +10,7 @@ public class DriveTrain_SparkMAX extends DriveTrain
 
     private CANSparkMax leftFront, leftRear, rightFront, rightRear;
     
-    /***************/
+    /**************/
     /*Constructors*/
     /**************/
 

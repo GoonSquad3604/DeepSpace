@@ -9,9 +9,9 @@ import frc.subsystem.HatchManipulator;
 public class CmdToggleBeak implements AutonCommand
 {
     //The beak subsystem as an object.
-    HatchManipulator beak;
+    private HatchManipulator beak;
     //A boolean (true/false value) that specifies whether or not the beak is opening or closing.
-    boolean opening = false;
+    private boolean opening = false;
 
     /**This is the constructor.
      * The constructor is the method that "sets up" this object.

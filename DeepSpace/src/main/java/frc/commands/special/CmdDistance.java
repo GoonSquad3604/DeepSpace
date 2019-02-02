@@ -8,6 +8,7 @@
 package frc.commands.special;
 
 import frc.commands.AutonCommand;
+import frc.subsystem.drivetrain.DriveTrain;
 import frc.vision.Limelight;
 
 /**
@@ -17,14 +18,17 @@ public class CmdDistance implements AutonCommand
 {
 
     private Limelight limelight;
-
-    public CmdDistance(Limelight limelight){
+    private DriveTrain driveTrain;
+    private double desiredDistance;
+    public CmdDistance(Limelight limelight, DriveTrain driveTrain, double desiredDistance){
         this.limelight = limelight;
+        this.driveTrain = driveTrain;
+        this.desiredDistance = desiredDistance;
     }
 
     @Override
     public boolean isFinished() {
-        return true;
+        return true; //TODO
     }
 
     @Override

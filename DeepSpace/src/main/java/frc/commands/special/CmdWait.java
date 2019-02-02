@@ -7,8 +7,8 @@ public class CmdWait implements AutonCommand
 {
     
     //Just waits
-    Timer t;
-    double time;
+    private Timer t;
+    private double time;
     
     public CmdWait(double time)
     {

@@ -31,7 +31,7 @@ public class CmdTurnToAngle implements AutonCommand
     private double derivative = 0;
     private double previous_error = 0; 
     private Limelight lime;
-    double[] ypr = new double[3];
+    private double[] ypr = new double[3];
     private Timer correctTime;
     private boolean runningTimer = false;
 
