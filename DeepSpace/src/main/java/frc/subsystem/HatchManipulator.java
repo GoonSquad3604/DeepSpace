@@ -7,31 +7,35 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 public class HatchManipulator 
 {
 
-    private WPI_TalonSRX openClose, forwardBackwords;
+    private WPI_TalonSRX openClose, forwardBackwards;
     private boolean open = true;
 
-    public HatchManipulator(int openCloseID, int forwardBackwordsID)
+    public HatchManipulator(int openCloseID, int forwardBackwardsID)
     {
 
         openClose = new WPI_TalonSRX(openCloseID);
         openClose.setInverted(true);
-        forwardBackwords = new WPI_TalonSRX(forwardBackwordsID);
-        forwardBackwords.setInverted(true);
+        forwardBackwards = new WPI_TalonSRX(forwardBackwardsID);
+        forwardBackwards.setInverted(true);
 
     } 
 
+    //Opens the beak
     public void runOpen()
     {
-
-        openClose.set(0);
-
+        //TODO
     }
 
+    //Closes the beak
     public void runClose()
     {
+        //TODO
+    }
 
-        openClose.set(0);
-
+    //Tilts the manipulator?
+    public void moveForwardBackwards(double amount)
+    {
+        //TODO
     }
 
     public boolean getOpen()
@@ -43,10 +47,11 @@ public class HatchManipulator
     {
         this.open = b;
     }
-    
+
+    //@return the encoder position of the beak.
     public int getOpenCloseLocation()
     {
-        return openClose.getSelectedSensorPosition();
+        return 0;
     }
 
 }

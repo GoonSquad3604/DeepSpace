@@ -30,6 +30,8 @@ public abstract class DriveTrain extends DifferentialDrive
     public abstract void setRightPosition(double position);
     public abstract double getLeftPosition();
     public abstract double getRightPosition();
+    public abstract double getLeftInches();
+    public abstract double getRightInches();
     public abstract void resetDriveTrain();
     public abstract WPI_TalonSRX gyroTest();
 

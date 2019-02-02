@@ -48,7 +48,7 @@ public class DriveTrain_SparkMAX extends DriveTrain
     @Override
     public void setLeft(double value) 
     {
-
+        
     }
 
     @Override
@@ -72,13 +72,23 @@ public class DriveTrain_SparkMAX extends DriveTrain
     @Override
     public double getLeftPosition() 
     {
-        return 0;
+        return leftFront.getEncoder().getPosition();
     }
 
     @Override
     public double getRightPosition() 
     {
-        return 0;
+        return leftFront.getEncoder().getPosition();
+    }
+
+    @Override
+    public double getLeftInches() {
+        return getLeftPosition() / Constants.kPulsePerInch;
+    }
+
+    @Override
+    public double getRightInches() {
+        return getRightPosition() / Constants.kPulsePerInch;
     }
 
     @Override
@@ -92,9 +102,5 @@ public class DriveTrain_SparkMAX extends DriveTrain
     {
         return null;
 	}
-
-    
-
-    
 
 }

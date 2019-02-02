@@ -20,16 +20,20 @@ public class CargoManipulator
         hinge.setInverted(true);
 
     }
+
+    //Intakes cargo
     public void runIntake()
     {
         intakeControlTop.set(0.8);
         intakeControlBottom.set(0.8);
     }
 
+    //Dispenses cargo
     public void runDispense()
     {
         intakeControlTop.set(-0.8);
         intakeControlBottom.set(-0.8);
     }
 
+    //TODO Hinge-related stuff. Methods still need to be made.
 }
