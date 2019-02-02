@@ -88,6 +88,12 @@ public class Limelight
         return true;
     }
 
+    public void setPipeline(Number pipeline)
+    {
+        NetworkTableEntry pipe = table.getEntry("pipeline");
+        pipe.setNumber(pipeline);
+    }
+
     @Override
     public String toString()
     {

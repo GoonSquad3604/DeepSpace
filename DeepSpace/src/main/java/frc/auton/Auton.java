@@ -13,6 +13,7 @@ import frc.subsystem.drivetrain.DriveTrain;
 import frc.auton.exceptions.TooManyControllersException;
 import frc.auton.exceptions.UnsupportedSubsystemException;
 import frc.vision.Limelight;
+import frc.subsystem.*;
 
 public class Auton
 {
@@ -25,10 +26,34 @@ public class Auton
     private AutonCommand defaultCommand;
     private PigeonIMU gyro;
     private Limelight limelight;
+    private CargoManipulator cargo;
+    private HatchManipulator beak;
+    private Elevator elevator;
+    private Pillars pillars;
     
     public DriveTrain getDrive()
     {
         return drive;
+    }
+
+    public CargoManipulator getCargoManipulator()
+    {
+        return cargo;
+    }
+
+    public HatchManipulator getBeak()
+    {
+        return beak;
+    }
+
+    public Elevator getElevator()
+    {
+        return elevator;
+    }
+
+    public Pillars getPillars()
+    {
+        return pillars;
     }
 
     public XboxController getDriveStick()
@@ -93,6 +118,22 @@ public class Auton
             else if(subsystem instanceof Limelight)
             {
                 limelight = (Limelight)subsystem;
+            }
+            else if(subsystem instanceof HatchManipulator)
+            {
+                beak = (HatchManipulator)subsystem;
+            }
+            else if(subsystem instanceof CargoManipulator)
+            {
+                cargo = (CargoManipulator)subsystem;
+            }
+            else if(subsystem instanceof Elevator)
+            {
+                elevator = (Elevator)subsystem;
+            }
+            else if(subsystem instanceof Pillars)
+            {
+                pillars = (Pillars)subsystem;
             }
             else if(subsystem != null)
             {
