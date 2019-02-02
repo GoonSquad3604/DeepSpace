@@ -56,7 +56,10 @@ public class Constants
     /*Drive Train*/
     /*************/
 
-    public static final double kPulsePerInch = 51.0;
+    public static final double kRobotWidth = 0;
+    public static final double kWheelDiameter = 0;
+    public static final double kGearRatio = 10.12;
+    public static final double kPulsePerRevloution = kGearRatio * kWheelDiameter * Math.PI;
 
     public static final double kDt = 0;
     public static final double kVelocity = 0;
@@ -74,9 +77,6 @@ public class Constants
     public static final double kDriveD = 0;
     public static final double kVelocityRatio = 0;
     public static final double kAccelerationRatio = 0;
-
-    public static final double kRobotWidth = 0;
-    public static final double kWheelDiameter = 0;
 
     /*******/
     /*Auton*/

@@ -8,15 +8,12 @@
 package frc.robot;
 
 import com.ctre.phoenix.sensors.PigeonIMU;
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.auton.Auton;
 import frc.auton.BlankAuton;
 import frc.auton.DumbAuton;
-import frc.auton.TestAuton;
 import frc.subsystem.*;
 import frc.subsystem.drivetrain.*;
 import frc.vision.Limelight;
@@ -35,7 +32,7 @@ public class Robot extends TimedRobot
     @Override
     public void robotInit() 
     {
-        drive = new DriveTrain_SparkMAX(0,1,3,2);
+        drive = new DriveTrain_SparkMAX(0, 1, 3, 2);
         pigeon = new PigeonIMU(drive.gyroTest());
         driveStick = new XboxController(0);
         limelight = new Limelight("limelight");
@@ -58,7 +55,7 @@ public class Robot extends TimedRobot
     @Override
     public void autonomousInit() 
     {
-        runningAuton = new Auton(drive,driveStick,pigeon,limelight);
+        runningAuton = new Auton(drive, driveStick, pigeon, limelight);
         DumbAuton.addCommands(runningAuton);
         System.out.println("!!!! !!!!" + runningAuton.getSize());
     }
@@ -72,7 +69,7 @@ public class Robot extends TimedRobot
     @Override
     public void teleopInit() 
     {
-        runningAuton = new Auton(drive,driveStick,pigeon,limelight);
+        runningAuton = new Auton(drive, driveStick, pigeon, limelight);
         BlankAuton.addCommands(runningAuton);
     }
 
