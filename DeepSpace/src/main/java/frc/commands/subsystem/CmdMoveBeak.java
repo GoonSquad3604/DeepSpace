@@ -4,10 +4,16 @@ import frc.commands.AutonCommand;
 import frc.robot.Constants;
 import frc.subsystem.HatchManipulator;
 
+//If the beak is forward, this command will pull the beak.
+//If the beak is backwoards, this command will push the beak.
+
 public class CmdMoveBeak implements AutonCommand
 {
-
+ 
+    //A boolean (true/false value) that specifies whether or not the beak is opening or closing.
     private boolean forward = false;
+
+    //The beak subsystem as an object.
     private HatchManipulator beak;
 
     public CmdMoveBeak(HatchManipulator beak )

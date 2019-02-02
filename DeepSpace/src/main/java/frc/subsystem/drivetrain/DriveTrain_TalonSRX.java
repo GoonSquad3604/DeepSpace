@@ -78,6 +78,16 @@ public class DriveTrain_TalonSRX extends DriveTrain
     }
 
     @Override
+    public double getLeftInches() {
+        return 0;
+    }
+
+    @Override
+    public double getRightInches() {
+        return 0;
+    }
+
+    @Override
     public void resetDriveTrain() 
     {
         leftFront.configFactoryDefault(Constants.kTimeoutMs);
@@ -93,7 +103,4 @@ public class DriveTrain_TalonSRX extends DriveTrain
     }
 
     
-
-   
-
 }
