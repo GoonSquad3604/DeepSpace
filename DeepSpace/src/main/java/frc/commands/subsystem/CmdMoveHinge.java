@@ -33,6 +33,7 @@ public class CmdMoveHinge implements AutonCommand
         return 0;
     }
 
+    //The init method gets called right before the command begins executing.
     @Override
     public void init()
     {

@@ -92,6 +92,8 @@ public class Constants
     public static final int kOpenBeak = 0;
     public static final int kClosedBeak = 0;
     public static final int kReflectiveTapePipeline = 0;
+    public static final int KForwardBeak = 0;
+    public static final int KBackwardBeak = 0;
 
     /*********/
     /*Pillars*/
