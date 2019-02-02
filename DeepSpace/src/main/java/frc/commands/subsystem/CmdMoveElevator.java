@@ -4,11 +4,11 @@ import frc.commands.AutonCommand;
 import frc.robot.Constants;
 import frc.subsystem.Elevator;
 
+//Moves the elevator to a predefined height.
 public class CmdMoveElevator implements AutonCommand
 {
-    //Moves the elevator to a predefined height.
-    Elevator elevator;
-    double height;
+    private Elevator elevator;
+    private double height;
 
     public CmdMoveElevator(double height, Elevator elevator)
     {

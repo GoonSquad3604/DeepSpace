@@ -7,8 +7,9 @@ public class CmdMovePillarWheels implements AutonCommand
 {
 
     private Pillars pillars;
-    double distance;
-    public CmdMovePillarWheels(double distance, Pillars pillars)
+    private double distance;
+    private final double speed;
+    public CmdMovePillarWheels(double distance, double speed, Pillars pillars)
     {
         if(pillars == null)
         {
@@ -16,6 +17,7 @@ public class CmdMovePillarWheels implements AutonCommand
         }
         this.pillars = pillars;
         this.distance = distance;
+        this.speed = speed;
     }
     @Override
     public boolean isFinished() 
@@ -26,13 +28,13 @@ public class CmdMovePillarWheels implements AutonCommand
     @Override
     public void runTask() 
     {
-        pillars.moveWheels(distance);
+        pillars.moveWheels(speed);
     }
 
     @Override
     public double getStatus() 
     {
-        return 0;
+        return pillars.getDistance();
     }
 
     @Override

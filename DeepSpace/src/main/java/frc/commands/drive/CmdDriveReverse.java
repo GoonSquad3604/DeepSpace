@@ -7,8 +7,8 @@ import frc.subsystem.drivetrain.DriveTrain;
 public class CmdDriveReverse implements AutonCommand
 {
     //Drives the robot backwards based on a timer.
-    Timer t;
-    double time;
+    private Timer t;
+    private double time;
     private DriveTrain drive;
     
     public CmdDriveReverse(double time, DriveTrain drive)
