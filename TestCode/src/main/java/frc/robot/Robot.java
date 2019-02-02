@@ -34,6 +34,7 @@ public class Robot extends TimedRobot {
   private Spark elevator;
   private final int intakeId = 0;
   private final int hmId = 3;
+  private final int elevatorID = 1;//TODO
   private DifferentialDrive drive;
   private XboxController driveStick;
   /**
@@ -50,6 +51,7 @@ public class Robot extends TimedRobot {
     rightSlave = new CANSparkMax(33, MotorType.kBrushless);
     intake = new Spark(intakeId);
     hatchManipulator = new Spark(hmId);
+    elevator  = new Spark(elevatorID);
     driveStick = new XboxController(0);
     
     leftMain.setParameter(ConfigParameter.kRampRate, 1);
@@ -75,16 +77,16 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() 
   {
-    drive.arcadeDrive(0.8*driveStick.getRawAxis(1), 0.8*driveStick.getRawAxis(4));
+    drive.arcadeDrive(-0.8*driveStick.getRawAxis(1), 0.6*driveStick.getRawAxis(4));
     if(driveStick.getBumper(Hand.kLeft))
     {
       intake.set(1);
-      System.out.println("never gonna give you up");
+      System.out.println("never gonna run around");
     }
     else if(driveStick.getBumper(Hand.kRight))
     {
       intake.set(-1);
-      System.out.println("never gonna let you down");
+      System.out.println(" never gonna hurt you");
     }
     else
     {
@@ -103,6 +105,21 @@ public class Robot extends TimedRobot {
     else
     {
       hatchManipulator.set(0);
+    }
+
+    if(driveStick.getPOV()  == 0)
+    {
+      elevator.set(-0.5);
+      System.out.println("never gonna give you up");
+    }
+    else if(driveStick.getPOV() == 180)
+    {
+      elevator.set(0.5);
+      System.out.println("never gonna let you down");
+    }
+    else
+    {
+      elevator.set(0);
     }
   }
 

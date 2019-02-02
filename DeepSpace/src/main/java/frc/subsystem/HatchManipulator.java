@@ -21,37 +21,56 @@ public class HatchManipulator
     } 
 
     //Opens the beak
-    public void runOpen()
+    public void runOpen(double amount)
     {
-        //TODO
+
+        openClose.set(amount);
+    
     }
 
     //Closes the beak
-    public void runClose()
+    public void runClose(double amount)
     {
-        //TODO
+
+        openClose.set(amount);
+
     }
 
-    //Tilts the manipulator?
-    public void moveForwardBackwards(double amount)
+    //pushes the manipulator forwards
+    public void moveForward(double amount)
     {
-        //TODO
+
+        forwardBackwards.set(amount);
+
+    }
+    // pull's the manipulator back
+    public void moveBackwards(double amount)
+    {
+
+        forwardBackwards.set(amount);
+
     }
 
     public boolean getOpen()
     {
+
         return open;
+
     }
 
     public void setOpen(boolean b)
     {
+
         this.open = b;
+
     }
 
     //@return the encoder position of the beak.
-    public int getOpenCloseLocation()
+    public double getOpenCloseLocation()
     {
+
         return 0;
+
     }
 
 }
