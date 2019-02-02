@@ -1,10 +1,11 @@
 package frc.auton;
 
+import frc.commands.AutonCommand;
 import frc.commands.drive.*;
 import frc.commands.special.CmdDistance;
 import frc.commands.special.CmdMergeOnStatus;
+import frc.commands.subsystem.CmdDispenseForTime;
 import frc.commands.subsystem.CmdMoveElevator;
-import frc.commands.subsystem.CmdToggleBeak;
 
 public class CargoPlaceAuton
 {
@@ -16,7 +17,7 @@ public class CargoPlaceAuton
         auton.addCommand(new CmdMergeOnStatus(0,
             new CmdDistance(auton.getLimelight()),
             new CmdMoveElevator(0, auton.getElevator())));
-        auton.addCommand(new CmdToggleBeak(auton.getBeak()));
+        auton.addCommand(new CmdDispenseForTime( 0.2, auton.getCargoManipulator()));
         auton.addCommand(new CmdDriveReverse(0.5, auton.getDrive()));
 
     }
