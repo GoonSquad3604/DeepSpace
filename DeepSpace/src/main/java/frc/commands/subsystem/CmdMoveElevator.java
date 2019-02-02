@@ -9,6 +9,7 @@ public class CmdMoveElevator implements AutonCommand
     //Moves the elevator to a predefined height.
     Elevator elevator;
     double height;
+
     public CmdMoveElevator(double height, Elevator elevator)
     {
         this.height = height;
@@ -21,6 +22,7 @@ public class CmdMoveElevator implements AutonCommand
             this.elevator = elevator;
         }
     }
+    
     @Override
     public boolean isFinished() 
     {

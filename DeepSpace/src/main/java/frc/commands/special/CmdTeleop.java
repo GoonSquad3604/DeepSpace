@@ -9,7 +9,8 @@ import frc.auton.TestAuton;
 import frc.commands.AutonCommand;
 import frc.subsystem.drivetrain.*;
 
-public class CmdTeleop implements AutonCommand{
+public class CmdTeleop implements AutonCommand
+{
 
     //Runs when there is no command. Does Teleoperated Stuffs.
     private DriveTrain drive;
@@ -17,6 +18,7 @@ public class CmdTeleop implements AutonCommand{
     private XboxController operateStick;
     private Auton auton;
     private boolean running;
+    
     public CmdTeleop(DriveTrain drive, XboxController driveStick, XboxController operateStick, Auton auton)
     {
         this.driveStick = driveStick;
@@ -24,6 +26,7 @@ public class CmdTeleop implements AutonCommand{
         this.drive = drive;
         this.auton = auton;
     }
+    
     @Override
     public boolean isFinished() 
     {
@@ -34,23 +37,24 @@ public class CmdTeleop implements AutonCommand{
     public void runTask() 
     {
         drive.arcadeDrive(driveStick.getRawAxis(1),-driveStick.getRawAxis(4));
-        if(auton.getSize()==0)
+        if(auton.getSize() == 0 && running)
         {
-            if(driveStick.getAButtonPressed() && running)
+            //Run a command when A is pressed.
+            if(driveStick.getAButtonPressed())
             {
                 DumbAuton.addCommands(this.auton);
                 this.running = false;
                 this.end();
-                System.out.println("added to queue!");
             }
-            if(driveStick.getBButtonPressed() && running)
+            //Run a command when B is pressed.
+            if(driveStick.getBButtonPressed())
             {
                 TestAuton.addCommands(this.auton);
                 this.running = false;
                 this.end();
-                System.out.println("added to queue!");
             }
-            if(driveStick.getBumper(Hand.kLeft) && running)
+            //Run a command when the left bumper is pressed.
+            if(driveStick.getBumper(Hand.kLeft))
             {
                 
                 LockOnAuton.addCommands(this.auton);
@@ -80,10 +84,12 @@ public class CmdTeleop implements AutonCommand{
         driveStick.getXButtonPressed();
         driveStick.getYButtonPressed();
     }
+    
     public boolean getRunning()
     {
         return running;
     }
+    
     @Override
     public void end()
     {

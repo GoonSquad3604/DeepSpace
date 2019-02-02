@@ -18,8 +18,8 @@ import frc.vision.Limelight;
 /**
  * Add your docs here.
  */
-public class CmdTurnToAngle implements AutonCommand{
-
+public class CmdTurnToAngle implements AutonCommand
+{
 
     private DriveTrain driveTrain;
     private PigeonIMU gyro;
@@ -42,6 +42,7 @@ public class CmdTurnToAngle implements AutonCommand{
         this.gyro = gyro;
         correctTime = new Timer();
     }
+
     public CmdTurnToAngle(DriveTrain driveTrain, PigeonIMU gyro, Limelight lime)
     {
         this.driveTrain = driveTrain;
@@ -49,7 +50,9 @@ public class CmdTurnToAngle implements AutonCommand{
         this.gyro = gyro;
         this.lime = lime;
         correctTime = new Timer();
+        this.lime.setPipeline(Constants.kReflectiveTapePipeline);
     }
+
     @Override
     public boolean isFinished() {
         gyro.getYawPitchRoll(ypr);
@@ -87,7 +90,8 @@ public class CmdTurnToAngle implements AutonCommand{
     }
 
     @Override
-    public void init() {
+    public void init() 
+    {
         gyro.setYaw(0.0);
         gyro.getYawPitchRoll(ypr);
         if(lime != null)
@@ -96,7 +100,8 @@ public class CmdTurnToAngle implements AutonCommand{
         }
     }
 
-    public double PID(double targetAngle){ 
+    public double PID(double targetAngle)
+    { 
         double error = targetAngle - ypr[0]; // Error = Target - Actual
         integral += (error*.02); // Integral is increased by the error*time (which is .02 seconds using normal IterativeRobot)
         derivative = (error - previous_error) / .02;
