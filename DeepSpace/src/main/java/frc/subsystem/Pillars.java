@@ -3,11 +3,8 @@ package frc.subsystem;
 import com.ctre.phoenix.motorcontrol.IMotorController;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-<<<<<<< HEAD
 import com.revrobotics.CANSparkMax;
 
-=======
->>>>>>> 15b0a12c54659106286e423a2fdccd6e4ab447a8
 import frc.robot.Constants;
 import frc.subsystem.drivetrain.DriveTrain;
 import frc.subsystem.drivetrain.DriveTrain_TalonSRX;
@@ -59,8 +56,8 @@ public class Pillars {
     //Resets the pillar subsystem.
     public void reset()
     { //Fun
-     rearSide.getEncoder().reset;  
-     frontSide.getEncoder().reset;
+     //rearSide.Encoder.reset();
+     //frontSide.Encoder.reset();
     }
 
 }
