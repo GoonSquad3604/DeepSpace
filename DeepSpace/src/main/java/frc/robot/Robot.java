@@ -17,12 +17,14 @@ import frc.auton.DumbAuton;
 import frc.subsystem.*;
 import frc.subsystem.drivetrain.*;
 import frc.vision.Limelight;
+import static frc.robot.Constants.*;
 
 public class Robot extends TimedRobot 
 {
     
     private DriveTrain drive;
-    private XboxController driveStick; 
+    private XboxController driveStick;
+    private XboxController operateStick; 
     private Auton runningAuton;
     private PigeonIMU pigeon;
     private Limelight limelight;
@@ -31,19 +33,20 @@ public class Robot extends TimedRobot
     private Elevator elevator;
     private HatchManipulator beak;
     private double yaw;
-    private Object[] subSystems = {drive,driveStick,limelight,pigeon,pillars,cargo,elevator,beak};
+    private Object[] subSystems = {drive,driveStick,operateStick,limelight,pigeon,pillars,cargo,elevator,beak};
     
     @Override
     public void robotInit() 
     {
-        drive = new DriveTrain_SparkMAX(0, 1, 3, 2);
-        //pigeon = new PigeonIMU(drive.gyroTest());
+        drive = new DriveTrain_SparkMAX(kLeftFrontID, kLeftRearID, kRightFrontID, kRightRearID);
+        pigeon = new PigeonIMU(drive.gyroTest());
         driveStick = new XboxController(0);
+        operateStick = new XboxController(1);
         limelight = new Limelight("limelight");
-        cargo = new CargoManipulator(0,0,0);//TODO: Specify IDs
-        beak = new HatchManipulator(0,0);//TODO: Specify IDs
-        elevator = new Elevator(0,0);//TODO: Specify IDs
-        pillars = new Pillars(0,0,0);//TODO: Specify IDs
+        cargo = new CargoManipulator(kIntakeControlID,kHingeRightID,kHingeLeftID);
+        beak = new HatchManipulator(kHatchLeftRightID,kHatchForwardBackID);
+        elevator = new Elevator(kElevatorID,kElevatorSlaveID);
+        pillars = new Pillars(kPillarsLeft,kPillarsRight,kPillarWheels);//TODO: Specify IDs
     }
     
     @Override
@@ -63,9 +66,8 @@ public class Robot extends TimedRobot
     @Override
     public void autonomousInit() 
     {
-        runningAuton = new Auton(drive, driveStick, pigeon, limelight);
+        runningAuton = new Auton(subSystems);
         DumbAuton.addCommands(runningAuton);
-        System.out.println("!!!! !!!!" + runningAuton.getSize());
     }
 
     @Override
@@ -77,7 +79,7 @@ public class Robot extends TimedRobot
     @Override
     public void teleopInit() 
     {
-        runningAuton = new Auton(drive, driveStick, pigeon, limelight);
+        runningAuton = new Auton(subSystems);
         BlankAuton.addCommands(runningAuton);
     }
 
