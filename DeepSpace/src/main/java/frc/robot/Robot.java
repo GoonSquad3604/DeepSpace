@@ -26,16 +26,24 @@ public class Robot extends TimedRobot
     private Auton runningAuton;
     private PigeonIMU pigeon;
     private Limelight limelight;
+    private Pillars pillars;
+    private CargoManipulator cargo;
+    private Elevator elevator;
+    private HatchManipulator beak;
     private double yaw;
-    private Object[] subSystems = {drive,driveStick,limelight,pigeon};
+    private Object[] subSystems = {drive,driveStick,limelight,pigeon,pillars,cargo,elevator,beak};
     
     @Override
     public void robotInit() 
     {
         drive = new DriveTrain_SparkMAX(0, 1, 3, 2);
-        pigeon = new PigeonIMU(drive.gyroTest());
+        //pigeon = new PigeonIMU(drive.gyroTest());
         driveStick = new XboxController(0);
         limelight = new Limelight("limelight");
+        cargo = new CargoManipulator(0,0,0);//TODO: Specify IDs
+        beak = new HatchManipulator(0,0);//TODO: Specify IDs
+        elevator = new Elevator(0,0);//TODO: Specify IDs
+        pillars = new Pillars(0,0,0);//TODO: Specify IDs
     }
     
     @Override

@@ -10,7 +10,7 @@ public class DriveTrain_SparkMAX extends DriveTrain
 
     private CANSparkMax leftFront, leftRear, rightFront, rightRear;
     
-    /***************/
+    /**************/
     /*Constructors*/
     /**************/
 
@@ -83,12 +83,12 @@ public class DriveTrain_SparkMAX extends DriveTrain
 
     @Override
     public double getLeftInches() {
-        return getLeftPosition() / Constants.kPulsePerInch;
+        return getLeftPosition() * Constants.kInchesPerMotorRev;
     }
 
     @Override
     public double getRightInches() {
-        return getRightPosition() / Constants.kPulsePerInch;
+        return getRightPosition() * Constants.kInchesPerMotorRev;
     }
 
     @Override

@@ -59,11 +59,10 @@ public class Constants
     public static final double kRobotWidth = 0.0; //Meters
     public static final double kWheelDiameter = 6.0; //Inches
     public static final double kGearRatio = 10.12; //Number of motor revs per wheel rev
-    public static final double kPulsePerMotorRevolution = 42.0;
 
     //DO NOT CHANGE
     public static final double kWheelCircumference = kWheelDiameter * Math.PI;
-    public static final double kPulsePerInch = (kGearRatio * kPulsePerMotorRevolution) / kWheelCircumference;
+    public static final double kInchesPerMotorRev = kWheelCircumference / kGearRatio;
 
     public static final double kDt = 0;
     public static final double kVelocity = 0;
@@ -96,10 +95,13 @@ public class Constants
     public static final int kOpenBeak = 0;
     public static final int kClosedBeak = 0;
     public static final int kReflectiveTapePipeline = 0;
+    public static final int KForwardBeak = 0;
+    public static final int KBackwardBeak = 0;
 
     /*********/
     /*Pillars*/
     /*********/
+    
     public static final double kPillarWheelDistance = 0;
     public static final double kPillarHeight = 0;
     

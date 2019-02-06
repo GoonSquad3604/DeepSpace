@@ -9,9 +9,9 @@ import frc.subsystem.HatchManipulator;
 public class CmdToggleBeak implements AutonCommand
 {
     //The beak subsystem as an object.
-    HatchManipulator beak;
+    private HatchManipulator beak;
     //A boolean (true/false value) that specifies whether or not the beak is opening or closing.
-    boolean opening = false;
+    private boolean opening = false;
 
     /**This is the constructor.
      * The constructor is the method that "sets up" this object.
@@ -26,9 +26,6 @@ public class CmdToggleBeak implements AutonCommand
         }
         //Officially makes the beak object usable.
         this.beak = beak;
-        //Sets the opening value to the OPPOSITE (!) of the beak's current status.
-        //ie. If the beak is already open, "opening" is set to false.
-        opening = !beak.getOpen();
     }
     
     @Override
@@ -45,11 +42,11 @@ public class CmdToggleBeak implements AutonCommand
     {
         if(opening)
         {
-            beak.runOpen(); // Opens the beak if it started closed.
+            beak.runOpen(0.8); // Opens the beak if it started closed.
         }
         else
         {
-            beak.runClose();// Closes the beak if it started open.
+            beak.runClose(0.8);// Closes the beak if it started open.
         }
     }
 
@@ -64,6 +61,14 @@ public class CmdToggleBeak implements AutonCommand
     @Override
     public void init() 
     {
-
+        //Sets the opening value to the OPPOSITE (!) of the beak's current status.
+        //ie. If the beak is already open, "opening" is set to false.
+        opening = !beak.getOpen();
+    }
+    
+    @Override
+    public void end()
+    {
+        beak.setOpen(opening);  //Updates the current position of the beak.
     }
 }
