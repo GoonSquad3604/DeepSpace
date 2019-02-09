@@ -34,17 +34,12 @@ public class Robot extends TimedRobot
     @Override
     public void robotInit() 
     {
-        //drive = new DriveTrain_SparkMAX(kLeftFrontID, kLeftRearID, kRightFrontID, kRightRearID);
-        
-        //BUDDHA
-        drive = new DriveTrain_TalonSRX(kLeftFrontID, kLeftRearID, kRightFrontID, kRightRearID);
-        pigeon = new PigeonIMU(drive.gyroTest());
+        drive = new DriveTrain_SparkMAX(kLeftFrontID, kLeftRearID, kRightFrontID, kRightRearID);
+        pigeon = new PigeonIMU(0);
         driveStick = new XboxController(0);
         operateStick = new XboxController(1);
         limelight = new Limelight("limelight");
-
-        //For NOT Buddha bot
-        //addFinalBotSubsystems();
+        addFinalBotSubsystems();
     }
     
     @Override

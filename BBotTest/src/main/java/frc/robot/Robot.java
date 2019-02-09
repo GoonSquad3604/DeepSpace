@@ -60,6 +60,7 @@ public class Robot extends TimedRobot {
         rearPillar.setInverted(true);
 
         pillarDrive = new WPI_TalonSRX(3);
+        pillarDrive.setInverted(true);
 
         //elevator = new WPI_TalonSRX(3);
 
@@ -145,17 +146,12 @@ public class Robot extends TimedRobot {
       //   elevator.set(0);
       // }
 
-      if(driveStick.getTriggerAxis(Hand.kLeft) - driveStick.getTriggerAxis(Hand.kRight) > 0.1){
-        pillarDrive.set(-driveStick.getTriggerAxis(Hand.kLeft));
-      }
-      else if(driveStick.getTriggerAxis(Hand.kRight) - driveStick.getTriggerAxis(Hand.kLeft) > 0.1){
-        pillarDrive.set(driveStick.getTriggerAxis(Hand.kRight));
-      }
-      else{
-        pillarDrive.set(0);
-      }
+      
+      
+      pillarDrive.set(driveStick.getTriggerAxis(Hand.kRight));
+      
      
-      driveTrain.arcadeDrive(axis1, axis4);
+      driveTrain.arcadeDrive(axis1, -axis4);
 
     }
 

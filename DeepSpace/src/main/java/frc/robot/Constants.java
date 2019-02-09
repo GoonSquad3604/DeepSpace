@@ -19,8 +19,8 @@ public class Constants
 
     public static final int kLeftFrontID = 0;
     public static final int kLeftRearID = 1;
-    public static final int kRightFrontID = 3;
-    public static final int kRightRearID = 2;
+    public static final int kRightFrontID = 15;
+    public static final int kRightRearID = 14;
 
     public static final int kElevatorID = 0;
     public static final int kElevatorSlaveID = 0;
