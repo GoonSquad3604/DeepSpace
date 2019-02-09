@@ -41,7 +41,7 @@ public class CmdTeleop implements AutonCommand
         if(auton.getSize() == 0 && running)
         {
             //Run a command when A is pressed.
-           if(driveStick.getAButtonPressed())
+            if(driveStick.getAButtonPressed())
             {
                 HatchPlaceAuton.addCommands(this.auton);
                 this.running = false;
@@ -64,7 +64,6 @@ public class CmdTeleop implements AutonCommand
                 auton.initAuton();
                 System.out.println("added to queue! iygutdyetrdytrduurrr");
             }
-
         }
     }
 

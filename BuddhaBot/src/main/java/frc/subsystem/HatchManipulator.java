@@ -31,7 +31,6 @@ public class HatchManipulator
     }
 
 
-
     //pushes the manipulator forwards and pulls it back in back
     public void moveForwardBackwards(double amount)
     {
@@ -52,13 +51,13 @@ public class HatchManipulator
     //@return the encoder position of the blackLotus.
     public double getOpenCloseLocation()
     {
-        return openClose.getSelectedSensorPosition();
+        return 0;
     }
     
     //@return the encoder position of the  forward backwords blackLotus moter .
     public double getforwardBackwardsLocation()
     {
-        return forwardBackwards.getSelectedSensorPosition();
+        return 0;
     }
 
     public boolean getForward()
