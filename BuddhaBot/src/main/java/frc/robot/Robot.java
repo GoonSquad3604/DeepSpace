@@ -8,13 +8,19 @@
 package frc.robot;
 
 import com.ctre.phoenix.sensors.PigeonIMU;
+
+import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.AnalogOutput;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.auton.*;
 import frc.subsystem.*;
 import frc.subsystem.drivetrain.*;
 import frc.vision.Limelight;
+import frc.vision.Sonar;
 import static frc.robot.Constants.*;
 
 public class Robot extends TimedRobot 
@@ -30,7 +36,8 @@ public class Robot extends TimedRobot
     private CargoManipulator cargo;
     private Elevator elevator;
     private HatchManipulator blackLotus;
-    private double yaw;  
+    private double yaw;
+    private Sonar sonar;
     @Override
     public void robotInit() 
     {
@@ -42,7 +49,7 @@ public class Robot extends TimedRobot
         driveStick = new XboxController(0);
         operateStick = new XboxController(1);
         limelight = new Limelight("limelight");
-
+        sonar = new Sonar(0);
         //For NOT Buddha bot
         //addFinalBotSubsystems();
     }
@@ -53,7 +60,9 @@ public class Robot extends TimedRobot
         double[] ypr = new double[3];
         pigeon.getYawPitchRoll(ypr);
         yaw = ypr[0];
-        System.out.println("I EXIST!");
+        driveStick.setRumble(RumbleType.kLeftRumble,0);
+        driveStick.setRumble(RumbleType.kRightRumble,0);
+        System.out.println(sonar.getInches());
     } 
     
     public DifferentialDrive getDriveTrain()
@@ -64,7 +73,7 @@ public class Robot extends TimedRobot
     @Override
     public void autonomousInit() 
     {
-        runningAuton = new Auton(drive,driveStick,operateStick,pigeon,limelight);
+        runningAuton = new Auton(drive,driveStick,operateStick,pigeon,limelight,sonar);
         HatchPlaceAuton.addCommands(runningAuton);
     }
 
@@ -77,7 +86,7 @@ public class Robot extends TimedRobot
     @Override
     public void teleopInit() 
     {
-        runningAuton = new Auton(drive,driveStick,operateStick,pigeon,limelight);
+        runningAuton = new Auton(drive,driveStick,operateStick,pigeon,limelight,sonar);
         BlankAuton.addCommands(runningAuton);
     }
 
@@ -90,7 +99,6 @@ public class Robot extends TimedRobot
     @Override
     public void disabledPeriodic()
     {
-      
     }
 
     private void run()
@@ -103,6 +111,9 @@ public class Robot extends TimedRobot
         {
             runningAuton.runTeleop();
         }
+        
+        driveStick.setRumble(RumbleType.kLeftRumble,0);
+        driveStick.setRumble(RumbleType.kRightRumble,0);
     }
     private void addFinalBotSubsystems()
     {
