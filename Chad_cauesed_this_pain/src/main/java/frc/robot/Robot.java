@@ -9,6 +9,7 @@ package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.ConfigParameter;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
@@ -29,12 +30,16 @@ public class Robot extends TimedRobot {
   private CANSparkMax rightSlave; 
   private DifferentialDrive drive;
   private XboxController driveStick;
-  private TalonSRX elevatorRight;
-  private TalonSRX elevatorLeft;
-  private TalonSRX hindgeRight;
-  private TalonSRX hindgeLeft;
-  private TalonSRX intake;
-  private TalonSRX beak;
+  private XboxController operatorStick;
+  private WPI_TalonSRX elevatorRight;
+  private WPI_TalonSRX elevatorLeft;
+  private WPI_TalonSRX hindgeRight;
+  private WPI_TalonSRX hindgeLeft;
+  private WPI_TalonSRX intake;
+  private WPI_TalonSRX beak;
+  private CANSparkMax frontPiller;
+  private CANSparkMax backPiller;
+  private WPI_TalonSRX pillerWheels;
 
 
   @Override
@@ -42,24 +47,39 @@ public class Robot extends TimedRobot {
 
     leftMain = new CANSparkMax(0, MotorType.kBrushless);
     leftSlave = new CANSparkMax(1, MotorType.kBrushless);
-    rightMain = new CANSparkMax(3, MotorType.kBrushless);
-    rightSlave = new CANSparkMax(2, MotorType.kBrushless);
+    rightMain = new CANSparkMax(15, MotorType.kBrushless);
+    rightSlave = new CANSparkMax(14, MotorType.kBrushless);
+    
+    // elevatorRight = new WPI_TalonSRX(0);
+    // elevatorLeft = new WPI_TalonSRX(0);
+    
+    // hindgeRight = new WPI_TalonSRX(0);
+    // hindgeLeft = new WPI_TalonSRX(0);
+    // intake = new WPI_TalonSRX(0);
+    
+    // beak = new WPI_TalonSRX(0);
+    
+    frontPiller = new CANSparkMax(0, MotorType.kBrushless);
+    backPiller = new CANSparkMax(0, MotorType.kBrushless);
+    pillerWheels = new WPI_TalonSRX(3);
+    
     driveStick = new XboxController(0);
-    elevatorRight = new TalonSRX(0);
-    elevatorLeft = new TalonSRX(0);
-    hindgeRight = new TalonSRX(0);
-    hindgeRight = new TalonSRX(0);
-    hindgeRight = new TalonSRX(0);
-    beak = new TalonSRX(0);
+    operatorStick = new XboxController(1);
 
     leftMain.setParameter(ConfigParameter.kRampRate, 1);
     rightMain.setParameter(ConfigParameter.kRampRate, 1);
 		leftSlave.follow(leftMain);
     rightSlave.follow(rightMain);
-    elevatorLeft.follow(elevatorRight);
-    elevatorLeft.setInverted(true);
-    hindgeLeft.follow(hindgeRight);
-    hindgeLeft.setInverted(true);
+    rightMain.setInverted(true);
+    leftMain.setInverted(true);
+    
+    // elevatorLeft.follow(elevatorRight);
+    // elevatorLeft.setInverted(true);
+    
+    //hindgeLeft.follow(hindgeRight);
+    //hindgeLeft.setInverted(true);
+    
+    backPiller.setInverted(true);
 
     drive = new DifferentialDrive(leftMain,rightMain);
 
@@ -73,6 +93,7 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() 
   {
+
   }
   @Override
   public void autonomousPeriodic() 
@@ -85,97 +106,154 @@ public class Robot extends TimedRobot {
 
     drive.arcadeDrive(-0.8*driveStick.getRawAxis(1), 0.6*driveStick.getRawAxis(4));
 
-    if(driveStick.getBumper(Hand.kLeft))
+    if(operatorStick.getYButton())
     {
 
-      intake.set(ControlMode.PercentOutput, 1);
-      System.out.println("never gonna run around");
+      frontPiller.set(.05);
+      
 
     }
-    else if(driveStick.getBumper(Hand.kRight))
+    else if(operatorStick.getBButton()) 
     {
 
-      intake.set(ControlMode.PercentOutput, -1);
-      System.out.println(" never gonna hurt you");
+      frontPiller.set(-.05);
 
     }
     else
     {
 
-      intake.set(ControlMode.PercentOutput, .0);
+      frontPiller.set(0);
 
     }
 
-    if(driveStick.getBButton())
+    if(operatorStick.getAButton())
+    {
+
+      backPiller.set(.05);
+      
+    }
+    else if(operatorStick.getXButton()) 
+    {
+
+      backPiller.set(-.05);
+
+    }
+    else
+    {
+
+      backPiller.set(0);
+
+    }
+
+    if(operatorStick.getBumper(Hand.kLeft)){
+
+      backPiller.set(.05);
+      frontPiller.set(.05);
+
+    }
+    else if(operatorStick.getBumper(Hand.kRight))
+    {
+
+      backPiller.set(-.05);
+      frontPiller.set(-.05);
+
+    }
+    else
+    {
+
+      backPiller.set(0);
+      frontPiller.set(0);
+
+    }
+
+    if(operatorStick.getBackButton())
+    {
+
+      pillerWheels.set(.05);
+
+    }
+    else
+    {
+
+      pillerWheels.set(0);
+
+    }
+
+    // if(driveStick.getBumper(Hand.kLeft))
+    // {
+
+    //   intake.set(ControlMode.PercentOutput, 1);
+    //   System.out.println("never gonna run around");
+
+    // }
+    // else if(driveStick.getBumper(Hand.kRight))
+    // {
+
+    //   intake.set(ControlMode.PercentOutput, -1);
+    //   System.out.println(" never gonna hurt you");
+
+    // }
+    // else
+    // {
+
+    //   intake.set(ControlMode.PercentOutput, .0);
+
+    // }
+
+    /*if(operatorStick.getBButton())
     {
 
       beak.set(ControlMode.PercentOutput, .05);
 
     }
-
-    else if(driveStick.getYButton())
+    else if(operatorStick.getYButton())
     {
 
 
       beak.set(ControlMode.PercentOutput, -.05);
 
     }
-
     else
     {
 
       beak.set(ControlMode.PercentOutput, .0);
 
+    }*/
+
+
+    // if(driveStick.getXButton())
+    // {
+
+    //   hindgeRight.set(ControlMode.PercentOutput, .05);
+
+    // }
+    // else if(driveStick.getAButton())
+    // {
+
+    //   hindgeRight.set(ControlMode.PercentOutput, -.05);
+
+    // }
+    // else
+    // {
+
+    //   hindgeRight.set(ControlMode.PercentOutput, .0);
+
+    // }
+
+    // elevatorRight.set(operatorStick.getRawAxis(1)*.3);
+  
+    //   if(operatorStick.getRawAxis(1) >0)
+    //   {
+    //     System.out.println("never gonna give you up");
+    //   }
+    //   else if(operatorStick.getRawAxis(1) < 0)
+    //   {
+    //     System.out.println("never gonna let you down");
+    //   }
+
+      
     }
-
-
-    if(driveStick.getXButton())
-    {
-
-      hindgeRight.set(ControlMode.PercentOutput, .05);
-
-    }
-    else if(driveStick.getAButton())
-    {
-
-      hindgeRight.set(ControlMode.PercentOutput, -.05);
-
-    }
-    else
-    {
-
-      hindgeRight.set(ControlMode.PercentOutput, .0);
-
-    }
-
-    if(driveStick.getPOV()  == 0)
-    {
-
-      elevatorRight.set(ControlMode.PercentOutput, .4);
-      System.out.println("never gonna give you up");
-      elevatorRight.getSelectedSensorPosition();
-      elevatorLeft.getSelectedSensorPosition();
-
-    }
-    else if(driveStick.getPOV() == 180)
-    {
-
-      elevatorRight.set(ControlMode.PercentOutput, -.4);
-      System.out.println("never gonna let you down");
-      elevatorRight.getSelectedSensorPosition();
-      elevatorLeft.getSelectedSensorPosition();
-
-    }
-
-    else
-    {
-
-      elevatorRight.set(ControlMode.PercentOutput, .0);
-      elevatorRight.getSelectedSensorPosition();
-      elevatorLeft.getSelectedSensorPosition();
-
-    }
-  }
+   
   @Override
   public void testPeriodic() 
   {

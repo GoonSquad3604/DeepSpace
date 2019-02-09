@@ -111,6 +111,7 @@ public class Robot extends TimedRobot {
     {
       elevator.set(-0.5);
       System.out.println("never gonna give you up");
+      
     }
     else if(driveStick.getPOV() == 180)
     {
