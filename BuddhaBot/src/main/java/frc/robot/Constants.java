@@ -81,8 +81,8 @@ public class Constants
     public static final double kJerk = 0;
 
     //Turn PID
-    public static final double kTurnP = 0.08;
-    public static final double kTurnI = 0.0;
+    public static final double kTurnP = 0.07;
+    public static final double kTurnI = 0.1;
     public static final double kTurnD = 0.0;
 
     //Drive PID
@@ -97,7 +97,7 @@ public class Constants
     /*******/
 
     public static final double kTurnError = 1.0; //Acceptable error (degrees) before ending turn
-
+    public static final double kDistanceError = 1;
     /**********/
     /*Commands*/
     /**********/
