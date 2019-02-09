@@ -31,6 +31,7 @@ public class HatchManipulator
     }
 
 
+
     //pushes the manipulator forwards and pulls it back in back
     public void moveForwardBackwards(double amount)
     {
@@ -51,13 +52,13 @@ public class HatchManipulator
     //@return the encoder position of the beak.
     public double getOpenCloseLocation()
     {
-        return 0;
+        return openClose.getSelectedSensorPosition();
     }
     
     //@return the encoder position of the  forward backwords beak moter .
     public double getforwardBackwardsLocation()
     {
-        return 0;
+        return forwardBackwards.getSelectedSensorPosition();
     }
 
     public boolean getForward()

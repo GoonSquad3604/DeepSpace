@@ -18,7 +18,7 @@ public class CmdMoveHinge implements AutonCommand
     @Override
     public boolean isFinished() 
     {
-        return Math.abs(cargo.getHingeLocation()) >= Math.abs(amount);
+        return Math.abs(cargo.getHingeLeftLocation()) >= Math.abs(amount) && Math.abs(cargo.getHingeRightLocation()) >= Math.abs(amount);
     }
 
     @Override
