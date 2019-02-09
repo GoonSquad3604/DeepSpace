@@ -35,11 +35,11 @@ public class CmdTurnToAngle implements AutonCommand
     private Timer correctTime;
     private boolean runningTimer = false;
 
-    public CmdTurnToAngle(DriveTrain driveTrain, PigeonIMU gyro, double targetAngle)
+    public CmdTurnToAngle(DriveTrain iDriveTrain, PigeonIMU iGyro, double iTargetAngle)
     {
-        this.driveTrain = driveTrain;
-        this.targetAngle = targetAngle;
-        this.gyro = gyro;
+        driveTrain = iDriveTrain;
+        targetAngle = iTargetAngle;
+        gyro = iGyro;
         correctTime = new Timer();
     }
 
@@ -56,31 +56,36 @@ public class CmdTurnToAngle implements AutonCommand
     @Override
     public boolean isFinished() {
         gyro.getYawPitchRoll(ypr);
-        if((Math.abs(targetAngle) - Math.abs(ypr[0]) < Constants.kTurnError))
+        if(Math.abs(Math.abs(targetAngle) - Math.abs(ypr[0])) < Constants.kTurnError)
         {
             if(!runningTimer)
             {
                 correctTime.start();
                 runningTimer = true;
             }
-            else if(correctTime.get()>.2)
+            if(correctTime.get()>0.5)
             {
                 return true;
             }
         }
-        else if(runningTimer)
+        else
         {
             runningTimer = false;
             correctTime.reset();
             correctTime.stop();
         }
-        return false;
+        return !lime.doesTargetExist();
     }
 
     @Override
     public void runTask() {
         gyro.getYawPitchRoll(ypr);
-        driveTrain.arcadeDrive(0, PID(-targetAngle));
+        double drive = -0.0;
+        if(Math.abs(PID(-targetAngle))>0.6)
+        {
+            drive = 0;
+        }
+        driveTrain.arcadeDrive(drive, PID(-targetAngle));
     }
 
     @Override
@@ -92,7 +97,7 @@ public class CmdTurnToAngle implements AutonCommand
     @Override
     public void init() 
     {
-        gyro.setYaw(0.0);
+        gyro.setYaw(0.0,Constants.kTimeoutMs);
         gyro.getYawPitchRoll(ypr);
         if(lime != null)
         {

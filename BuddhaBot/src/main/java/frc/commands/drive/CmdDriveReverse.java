@@ -11,11 +11,11 @@ public class CmdDriveReverse implements AutonCommand
     private double time;
     private DriveTrain drive;
     
-    public CmdDriveReverse(double time, DriveTrain drive)
+    public CmdDriveReverse(double iTime, DriveTrain iDrive)
     {
         t = new Timer();
-        this.time = time;
-        this.drive = drive;
+        time = iTime;
+        drive = iDrive;
 
     }
     

@@ -19,11 +19,11 @@ public class CmdMoveToWaypoint implements AutonCommand
     private TankModifier modifier;
     private Trajectory trajectory;
 
-    public CmdMoveToWaypoint(DriveTrain drive, Waypoint... waypoints)
+    public CmdMoveToWaypoint(DriveTrain iDrive, Waypoint... iWaypoints)
     {
-        this.waypoints = waypoints;
-        this.drive = drive;
-        generateTrajectory(this.waypoints);
+        waypoints = iWaypoints;
+        drive = iDrive;
+        generateTrajectory(waypoints);
     }
 
     @Override

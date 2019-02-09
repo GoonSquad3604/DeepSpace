@@ -5,31 +5,31 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.commands.special;
+package frc.commands.drive;
 
 import frc.commands.AutonCommand;
 import frc.subsystem.drivetrain.DriveTrain;
-import frc.vision.Limelight;
+import frc.vision.Sonar;
 import static frc.robot.Constants.*;
 
 /**
  * Add your docs here.
  */
-public class CmdDistance implements AutonCommand
+public class CmdDriveSonar implements AutonCommand
 {
 
-    private Limelight limelight;
+    private Sonar sonar;
     private DriveTrain driveTrain;
     private double desiredDistance;
-    public CmdDistance(double desiredDistance, Limelight limelight, DriveTrain driveTrain){
-        this.limelight = limelight;
-        this.driveTrain = driveTrain;
-        this.desiredDistance = desiredDistance;
+    public CmdDriveSonar(double iDesiredDistance, Sonar iSonar, DriveTrain iDriveTrain){
+        sonar = iSonar;
+        driveTrain = iDriveTrain;
+        desiredDistance = iDesiredDistance;
     }
 
     @Override
     public boolean isFinished() {
-        return !limelight.doesTargetExist() || Math.abs(Math.abs(distance(limelight.getTargetArea())) - Math.abs(desiredDistance)) < kDistanceError;
+        return Math.abs(Math.abs(sonar.getInches() - Math.abs(desiredDistance))) < kDistanceError;
     }
 
     @Override
@@ -39,16 +39,12 @@ public class CmdDistance implements AutonCommand
 
     @Override
     public double getStatus() {
-        return distance(limelight.getTargetArea());
+        return sonar.getInches();
     }
 
     @Override
     public void init() {
 
-    }
-
-    private double distance(double area){
-        return 113.67*Math.pow((0.6385),area);
     }
 
 }

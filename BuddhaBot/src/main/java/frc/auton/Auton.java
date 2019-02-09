@@ -13,6 +13,7 @@ import frc.subsystem.drivetrain.DriveTrain;
 import frc.auton.exceptions.TooManyControllersException;
 import frc.auton.exceptions.UnsupportedSubsystemException;
 import frc.vision.Limelight;
+import frc.vision.Sonar;
 import frc.subsystem.*;
 
 public class Auton
@@ -30,6 +31,7 @@ public class Auton
     private HatchManipulator blackLotus;
     private Elevator elevator;
     private Pillars pillars;
+    private Sonar sonar;
     
     public DriveTrain getDrive()
     {
@@ -55,7 +57,10 @@ public class Auton
     {
         return pillars;
     }
-
+    public Sonar getSonar()
+    {
+        return sonar;
+    }
     public XboxController getDriveStick()
     {
         return driveStick;
@@ -135,6 +140,10 @@ public class Auton
             {
                 pillars = (Pillars)subsystem;
             }
+            else if(subsystem instanceof Sonar)
+            {
+                sonar = (Sonar)subsystem;
+            }
             else if(subsystem != null)
             {
                 throw new UnsupportedSubsystemException(subsystem);  //HELP! I DON'T KNOW WHAT SUBSYSTEM THIS IS!!!
@@ -179,6 +188,10 @@ public class Auton
                 autonQueue.clear();
             }
         }
+        double[] ypr = new double[3];
+        gyro.getYawPitchRoll(ypr);
+        double yaw = ypr[0];
+        System.out.println("angle " + yaw);
     }
 
     public void runTeleop()
@@ -207,6 +220,7 @@ public class Auton
     protected void addCommand(AutonCommand command)
     {
         autonQueue.add(command);
+        initted = false;
     }
 
     //Called once at the beginning of auton.

@@ -12,12 +12,12 @@ public class CmdDriveTime implements AutonCommand
     private double time;
     private DriveTrain drive;
     
-    public CmdDriveTime(double time, DriveTrain drive)
+    public CmdDriveTime(double iTime, DriveTrain iDrive)
     {
         t = new Timer();
         t.start();
-        this.time = time;
-        this.drive = drive;
+        time = iTime;
+        drive = iDrive;
     }
 
     @Override
@@ -36,7 +36,7 @@ public class CmdDriveTime implements AutonCommand
 
     @Override
     public void runTask() {
-        drive.arcadeDrive(-0.4,0);
+        drive.arcadeDrive(-0.35,0);
     }
 
     @Override

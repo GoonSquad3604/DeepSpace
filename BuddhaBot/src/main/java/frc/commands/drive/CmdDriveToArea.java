@@ -30,7 +30,7 @@ public class CmdDriveToArea implements AutonCommand
 
     @Override
     public boolean isFinished() {
-        return Math.abs(limelight.getTargetArea()-desiredArea) <= 1;
+        return (Math.abs(limelight.getTargetArea()-desiredArea) <= 1) || !limelight.doesTargetExist();
     }
 
     @Override
