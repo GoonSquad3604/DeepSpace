@@ -35,7 +35,7 @@ public class Robot extends TimedRobot {
   private WPI_TalonSRX elevatorLeft;
   private WPI_TalonSRX hindgeRight;
   private WPI_TalonSRX hindgeLeft;
-  private WPI_TalonSRX intake;
+  private WPI_TalonSRX ballIntake;
   private WPI_TalonSRX beak;
   private CANSparkMax frontPiller;
   private CANSparkMax backPiller;
@@ -50,18 +50,18 @@ public class Robot extends TimedRobot {
     rightMain = new CANSparkMax(15, MotorType.kBrushless);
     rightSlave = new CANSparkMax(14, MotorType.kBrushless);
     
-    // elevatorRight = new WPI_TalonSRX(0);
-    // elevatorLeft = new WPI_TalonSRX(0);
+    // elevatorRight = new WPI_TalonSRX(5);
+    // elevatorLeft = new WPI_TalonSRX(6);
     
-    // hindgeRight = new WPI_TalonSRX(0);
-    // hindgeLeft = new WPI_TalonSRX(0);
-    // intake = new WPI_TalonSRX(0);
+    // hindgeRight = new WPI_TalonSRX(7);
+    // hindgeLeft = new WPI_TalonSRX(8);
+    // ballIntake = new WPI_TalonSRX(3);
     
-    // beak = new WPI_TalonSRX(0);
+    // beak = new WPI_TalonSRX(9);
     
-    frontPiller = new CANSparkMax(0, MotorType.kBrushless);
-    backPiller = new CANSparkMax(0, MotorType.kBrushless);
-    pillerWheels = new WPI_TalonSRX(3);
+    frontPiller = new CANSparkMax(12, MotorType.kBrushless);
+    backPiller = new CANSparkMax(13, MotorType.kBrushless);
+    pillerWheels = new WPI_TalonSRX(2);
     
     driveStick = new XboxController(0);
     operatorStick = new XboxController(1);
@@ -72,6 +72,8 @@ public class Robot extends TimedRobot {
     rightSlave.follow(rightMain);
     rightMain.setInverted(true);
     leftMain.setInverted(true);
+
+    pillerWheels.setInverted(true);
     
     // elevatorLeft.follow(elevatorRight);
     // elevatorLeft.setInverted(true);
@@ -104,58 +106,42 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() 
   {
 
-    drive.arcadeDrive(-0.8*driveStick.getRawAxis(1), 0.6*driveStick.getRawAxis(4));
+    drive.arcadeDrive(0.8*driveStick.getRawAxis(1), 0.7*driveStick.getRawAxis(4));
 
-    if(operatorStick.getYButton())
+    if(driveStick.getYButton())
     {
 
       frontPiller.set(.05);
-      
+      backPiller.set(0);
 
     }
-    else if(operatorStick.getBButton()) 
+    else if(driveStick.getBButton()) 
     {
 
       frontPiller.set(-.05);
+      backPiller.set(0);
 
     }
     else
     {
 
       frontPiller.set(0);
-
-    }
-
-    if(operatorStick.getAButton())
-    {
-
-      backPiller.set(.05);
-      
-    }
-    else if(operatorStick.getXButton()) 
-    {
-
-      backPiller.set(-.05);
-
-    }
-    else
-    {
-
       backPiller.set(0);
 
     }
 
-    if(operatorStick.getBumper(Hand.kLeft)){
+    if(driveStick.getAButton())
+    {
 
       backPiller.set(.05);
-      frontPiller.set(.05);
-
+      frontPiller.set(0);
+      
     }
-    else if(operatorStick.getBumper(Hand.kRight))
+    else if(driveStick.getXButton()) 
     {
 
       backPiller.set(-.05);
-      frontPiller.set(-.05);
+      frontPiller.set(0);
 
     }
     else
@@ -166,51 +152,70 @@ public class Robot extends TimedRobot {
 
     }
 
-    if(operatorStick.getBackButton())
+    if(driveStick.getBumper(Hand.kLeft))
     {
 
-      pillerWheels.set(.05);
+      backPiller.set(.05);
+      frontPiller.set(.05);
+
+    }
+    else if(driveStick.getBumper(Hand.kRight))
+    {
+
+      backPiller.set(-.05);
+      frontPiller.set(-.05);
 
     }
     else
     {
 
+      backPiller.set(0);
+      frontPiller.set(0);
+
+    }
+
+    if(operatorStick.getTriggerAxis(Hand.kLeft) - driveStick.getTriggerAxis(Hand.kRight) > 0.1){
+      pillerWheels.set(-driveStick.getTriggerAxis(Hand.kLeft));
+    }
+    else if(operatorStick.getTriggerAxis(Hand.kRight) - driveStick.getTriggerAxis(Hand.kLeft) > 0.1){
+      pillerWheels.set(driveStick.getTriggerAxis(Hand.kRight));
+    }
+    else{
       pillerWheels.set(0);
-
     }
 
-    // if(driveStick.getBumper(Hand.kLeft))
+    // if(operatorStick.getBumper(Hand.kLeft))
     // {
 
-    //   intake.set(ControlMode.PercentOutput, 1);
+    //   ballIntake.set(ControlMode.PercentOutput, 1);
     //   System.out.println("never gonna run around");
 
     // }
-    // else if(driveStick.getBumper(Hand.kRight))
+    // else if(operatorStick.getBumper(Hand.kRight))
     // {
 
-    //   intake.set(ControlMode.PercentOutput, -1);
+    //   ballIntake.set(ControlMode.PercentOutput, -1);
     //   System.out.println(" never gonna hurt you");
 
     // }
     // else
     // {
 
-    //   intake.set(ControlMode.PercentOutput, .0);
+    //   ballIntake.set(ControlMode.PercentOutput, .0);
 
     // }
 
     /*if(operatorStick.getBButton())
     {
 
-      beak.set(ControlMode.PercentOutput, .05);
+      beak.set(.05);
 
     }
     else if(operatorStick.getYButton())
     {
 
 
-      beak.set(ControlMode.PercentOutput, -.05);
+      beak.set(-.05);
 
     }
     else
@@ -221,13 +226,13 @@ public class Robot extends TimedRobot {
     }*/
 
 
-    // if(driveStick.getXButton())
+    // if(operatorStick.getXButton())
     // {
 
     //   hindgeRight.set(ControlMode.PercentOutput, .05);
 
     // }
-    // else if(driveStick.getAButton())
+    // else if(operatorStick.getAButton())
     // {
 
     //   hindgeRight.set(ControlMode.PercentOutput, -.05);
