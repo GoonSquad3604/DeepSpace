@@ -27,7 +27,7 @@ public class Auton
     private PigeonIMU gyro;
     private Limelight limelight;
     private CargoManipulator cargo;
-    private HatchManipulator beak;
+    private HatchManipulator blackLotus;
     private Elevator elevator;
     private Pillars pillars;
     
@@ -41,9 +41,9 @@ public class Auton
         return cargo;
     }
 
-    public HatchManipulator getBeak()
+    public HatchManipulator getLotus()
     {
-        return beak;
+        return blackLotus;
     }
 
     public Elevator getElevator()
@@ -121,7 +121,7 @@ public class Auton
             }
             else if(subsystem instanceof HatchManipulator)
             {
-                beak = (HatchManipulator)subsystem;
+                blackLotus = (HatchManipulator)subsystem;
             }
             else if(subsystem instanceof CargoManipulator)
             {
