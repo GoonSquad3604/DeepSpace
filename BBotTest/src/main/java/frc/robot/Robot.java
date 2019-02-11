@@ -59,7 +59,7 @@ public class Robot extends TimedRobot {
         rearPillar = new CANSparkMax(13, MotorType.kBrushless);
         rearPillar.setInverted(true);
 
-        pillarDrive = new WPI_TalonSRX(3);
+        pillarDrive = new WPI_TalonSRX(2);
         pillarDrive.setInverted(true);
 
         //elevator = new WPI_TalonSRX(3);
