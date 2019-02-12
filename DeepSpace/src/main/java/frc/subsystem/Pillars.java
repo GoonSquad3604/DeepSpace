@@ -1,53 +1,75 @@
 package frc.subsystem;
 
+import com.ctre.phoenix.motorcontrol.IMotorController;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import frc.robot.Constants;
+import com.revrobotics.CANSparkMax;
 
-public class Pillars 
-{
+import static frc.robot.Constants.*;
+import frc.subsystem.drivetrain.DriveTrain;
+import frc.subsystem.drivetrain.DriveTrain_TalonSRX;
 
-    private WPI_TalonSRX rightSide, leftSide, wheels;
+import static frc.robot.Constants.*;
 
-    public Pillars(int rightSideID, int leftSideID, int wheelsID)
-    {
-        rightSide = new WPI_TalonSRX(rightSideID);
-        rightSide.setInverted(true);
-        leftSide = new WPI_TalonSRX(leftSideID);
-        leftSide.setInverted(true);
+public class Pillars {
+
+    private WPI_TalonSRX  wheels;
+    private CANSparkMax frontSide, rearSide;
+    public Pillars(int frontSideID, int rearSideID, int wheelsID) {
+        frontSide = new CANSparkMax(frontSideID,com.revrobotics.CANSparkMaxLowLevel.MotorType.kBrushless);
+        frontSide.setInverted(true);
+        rearSide = new CANSparkMax(rearSideID,com.revrobotics.CANSparkMaxLowLevel.MotorType.kBrushless);
+        rearSide.setInverted(true);
         wheels = new WPI_TalonSRX(wheelsID);
         wheels.setInverted(false);
     }
 
-    //Moves the wheels to a specific distance.
-    public void moveWheels(double distance)
+    // Moves the wheels to a specific speed.
+    public void moveWheels(double speed) 
     {
-        //TODO
+        wheels.set(speed);    
     }
-    //Sets the pillars themselves to a specific height.
-    public void setPillars(double height)
+    
+    //Sets the pillars themselves to a specific speed.
+    public void setPillars(double speed)
     {
-        //TODO
+      frontSide.set(speed);
+      rearSide.set(speed);  
+    }
+    public void setFrontPillar(double speed)
+    {
+        frontSide.set(speed);
+    }
+    public void setRearPillar(double speed)
+    {
+        rearSide.set(speed);
+    }
+    public double getHeight()
+    {
+        return (Math.abs(frontSide.getEncoder().getPosition()) + Math.abs(rearSide.getEncoder().getPosition())) / 2;
+    }
+    public double getDistance()
+    {
+        return 0;//wheels.getSelectedSensorPosition() * kPulsesPerInchPillarWheels;
     }
 
     //@return the distance the pillars have travelled.
-    public double getDistance()
-    {
-        //TODO
-        return 0;
-    }
 
     //@return the height of the pillars 
-    public double getHeight()
+    public double getFrontHeight()
     {
-        //TODO
-        return 0;
+        return frontSide.getEncoder().getPosition();
+    }
+    public double getRearHeight()
+    {
+        return rearSide.getEncoder().getPosition();
     }
 
     //Resets the pillar subsystem.
     public void reset()
-    {
-        //TODO
+    { //Fun
+     //rearSide.Encoder.reset();
+     //frontSide.Encoder.reset();
     }
 
 }

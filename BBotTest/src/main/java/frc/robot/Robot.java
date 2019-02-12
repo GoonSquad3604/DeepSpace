@@ -38,6 +38,7 @@ public class Robot extends TimedRobot {
     WPI_TalonSRX elevatorRight;
 
     XboxController driveStick;
+    XboxController operatorStick;
 
     DifferentialDrive driveTrain;
 
@@ -59,13 +60,17 @@ public class Robot extends TimedRobot {
         rearPillar = new CANSparkMax(13, MotorType.kBrushless);
         rearPillar.setInverted(true);
 
-        pillarDrive = new WPI_TalonSRX(3);
+        pillarDrive = new WPI_TalonSRX(2);
+        pillarDrive.setInverted(true);
 
-        //elevator = new WPI_TalonSRX(3);
+        elevatorLeft = new WPI_TalonSRX(6);
+        elevatorLeft.setInverted(true);
+        elevatorRight = new WPI_TalonSRX(5);
 
         driveTrain = new DifferentialDrive(leftMain, rightMain);
 
         driveStick = new XboxController(0);
+        operatorStick = new XboxController(1);
 
 
     }
@@ -106,27 +111,27 @@ public class Robot extends TimedRobot {
         axis4 = 0.0;
       }
 
-      if(driveStick.getPOV() == 0){
+      if(operatorStick.getPOV() == 0){
         frontPillar.set(0.5);
         rearPillar.set(0.5);
       }
-      else if(driveStick.getPOV() == 180){
+      else if(operatorStick.getPOV() == 180){
         frontPillar.set(-0.5);
         rearPillar.set(-0.5);
       }
-      else if(driveStick.getAButton()){
+      else if(operatorStick.getAButton()){
         frontPillar.set(0);
         rearPillar.set(-0.5);
       }
-      else if(driveStick.getBButton()){
+      else if(operatorStick.getBButton()){
         frontPillar.set(0);
         rearPillar.set(0.5);
       }
-      else if(driveStick.getXButton()){
+      else if(operatorStick.getXButton()){
         frontPillar.set(-0.5);
         rearPillar.set(0);
       }
-      else if(driveStick.getYButton()){
+      else if(operatorStick.getYButton()){
         frontPillar.set(0.5);
         rearPillar.set(0);
       }
@@ -135,27 +140,25 @@ public class Robot extends TimedRobot {
         rearPillar.set(0);
       }
 
-      // if(driveStick.getBumper(Hand.kLeft)){
-      //   elevator.set(0.5);
-      // }
-      // else if(driveStick.getBumper(Hand.kRight)){
-      //   elevator.set(-0.5);
-      // }
-      // else{
-      //   elevator.set(0);
-      // }
-
-      if(driveStick.getTriggerAxis(Hand.kLeft) - driveStick.getTriggerAxis(Hand.kRight) > 0.1){
-        pillarDrive.set(-driveStick.getTriggerAxis(Hand.kLeft));
+      if(operatorStick.getBumper(Hand.kLeft)){
+        elevatorLeft.set(-0.5);
+        elevatorRight.set(-0.5);
       }
-      else if(driveStick.getTriggerAxis(Hand.kRight) - driveStick.getTriggerAxis(Hand.kLeft) > 0.1){
-        pillarDrive.set(driveStick.getTriggerAxis(Hand.kRight));
+      else if(operatorStick.getBumper(Hand.kRight)){
+        elevatorLeft.set(1);
+        elevatorRight.set(1);
       }
       else{
-        pillarDrive.set(0);
+        elevatorLeft.set(0);
+        elevatorRight.set(0);
       }
+
+      
+      
+      pillarDrive.set(driveStick.getTriggerAxis(Hand.kRight));
+      
      
-      driveTrain.arcadeDrive(axis1, axis4);
+      driveTrain.arcadeDrive(axis1, -axis4);
 
     }
 

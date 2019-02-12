@@ -1,7 +1,7 @@
 package frc.commands.subsystem;
 
 import frc.commands.AutonCommand;
-import frc.robot.Constants;
+import static frc.robot.Constants.*;
 import frc.subsystem.HatchManipulator;
 
 //If the blackLotus is forward, this command will pull the blackLotus.
@@ -30,8 +30,8 @@ public class CmdMoveLotus implements AutonCommand
 
     @Override
     public boolean isFinished() {
-         return(forward && blackLotus.getforwardBackwardsLocation() > Constants.KForwardBeak)
-        ||(!forward && blackLotus.getforwardBackwardsLocation() < Constants.KBackwardBeak);
+         return(forward && blackLotus.getforwardBackwardsLocation() > KForwardBeak)
+        ||(!forward && blackLotus.getforwardBackwardsLocation() < KBackwardBeak);
 
     }
 
