@@ -103,8 +103,8 @@ public class Robot extends TimedRobot
     {
         cargo = new CargoManipulator(kIntakeControlID,kHingeRightID,kHingeLeftID);
         blackLotus = new HatchManipulator(kHatchLeftRightID,kHatchForwardBackID);
-        elevator = new Elevator(kElevatorID,kElevatorSlaveID);
-        pillars = new Pillars(kPillarsLeft,kPillarsRight,kPillarWheels);
+        elevator = new Elevator(kElevatorLeftID,kElevatorRightID);
+        pillars = new Pillars(kPillarsFront,kPillarsBack,kPillarWheels);
     }
 
 }

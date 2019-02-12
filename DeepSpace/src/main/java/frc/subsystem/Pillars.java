@@ -5,9 +5,11 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.CANSparkMax;
 
-import frc.robot.Constants;
+import static frc.robot.Constants.*;
 import frc.subsystem.drivetrain.DriveTrain;
 import frc.subsystem.drivetrain.DriveTrain_TalonSRX;
+
+import static frc.robot.Constants.*;
 
 public class Pillars {
 
@@ -25,7 +27,7 @@ public class Pillars {
     // Moves the wheels to a specific speed.
     public void moveWheels(double speed) 
     {
-     wheels.set(speed);    
+        wheels.set(speed);    
     }
     
     //Sets the pillars themselves to a specific speed.
@@ -34,14 +36,24 @@ public class Pillars {
       frontSide.set(speed);
       rearSide.set(speed);  
     }
+    public void setFrontPillar(double speed)
+    {
+        frontSide.set(speed);
+    }
+    public void setRearPillar(double speed)
+    {
+        rearSide.set(speed);
+    }
+    public double getHeight()
+    {
+        return (Math.abs(frontSide.getEncoder().getPosition()) + Math.abs(rearSide.getEncoder().getPosition())) / 2;
+    }
+    public double getDistance()
+    {
+        return 0;//wheels.getSelectedSensorPosition() * kPulsesPerInchPillarWheels;
+    }
 
     //@return the distance the pillars have travelled.
-    public double getDistance()
-    { 
-      frontSide.getEncoder().getPosition();
-      rearSide.getEncoder().getPosition();
-        return 0;
-    }
 
     //@return the height of the pillars 
     public double getFrontHeight()

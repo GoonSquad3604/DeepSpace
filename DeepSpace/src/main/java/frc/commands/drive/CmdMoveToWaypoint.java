@@ -2,7 +2,7 @@ package frc.commands.drive;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import frc.commands.AutonCommand;
-import frc.robot.Constants;
+import static frc.robot.Constants.*;
 import frc.subsystem.drivetrain.*;
 import jaci.pathfinder.*;
 import jaci.pathfinder.followers.EncoderFollower;
@@ -55,22 +55,22 @@ public class CmdMoveToWaypoint implements AutonCommand
     private void generateTrajectory(Waypoint[] points)
     {
         
-        config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, Constants.kDt, Constants.kVelocity, Constants.kAcceleration, Constants.kJerk);
+        config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, kDt, kVelocity, kAcceleration, kJerk);
 
         trajectory = Pathfinder.generate(points, config);
         
-        modifier = new TankModifier(trajectory).modify(Constants.kRobotWidth);
+        modifier = new TankModifier(trajectory).modify(kRobotWidth);
 
         leftTrajectory = modifier.getLeftTrajectory();
         rightTrajectory = modifier.getRightTrajectory();
 
         leftFollow = new EncoderFollower(leftTrajectory);
-        leftFollow.configureEncoder(0, 1024, Constants.kWheelDiameter);
-        leftFollow.configurePIDVA(Constants.kDriveP, Constants.kDriveI, Constants.kDriveD, Constants.kVelocityRatio, Constants.kAccelerationRatio);
+        leftFollow.configureEncoder(0, 1024, kWheelDiameter);
+        leftFollow.configurePIDVA(kDriveP, kDriveI, kDriveD, kVelocityRatio, kAccelerationRatio);
 
         rightFollow = new EncoderFollower(rightTrajectory);
-        rightFollow.configureEncoder(0, 1024, Constants.kWheelDiameter);
-        rightFollow.configurePIDVA(Constants.kDriveP, Constants.kDriveI, Constants.kDriveD, Constants.kVelocityRatio, Constants.kAccelerationRatio);
+        rightFollow.configureEncoder(0, 1024, kWheelDiameter);
+        rightFollow.configurePIDVA(kDriveP, kDriveI, kDriveD, kVelocityRatio, kAccelerationRatio);
     }
 
 }

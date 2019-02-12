@@ -1,7 +1,7 @@
 package frc.commands.subsystem;
 
 import frc.commands.AutonCommand;
-import frc.robot.Constants;
+import static frc.robot.Constants.*;
 import frc.subsystem.Elevator;
 
 //Moves the elevator to a predefined height.
@@ -26,8 +26,8 @@ public class CmdMoveElevator implements AutonCommand
     @Override
     public boolean isFinished() 
     {
-        return elevator.getHeight() > height-Constants.kElevatorError
-        && elevator.getHeight() < height+Constants.kElevatorError;
+        return elevator.getHeight() > height-kElevatorError
+        && elevator.getHeight() < height+kElevatorError;
     }
 
     @Override

@@ -2,7 +2,7 @@ package frc.subsystem.drivetrain;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.CANSparkMax;
-import frc.robot.Constants;
+import static frc.robot.Constants.*;
 
 public class DriveTrain_SparkMAX extends DriveTrain
 {
@@ -84,12 +84,12 @@ public class DriveTrain_SparkMAX extends DriveTrain
 
     public double getLeftInches() 
     {
-        return getLeftPosition() * Constants.kInchesPerMotorRev;
+        return getLeftPosition() * kInchesPerMotorRev;
     }
 
     public double getRightInches() 
     {
-        return getRightPosition() * Constants.kInchesPerMotorRev;
+        return getRightPosition() * kInchesPerMotorRev;
     }
 
     @Override

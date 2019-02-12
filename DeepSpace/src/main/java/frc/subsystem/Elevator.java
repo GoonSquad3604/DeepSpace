@@ -1,48 +1,47 @@
 package frc.subsystem;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import frc.robot.Constants;
+import static frc.robot.Constants.*;
 
-public class Elevator extends WPI_TalonSRX
+public class Elevator
 {
 
-    private TalonSRX followerElevator;
+    private WPI_TalonSRX leftElevator, rightElevator;
 
-    public Elevator(int elevatorID, int followerElevatorID)
+    public Elevator(int elevatorLeftID, int elevatorRightID)
     {
         
-        super(elevatorID);
-        
-        followerElevator = new TalonSRX(followerElevatorID);
-        followerElevator.setInverted(true);
-        followerElevator.follow(this);
+        leftElevator = new WPI_TalonSRX(elevatorLeftID);
+        rightElevator = new WPI_TalonSRX(elevatorRightID);
+        leftElevator.setInverted(true);
 
         //PID Settings
-        config_kP(0, Constants.kElevatorP, Constants.kTimeoutMs);
-        config_kI(0, Constants.kElevatorI, Constants.kTimeoutMs);
-        config_kD(0, Constants.kElevatorD, Constants.kTimeoutMs);
-        config_kF(0, Constants.kElevatorF, Constants.kTimeoutMs);
+        leftElevator.config_kP(0, kElevatorP, kTimeoutMs);
+        leftElevator.config_kI(0, kElevatorI, kTimeoutMs);
+        leftElevator.config_kD(0, kElevatorD, kTimeoutMs);
+        leftElevator.config_kF(0, kElevatorF, kTimeoutMs);
 
     }
 
     //Moves the elevator to the height.
     public void moveElevator(double height)
     {
-        set(ControlMode.MotionMagic, height);
+        leftElevator.set(ControlMode.MotionMagic, height);
+        rightElevator.set(ControlMode.MotionMagic, height);
     }
 
     //Resets the sensor to a height.
     public void setHeight(double height)
     {
-        setSelectedSensorPosition((int)height, 0, Constants.kTimeoutMs);
+        leftElevator.setSelectedSensorPosition((int)height, 0, kTimeoutMs);
+        rightElevator.setSelectedSensorPosition((int)height, 0, kTimeoutMs);
     }
 
     //Returns the height of the sensor.
     public double getHeight()
     {
-        return getSelectedSensorPosition();
+        return leftElevator.getSelectedSensorPosition();
     }
 
 }

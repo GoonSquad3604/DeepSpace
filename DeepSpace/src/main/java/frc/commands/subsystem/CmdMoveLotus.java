@@ -1,7 +1,7 @@
 package frc.commands.subsystem;
 
 import frc.commands.AutonCommand;
-import frc.robot.Constants;
+import static frc.robot.Constants.*;
 import frc.subsystem.HatchManipulator;
 
 //If the blackLotus is forward, this command will pull the blackLotus.

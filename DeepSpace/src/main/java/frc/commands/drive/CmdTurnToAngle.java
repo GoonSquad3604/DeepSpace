@@ -11,7 +11,7 @@ import com.ctre.phoenix.sensors.PigeonIMU;
 
 import edu.wpi.first.wpilibj.Timer;
 import frc.commands.AutonCommand;
-import frc.robot.Constants;
+import static frc.robot.Constants.*;
 import frc.subsystem.drivetrain.*;
 import frc.vision.Limelight;
 
@@ -24,9 +24,9 @@ public class CmdTurnToAngle implements AutonCommand
     private DriveTrain driveTrain;
     private PigeonIMU gyro;
     private double targetAngle;
-    private double P = Constants.kTurnP;
-    private double I = Constants.kTurnI;
-    private double D = Constants.kTurnD;
+    private double P = kTurnP;
+    private double I = kTurnI;
+    private double D = kTurnD;
     private double integral = 0;
     private double derivative = 0;
     private double previous_error = 0; 
@@ -50,13 +50,13 @@ public class CmdTurnToAngle implements AutonCommand
         this.gyro = gyro;
         this.lime = lime;
         correctTime = new Timer();
-        this.lime.setPipeline(Constants.kReflectiveTapePipeline);
+        this.lime.setPipeline(kReflectiveTapePipeline);
     }
 
     @Override
     public boolean isFinished() {
         gyro.getYawPitchRoll(ypr);
-        if((Math.abs(targetAngle) - Math.abs(ypr[0]) < Constants.kTurnError))
+        if((Math.abs(targetAngle) - Math.abs(ypr[0]) < kTurnError))
         {
             if(!runningTimer)
             {

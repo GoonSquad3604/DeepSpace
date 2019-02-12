@@ -22,8 +22,8 @@ public class Constants
     public static final int kRightFrontID = 15;
     public static final int kRightRearID = 14;
 
-    public static final int kElevatorID = 0;
-    public static final int kElevatorSlaveID = 0;
+    public static final int kElevatorLeftID = 6;
+    public static final int kElevatorRightID = 5;
     public static final int kOpenCloseID = 0;
 
     public static final int kIntakeControlID = 0;
@@ -33,9 +33,9 @@ public class Constants
     public static final int kHatchLeftRightID = 0;
     public static final int kHatchForwardBackID = 0;
 
-    public static final int kPillarsLeft = 0;
-    public static final int kPillarsRight = 0;
-    public static final int kPillarWheels = 0;
+    public static final int kPillarsFront = 12;
+    public static final int kPillarsBack = 13;
+    public static final int kPillarWheels = 2;
     /*******************/
     /*Elevator Settings*/
     /*******************/
@@ -115,5 +115,6 @@ public class Constants
     
     public static final double kPillarWheelDistance = 0;
     public static final double kPillarHeight = 0;
+    public static final double kThirdLevel = 0;
     
 }
