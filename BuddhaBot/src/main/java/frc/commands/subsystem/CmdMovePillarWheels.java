@@ -42,5 +42,10 @@ public class CmdMovePillarWheels implements AutonCommand
     {
 
     }
+    @Override
+    public void end()
+    {
+        pillars.moveWheels(0);
+    }
 
 }

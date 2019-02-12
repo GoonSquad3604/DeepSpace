@@ -21,7 +21,7 @@ public class CmdMoveLotus implements AutonCommand
 
         if(blackLotus == null)
         {
-            throw new NullPointerException("BEAK NOT FOUND!");
+            throw new NullPointerException("BLACK LOTUS NOT FOUND!");
         }
 
 
@@ -30,8 +30,8 @@ public class CmdMoveLotus implements AutonCommand
 
     @Override
     public boolean isFinished() {
-         return(forward && blackLotus.getforwardBackwardsLocation() > Constants.KForwardBeak)
-        ||(!forward && blackLotus.getforwardBackwardsLocation() < Constants.KBackwardBeak);
+         return(forward && blackLotus.getforwardBackwardsLocation() > Constants.KForwardLotus)
+        ||(!forward && blackLotus.getforwardBackwardsLocation() < Constants.KBackwardLotus);
 
     }
 

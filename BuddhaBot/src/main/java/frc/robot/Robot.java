@@ -8,6 +8,7 @@
 package frc.robot;
 
 import com.ctre.phoenix.sensors.PigeonIMU;
+import com.ctre.phoenix.sensors.PigeonIMU.CalibrationMode;
 
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.AnalogOutput;
@@ -46,6 +47,7 @@ public class Robot extends TimedRobot
         //BUDDHA
         drive = new DriveTrain_TalonSRX(kLeftFrontID, kLeftRearID, kRightFrontID, kRightRearID);
         pigeon = new PigeonIMU(drive.gyroTest());
+        pigeon.enterCalibrationMode(CalibrationMode.Accelerometer);
         driveStick = new XboxController(0);
         operateStick = new XboxController(1);
         limelight = new Limelight("limelight");
@@ -62,8 +64,8 @@ public class Robot extends TimedRobot
         yaw = ypr[0];
         driveStick.setRumble(RumbleType.kLeftRumble,0);
         driveStick.setRumble(RumbleType.kRightRumble,0);
-        System.out.println(sonar.getInches());
-    } 
+        System.out.println(ypr[2]);
+    }
     
     public DifferentialDrive getDriveTrain()
     {
@@ -120,7 +122,7 @@ public class Robot extends TimedRobot
         cargo = new CargoManipulator(kIntakeControlID,kHingeRightID,kHingeLeftID);
         blackLotus = new HatchManipulator(kHatchLeftRightID,kHatchForwardBackID);
         elevator = new Elevator(kElevatorID,kElevatorSlaveID);
-        pillars = new Pillars(kPillarsLeft,kPillarsRight,kPillarWheels);
+        pillars = new Pillars(kPillarsLeftID,kPillarsRightID,kPillarWheelsID);
     }
 
 }

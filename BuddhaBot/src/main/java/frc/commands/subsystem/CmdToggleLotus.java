@@ -22,7 +22,7 @@ public class CmdToggleLotus implements AutonCommand
         //Throws an error when the blackLotus is not found.
         if(blackLotus == null)
         {
-            throw new NullPointerException("BEAK NOT FOUND!");
+            throw new NullPointerException("BLACK LOTUS NOT FOUND!");
         }
         //Officially makes the blackLotus object usable.
         this.blackLotus = blackLotus;
@@ -33,8 +33,8 @@ public class CmdToggleLotus implements AutonCommand
     {
         //If the blackLotus is opening, will return true when the blackLotus is open.
         //If the blackLotus is closing, will return true when the blackLotus is closed.
-        return(opening && blackLotus.getOpenCloseLocation() > Constants.kOpenBeak)
-        ||(!opening && blackLotus.getOpenCloseLocation() < Constants.kClosedBeak);
+        return(opening && blackLotus.getOpenCloseLocation() > Constants.kOpenLotus)
+        ||(!opening && blackLotus.getOpenCloseLocation() < Constants.kClosedLotus);
     }
 
     @Override

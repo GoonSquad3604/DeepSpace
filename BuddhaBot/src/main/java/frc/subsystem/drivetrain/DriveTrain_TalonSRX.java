@@ -68,13 +68,13 @@ public class DriveTrain_TalonSRX extends DriveTrain
     @Override
     public double getLeftPosition() 
     {
-        return leftFront.getSelectedSensorPosition(0);
+        return leftFront.getSelectedSensorPosition(0) / Constants.kPulsesPerInchTalon;
     }
 
     @Override
     public double getRightPosition() 
     {
-        return rightFront.getSelectedSensorPosition(0);
+        return rightFront.getSelectedSensorPosition(0) / Constants.kPulsesPerInchTalon;
     }
 
     @Override
