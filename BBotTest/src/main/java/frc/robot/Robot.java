@@ -42,6 +42,9 @@ public class Robot extends TimedRobot {
 
     DifferentialDrive driveTrain;
 
+    double position = 0;
+    double initPosition = 0;
+
     @Override
     public void robotInit() {
         
@@ -85,7 +88,7 @@ public class Robot extends TimedRobot {
 
     @Override
     public void teleopInit() {
-     
+      initPosition = rearPillar.getEncoder().getPosition();
     
     }
 
@@ -114,6 +117,7 @@ public class Robot extends TimedRobot {
       if(operatorStick.getPOV() == 0){
         frontPillar.set(0.5);
         rearPillar.set(0.5);
+        position = rearPillar.getEncoder().getPosition();
       }
       else if(operatorStick.getPOV() == 180){
         frontPillar.set(-0.5);
@@ -141,8 +145,8 @@ public class Robot extends TimedRobot {
       }
 
       if(operatorStick.getBumper(Hand.kLeft)){
-        elevatorLeft.set(-0.5);
-        elevatorRight.set(-0.5);
+        elevatorLeft.set(-1);
+        elevatorRight.set(-1);
       }
       else if(operatorStick.getBumper(Hand.kRight)){
         elevatorLeft.set(1);
@@ -159,6 +163,7 @@ public class Robot extends TimedRobot {
       
      
       driveTrain.arcadeDrive(axis1, -axis4);
+
 
     }
 
