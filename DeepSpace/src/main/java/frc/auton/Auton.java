@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.commands.*;
 import frc.commands.special.*;
+import frc.robot.Teleop;
 import frc.subsystem.drivetrain.DriveTrain;
 import frc.auton.exceptions.TooManyControllersException;
 import frc.auton.exceptions.UnsupportedSubsystemException;
@@ -84,7 +85,7 @@ public class Auton
         {
             loadSubsystem(subsystems[i]);
         }
-        defaultCommand = new CmdTeleop(drive, driveStick, operateStick, this);
+        defaultCommand = new Teleop(drive, driveStick, operateStick, this);
         this.initted = false;
     }
 
@@ -191,9 +192,9 @@ public class Auton
     {
         if(initted && (autonQueue.isEmpty() || autonQueue.peek() == null || autonQueue.size() == 0))
         {
-            if(defaultCommand instanceof CmdTeleop)
+            if(defaultCommand instanceof Teleop)
             {
-                CmdTeleop teleop = (CmdTeleop) defaultCommand;
+                Teleop teleop = (Teleop) defaultCommand;
                 if(!teleop.getRunning())
                 {
                     defaultCommand.init();

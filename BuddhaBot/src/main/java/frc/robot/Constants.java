@@ -33,8 +33,8 @@ public class Constants
     public static final int kHatchLeftRightID = 0;
     public static final int kHatchForwardBackID = 0;
 
-    public static final int kPillarsLeftID = 0;
-    public static final int kPillarsRightID = 0;
+    public static final int kPillarsFrontID = 0;
+    public static final int kPillarsBackID = 0;
     public static final int kPillarWheelsID = 0;
 
     public static final double kPulsesPerInchTalon = 0;

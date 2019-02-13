@@ -28,7 +28,7 @@ public class CmdDriveReverse implements AutonCommand
 
     @Override
     public void runTask() {
-        drive.arcadeDrive(0.6,0);
+        drive.arcadeDrive(-0.6,0);
     }
 
     @Override

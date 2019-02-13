@@ -37,11 +37,11 @@ public class CmdDriveToArea implements AutonCommand
     public void runTask() {
         if(limelight.getTargetArea() > desiredArea)
         {
-            driveTrain.arcadeDrive(speed, 0);
+            driveTrain.arcadeDrive(-speed, 0);
         }
         else if(limelight.getTargetArea() < desiredArea)
         {
-            driveTrain.arcadeDrive(-speed, 0);
+            driveTrain.arcadeDrive(speed, 0);
         }
     }
 
