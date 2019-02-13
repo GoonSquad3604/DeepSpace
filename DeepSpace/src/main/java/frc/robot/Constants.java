@@ -115,6 +115,8 @@ public class Constants
     
     public static final double kPillarWheelDistance = 0;
     public static final double kPillarHeight = 0;
-    public static final double kThirdLevel = 0;
+    public static final double kThirdLevel = 17;
+    public static final double kInchPerRotationPillar = 0.132040647405376;
+    
     
 }

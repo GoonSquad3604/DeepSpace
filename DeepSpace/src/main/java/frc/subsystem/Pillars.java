@@ -22,6 +22,7 @@ public class Pillars {
         rearSide.setInverted(true);
         wheels = new WPI_TalonSRX(wheelsID);
         wheels.setInverted(false);
+        
     }
 
     // Moves the wheels to a specific speed.
@@ -46,7 +47,7 @@ public class Pillars {
     }
     public double getHeight()
     {
-        return (Math.abs(frontSide.getEncoder().getPosition()) + Math.abs(rearSide.getEncoder().getPosition())) / 2;
+        return (Math.abs(frontSide.getEncoder().getPosition()*kInchPerRotationPillar) + Math.abs(rearSide.getEncoder().getPosition()*kInchPerRotationPillar)) / 2;
     }
     public double getDistance()
     {
@@ -58,11 +59,11 @@ public class Pillars {
     //@return the height of the pillars 
     public double getFrontHeight()
     {
-        return frontSide.getEncoder().getPosition();
+        return frontSide.getEncoder().getPosition()*kInchPerRotationPillar;
     }
     public double getRearHeight()
     {
-        return rearSide.getEncoder().getPosition();
+        return rearSide.getEncoder().getPosition()*kInchPerRotationPillar;
     }
 
     //Resets the pillar subsystem.

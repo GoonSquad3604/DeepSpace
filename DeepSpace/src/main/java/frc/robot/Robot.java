@@ -48,7 +48,9 @@ public class Robot extends TimedRobot
         double[] ypr = new double[3];
         pigeon.getYawPitchRoll(ypr);
         yaw = ypr[0];
-        System.out.println("I EXIST!");
+        System.out.println(pillars.getHeight());
+        System.out.println("FRONT:" + pillars.getFrontHeight());
+        System.out.println("BACK:" + pillars.getRearHeight());
     } 
     
     public DifferentialDrive getDriveTrain()
@@ -59,7 +61,7 @@ public class Robot extends TimedRobot
     @Override
     public void autonomousInit() 
     {
-        runningAuton = new Auton(drive,driveStick,operateStick,pigeon,limelight);
+        runningAuton = new Auton(drive,driveStick,operateStick,pigeon,limelight,blackLotus,pillars);
         HatchPlaceAuton.addCommands(runningAuton);
     }
 
@@ -72,7 +74,7 @@ public class Robot extends TimedRobot
     @Override
     public void teleopInit() 
     {
-        runningAuton = new Auton(drive,driveStick,operateStick,pigeon,limelight);
+        runningAuton = new Auton(drive,driveStick,operateStick,pigeon,limelight,blackLotus,pillars);
         BlankAuton.addCommands(runningAuton);
     }
 
