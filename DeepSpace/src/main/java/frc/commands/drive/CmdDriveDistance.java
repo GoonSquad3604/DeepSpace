@@ -5,48 +5,47 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.commands.AutonCommand;
 import frc.subsystem.drivetrain.DriveTrain;
 
-public class CmdDriveTime implements AutonCommand
+public class CmdDriveDistance implements AutonCommand
 {
     //Drives the robot forwards based on a timer.
-    private Timer t;
-    private double time;
+    private double distance;
     private DriveTrain drive;
+    private double speed;
     
-    public CmdDriveTime(double time, DriveTrain drive)
+    public CmdDriveDistance(double iDistance, double iSpeed, DriveTrain iDrive)
     {
-        t = new Timer();
-        t.start();
-        this.time = time;
-        this.drive = drive;
+        distance = iDistance;
+        speed = iSpeed;
+        drive = iDrive;
     }
 
     @Override
-    public boolean isFinished() {
-        if(t.get()>time)
+    public boolean isFinished() 
+    {
+        if((Math.abs(drive.getLeftInches())+Math.abs(drive.getRightInches())) / 2 >= distance)
         {
             drive.arcadeDrive(0,0);
             System.out.println("TAAAAAAAKE ONNNNNNNN MEEEEE");
             return true;
         }
-        else
-        {
-            return false;
-        }
+        return false;
     }
 
     @Override
-    public void runTask() {
-        drive.arcadeDrive(0.4,0);
+    public void runTask() 
+    {
+        drive.arcadeDrive(0.35,0);
     }
 
     @Override
-    public double getStatus() {
+    public double getStatus() 
+    {
         return 0;
     }
 
     @Override
-    public void init() {
-        t.reset();
+    public void init() 
+    {
     }
     @Override
     public void end()

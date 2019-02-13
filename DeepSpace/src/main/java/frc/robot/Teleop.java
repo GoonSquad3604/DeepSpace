@@ -1,16 +1,12 @@
-package frc.commands.special;
+package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
-import frc.auton.Auton;
-import frc.auton.DumbAuton;
-import frc.auton.HatchPlaceAuton;
-import frc.auton.LockOnAuton;
-import frc.auton.TestAuton;
+import frc.auton.*;
 import frc.commands.AutonCommand;
 import frc.subsystem.drivetrain.*;
 
-public class CmdTeleop implements AutonCommand
+public class Teleop implements AutonCommand
 {
 
     //Runs when there is no command. Does Teleoperated Stuffs.
@@ -20,7 +16,7 @@ public class CmdTeleop implements AutonCommand
     private Auton auton;
     private boolean running;
     
-    public CmdTeleop(DriveTrain drive, XboxController driveStick, XboxController operateStick, Auton auton)
+    public Teleop(DriveTrain drive, XboxController driveStick, XboxController operateStick, Auton auton)
     {
         this.driveStick = driveStick;
         this.operateStick = operateStick;
@@ -37,7 +33,7 @@ public class CmdTeleop implements AutonCommand
     @Override
     public void runTask() 
     {
-        drive.arcadeDrive(driveStick.getRawAxis(1),-driveStick.getRawAxis(4));
+        drive.arcadeDrive(-driveStick.getRawAxis(1),driveStick.getRawAxis(4));
         if(auton.getSize() == 0 && running)
         {
             //Run a command when A is pressed.
@@ -54,6 +50,28 @@ public class CmdTeleop implements AutonCommand
                 this.running = false;
                 this.end();
             }
+            
+            if(operateStick.getStartButton())
+            {
+                PillarsAuton.addCommands(this.auton);
+                this.running = false;
+                this.end();   
+            }
+            /*
+            if(operateStick.getPOV() == 0)
+            {
+                auton.getPillars().setFrontPillar(0.5);
+                auton.getPillars().setRearPillar(0.5);
+            }
+            else if(operateStick.getPOV() == 180 && auton.getPillars().getHeight()>0)
+            {
+                auton.getPillars().setFrontPillar(-0.5);
+                auton.getPillars().setRearPillar(-0.5);
+            }
+            else
+            {
+                auton.getPillars().setPillars(0);
+            }*/
             //Run a command when the left bumper is pressed.
             if(driveStick.getBumper(Hand.kLeft))
             {
@@ -83,6 +101,7 @@ public class CmdTeleop implements AutonCommand
         driveStick.getBButtonPressed();
         driveStick.getXButtonPressed();
         driveStick.getYButtonPressed();
+        operateStick.getStartButtonPressed();
     }
     
     public boolean getRunning()
