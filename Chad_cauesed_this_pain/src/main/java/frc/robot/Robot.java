@@ -1,9 +1,4 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2017-2018 FIRST. All Rights Reserved.                        */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
+
 
 package frc.robot;
 
@@ -50,8 +45,8 @@ public class Robot extends TimedRobot {
     rightMain = new CANSparkMax(15, MotorType.kBrushless);
     rightSlave = new CANSparkMax(14, MotorType.kBrushless);
     
-    // elevatorRight = new WPI_TalonSRX(5);
-    // elevatorLeft = new WPI_TalonSRX(6);
+     elevatorRight = new WPI_TalonSRX(5);
+     elevatorLeft = new WPI_TalonSRX(6);
     
     // hindgeRight = new WPI_TalonSRX(7);
     // hindgeLeft = new WPI_TalonSRX(8);
@@ -75,12 +70,13 @@ public class Robot extends TimedRobot {
 
     pillerWheels.setInverted(true);
     
-    // elevatorLeft.follow(elevatorRight);
-    // elevatorLeft.setInverted(true);
+    elevatorLeft.follow(elevatorRight);
+    elevatorLeft.setInverted(true);
     
     //hindgeLeft.follow(hindgeRight);
     //hindgeLeft.setInverted(true);
     
+    frontPiller.setInverted(true);
     backPiller.setInverted(true);
 
     drive = new DifferentialDrive(leftMain,rightMain);
@@ -245,16 +241,16 @@ public class Robot extends TimedRobot {
 
     // }
 
-    // elevatorRight.set(operatorStick.getRawAxis(1)*.3);
+    elevatorRight.set(operatorStick.getRawAxis(1)*.75);
   
-    //   if(operatorStick.getRawAxis(1) >0)
-    //   {
-    //     System.out.println("never gonna give you up");
-    //   }
-    //   else if(operatorStick.getRawAxis(1) < 0)
-    //   {
-    //     System.out.println("never gonna let you down");
-    //   }
+    if(operatorStick.getRawAxis(1) >0)
+    {
+     System.out.println("never gonna give you up");
+    }
+    else if(operatorStick.getRawAxis(1) < 0)
+    {
+     System.out.println("never gonna let you down");
+    }
 
       
     }
