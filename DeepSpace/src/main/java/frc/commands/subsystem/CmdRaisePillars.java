@@ -1,5 +1,7 @@
 package frc.commands.subsystem;
 
+import java.util.ArrayList;
+
 import frc.commands.AutonCommand;
 import frc.subsystem.Pillars;
 
@@ -12,6 +14,7 @@ public class CmdRaisePillars implements AutonCommand
 
     private double frontInitPosition;
     private double rearInitPosition;
+
     public CmdRaisePillars(double iHeight, double iSpeed, Pillars iPillars)
     {
         pillars = iPillars;
@@ -28,18 +31,20 @@ public class CmdRaisePillars implements AutonCommand
     public void runTask() 
     {
 
-        
+        pillars.setFrontPillar(0.1);
+        pillars.setRearPillar(0.1);
+
         //Attempts to adjust for faster rear pillars.
-        if(pillars.getRearHeight() - rearInitPosition > pillars.getFrontHeight() - frontInitPosition)
-        {
-            pillars.setFrontPillar(0.65);
-            pillars.setRearPillar(0.5);
-        }
-        else
-        {
-            pillars.setFrontPillar(speed);
-            pillars.setRearPillar(speed);
-        }
+        // if(pillars.getRearHeight() - rearInitPosition > pillars.getFrontHeight() - frontInitPosition)
+        // {
+        //     pillars.setFrontPillar(0.65);
+        //     pillars.setRearPillar(0.5);
+        // }
+        // else
+        // {
+        //     pillars.setFrontPillar(speed);
+        //     pillars.setRearPillar(speed);
+        // }
     }
 
     @Override
@@ -52,8 +57,8 @@ public class CmdRaisePillars implements AutonCommand
     public void init() {
         frontInitPosition = pillars.getFrontHeight();
         rearInitPosition = pillars.getRearHeight();
-
     }
+
     @Override
     public void end()
     {
