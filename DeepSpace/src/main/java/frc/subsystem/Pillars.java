@@ -15,6 +15,9 @@ public class Pillars {
 
     private WPI_TalonSRX  wheels;
     private CANSparkMax frontSide, rearSide;
+    private double frontInitPos = 0;
+    private double rearInitPos = 0;
+
     public Pillars(int frontSideID, int rearSideID, int wheelsID) {
         frontSide = new CANSparkMax(frontSideID,com.revrobotics.CANSparkMaxLowLevel.MotorType.kBrushless);
         frontSide.setInverted(true);
@@ -22,7 +25,10 @@ public class Pillars {
         rearSide.setInverted(true);
         wheels = new WPI_TalonSRX(wheelsID);
         wheels.setInverted(false);
-        
+        frontInitPos = frontSide.getEncoder().getPosition();
+        rearInitPos = frontSide.getEncoder().getPosition();
+
+
     }
 
     // Moves the wheels to a specific speed.
@@ -47,7 +53,7 @@ public class Pillars {
     }
     public double getHeight()
     {
-        return (Math.abs(frontSide.getEncoder().getPosition()*kInchPerRotationPillar) + Math.abs(rearSide.getEncoder().getPosition()*kInchPerRotationPillar)) / 2;
+        return (getFrontHeight() + getRearHeight()) / 2.0;
     }
     public double getDistance()
     {
@@ -59,18 +65,20 @@ public class Pillars {
     //@return the height of the pillars 
     public double getFrontHeight()
     {
-        return frontSide.getEncoder().getPosition()*kInchPerRotationPillar;
+        return frontInitPos - (frontSide.getEncoder().getPosition()*kInchPerRotationPillar);
     }
     public double getRearHeight()
     {
-        return rearSide.getEncoder().getPosition()*kInchPerRotationPillar;
+        return rearInitPos - (rearSide.getEncoder().getPosition()*kInchPerRotationPillar);
     }
 
     //Resets the pillar subsystem.
     public void reset()
-    { //Fun
-     //rearSide.Encoder.reset();
-     //frontSide.Encoder.reset();
+    { 
+        
+        frontInitPos = frontSide.getEncoder().getPosition()*kInchPerRotationPillar;
+        rearInitPos = rearSide.getEncoder().getPosition()*kInchPerRotationPillar;
+
     }
 
 }
