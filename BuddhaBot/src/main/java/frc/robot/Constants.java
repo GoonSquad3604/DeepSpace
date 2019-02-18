@@ -84,8 +84,8 @@ public class Constants
     public static final double kJerk = 0;
 
     //Turn PID
-    public static final double kTurnP = 0.07;
-    public static final double kTurnI = 0.1;
+    public static final double kTurnP = 0.025;
+    public static final double kTurnI = 0.02;
     public static final double kTurnD = 0.0;
 
     //Drive PID

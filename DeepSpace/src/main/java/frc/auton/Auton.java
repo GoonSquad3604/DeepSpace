@@ -14,12 +14,13 @@ import frc.subsystem.drivetrain.DriveTrain;
 import frc.auton.exceptions.TooManyControllersException;
 import frc.auton.exceptions.UnsupportedSubsystemException;
 import frc.vision.Limelight;
+import frc.vision.Sonar;
 import frc.subsystem.*;
 
 public class Auton
 {
     //The queue of commands. Commands are added to it, and they are run in sequence.
-    Queue<AutonCommand> autonQueue;
+    private Queue<AutonCommand> autonQueue;
     private boolean initted = false;
     private DriveTrain drive;
     private XboxController driveStick;
@@ -31,6 +32,7 @@ public class Auton
     private HatchManipulator blackLotus;
     private Elevator elevator;
     private Pillars pillars;
+    private Sonar sonar;
     
     public DriveTrain getDrive()
     {
@@ -75,6 +77,11 @@ public class Auton
     public PigeonIMU getGyro()
     {
         return gyro;
+    }
+
+    public Sonar getSonar()
+    {
+        return sonar;
     }
 
     public Auton(Object... subsystems)
@@ -135,6 +142,10 @@ public class Auton
             else if(subsystem instanceof Pillars)
             {
                 pillars = (Pillars)subsystem;
+            }
+            else if(subsystem instanceof Sonar)
+            {
+                sonar = (Sonar)subsystem;
             }
             else if(subsystem != null)
             {
@@ -205,7 +216,7 @@ public class Auton
         return false;
     }
     
-    protected void addCommand(AutonCommand command)
+    public void addCommand(AutonCommand command)
     {
         autonQueue.add(command);
     }

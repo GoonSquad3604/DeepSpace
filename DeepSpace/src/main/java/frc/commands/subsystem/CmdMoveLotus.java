@@ -30,8 +30,8 @@ public class CmdMoveLotus implements AutonCommand
 
     @Override
     public boolean isFinished() {
-         return(forward && blackLotus.getforwardBackwardsLocation() > KForwardBeak)
-        ||(!forward && blackLotus.getforwardBackwardsLocation() < KBackwardBeak);
+         return(forward && blackLotus.getforwardBackwardsLocation() > kForwardHatch)
+        ||(!forward && blackLotus.getforwardBackwardsLocation() < kBackwardHatch);
 
     }
 

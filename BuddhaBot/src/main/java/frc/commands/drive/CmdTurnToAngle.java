@@ -46,7 +46,7 @@ public class CmdTurnToAngle implements AutonCommand
     public CmdTurnToAngle(DriveTrain driveTrain, PigeonIMU gyro, Limelight lime)
     {
         this.driveTrain = driveTrain;
-        this.targetAngle = -2000;
+        this.targetAngle = 0;
         this.gyro = gyro;
         this.lime = lime;
         correctTime = new Timer();
@@ -63,7 +63,7 @@ public class CmdTurnToAngle implements AutonCommand
                 correctTime.start();
                 runningTimer = true;
             }
-            if(correctTime.get()>0.5)
+            if(correctTime.get()>0.15)
             {
                 return true;
             }
@@ -74,12 +74,13 @@ public class CmdTurnToAngle implements AutonCommand
             correctTime.reset();
             correctTime.stop();
         }
-        return !lime.doesTargetExist();
+        return false;
     }
 
     @Override
     public void runTask() {
         gyro.getYawPitchRoll(ypr);
+        System.out.println("CURRENT ANGLE: " + ypr[0] + "\n" + "TARGET ANGLE: " + targetAngle + "\n======================");
         double drive = -0.0;
         if(Math.abs(PID(-targetAngle))>0.6)
         {

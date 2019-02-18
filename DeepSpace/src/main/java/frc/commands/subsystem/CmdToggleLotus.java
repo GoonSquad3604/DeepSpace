@@ -33,8 +33,8 @@ public class CmdToggleLotus implements AutonCommand
     {
         //If the blackLotus is opening, will return true when the blackLotus is open.
         //If the blackLotus is closing, will return true when the blackLotus is closed.
-        return(opening && blackLotus.getOpenCloseLocation() > kOpenBeak)
-        ||(!opening && blackLotus.getOpenCloseLocation() < kClosedBeak);
+        return(opening && blackLotus.getOpenCloseLocation() > kOpenHatch)
+        ||(!opening && blackLotus.getOpenCloseLocation() < kClosedHatch);
     }
 
     @Override

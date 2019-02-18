@@ -40,13 +40,13 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
 
-    leftMain = new CANSparkMax(0, MotorType.kBrushless);
+    leftMain = new CANSparkMax(20, MotorType.kBrushless);
     leftSlave = new CANSparkMax(1, MotorType.kBrushless);
     rightMain = new CANSparkMax(15, MotorType.kBrushless);
     rightSlave = new CANSparkMax(14, MotorType.kBrushless);
     
-     elevatorRight = new WPI_TalonSRX(5);
-     elevatorLeft = new WPI_TalonSRX(6);
+     //elevatorRight = new WPI_TalonSRX(5);
+     //elevatorLeft = new WPI_TalonSRX(6);
     
     // hindgeRight = new WPI_TalonSRX(7);
     // hindgeLeft = new WPI_TalonSRX(8);
@@ -54,20 +54,18 @@ public class Robot extends TimedRobot {
     
     // beak = new WPI_TalonSRX(9);
     
-    frontPiller = new CANSparkMax(12, MotorType.kBrushless);
-    backPiller = new CANSparkMax(13, MotorType.kBrushless);
-    pillerWheels = new WPI_TalonSRX(2);
+    //frontPiller = new CANSparkMax(12, MotorType.kBrushless);
+    //backPiller = new CANSparkMax(13, MotorType.kBrushless);
+    //pillerWheels = new WPI_TalonSRX(2);
     
     driveStick = new XboxController(0);
-    operatorStick = new XboxController(1);
-
-    leftMain.setParameter(ConfigParameter.kRampRate, 1);
-    rightMain.setParameter(ConfigParameter.kRampRate, 1);
+    //operatorStick = new XboxController(1);
 		leftSlave.follow(leftMain);
     rightSlave.follow(rightMain);
-    rightMain.setInverted(true);
+    rightMain.setInverted(false);
     leftMain.setInverted(true);
 
+    /*
     pillerWheels.setInverted(true);
     
     elevatorLeft.follow(elevatorRight);
@@ -78,7 +76,7 @@ public class Robot extends TimedRobot {
     
     frontPiller.setInverted(true);
     backPiller.setInverted(true);
-
+    */
     drive = new DifferentialDrive(leftMain,rightMain);
 
   }
@@ -102,8 +100,9 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() 
   {
 
-    drive.arcadeDrive(0.8*driveStick.getRawAxis(1), 0.7*driveStick.getRawAxis(4));
+    drive.arcadeDrive(-driveStick.getRawAxis(1), driveStick.getRawAxis(4));
 
+    /*
     if(driveStick.getYButton())
     {
 
@@ -241,6 +240,7 @@ public class Robot extends TimedRobot {
 
     // }
 
+    /*
     elevatorRight.set(operatorStick.getRawAxis(1)*.75);
   
     if(operatorStick.getRawAxis(1) >0)
@@ -251,7 +251,7 @@ public class Robot extends TimedRobot {
     {
      System.out.println("never gonna let you down");
     }
-
+    */
       
     }
    

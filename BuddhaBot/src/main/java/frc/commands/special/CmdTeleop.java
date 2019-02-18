@@ -3,6 +3,7 @@ package frc.commands.special;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import frc.auton.Auton;
+import frc.auton.CargoPlaceAuton;
 import frc.auton.DumbAuton;
 import frc.auton.HatchPlaceAuton;
 import frc.auton.LockOnAuton;
@@ -43,7 +44,7 @@ public class CmdTeleop implements AutonCommand
             //Run a command when A is pressed.
             if(driveStick.getAButtonPressed())
             {
-                HatchPlaceAuton.addCommands(this.auton);
+                CargoPlaceAuton.addCommands(this.auton);
                 this.running = false;
                 this.end();
             }

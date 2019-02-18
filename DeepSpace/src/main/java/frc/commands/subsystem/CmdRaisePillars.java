@@ -29,22 +29,14 @@ public class CmdRaisePillars implements AutonCommand
 
     @Override
     public void runTask() 
-    {
-
-        pillars.setFrontPillar(0.1);
-        pillars.setRearPillar(0.1);
-
+    {    
         //Attempts to adjust for faster rear pillars.
-        // if(pillars.getRearHeight() - rearInitPosition > pillars.getFrontHeight() - frontInitPosition)
-        // {
-        //     pillars.setFrontPillar(0.65);
-        //     pillars.setRearPillar(0.5);
-        // }
-        // else
-        // {
-        //     pillars.setFrontPillar(speed);
-        //     pillars.setRearPillar(speed);
-        // }
+        
+        double plrSpeed = ((pillars.getRearHeight() - rearInitPosition) 
+        - (pillars.getFrontHeight() - frontInitPosition) > 1) ? 0.8 : 0.7; 
+        
+        pillars.setFrontPillar(plrSpeed);
+        pillars.setRearPillar(0.7);
     }
 
     @Override

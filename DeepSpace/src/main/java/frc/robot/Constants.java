@@ -97,17 +97,27 @@ public class Constants
     /*******/
 
     public static final double kTurnError = 1.0; //Acceptable error (degrees) before ending turn
+    public static final double kDistanceError = 5.0;
+    public static final double kHingeUp = 0.0;
+    public static final double kHingeOut = 0.0;
 
     /**********/
     /*Commands*/
     /**********/
 
     public static final double kElevatorError = 0;
-    public static final int kOpenBeak = 0;
-    public static final int kClosedBeak = 0;
+    public static final int kOpenHatch = 0;
+    public static final int kClosedHatch = 0;
     public static final int kReflectiveTapePipeline = 0;
-    public static final int KForwardBeak = 0;
-    public static final int KBackwardBeak = 0;
+    public static final int kForwardHatch = 0;
+    public static final int kBackwardHatch = 0;
+
+    //Elevator levels for HATCH
+    public static final double kRocketFirstLevelHatch = 0;
+    public static final double kRocketSecondLevelHatch = 0;
+    public static final double kRocketThirdLevelHatch = 0;
+    public static final double kCargoLevelHatch = 0;
+
 
     /*********/
     /*Pillars*/
