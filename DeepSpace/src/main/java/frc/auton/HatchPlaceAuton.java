@@ -9,7 +9,13 @@ import frc.commands.subsystem.CmdToggleLotus;
 public class HatchPlaceAuton
 {
     //A skeleton for moving to the hatch panel and placing it.
+    @Deprecated
     public static void addCommands(Auton auton)
+    {
+        addCommands(auton,100);
+    }
+    
+    public static void addCommands(Auton auton, double height)
     {
         auton.addCommand(new CmdTurnToAngle(auton.getDrive(),auton.getGyro(), auton.getLimelight()));
         auton.addCommand(new CmdMergeOnStatus(0,

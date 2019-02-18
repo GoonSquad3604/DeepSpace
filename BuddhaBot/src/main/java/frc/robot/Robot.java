@@ -33,7 +33,6 @@ public class Robot extends TimedRobot
     private Auton runningAuton;
     private PigeonIMU pigeon;
     private Limelight limelight;
-    private Pillars pillars;
     private CargoManipulator cargo;
     private Elevator elevator;
     private HatchManipulator blackLotus;
@@ -64,7 +63,6 @@ public class Robot extends TimedRobot
         yaw = ypr[0];
         driveStick.setRumble(RumbleType.kLeftRumble,0);
         driveStick.setRumble(RumbleType.kRightRumble,0);
-        System.out.println(ypr[2]);
     }
     
     public DifferentialDrive getDriveTrain()
@@ -122,7 +120,6 @@ public class Robot extends TimedRobot
         cargo = new CargoManipulator(kIntakeControlID,kHingeRightID,kHingeLeftID);
         blackLotus = new HatchManipulator(kHatchLeftRightID,kHatchForwardBackID);
         elevator = new Elevator(kElevatorID,kElevatorSlaveID);
-        pillars = new Pillars(kPillarsFrontID,kPillarsBackID,kPillarWheelsID);
     }
 
 }

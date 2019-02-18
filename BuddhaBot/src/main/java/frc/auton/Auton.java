@@ -31,7 +31,6 @@ public class Auton
     private CargoManipulator cargo;
     private HatchManipulator blackLotus;
     private Elevator elevator;
-    private Pillars pillars;
     private Sonar sonar;
     
     public DriveTrain getDrive()
@@ -52,11 +51,6 @@ public class Auton
     public Elevator getElevator()
     {
         return elevator;
-    }
-
-    public Pillars getPillars()
-    {
-        return pillars;
     }
     public Sonar getSonar()
     {
@@ -118,7 +112,7 @@ public class Auton
             }
             else if(subsystem instanceof PigeonIMU)
             {
-                System.out.println("LOADED GYRO");
+                //System.out.println("LOADED GYRO");
                 gyro = (PigeonIMU)subsystem;
             }
             else if(subsystem instanceof Limelight)
@@ -136,10 +130,6 @@ public class Auton
             else if(subsystem instanceof Elevator)
             {
                 elevator = (Elevator)subsystem;
-            }
-            else if(subsystem instanceof Pillars)
-            {
-                pillars = (Pillars)subsystem;
             }
             else if(subsystem instanceof Sonar)
             {
@@ -192,7 +182,7 @@ public class Auton
         double[] ypr = new double[3];
         gyro.getYawPitchRoll(ypr);
         double yaw = ypr[0];
-        System.out.println("angle " + yaw);
+        //System.out.println("angle " + yaw);
     }
 
     public void runTeleop()

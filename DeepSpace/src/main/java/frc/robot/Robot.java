@@ -15,6 +15,8 @@ import frc.auton.*;
 import frc.subsystem.*;
 import frc.subsystem.drivetrain.*;
 import frc.vision.Limelight;
+import frc.vision.Sonar;
+
 import static frc.robot.Constants.*;
 
 public class Robot extends TimedRobot 
@@ -30,6 +32,7 @@ public class Robot extends TimedRobot
     private CargoManipulator cargo;
     private Elevator elevator;
     private HatchManipulator blackLotus;
+    private Sonar sonar;
     private double yaw;  
     @Override
     public void robotInit() 
@@ -40,6 +43,8 @@ public class Robot extends TimedRobot
         operateStick = new XboxController(1);
         limelight = new Limelight("limelight");
         addFinalBotSubsystems();
+        sonar = new Sonar(0);
+        runningAuton = new Auton(drive,driveStick,operateStick,pigeon,limelight,blackLotus,pillars,sonar);
     }
     
     @Override
@@ -61,7 +66,6 @@ public class Robot extends TimedRobot
     @Override
     public void autonomousInit() 
     {
-        runningAuton = new Auton(drive,driveStick,operateStick,pigeon,limelight,blackLotus,pillars);
         HatchPlaceAuton.addCommands(runningAuton);
     }
 
@@ -74,7 +78,6 @@ public class Robot extends TimedRobot
     @Override
     public void teleopInit() 
     {
-        runningAuton = new Auton(drive,driveStick,operateStick,pigeon,limelight,blackLotus,pillars);
         BlankAuton.addCommands(runningAuton);
     }
 
