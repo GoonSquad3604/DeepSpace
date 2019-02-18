@@ -77,6 +77,11 @@ public class Robot extends TimedRobot {
     PigeonIMU gyro;
     double[] ypr = new double[3];
 
+    boolean moving = false;
+    boolean stopped = false;
+
+    Timer ballTime;
+
     NetworkTable table;
     @Override
     public void robotInit() {
@@ -116,10 +121,10 @@ public class Robot extends TimedRobot {
         elevatorRight.follow(elevatorLeft);
         
 
-        // sucker = new WPI_TalonSRX(3);
-        // hinge = new WPI_TalonSRX(8);
-        // hinge.setInverted(true);
-        // hinge2 = new WPI_TalonSRX(7);
+        sucker = new WPI_TalonSRX(3);
+        hinge = new WPI_TalonSRX(8);
+        hinge.setInverted(true);
+        hinge2 = new WPI_TalonSRX(7);
 
         driveTrain = new DifferentialDrive(leftMain, rightMain);
 
@@ -144,6 +149,8 @@ public class Robot extends TimedRobot {
         elevatorLeft.configMotionCruiseVelocity(950, 10);
         elevatorLeft.configMotionAcceleration(3000, 10);
 
+        ballTime = new Timer();
+
     }
 
     @Override
@@ -160,7 +167,7 @@ public class Robot extends TimedRobot {
 
         // //System.out.println("Rear: " + (position - initPosition) + " " + "Front: " + (positionFront - initPositionFront));
 
-        //System.out.println(elevatorLeft.getSelectedSensorPosition());
+        System.out.println(elevatorLeft.getSelectedSensorPosition());
 
         //System.out.println(hinge.getSensorCollection().getAnalogInRaw());
 
@@ -180,11 +187,15 @@ public class Robot extends TimedRobot {
     @Override
     public void teleopInit() {
         //table.getEntry("camMode").setNumber(1);
-    
+        ballTime.start();
+        ballTime.reset();
+
     }
 
     double axis1 = 0;
     double axis4 = 0;
+
+
 
     @Override
     public void teleopPeriodic() {
@@ -260,15 +271,32 @@ public class Robot extends TimedRobot {
 
         
       
-        // if(operatorStick.getBumper(Hand.kLeft)){
-        //     suckerPower = 1;
-        // }
-        // else if(operatorStick.getBumper(Hand.kRight)){
-        //     suckerPower = -1;
-        // }
-        // else{
-        //     suckerPower = 0;
-        // }
+        if(operatorStick.getBumper(Hand.kLeft)){
+            suckerPower = 1;
+        }
+        else if(operatorStick.getBumper(Hand.kRight)){
+            suckerPower = -1;
+        }
+        else if(moving){
+            if(Math.abs(elevatorLeft.getSelectedSensorVelocity()) < 100 && operatorStick.getAButton()){
+                if(ballTime.get() < 0.25){
+                    suckerPower = 1;
+                }
+                else{
+                    moving = false;
+                }
+            }
+            else if(!operatorStick.getAButton()){
+                moving = false;
+            }
+            else{
+                ballTime.reset();
+                suckerPower = 0;
+            }
+        }
+        else{
+            suckerPower = 0;
+        }
 
 
         // if(operatorStick.getPOV() == 0){
@@ -291,51 +319,73 @@ public class Robot extends TimedRobot {
         //     hatchPower = 0;
         // }
         
-        // if(operatorStick.getPOV() == 0){
-        //     elevatorLeft.set(ControlMode.MotionMagic, 29500);
-        // }
-        // else if(operatorStick.getPOV() == 90){
-        //     elevatorLeft.set(ControlMode.MotionMagic, 17500);
-        // }
-        // else if(operatorStick.getPOV() == 180){
-        //     elevatorLeft.set(ControlMode.MotionMagic, 5000);
-        // }
-        // else if(operatorStick.getBButton()){
-        //     elevatorLeft.set(-0.5);
-        // }
-        // else if(operatorStick.getXButton()){
-        //     elevatorLeft.set(0.5);
-        // }
-        // else{
-        //     elevatorLeft.set(0);
-        // }
+        if(operatorStick.getPOV() == 0){
+            if(Math.abs(elevatorLeft.getSelectedSensorVelocity()) > 100){
+                moving = true;
+            }
+            elevatorLeft.set(ControlMode.MotionMagic, 27000);
+        }
+        else if(operatorStick.getPOV() == 90){
+            if(Math.abs(elevatorLeft.getSelectedSensorVelocity()) > 100){
+                moving = true;
+            }
+            elevatorLeft.set(ControlMode.MotionMagic, 14000);
+        }
+        else if(operatorStick.getPOV() == 180){
+            if(Math.abs(elevatorLeft.getSelectedSensorVelocity()) > 100){
+                moving = true;
+            }
+            elevatorLeft.set(ControlMode.MotionMagic, 2000);
+        }
+        else if(operatorStick.getPOV() == 270){
+            if(Math.abs(elevatorLeft.getSelectedSensorVelocity()) > 100){
+                moving = true;
+            }
+            elevatorLeft.set(ControlMode.MotionMagic, 8500);
+        }
+        else if(operatorStick.getBButton()){
+            elevatorLeft.set(-0.5);
+        }
+        else if(operatorStick.getXButton()){
+            elevatorLeft.set(0.5);
+        }
+        else{
+            elevatorLeft.set(0);
+        }
        
 
         
         //elevatorRight.set(elevatorPower);
-        // hinge.set(hingePower);
-        // hinge2.set(hingePower);
-        // sucker.set(suckerPower);
+        hinge.set(hingePower);
+        hinge2.set(hingePower);
+        sucker.set(suckerPower);
       
         // pillarDrive.set(operatorStick.getTriggerAxis(Hand.kRight));
             
         
 
-        //driveTrain.arcadeDrive(axis1, -axis4);
+        driveTrain.arcadeDrive(axis1, -axis4);
       
         //System.out.println(hinge.getSensorCollection().getAnalogInRaw());
         //System.out.println(elevatorPos);
         // System.out.println("Rear: " + (position - initPosition) + " " + "Front: " + (positionFront - initPositionFront));
 
-        if(operatorStick.getPOV() == 0){
-        driveTrain.arcadeDrive(0, PID(50));
-        }
-        else if(operatorStick.getPOV() == 180){
-            gyro.setYaw(0, 10);
-        }
-        System.out.println(ypr[0]);
-        SmartDashboard.putNumber("Target", 50);
-        SmartDashboard.putNumber("Angle", ypr[0]);
+        // if(operatorStick.getPOV() == 0){
+        //     if(PID(10) < 0.3 && PID(10) > 0.05)
+        //     {
+        //        driveTrain.arcadeDrive(0, 0.3); 
+        //     }
+        //     else{
+        //         driveTrain.arcadeDrive(0, PID(10));
+        //     }
+            
+        // }
+        // else if(operatorStick.getPOV() == 180){
+        //     gyro.setYaw(0, 10);
+        // }
+        // System.out.println(ypr[0]);
+        // SmartDashboard.putNumber("Target", 50);
+        // SmartDashboard.putNumber("Angle", ypr[0]);
         
 
 
