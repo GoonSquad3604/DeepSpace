@@ -5,7 +5,11 @@ import frc.subsystem.Pillars;
 
 public class CmdLevelPillars implements AutonCommand
 {
-    Pillars pillars;
+    private Pillars pillars;
+    private double initPositionFront;
+    private double positionFront;
+    private double initPositionRear;
+    private double positionRear;
     public CmdLevelPillars(Pillars iPillars)
     {
         pillars = iPillars;
@@ -13,7 +17,25 @@ public class CmdLevelPillars implements AutonCommand
     @Override
     public boolean isFinished() 
     {
-        pillars.setPillars(0.1);
+        positionFront = pillars.getFrontHeight();
+        positionRear = pillars.getRearHeight();
+        if((positionRear - initPositionRear) - (positionFront - initPositionFront) > 1)
+        {
+            pillars.setFrontPillar(0.4);
+        }
+        else
+        {
+            pillars.setFrontPillar(0.0);
+        }
+        
+        if( (positionFront - initPositionFront) - (positionRear - initPositionRear) > 1)
+        {
+            pillars.setRearPillar(0.4);
+        }
+        else
+        {
+            pillars.setRearPillar(0.0);
+        }
         return true;
     }
 
@@ -32,13 +54,14 @@ public class CmdLevelPillars implements AutonCommand
     @Override
     public void init() 
     {
-
+        initPositionFront = pillars.getFrontHeight();
+        initPositionRear = pillars.getRearHeight();
     }
 
     @Override
     public void end()
     {
-
+        pillars.setPillars(0);
     }
 
 }

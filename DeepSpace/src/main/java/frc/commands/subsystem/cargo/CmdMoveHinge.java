@@ -8,17 +8,17 @@ public class CmdMoveHinge implements AutonCommand
     private CargoManipulator cargo;
     private double amount;
     private double speed;
-    public CmdMoveHinge(double amount, double speed, CargoManipulator cargo)
+    public CmdMoveHinge(double iAmount, double iSpeed, CargoManipulator iCargo)
     {
-        this.cargo = cargo;
-        this.amount = amount;
-        this.speed = speed;
+        cargo = iCargo;
+        amount = iAmount;
+        speed = iSpeed;
     }
     
     @Override
     public boolean isFinished() 
     {
-        return Math.abs(cargo.getHingeLeftLocation()) >= Math.abs(amount) && Math.abs(cargo.getHingeRightLocation()) >= Math.abs(amount);
+        return Math.abs(cargo.getHingeLocation()) >= Math.abs(amount);
     }
 
     @Override

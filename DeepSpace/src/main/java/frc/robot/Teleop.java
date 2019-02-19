@@ -16,6 +16,8 @@ public class Teleop implements AutonCommand
     private XboxController operateStick;
     private Auton auton;
     private boolean running;
+    private double limelightAngle;
+    private double[] ypr;
     
     public Teleop(DriveTrain drive, XboxController driveStick, XboxController operateStick, Auton auton)
     {
@@ -34,8 +36,37 @@ public class Teleop implements AutonCommand
     @Override
     public void runTask() 
     {
+        auton.getGyro().getYawPitchRoll(ypr);
         System.out.println("WE ARE IN TELEOP");
-        drive.arcadeDrive(-driveStick.getRawAxis(1),driveStick.getRawAxis(4));
+        double axis1 = (Math.abs(driveStick.getRawAxis(1)) > 0.1) ? driveStick.getRawAxis(1) : 0;
+        double axis4 = (Math.abs(driveStick.getRawAxis(4)) > 0.1) ? driveStick.getRawAxis(4) : 0;
+        if(driveStick.getAButton())
+        {
+            auton.getLimelight().setCamMode(0);
+            if(Math.abs(ypr[0] - limelightAngle) < 2)
+            {
+                drive.arcadeDrive(0,0);
+            }
+            else if(ypr[0] < limelightAngle)
+            {
+                drive.arcadeDrive(0,0.35);
+            }
+            else if(ypr[0] > limelightAngle)
+            {
+                drive.arcadeDrive(0,0);
+            }
+            else
+            {
+                drive.arcadeDrive(0,0);
+            }
+        }
+        else
+        {
+            drive.arcadeDrive(-axis1,axis4);
+            limelightAngle = auton.getLimelight().getTargetX();
+            auton.getGyro().setYaw(0,10);
+            auton.getLimelight().setCamMode(1);
+        }
         if(auton.getSize() == 0 && running)
         {
             //When the operator presses A and a directional button, place a cargo.
@@ -73,6 +104,10 @@ public class Teleop implements AutonCommand
                 {
                     auton.getCargoManipulator().runHinge(0);
                 }
+            }
+            else
+            {
+                auton.getCargoManipulator().runHinge(0);
             }
             if(operateStick.getBumper(Hand.kLeft))
             {

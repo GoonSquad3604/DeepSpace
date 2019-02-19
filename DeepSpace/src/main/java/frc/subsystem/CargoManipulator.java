@@ -51,16 +51,9 @@ public class CargoManipulator
     }
     
 
-    public double getHingeRightLocation()
+    public double getHingeLocation()
     {
-        return hingeRight.getSelectedSensorPosition();
+        return hingeRight.getSensorCollection().getAnalogInRaw();
     }
-
-    public double getHingeLeftLocation()
-    {
-        return hingeLeft.getSelectedSensorPosition();
-    }
-
-
 
 }

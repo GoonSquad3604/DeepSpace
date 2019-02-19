@@ -10,16 +10,18 @@ public class CmdRaisePillars implements AutonCommand
     //Raises pillars to a specific height at a specific speed.
     private Pillars pillars;
     private double height;
-    private double speed;
 
-    private double frontInitPosition;
-    private double rearInitPosition;
+    private double initPositionFront;
+    private double initPositionRear;
+    private double positionFront;
+    private double positionRear;
 
-    public CmdRaisePillars(double iHeight, double iSpeed, Pillars iPillars)
+    public CmdRaisePillars(double iHeight, Pillars iPillars)
     {
-        pillars = iPillars;
-        speed = Math.abs(iSpeed);
         height = iHeight;
+        pillars = iPillars;
+        initPositionFront = pillars.getFrontHeight();
+        initPositionRear = pillars.getRearHeight();
     }
     @Override
     public boolean isFinished() 
@@ -32,11 +34,25 @@ public class CmdRaisePillars implements AutonCommand
     {    
         //Attempts to adjust for faster rear pillars.
         
-        double plrSpeed = ((pillars.getRearHeight() - rearInitPosition) 
-        - (pillars.getFrontHeight() - frontInitPosition) > 1) ? 0.8 : 0.7; 
+        positionFront = pillars.getFrontHeight();
+        positionRear = pillars.getRearHeight();
+        if((positionRear - initPositionRear) - (positionFront - initPositionFront) > 1)
+        {
+            pillars.setFrontPillar(0.4);
+        }
+        else
+        {
+            pillars.setFrontPillar(0.0);
+        }
         
-        pillars.setFrontPillar(plrSpeed);
-        pillars.setRearPillar(0.7);
+        if( (positionFront - initPositionFront) - (positionRear - initPositionRear) > 1)
+        {
+            pillars.setRearPillar(0.4);
+        }
+        else
+        {
+            pillars.setRearPillar(0.0);
+        }
     }
 
     @Override
@@ -47,8 +63,8 @@ public class CmdRaisePillars implements AutonCommand
 
     @Override
     public void init() {
-        frontInitPosition = pillars.getFrontHeight();
-        rearInitPosition = pillars.getRearHeight();
+        initPositionFront = pillars.getFrontHeight();
+        initPositionRear = pillars.getRearHeight();
     }
 
     @Override

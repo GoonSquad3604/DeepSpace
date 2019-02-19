@@ -94,6 +94,11 @@ public class Limelight
         pipe.setNumber(pipeline);
     }
 
+    public void setCamMode(Number camMode)
+    {
+        table.getEntry("camMode").setNumber(camMode);
+    }
+
     @Override
     public String toString()
     {
