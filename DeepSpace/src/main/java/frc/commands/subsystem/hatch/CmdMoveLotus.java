@@ -1,4 +1,4 @@
-package frc.commands.subsystem;
+package frc.commands.subsystem.hatch;
 
 import frc.commands.AutonCommand;
 import static frc.robot.Constants.*;

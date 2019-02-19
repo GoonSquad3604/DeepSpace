@@ -1,4 +1,4 @@
-package frc.commands.subsystem;
+package frc.commands.subsystem.pillars;
 
 import frc.commands.AutonCommand;
 import frc.subsystem.Pillars;

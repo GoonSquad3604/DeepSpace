@@ -15,6 +15,7 @@ public class Elevator
         leftElevator = new WPI_TalonSRX(elevatorLeftID);
         rightElevator = new WPI_TalonSRX(elevatorRightID);
         leftElevator.setInverted(true);
+        rightElevator.follow(leftElevator);
 
         //PID Settings
         leftElevator.config_kP(0, kElevatorP, kTimeoutMs);
@@ -28,7 +29,7 @@ public class Elevator
     public void moveElevator(double height)
     {
         leftElevator.set(ControlMode.MotionMagic, height);
-        rightElevator.set(ControlMode.MotionMagic, height);
+        //rightElevator.set(ControlMode.MotionMagic, height);
     }
 
     //Resets the sensor to a height.
@@ -36,6 +37,11 @@ public class Elevator
     {
         leftElevator.setSelectedSensorPosition((int)height, 0, kTimeoutMs);
         rightElevator.setSelectedSensorPosition((int)height, 0, kTimeoutMs);
+    }
+
+    public WPI_TalonSRX getElevator()
+    {
+        return leftElevator;
     }
 
     //Returns the height of the sensor.

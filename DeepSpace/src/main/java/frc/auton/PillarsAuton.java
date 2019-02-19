@@ -1,7 +1,7 @@
 package frc.auton;
 import static frc.robot.Constants.*;
 
-import frc.commands.subsystem.*;
+import frc.commands.subsystem.pillars.*;
 import frc.commands.drive.*;
 import frc.commands.special.*;
 public class PillarsAuton

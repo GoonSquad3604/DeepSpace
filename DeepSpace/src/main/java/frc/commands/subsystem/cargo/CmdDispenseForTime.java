@@ -1,4 +1,4 @@
-package frc.commands.subsystem;
+package frc.commands.subsystem.cargo;
 
 import edu.wpi.first.wpilibj.Timer;
 import frc.commands.AutonCommand;
@@ -10,14 +10,14 @@ public class CmdDispenseForTime implements AutonCommand
     private CargoManipulator cargo;
     private double time;
 
-    public CmdDispenseForTime(double time, CargoManipulator cargo)
+    public CmdDispenseForTime(double iTime, CargoManipulator iCargo)
     {
-        if(cargo == null)
+        if(iCargo == null)
         {
             throw new NullPointerException("CARGO MANIPULATOR NOT FOUND!");
         }
-        this.cargo = cargo;
-        this.time = time;
+        cargo = iCargo;
+        time = iTime;
         timer = new Timer();
     }
 
@@ -43,9 +43,16 @@ public class CmdDispenseForTime implements AutonCommand
     public void init() 
     {
         timer.start();
+        timer.reset();
     }
     public double getTime(){
         return time;
+    }
+
+    @Override
+    public void end()
+    {
+        cargo.stop();
     }
 
 }

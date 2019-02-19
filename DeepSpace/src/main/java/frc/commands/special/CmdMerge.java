@@ -60,5 +60,14 @@ public class CmdMerge implements AutonCommand
             cmd.init();
         }
     }
+    //Ends all merged commands.
+    @Override
+    public void end()
+    {
+        for(AutonCommand cmd : commands)
+        {
+            cmd.end();
+        }
+    }
 
 }

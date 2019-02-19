@@ -9,31 +9,40 @@ public class CmdMoveElevator implements AutonCommand
 {
     private Elevator elevator;
     private double height;
+    private boolean moved;
 
-    public CmdMoveElevator(double height, Elevator elevator)
+    public CmdMoveElevator(double iHeight, Elevator iElevator)
     {
-        this.height = height;
-        if(elevator == null)
+        height = iHeight;
+        moved = false;
+        if(iElevator == null)
         {
             throw new NullPointerException("NO ELEVATOR FOUND!");
         }
         else
         {
-            this.elevator = elevator;
+            elevator = iElevator;
         }
+        moved = false;
     }
     
     @Override
     public boolean isFinished() 
     {
-        return elevator.getHeight() > height-kElevatorError
-        && elevator.getHeight() < height+kElevatorError;
+        System.out.println(moved);
+        System.out.println((Math.abs(elevator.getElevator().getSelectedSensorVelocity()) < 100));
+        return (moved && (Math.abs(elevator.getElevator().getSelectedSensorVelocity()) < 100));
     }
 
     @Override
     public void runTask() 
     {
+        System.out.println(elevator.getElevator().getSelectedSensorVelocity());
         elevator.moveElevator(height);
+        if(Math.abs(elevator.getElevator().getSelectedSensorVelocity()) > 100)
+        {
+            moved = true;
+        }
     }
 
     //Returns the height of the elevator. Can be used in a merge
@@ -45,7 +54,7 @@ public class CmdMoveElevator implements AutonCommand
     @Override
     public void init() 
     {
-
+        
     }
 
 }

@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.GenericHID.Hand;
 import frc.auton.*;
 import frc.commands.AutonCommand;
 import frc.subsystem.drivetrain.*;
+import static frc.robot.Constants.*;
 
 public class Teleop implements AutonCommand
 {
@@ -33,54 +34,57 @@ public class Teleop implements AutonCommand
     @Override
     public void runTask() 
     {
+        System.out.println("WE ARE IN TELEOP");
         drive.arcadeDrive(-driveStick.getRawAxis(1),driveStick.getRawAxis(4));
         if(auton.getSize() == 0 && running)
         {
-            //Run a command when A is pressed.
-           if(driveStick.getAButtonPressed())
+            //When the operator presses A and a directional button, place a cargo.
+            if(operateStick.getAButton() && operateStick.getPOV() != kDpadNone)
             {
-                HatchPlaceAuton.addCommands(this.auton);
-                this.running = false;
-                this.end();
+                if(operateStick.getPOV() == kDpadUp)
+                {
+                    CargoPlaceAuton.addCommands(auton,kTopRocketCargo);
+                }
+                else if(operateStick.getPOV() == kDpadRight)
+                {
+                    CargoPlaceAuton.addCommands(auton,kMiddleRocketCargo);
+                }
+                else if(operateStick.getPOV() == kDpadDown)
+                {
+                    CargoPlaceAuton.addCommands(auton,kBottomRocketCargo);
+                }
+                else if(operateStick.getPOV() == kDpadLeft)
+                {
+                    CargoPlaceAuton.addCommands(auton,kCargoShip);
+                }
+                endTeleop();
             }
-            //Run a command when B is pressed.
-            if(driveStick.getBButtonPressed())
+            if(operateStick.getYButton())
             {
-                TestAuton.addCommands(this.auton);
-                this.running = false;
-                this.end();
+                if(operateStick.getPOV() == 0)
+                {
+                    auton.getCargoManipulator().runHinge(1);
+                }
+                else if(operateStick.getPOV() == 180)
+                {
+                    auton.getCargoManipulator().runHinge(-1);
+                }
+                else
+                {
+                    auton.getCargoManipulator().runHinge(0);
+                }
             }
-            
-            if(operateStick.getStartButton())
+            if(operateStick.getBumper(Hand.kLeft))
             {
-                PillarsAuton.addCommands(this.auton);
-                this.running = false;
-                this.end();   
+                auton.getCargoManipulator().runDispense();
             }
-            /*
-            if(operateStick.getPOV() == 0)
+            else if(operateStick.getBumper(Hand.kRight))
             {
-                auton.getPillars().setFrontPillar(0.5);
-                auton.getPillars().setRearPillar(0.5);
-            }
-            else if(operateStick.getPOV() == 180 && auton.getPillars().getHeight()>0)
-            {
-                auton.getPillars().setFrontPillar(-0.5);
-                auton.getPillars().setRearPillar(-0.5);
+                auton.getCargoManipulator().runIntake();
             }
             else
             {
-                auton.getPillars().setPillars(0);
-            }*/
-            //Run a command when the left bumper is pressed.
-            if(driveStick.getBumper(Hand.kLeft))
-            {
-                
-                LockOnAuton.addCommands(this.auton);
-                this.running = false;
-                this.end();
-                auton.initAuton();
-                System.out.println("added to queue! iygutdyetrdytrduurrr");
+                auton.getCargoManipulator().stop();
             }
 
         }
@@ -113,7 +117,12 @@ public class Teleop implements AutonCommand
     @Override
     public void end()
     {
-        drive.setLeftPosition(0);
-        drive.setRightPosition(0);
+        //drive.setLeftPosition(0);
+        //drive.setRightPosition(0);
+    }
+    private void endTeleop()
+    {   
+        this.running = false;
+        this.end();
     }
 }

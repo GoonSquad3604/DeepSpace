@@ -1,4 +1,4 @@
-package frc.commands.subsystem;
+package frc.commands.subsystem.cargo;
 
 import frc.commands.AutonCommand;
 import frc.subsystem.CargoManipulator;
