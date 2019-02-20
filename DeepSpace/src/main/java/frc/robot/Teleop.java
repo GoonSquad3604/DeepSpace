@@ -18,6 +18,7 @@ public class Teleop implements AutonCommand
     private boolean running;
     private double limelightAngle;
     private double[] ypr = new double[3];
+    private TeleopParts teleopParts;
     
     public Teleop(DriveTrain drive, XboxController driveStick, XboxController operateStick, Auton auton)
     {
@@ -25,6 +26,7 @@ public class Teleop implements AutonCommand
         this.operateStick = operateStick;
         this.drive = drive;
         this.auton = auton;
+        teleopParts = new TeleopParts(auton,driveStick,operateStick);
     }
     
     @Override
@@ -37,10 +39,10 @@ public class Teleop implements AutonCommand
     public void runTask() 
     {
         auton.getGyro().getYawPitchRoll(ypr);
-        System.out.println(auton.getCargoManipulator().getHingeLocation());
+        System.out.println(auton.getHatchManipulator().getLocation());
         double axis1 = (Math.abs(driveStick.getRawAxis(1)) > 0.1) ? driveStick.getRawAxis(1) : 0;
         double axis4 = (Math.abs(driveStick.getRawAxis(4)) > 0.1) ? driveStick.getRawAxis(4) : 0;
-        if(driveStick.getAButton())
+        if(driveStick.getBumper(Hand.kLeft))
         {
             auton.getLimelight().setCamMode(0);
             auton.getLimelight().setLEDMode(0);
@@ -61,6 +63,49 @@ public class Teleop implements AutonCommand
                 drive.arcadeDrive(0,0);
             }
         }
+        else if(driveStick.getBumper(Hand.kRight))
+        {
+            if(auton.getSonar().getInches() >= 2)
+            {
+                drive.arcadeDrive(0.7,0);
+            }
+            else
+            {
+                drive.arcadeDrive(0,0);
+            }
+        }
+        else if(driveStick.getBumper(Hand.kRight) && driveStick.getBumper(Hand.kLeft))
+        {
+            double drv;
+            double turn;
+            auton.getLimelight().setCamMode(0);
+            auton.getLimelight().setLEDMode(0);
+            if(Math.abs(ypr[0] - limelightAngle) < 2)
+            {
+                turn = 0;
+            }
+            else if(ypr[0] < limelightAngle)
+            {
+                turn = .35;
+            }
+            else if(ypr[0] > limelightAngle)
+            {
+                turn = -.35;
+            }
+            else
+            {
+                turn = 0;
+            }
+            if(auton.getSonar().getInches() >= 2)
+            {
+                drv = 0.7;
+            }
+            else
+            {
+                drv = 0;
+            }
+            drive.arcadeDrive(-drv,turn);
+        }
         else
         {
             auton.getLimelight().setCamMode(1);
@@ -76,22 +121,61 @@ public class Teleop implements AutonCommand
             {
                 if(operateStick.getPOV() == kDpadUp)
                 {
-                    CargoPlaceAuton.addCommands(auton,kTopRocketCargo);
+                    CargoPlaceAuton2.addCommands(auton,kTopRocketCargo,teleopParts);
                 }
                 else if(operateStick.getPOV() == kDpadRight)
                 {
-                    CargoPlaceAuton.addCommands(auton,kMiddleRocketCargo);
+                    CargoPlaceAuton2.addCommands(auton,kMiddleRocketCargo,teleopParts);
                 }
                 else if(operateStick.getPOV() == kDpadDown)
                 {
-                    CargoPlaceAuton.addCommands(auton,kBottomRocketCargo);
+                    CargoPlaceAuton2.addCommands(auton,kBottomRocketCargo,teleopParts);
                 }
                 else if(operateStick.getPOV() == kDpadLeft)
                 {
-                    CargoPlaceAuton.addCommands(auton,kCargoShip);
+                    CargoPlaceAuton2.addCommands(auton,kCargoShip,teleopParts);
                 }
                 endTeleop();
             }
+            else if(operateStick.getBButton() && operateStick.getPOV() != kDpadNone)
+            {
+                if(operateStick.getPOV() == kDpadUp)
+                {
+                    CargoPlaceAuton2.addCommands(auton,kTopRocketHatch,teleopParts);
+                }
+                else if(operateStick.getPOV() == kDpadRight)
+                {
+                    CargoPlaceAuton2.addCommands(auton,kMiddleRocketHatch,teleopParts);
+                }
+                else if(operateStick.getPOV() == kDpadDown)
+                {
+                    CargoPlaceAuton2.addCommands(auton,kBottomRocketHatch,teleopParts);
+                }
+                else if(operateStick.getPOV() == kDpadLeft)
+                {
+                    CargoPlaceAuton2.addCommands(auton,kHatchShip,teleopParts);
+                }
+                endTeleop();
+            }
+            else
+            {
+                auton.getPillars().runOldChadCode(driveStick);
+
+                if(operateStick.getPOV() == kDpadLeft)
+                {
+                    auton.getHatchManipulator().runHatch(-1);
+                }
+                else if(operateStick.getPOV() == kDpadRight)
+                {
+                    auton.getHatchManipulator().runHatch(1);
+                }
+                else(operateStick.getPOV() == kDpadNone)
+                {
+                    auton.getHatchManipulator().runHatch(0);
+                }
+
+            }
+            /*
             if(operateStick.getYButton())
             {
                 if(operateStick.getPOV() == 0)
@@ -110,7 +194,8 @@ public class Teleop implements AutonCommand
             else
             {
                 auton.getCargoManipulator().runHinge(0);
-            }
+            }*/
+            teleopParts.permitHingeMovement();
             if(operateStick.getBumper(Hand.kLeft))
             {
                 auton.getCargoManipulator().runDispense();
@@ -123,6 +208,10 @@ public class Teleop implements AutonCommand
             {
                 auton.getCargoManipulator().stop();
             }
+
+            
+
+
 
         }
     }

@@ -5,7 +5,7 @@ import frc.commands.special.CmdMerge;
 import frc.commands.subsystem.cargo.CmdDispenseForTime;
 import frc.robot.TeleopParts;
 import frc.commands.subsystem.CmdMoveElevator;
-public class CargoPlaceAuton
+public class CargoPlaceAuton2
 {
 
     public static void addCommands(Auton auton, double elevatorHeight, TeleopParts teleopParts)
@@ -13,12 +13,6 @@ public class CargoPlaceAuton
         auton.addCommand(new CmdMerge(
             new CmdManualDrive(auton.getDrive(),auton.getDriveStick(),auton.getOperateStick(),auton,teleopParts),
             new CmdMoveElevator(elevatorHeight, auton.getElevator())));
-        auton.addCommand(new CmdMerge(
-            new CmdManualDrive(auton.getDrive(),auton.getDriveStick(),auton.getOperateStick(),auton,teleopParts),
-            new CmdDispenseForTime( 0.25, auton.getCargoManipulator())));
-        auton.addCommand(new CmdMerge(
-            new CmdManualDrive(auton.getDrive(),auton.getDriveStick(),auton.getOperateStick(),auton,teleopParts),
-            new CmdMoveElevator(100, auton.getElevator())));
     }
 
 }

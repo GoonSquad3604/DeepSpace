@@ -29,7 +29,7 @@ public class Constants
     public static final int kHingeRightID = 8;
     public static final int kHingeLeftID = 7;
     
-    public static final int kHatchLeftRightID = 0;
+    public static final int kHatchID = 9;
     public static final int kHatchForwardBackID = 0;
 
     public static final int kPillarsFront = 12;
@@ -56,6 +56,7 @@ public class Constants
     public static final double kBottomRocketHatch = 0;
     public static final double kMiddleRocketHatch = 0;
     public static final double kTopRocketHatch = 0;
+    public static final double kHatchShip = 0;
 
     //Rocket cargo encoder positions
     public static final double kTopRocketCargo = 27000;

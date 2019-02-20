@@ -44,7 +44,7 @@ public class Auton
         return cargo;
     }
 
-    public HatchManipulator getLotus()
+    public HatchManipulator getHatchManipulator()
     {
         return blackLotus;
     }

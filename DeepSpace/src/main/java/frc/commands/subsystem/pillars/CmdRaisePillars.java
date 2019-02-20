@@ -38,20 +38,20 @@ public class CmdRaisePillars implements AutonCommand
         positionRear = pillars.getRearHeight();
         if((positionRear - initPositionRear) - (positionFront - initPositionFront) > 1)
         {
-            pillars.setFrontPillar(0.4);
+            pillars.setFrontPillar(1);
         }
         else
         {
-            pillars.setFrontPillar(0.0);
+            pillars.setFrontPillar(0.9);
         }
         
         if( (positionFront - initPositionFront) - (positionRear - initPositionRear) > 1)
         {
-            pillars.setRearPillar(0.4);
+            pillars.setRearPillar(1);
         }
         else
         {
-            pillars.setRearPillar(0.0);
+            pillars.setRearPillar(0.9);
         }
     }
 
