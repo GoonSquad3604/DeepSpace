@@ -17,7 +17,7 @@ public class Teleop implements AutonCommand
     private Auton auton;
     private boolean running;
     private double limelightAngle;
-    private double[] ypr;
+    private double[] ypr = new double[3];
     
     public Teleop(DriveTrain drive, XboxController driveStick, XboxController operateStick, Auton auton)
     {
@@ -37,12 +37,13 @@ public class Teleop implements AutonCommand
     public void runTask() 
     {
         auton.getGyro().getYawPitchRoll(ypr);
-        System.out.println("WE ARE IN TELEOP");
+        System.out.println(auton.getCargoManipulator().getHingeLocation());
         double axis1 = (Math.abs(driveStick.getRawAxis(1)) > 0.1) ? driveStick.getRawAxis(1) : 0;
         double axis4 = (Math.abs(driveStick.getRawAxis(4)) > 0.1) ? driveStick.getRawAxis(4) : 0;
         if(driveStick.getAButton())
         {
             auton.getLimelight().setCamMode(0);
+            auton.getLimelight().setLEDMode(0);
             if(Math.abs(ypr[0] - limelightAngle) < 2)
             {
                 drive.arcadeDrive(0,0);
@@ -53,7 +54,7 @@ public class Teleop implements AutonCommand
             }
             else if(ypr[0] > limelightAngle)
             {
-                drive.arcadeDrive(0,0);
+                drive.arcadeDrive(0,-0.35);
             }
             else
             {
@@ -62,10 +63,11 @@ public class Teleop implements AutonCommand
         }
         else
         {
+            auton.getLimelight().setCamMode(1);
+            auton.getLimelight().setLEDMode(1);
             drive.arcadeDrive(-axis1,axis4);
             limelightAngle = auton.getLimelight().getTargetX();
             auton.getGyro().setYaw(0,10);
-            auton.getLimelight().setCamMode(1);
         }
         if(auton.getSize() == 0 && running)
         {

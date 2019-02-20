@@ -35,6 +35,11 @@ public class CmdMoveElevator implements AutonCommand
     }
 
     @Override
+    public void end()
+    {      
+        elevator.setPower(0);
+    }
+    @Override
     public void runTask() 
     {
         System.out.println(elevator.getElevator().getSelectedSensorVelocity());

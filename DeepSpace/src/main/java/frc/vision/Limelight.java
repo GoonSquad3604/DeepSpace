@@ -99,6 +99,11 @@ public class Limelight
         table.getEntry("camMode").setNumber(camMode);
     }
 
+    public void setLEDMode(Number LEDMode)
+    {
+        table.getEntry("ledMode").setNumber(LEDMode);
+    }
+
     @Override
     public String toString()
     {
