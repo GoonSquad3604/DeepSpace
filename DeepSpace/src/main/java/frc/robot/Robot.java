@@ -44,7 +44,7 @@ public class Robot extends TimedRobot
         limelight = new Limelight("limelight");
         addFinalBotSubsystems();
         sonar = new Sonar(0);
-        runningAuton = new Auton(drive,driveStick,operateStick,pigeon,limelight,blackLotus,pillars,sonar);
+        runningAuton = new Auton(drive,driveStick,operateStick,pigeon,limelight,elevator/*,blackLotus*/,pillars,sonar,cargo);
     }
     
     @Override
@@ -53,9 +53,10 @@ public class Robot extends TimedRobot
         double[] ypr = new double[3];
         pigeon.getYawPitchRoll(ypr);
         yaw = ypr[0];
+        /*
         System.out.println(pillars.getHeight());
         System.out.println("FRONT:" + pillars.getFrontHeight());
-        System.out.println("BACK:" + pillars.getRearHeight());
+        System.out.println("BACK:" + pillars.getRearHeight());*/
     } 
     
     public DifferentialDrive getDriveTrain()
@@ -107,7 +108,7 @@ public class Robot extends TimedRobot
     private void addFinalBotSubsystems()
     {
         cargo = new CargoManipulator(kIntakeControlID,kHingeRightID,kHingeLeftID);
-        blackLotus = new HatchManipulator(kHatchLeftRightID,kHatchForwardBackID);
+        //blackLotus = new HatchManipulator(kHatchLeftRightID,kHatchForwardBackID);
         elevator = new Elevator(kElevatorLeftID,kElevatorRightID);
         pillars = new Pillars(kPillarsFront,kPillarsBack,kPillarWheels);
     }

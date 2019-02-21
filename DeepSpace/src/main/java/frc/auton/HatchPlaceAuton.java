@@ -3,8 +3,6 @@ package frc.auton;
 import frc.commands.drive.*;
 import frc.commands.special.CmdDistance;
 import frc.commands.special.CmdMergeOnStatus;
-import frc.commands.subsystem.CmdMoveElevator;
-import frc.commands.subsystem.CmdToggleLotus;
 
 public class HatchPlaceAuton
 {

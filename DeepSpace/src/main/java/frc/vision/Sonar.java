@@ -1,7 +1,6 @@
 package frc.vision;
 
 import edu.wpi.first.wpilibj.AnalogInput;
-
 public class Sonar extends AnalogInput
 {
     public Sonar(int pin)
@@ -10,6 +9,6 @@ public class Sonar extends AnalogInput
     }
     public double getInches()
     {
-        return this.getVoltage()*118;
+        return (this.getVoltage()*118);
     }
 }

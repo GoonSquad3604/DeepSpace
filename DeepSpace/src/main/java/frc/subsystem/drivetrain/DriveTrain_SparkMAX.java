@@ -26,8 +26,9 @@ public class DriveTrain_SparkMAX extends DriveTrain
         this.rightRear = rightRear;
 
         this.leftRear.follow(this.leftFront);
+        this.leftFront.setInverted(false);
         this.rightRear.follow(this.rightFront);
-            
+        this.rightFront.setInverted(false);            
     }
 
     public DriveTrain_SparkMAX(int leftFrontID, int leftRearID, int rightFrontID, int rightRearID)
@@ -102,6 +103,6 @@ public class DriveTrain_SparkMAX extends DriveTrain
     public WPI_TalonSRX gyroTest() 
     {
         return null;
-	}
+    }
 
 }

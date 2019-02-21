@@ -44,7 +44,7 @@ public class Auton
         return cargo;
     }
 
-    public HatchManipulator getLotus()
+    public HatchManipulator getHatchManipulator()
     {
         return blackLotus;
     }
@@ -185,7 +185,7 @@ public class Auton
         else if(aCommand != null)
         {
             aCommand.runTask();
-            if(driveStick.getXButton()) //Stops queue when X is pressed.
+            if(operateStick.getXButton()) //Stops queue when X is pressed.
             {
                 aCommand.end();
                 autonQueue.clear();

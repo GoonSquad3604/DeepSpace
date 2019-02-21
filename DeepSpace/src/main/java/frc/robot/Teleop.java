@@ -1,10 +1,12 @@
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import frc.auton.*;
 import frc.commands.AutonCommand;
 import frc.subsystem.drivetrain.*;
+import static frc.robot.Constants.*;
 
 public class Teleop implements AutonCommand
 {
@@ -15,13 +17,16 @@ public class Teleop implements AutonCommand
     private XboxController operateStick;
     private Auton auton;
     private boolean running;
-    
+    private double limelightAngle;
+    private double[] ypr = new double[3];
+    private Timer delayTimer;
     public Teleop(DriveTrain drive, XboxController driveStick, XboxController operateStick, Auton auton)
     {
         this.driveStick = driveStick;
         this.operateStick = operateStick;
         this.drive = drive;
         this.auton = auton;
+        delayTimer = new Timer();
     }
     
     @Override
@@ -33,55 +38,201 @@ public class Teleop implements AutonCommand
     @Override
     public void runTask() 
     {
-        drive.arcadeDrive(-driveStick.getRawAxis(1),driveStick.getRawAxis(4));
-        if(auton.getSize() == 0 && running)
+        auton.getGyro().getYawPitchRoll(ypr);
+        //System.out.println(ypr[0] + "::" + limelightAngle);
+        //System.out.println(auton.getHatchManipulator().getLocation());
+        double axis1 = (Math.abs(driveStick.getRawAxis(1)) > 0.1) ? driveStick.getRawAxis(1) : 0;
+        double axis4 = (Math.abs(driveStick.getRawAxis(4)) > 0.1) ? driveStick.getRawAxis(4) : 0;
+
+        if(delayTimer.get() > 0.25 && auton.getLimelight().doesTargetExist() && limelightAngle == 0)
         {
-            //Run a command when A is pressed.
-           if(driveStick.getAButtonPressed())
+            limelightAngle = -auton.getLimelight().getTargetX();
+        }
+        if(driveStick.getBumper(Hand.kLeft))
+        {
+            auton.getLimelight().setCamMode(0);
+            auton.getLimelight().setLEDMode(0);
+            if(Math.abs(Math.abs(ypr[0]) - Math.abs(limelightAngle)) < 2)
             {
-                HatchPlaceAuton.addCommands(this.auton);
-                this.running = false;
-                this.end();
+                drive.arcadeDrive(0,0);
             }
-            //Run a command when B is pressed.
-            if(driveStick.getBButtonPressed())
+            else if(ypr[0] > limelightAngle)
             {
-                TestAuton.addCommands(this.auton);
-                this.running = false;
-                this.end();
+                drive.arcadeDrive(0,0.4);
             }
-            
-            if(operateStick.getStartButton())
+            else if(ypr[0] < limelightAngle)
             {
-                PillarsAuton.addCommands(this.auton);
-                this.running = false;
-                this.end();   
-            }
-            /*
-            if(operateStick.getPOV() == 0)
-            {
-                auton.getPillars().setFrontPillar(0.5);
-                auton.getPillars().setRearPillar(0.5);
-            }
-            else if(operateStick.getPOV() == 180 && auton.getPillars().getHeight()>0)
-            {
-                auton.getPillars().setFrontPillar(-0.5);
-                auton.getPillars().setRearPillar(-0.5);
+                drive.arcadeDrive(0,-0.4);
             }
             else
             {
-                auton.getPillars().setPillars(0);
-            }*/
-            //Run a command when the left bumper is pressed.
-            if(driveStick.getBumper(Hand.kLeft))
-            {
-                
-                LockOnAuton.addCommands(this.auton);
-                this.running = false;
-                this.end();
-                auton.initAuton();
-                System.out.println("added to queue! iygutdyetrdytrduurrr");
+                drive.arcadeDrive(0,0);
             }
+        }
+        else if(driveStick.getBumper(Hand.kRight))
+        {
+            if(auton.getSonar().getInches() >= 2)
+            {
+                drive.arcadeDrive(0.7,0);
+            }
+            else
+            {
+                drive.arcadeDrive(0,0);
+            }
+        }
+        else if(driveStick.getBumper(Hand.kRight) && driveStick.getBumper(Hand.kLeft))
+        {
+            double drv;
+            double turn;
+            auton.getLimelight().setCamMode(0);
+            auton.getLimelight().setLEDMode(0);
+            if(Math.abs(ypr[0] - limelightAngle) < 2)
+            {
+                turn = 0;
+            }
+            else if(ypr[0] < limelightAngle)
+            {
+                turn = .35;
+            }
+            else if(ypr[0] > limelightAngle)
+            {
+                turn = -.35;
+            }
+            else
+            {
+                turn = 0;
+            }
+            if(auton.getSonar().getInches() >= 2)
+            {
+                drv = 0.7;
+            }
+            else
+            {
+                drv = 0;
+            }
+            drive.arcadeDrive(-drv,turn);
+        }
+        else
+        {
+            limelightAngle = 0;
+            auton.getLimelight().setCamMode(1);
+            auton.getLimelight().setLEDMode(1);
+            drive.arcadeDrive(-axis1,axis4);
+            auton.getGyro().setYaw(0,10);
+            delayTimer.reset();
+        }
+        if(auton.getSize() == 0 && running)
+        {
+            //When the operator presses A and a directional button, place a cargo.
+            if(operateStick.getAButton() && operateStick.getPOV() != kDpadNone)
+            {
+                if(operateStick.getPOV() == kDpadUp)
+                {
+                    CargoPlaceAuton2.addCommands(auton,kTopRocketCargo);
+                }
+                else if(operateStick.getPOV() == kDpadRight)
+                {
+                    CargoPlaceAuton2.addCommands(auton,kMiddleRocketCargo);
+                }
+                else if(operateStick.getPOV() == kDpadDown)
+                {
+                    CargoPlaceAuton2.addCommands(auton,kBottomRocketCargo);
+                }
+                else if(operateStick.getPOV() == kDpadLeft)
+                {
+                    CargoPlaceAuton2.addCommands(auton,kCargoShip);
+                }
+                endTeleop();
+            }
+            else if(operateStick.getBButton() && operateStick.getPOV() != kDpadNone)
+            {
+                if(operateStick.getPOV() == kDpadUp)
+                {
+                    CargoPlaceAuton2.addCommands(auton,kTopRocketHatch);
+                }
+                else if(operateStick.getPOV() == kDpadRight)
+                {
+                    CargoPlaceAuton2.addCommands(auton,kMiddleRocketHatch);
+                }
+                else if(operateStick.getPOV() == kDpadDown)
+                {
+                    CargoPlaceAuton2.addCommands(auton,kBottomRocketHatch);
+                }
+                else if(operateStick.getPOV() == kDpadLeft)
+                {
+                    CargoPlaceAuton2.addCommands(auton,kHatchShip);
+                }
+                endTeleop();
+            }
+            else if(operateStick.getTriggerAxis(Hand.kLeft) >= 0.6)
+            {
+                if(operateStick.getPOV() == kDpadNone)
+                {
+                    auton.getElevator().setPower(0);
+                }
+                else if(operateStick.getPOV() == kDpadUp)
+                {
+                    auton.getElevator().setPower(1);
+                }
+                else if(operateStick.getPOV() == kDpadDown)
+                {
+                    auton.getElevator().setPower(-1);
+                }
+            }
+            else
+            {
+                auton.getPillars().runOldChadCode(driveStick);
+                auton.getElevator().setPower(0);
+
+                /*
+                if(operateStick.getPOV() == kDpadLeft)
+                {
+                    auton.getHatchManipulator().runHatch(-1);
+                }
+                else if(operateStick.getPOV() == kDpadRight)
+                {
+                    auton.getHatchManipulator().runHatch(1);
+                }
+                else if(operateStick.getPOV() == kDpadNone)
+                {
+                    auton.getHatchManipulator().runHatch(0);
+                }*/
+            }
+            if(operateStick.getYButton())
+            {
+                if(operateStick.getPOV() == 0)
+                {
+                    auton.getCargoManipulator().runHinge(1);
+                }
+                else if(operateStick.getPOV() == 180)
+                {
+                    auton.getCargoManipulator().runHinge(-1);
+                }
+                else
+                {
+                    auton.getCargoManipulator().runHinge(0);
+                }
+            }
+            else
+            {
+                auton.getCargoManipulator().runHinge(0);
+            }
+            if(operateStick.getBumper(Hand.kLeft))
+            {
+                auton.getCargoManipulator().runDispense();
+            }
+            else if(operateStick.getBumper(Hand.kRight))
+            {
+                auton.getCargoManipulator().runIntake();
+            }
+            else
+            {
+                auton.getCargoManipulator().stop();
+            }
+
+            
+
+
 
         }
     }
@@ -95,6 +246,8 @@ public class Teleop implements AutonCommand
     @Override
     public void init() 
     {
+        delayTimer.reset();
+        delayTimer.start();
         this.running = true;
         /*ALL BUTTONS that run auton commands MUST be checked here.
         Without this, Autons may start from accidental button pushes!*/
@@ -113,7 +266,12 @@ public class Teleop implements AutonCommand
     @Override
     public void end()
     {
-        drive.setLeftPosition(0);
-        drive.setRightPosition(0);
+        //drive.setLeftPosition(0);
+        //drive.setRightPosition(0);
+    }
+    private void endTeleop()
+    {   
+        this.running = false;
+        this.end();
     }
 }

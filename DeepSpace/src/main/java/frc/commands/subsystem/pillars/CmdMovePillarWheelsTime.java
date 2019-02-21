@@ -1,4 +1,4 @@
-package frc.commands.subsystem;
+package frc.commands.subsystem.pillars;
 
 import edu.wpi.first.wpilibj.Timer;
 import frc.commands.AutonCommand;
