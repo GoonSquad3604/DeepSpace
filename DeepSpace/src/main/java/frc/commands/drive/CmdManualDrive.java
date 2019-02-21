@@ -3,7 +3,6 @@ package frc.commands.drive;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.auton.Auton;
 import frc.commands.AutonCommand;
-import frc.robot.TeleopParts;
 import frc.subsystem.drivetrain.DriveTrain;
 
 public class CmdManualDrive implements AutonCommand
@@ -17,21 +16,19 @@ public class CmdManualDrive implements AutonCommand
     private Auton auton;
     private double[] ypr = new double[3];
     private double limelightAngle;
-    private TeleopParts teleopParts;
     
-    public CmdManualDrive(DriveTrain iDrive, XboxController iDriveStick, XboxController iOperateStick, Auton iAuton, TeleopParts iTeleopParts)
+    public CmdManualDrive(DriveTrain iDrive, XboxController iDriveStick, XboxController iOperateStick, Auton iAuton)
     {
         drive = iDrive;
         driveStick = iDriveStick;
         operateStick = iOperateStick;
         auton = iAuton;
-        teleopParts = iTeleopParts;
     }
     @Override
     public boolean isFinished() 
     {
     
-        /*
+        
         if(operateStick.getYButton())
         {
             if(operateStick.getPOV() == 0)
@@ -46,8 +43,7 @@ public class CmdManualDrive implements AutonCommand
             {
                 auton.getCargoManipulator().runHinge(0);
             }
-        }*/
-        teleopParts.permitHingeMovement();
+        }
         //Code is highly similar to teleop driving auton. The operator may not operate while this is running.
         auton.getGyro().getYawPitchRoll(ypr);
         double axis1 = (Math.abs(driveStick.getRawAxis(1)) > 0.1) ? driveStick.getRawAxis(1) : 0;

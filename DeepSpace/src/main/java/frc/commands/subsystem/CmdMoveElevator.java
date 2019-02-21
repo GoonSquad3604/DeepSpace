@@ -29,8 +29,6 @@ public class CmdMoveElevator implements AutonCommand
     @Override
     public boolean isFinished() 
     {
-        System.out.println(moved);
-        System.out.println((Math.abs(elevator.getElevator().getSelectedSensorVelocity()) < 100));
         return (moved && (Math.abs(elevator.getElevator().getSelectedSensorVelocity()) < 100));
     }
 
@@ -42,7 +40,6 @@ public class CmdMoveElevator implements AutonCommand
     @Override
     public void runTask() 
     {
-        System.out.println(elevator.getElevator().getSelectedSensorVelocity());
         elevator.moveElevator(height);
         if(Math.abs(elevator.getElevator().getSelectedSensorVelocity()) > 100)
         {

@@ -22,8 +22,8 @@ public class Constants
     public static final int kRightFrontID = 15;
     public static final int kRightRearID = 14;
 
-    public static final int kElevatorLeftID = 6;
-    public static final int kElevatorRightID = 5;
+    public static final int kElevatorLeftID = 5;
+    public static final int kElevatorRightID = 6;
 
     public static final int kIntakeControlID = 3;
     public static final int kHingeRightID = 8;
@@ -62,7 +62,7 @@ public class Constants
     public static final double kTopRocketCargo = 27000;
     public static final double kMiddleRocketCargo = 14000;
     public static final double kBottomRocketCargo = 2000;
-    public static final double kCargoShip = 8500;
+    public static final double kCargoShip = 9000;
 
     /*************/
     /*Drive Train*/

@@ -1,6 +1,9 @@
 package frc.commands.drive;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.sensors.PigeonIMU;
+
+import edu.wpi.first.wpilibj.Notifier;
 import frc.commands.AutonCommand;
 import static frc.robot.Constants.*;
 import frc.subsystem.drivetrain.*;
@@ -18,18 +21,31 @@ public class CmdMoveToWaypoint implements AutonCommand
     private Trajectory.Config config;
     private TankModifier modifier;
     private Trajectory trajectory;
+    private Notifier notifier;
+    private boolean ret;
+    private PigeonIMU gyro;
 
-    public CmdMoveToWaypoint(DriveTrain drive, Waypoint... waypoints)
+    public CmdMoveToWaypoint(DriveTrain iDrive,PigeonIMU iGyro, String pathName)
     {
-        this.waypoints = waypoints;
-        this.drive = drive;
-        generateTrajectory(this.waypoints);
+        drive = iDrive;
+        leftTrajectory = PathfinderFRC.getTrajectory(pathName + ".right");
+        rightTrajectory = PathfinderFRC.getTrajectory(pathName + ".left");
+        leftFollow = new EncoderFollower(leftTrajectory);
+        leftFollow.configureEncoder(0, 1024, kWheelDiameter);
+        leftFollow.configurePIDVA(kDriveP, kDriveI, kDriveD, kVelocityRatio, kAccelerationRatio);
+        rightFollow = new EncoderFollower(rightTrajectory);
+        rightFollow.configureEncoder(0, 1024, kWheelDiameter);
+        rightFollow.configurePIDVA(kDriveP, kDriveI, kDriveD, kVelocityRatio, kAccelerationRatio);
+        gyro = iGyro;
+        notifier = new Notifier(this::followPath);
+        notifier.startPeriodic(leftTrajectory.get(0).dt);
+        ret = false;
     }
 
     @Override
     public boolean isFinished() 
     {
-        return leftFollow.isFinished() && rightFollow.isFinished();
+        return ret;//leftFollow.isFinished() && rightFollow.isFinished();
     }
 
     @Override
@@ -46,31 +62,36 @@ public class CmdMoveToWaypoint implements AutonCommand
     }
 
     @Override
+    public void end()
+    {
+        notifier.stop();
+    }
+    @Override
     public void init() 
     {
         drive.setLeftPosition(0);
         drive.setRightPosition(0);
     }
-    
-    private void generateTrajectory(Waypoint[] points)
+
+    private void followPath()
     {
-        
-        config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, kDt, kVelocity, kAcceleration, kJerk);
-
-        trajectory = Pathfinder.generate(points, config);
-        
-        modifier = new TankModifier(trajectory).modify(kRobotWidth);
-
-        leftTrajectory = modifier.getLeftTrajectory();
-        rightTrajectory = modifier.getRightTrajectory();
-
-        leftFollow = new EncoderFollower(leftTrajectory);
-        leftFollow.configureEncoder(0, 1024, kWheelDiameter);
-        leftFollow.configurePIDVA(kDriveP, kDriveI, kDriveD, kVelocityRatio, kAccelerationRatio);
-
-        rightFollow = new EncoderFollower(rightTrajectory);
-        rightFollow.configureEncoder(0, 1024, kWheelDiameter);
-        rightFollow.configurePIDVA(kDriveP, kDriveI, kDriveD, kVelocityRatio, kAccelerationRatio);
+        if (leftFollow.isFinished() || rightFollow.isFinished()) 
+        {
+            notifier.stop();
+            ret = true;
+        } 
+        else 
+        {
+            double left_speed = leftFollow.calculate((int)drive.getLeftPosition());
+            double right_speed = leftFollow.calculate((int)drive.getRightPosition());
+            double[] ypr = new double[3];
+            gyro.getYawPitchRoll(ypr);
+            double heading = ypr[0];
+            double desired_heading = Pathfinder.r2d(leftFollow.getHeading());
+            double heading_difference = Pathfinder.boundHalfDegrees(desired_heading - heading);
+            double turn =  0.8 * (-1.0/80.0) * heading_difference;
+            drive.setLeft(left_speed + turn);
+            drive.setRight(right_speed - turn);
+        }
     }
-
 }
