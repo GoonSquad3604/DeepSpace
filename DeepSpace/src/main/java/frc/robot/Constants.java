@@ -45,7 +45,7 @@ public class Constants
     public static final double kElevatorD = 0.0;
     public static final double kElevatorF = 0.0;
     public static final int kElevatorCargoVel = 950;
-    public static final int kElevatorCargoAcc = 3000;
+    public static final int kElevatorCargoAcc = 2800;
 
     public static final double kopenCloseP = 0.0;
     public static final double kopenCloseI = 0.0;
@@ -53,10 +53,10 @@ public class Constants
     public static final double kopenCloseF = 0.0;
 
     //Rocket hatch encoder positions
-    public static final double kBottomRocketHatch = 0;
-    public static final double kMiddleRocketHatch = 0;
     public static final double kTopRocketHatch = 0;
-    public static final double kHatchShip = 0;
+    public static final double kMiddleRocketHatch = 0;
+    public static final double kBottomRocketHatch = 0;
+    public static final double kHatchFeeder = 4800;
 
     //Rocket cargo encoder positions
     public static final double kTopRocketCargo = 27000;
@@ -113,13 +113,6 @@ public class Constants
     public static final int kBackwardHatch = 0;
     
     public static final int kReflectiveTapePipeline = 0;
-
-    //Elevator levels for HATCH
-    public static final double kRocketFirstLevelHatch = 0;
-    public static final double kRocketSecondLevelHatch = 0;
-    public static final double kRocketThirdLevelHatch = 0;
-    public static final double kCargoLevelHatch = 0;
-
 
     /*********/
     /*Pillars*/

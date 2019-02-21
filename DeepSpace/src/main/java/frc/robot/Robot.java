@@ -50,6 +50,7 @@ public class Robot extends TimedRobot
     @Override
     public void robotPeriodic()
     {
+        System.out.println(elevator.getHeight());
         double[] ypr = new double[3];
         pigeon.getYawPitchRoll(ypr);
         yaw = ypr[0];

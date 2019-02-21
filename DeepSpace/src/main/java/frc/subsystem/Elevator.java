@@ -14,7 +14,7 @@ public class Elevator
         
         leftElevator = new WPI_TalonSRX(elevatorLeftID);
         rightElevator = new WPI_TalonSRX(elevatorRightID);
-        rightElevator.setInverted(true);
+        leftElevator.setInverted(true);
         rightElevator.follow(leftElevator);
 
         //PID Settings

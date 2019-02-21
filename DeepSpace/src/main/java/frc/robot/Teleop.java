@@ -160,7 +160,7 @@ public class Teleop implements AutonCommand
                 }
                 else if(operateStick.getPOV() == kDpadLeft)
                 {
-                    CargoPlaceAuton2.addCommands(auton,kHatchShip);
+                    CargoPlaceAuton2.addCommands(auton,kHatchFeeder);
                 }
                 endTeleop();
             }
@@ -181,7 +181,7 @@ public class Teleop implements AutonCommand
             }
             else
             {
-                auton.getPillars().runOldChadCode(driveStick);
+                //auton.getPillars().runOldChadCode(driveStick);
                 auton.getElevator().setPower(0);
 
                 /*
