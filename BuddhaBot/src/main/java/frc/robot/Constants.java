@@ -22,8 +22,8 @@ public class Constants
     public static final int kRightFrontID = 3;
     public static final int kRightRearID = 2;
 
-    public static final int kElevatorID = 0;
-    public static final int kElevatorSlaveID = 0;
+    public static final int kElevatorID = 5;
+    public static final int kElevatorSlaveID = 6;
     public static final int kOpenCloseID = 0;
 
     public static final int kIntakeControlID = 0;
@@ -33,9 +33,12 @@ public class Constants
     public static final int kHatchLeftRightID = 0;
     public static final int kHatchForwardBackID = 0;
 
-    public static final int kPillarsLeft = 0;
-    public static final int kPillarsRight = 0;
-    public static final int kPillarWheels = 0;
+    public static final int kPillarsFrontID = 0;
+    public static final int kPillarsBackID = 0;
+    public static final int kPillarWheelsID = 0;
+
+    public static final double kPulsesPerInchTalon = 0;
+    public static final double kPulsesPerInchPillarWheels = 0;
     /*******************/
     /*Elevator Settings*/
     /*******************/
@@ -81,8 +84,8 @@ public class Constants
     public static final double kJerk = 0;
 
     //Turn PID
-    public static final double kTurnP = 0.07;
-    public static final double kTurnI = 0.1;
+    public static final double kTurnP = 0.025;
+    public static final double kTurnI = 0.02;
     public static final double kTurnD = 0.0;
 
     //Drive PID
@@ -103,11 +106,11 @@ public class Constants
     /**********/
 
     public static final double kElevatorError = 0;
-    public static final int kOpenBeak = 0;
-    public static final int kClosedBeak = 0;
+    public static final int kOpenLotus = 0;
+    public static final int kClosedLotus = 0;
     public static final int kReflectiveTapePipeline = 0;
-    public static final int KForwardBeak = 0;
-    public static final int KBackwardBeak = 0;
+    public static final int KForwardLotus = 0;
+    public static final int KBackwardLotus = 0;
 
     /*********/
     /*Pillars*/
@@ -115,5 +118,6 @@ public class Constants
     
     public static final double kPillarWheelDistance = 0;
     public static final double kPillarHeight = 0;
+    public static final double kThirdLevel = 0;
     
 }

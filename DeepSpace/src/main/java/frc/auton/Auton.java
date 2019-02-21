@@ -9,16 +9,18 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.commands.*;
 import frc.commands.special.*;
+import frc.robot.Teleop;
 import frc.subsystem.drivetrain.DriveTrain;
 import frc.auton.exceptions.TooManyControllersException;
 import frc.auton.exceptions.UnsupportedSubsystemException;
 import frc.vision.Limelight;
+import frc.vision.Sonar;
 import frc.subsystem.*;
 
 public class Auton
 {
     //The queue of commands. Commands are added to it, and they are run in sequence.
-    Queue<AutonCommand> autonQueue;
+    private Queue<AutonCommand> autonQueue;
     private boolean initted = false;
     private DriveTrain drive;
     private XboxController driveStick;
@@ -30,6 +32,7 @@ public class Auton
     private HatchManipulator blackLotus;
     private Elevator elevator;
     private Pillars pillars;
+    private Sonar sonar;
     
     public DriveTrain getDrive()
     {
@@ -41,7 +44,7 @@ public class Auton
         return cargo;
     }
 
-    public HatchManipulator getLotus()
+    public HatchManipulator getHatchManipulator()
     {
         return blackLotus;
     }
@@ -76,6 +79,11 @@ public class Auton
         return gyro;
     }
 
+    public Sonar getSonar()
+    {
+        return sonar;
+    }
+
     public Auton(Object... subsystems)
     {
         autonQueue = new LinkedList<AutonCommand>();
@@ -84,7 +92,7 @@ public class Auton
         {
             loadSubsystem(subsystems[i]);
         }
-        defaultCommand = new CmdTeleop(drive, driveStick, operateStick, this);
+        defaultCommand = new Teleop(drive, driveStick, operateStick, this);
         this.initted = false;
     }
 
@@ -135,6 +143,10 @@ public class Auton
             {
                 pillars = (Pillars)subsystem;
             }
+            else if(subsystem instanceof Sonar)
+            {
+                sonar = (Sonar)subsystem;
+            }
             else if(subsystem != null)
             {
                 throw new UnsupportedSubsystemException(subsystem);  //HELP! I DON'T KNOW WHAT SUBSYSTEM THIS IS!!!
@@ -173,7 +185,7 @@ public class Auton
         else if(aCommand != null)
         {
             aCommand.runTask();
-            if(driveStick.getXButton()) //Stops queue when X is pressed.
+            if(operateStick.getXButton()) //Stops queue when X is pressed.
             {
                 aCommand.end();
                 autonQueue.clear();
@@ -191,9 +203,9 @@ public class Auton
     {
         if(initted && (autonQueue.isEmpty() || autonQueue.peek() == null || autonQueue.size() == 0))
         {
-            if(defaultCommand instanceof CmdTeleop)
+            if(defaultCommand instanceof Teleop)
             {
-                CmdTeleop teleop = (CmdTeleop) defaultCommand;
+                Teleop teleop = (Teleop) defaultCommand;
                 if(!teleop.getRunning())
                 {
                     defaultCommand.init();
@@ -204,7 +216,7 @@ public class Auton
         return false;
     }
     
-    protected void addCommand(AutonCommand command)
+    public void addCommand(AutonCommand command)
     {
         autonQueue.add(command);
     }

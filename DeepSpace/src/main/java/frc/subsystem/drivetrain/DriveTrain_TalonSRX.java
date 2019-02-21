@@ -2,7 +2,7 @@ package frc.subsystem.drivetrain;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import frc.robot.Constants;
+import static frc.robot.Constants.*;
 
 public class DriveTrain_TalonSRX extends DriveTrain
 {
@@ -90,10 +90,10 @@ public class DriveTrain_TalonSRX extends DriveTrain
     @Override
     public void resetDriveTrain() 
     {
-        leftFront.configFactoryDefault(Constants.kTimeoutMs);
-        leftRear.configFactoryDefault(Constants.kTimeoutMs);
-        rightFront.configFactoryDefault(Constants.kTimeoutMs);
-        rightRear.configFactoryDefault(Constants.kTimeoutMs);
+        leftFront.configFactoryDefault(kTimeoutMs);
+        leftRear.configFactoryDefault(kTimeoutMs);
+        rightFront.configFactoryDefault(kTimeoutMs);
+        rightRear.configFactoryDefault(kTimeoutMs);
     }
 
     @Override

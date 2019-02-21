@@ -1,25 +1,23 @@
 package frc.auton;
 
-import frc.commands.AutonCommand;
-import frc.commands.drive.*;
-import frc.commands.special.CmdDistance;
-import frc.commands.special.CmdMergeOnStatus;
-import frc.commands.subsystem.CmdDispenseForTime;
+import frc.commands.drive.CmdManualDrive;
+import frc.commands.special.CmdMerge;
+import frc.commands.subsystem.cargo.CmdDispenseForTime;
 import frc.commands.subsystem.CmdMoveElevator;
-
 public class CargoPlaceAuton
 {
 
-    public static void addCommands(Auton auton)
+    public static void addCommands(Auton auton, double elevatorHeight)
     {
-
-        auton.addCommand(new CmdTurnToAngle(auton.getDrive(),auton.getGyro(), auton.getLimelight()));
-        auton.addCommand(new CmdMergeOnStatus(0,
-            new CmdDistance(4,auton.getLimelight(),auton.getDrive()),
-            new CmdMoveElevator(0, auton.getElevator())));
-        auton.addCommand(new CmdDispenseForTime( 0.2, auton.getCargoManipulator()));
-        auton.addCommand(new CmdDriveReverse(0.5, auton.getDrive()));
-
+        auton.addCommand(new CmdMerge(
+            new CmdManualDrive(auton.getDrive(),auton.getDriveStick(),auton.getOperateStick(),auton),
+            new CmdMoveElevator(elevatorHeight, auton.getElevator())));
+        auton.addCommand(new CmdMerge(
+            new CmdManualDrive(auton.getDrive(),auton.getDriveStick(),auton.getOperateStick(),auton),
+            new CmdDispenseForTime( 0.25, auton.getCargoManipulator())));
+        auton.addCommand(new CmdMerge(
+            new CmdManualDrive(auton.getDrive(),auton.getDriveStick(),auton.getOperateStick(),auton),
+            new CmdMoveElevator(100, auton.getElevator())));
     }
 
 }

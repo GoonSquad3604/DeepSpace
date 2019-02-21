@@ -2,7 +2,7 @@ package frc.subsystem.drivetrain;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.CANSparkMax;
-import frc.robot.Constants;
+import static frc.robot.Constants.*;
 
 public class DriveTrain_SparkMAX extends DriveTrain
 {
@@ -26,8 +26,9 @@ public class DriveTrain_SparkMAX extends DriveTrain
         this.rightRear = rightRear;
 
         this.leftRear.follow(this.leftFront);
+        this.leftFront.setInverted(false);
         this.rightRear.follow(this.rightFront);
-            
+        this.rightFront.setInverted(false);            
     }
 
     public DriveTrain_SparkMAX(int leftFrontID, int leftRearID, int rightFrontID, int rightRearID)
@@ -84,12 +85,12 @@ public class DriveTrain_SparkMAX extends DriveTrain
 
     public double getLeftInches() 
     {
-        return getLeftPosition() * Constants.kInchesPerMotorRev;
+        return getLeftPosition() * kInchesPerMotorRev;
     }
 
     public double getRightInches() 
     {
-        return getRightPosition() * Constants.kInchesPerMotorRev;
+        return getRightPosition() * kInchesPerMotorRev;
     }
 
     @Override
@@ -102,6 +103,6 @@ public class DriveTrain_SparkMAX extends DriveTrain
     public WPI_TalonSRX gyroTest() 
     {
         return null;
-	}
+    }
 
 }

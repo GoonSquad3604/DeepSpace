@@ -17,36 +17,35 @@ public class Constants
     /*Talon IDs*/
     /***********/
 
-    public static final int kLeftFrontID = 0;
+    public static final int kLeftFrontID = 20;
     public static final int kLeftRearID = 1;
     public static final int kRightFrontID = 15;
     public static final int kRightRearID = 14;
 
-    public static final int kElevatorID = 0;
-    public static final int kElevatorSlaveID = 0;
-    public static final int kOpenCloseID = 0;
+    public static final int kElevatorLeftID = 5;
+    public static final int kElevatorRightID = 6;
 
-    public static final int kIntakeControlID = 0;
-    public static final int kHingeRightID = 0;
-    public static final int kHingeLeftID = 0;
+    public static final int kIntakeControlID = 3;
+    public static final int kHingeRightID = 8;
+    public static final int kHingeLeftID = 7;
     
-    public static final int kHatchLeftRightID = 0;
+    public static final int kHatchID = 9;
     public static final int kHatchForwardBackID = 0;
 
-    public static final int kPillarsLeft = 0;
-    public static final int kPillarsRight = 0;
-    public static final int kPillarWheels = 0;
+    public static final int kPillarsFront = 12;
+    public static final int kPillarsBack = 13;
+    public static final int kPillarWheels = 2;
     /*******************/
     /*Elevator Settings*/
     /*******************/
     
     //PID Elevator
-    public static final double kElevatorP = 0.0;
+    public static final double kElevatorP = 1;
     public static final double kElevatorI = 0.0;
     public static final double kElevatorD = 0.0;
     public static final double kElevatorF = 0.0;
-    public static final int kElevatorCargoVel = 0;
-    public static final int kElevatorCargoAcc = 0;
+    public static final int kElevatorCargoVel = 950;
+    public static final int kElevatorCargoAcc = 3000;
 
     public static final double kopenCloseP = 0.0;
     public static final double kopenCloseI = 0.0;
@@ -57,11 +56,13 @@ public class Constants
     public static final double kBottomRocketHatch = 0;
     public static final double kMiddleRocketHatch = 0;
     public static final double kTopRocketHatch = 0;
+    public static final double kHatchShip = 0;
 
     //Rocket cargo encoder positions
-    public static final double kBottomRocketCargo = 0;
-    public static final double kMiddleRocketCargo = 0;
-    public static final double kTopRocketCargo = 0;
+    public static final double kTopRocketCargo = 27000;
+    public static final double kMiddleRocketCargo = 14000;
+    public static final double kBottomRocketCargo = 2000;
+    public static final double kCargoShip = 9000;
 
     /*************/
     /*Drive Train*/
@@ -97,17 +98,28 @@ public class Constants
     /*******/
 
     public static final double kTurnError = 1.0; //Acceptable error (degrees) before ending turn
+    public static final double kDistanceError = 5.0;
+    public static final double kHingeUp = 0.0;
+    public static final double kHingeOut = 0.0;
 
     /**********/
     /*Commands*/
     /**********/
 
     public static final double kElevatorError = 0;
-    public static final int kOpenBeak = 0;
-    public static final int kClosedBeak = 0;
+    public static final int kOpenHatch = 0;
+    public static final int kClosedHatch = 0;
+    public static final int kForwardHatch = 0;
+    public static final int kBackwardHatch = 0;
+    
     public static final int kReflectiveTapePipeline = 0;
-    public static final int KForwardBeak = 0;
-    public static final int KBackwardBeak = 0;
+
+    //Elevator levels for HATCH
+    public static final double kRocketFirstLevelHatch = 0;
+    public static final double kRocketSecondLevelHatch = 0;
+    public static final double kRocketThirdLevelHatch = 0;
+    public static final double kCargoLevelHatch = 0;
+
 
     /*********/
     /*Pillars*/
@@ -115,5 +127,15 @@ public class Constants
     
     public static final double kPillarWheelDistance = 0;
     public static final double kPillarHeight = 0;
+    public static final double kThirdLevel = 19;
+    public static final double kInchPerRotationPillar = 0.132040647405376;
+    
+    //D-Pad
+
+    public static final int kDpadUp = 0;
+    public static final int kDpadRight = 90;
+    public static final int kDpadDown = 180;
+    public static final int kDpadLeft = 270;
+    public static final int kDpadNone = -1;
     
 }

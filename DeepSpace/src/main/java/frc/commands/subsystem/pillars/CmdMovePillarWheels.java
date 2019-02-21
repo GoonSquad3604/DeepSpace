@@ -1,4 +1,4 @@
-package frc.commands.subsystem;
+package frc.commands.subsystem.pillars;
 
 import frc.commands.AutonCommand;
 import frc.subsystem.Pillars;
@@ -41,6 +41,11 @@ public class CmdMovePillarWheels implements AutonCommand
     public void init() 
     {
 
+    }
+    @Override
+    public void end()
+    {
+        pillars.moveWheels(0);
     }
 
 }

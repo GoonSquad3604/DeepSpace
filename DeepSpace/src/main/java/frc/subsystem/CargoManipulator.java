@@ -1,6 +1,6 @@
 package frc.subsystem;
 
-import frc.robot.Constants;
+import static frc.robot.Constants.*;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 public class CargoManipulator
@@ -15,8 +15,8 @@ public class CargoManipulator
         intakeControl.setInverted(true);
         hingeRight = new WPI_TalonSRX(hingeRightID);
         hingeRight.setInverted(true);
-        hingeLeft = new WPI_TalonSRX(hingeRightID);
-        hingeLeft.setInverted(true);
+        hingeLeft = new WPI_TalonSRX(hingeLeftID);
+        hingeLeft.setInverted(false);
 
     }
 
@@ -24,7 +24,7 @@ public class CargoManipulator
     public void runIntake()
     {
 
-        intakeControl.set(0.8);
+        intakeControl.set(1);
         
     }
 
@@ -32,10 +32,14 @@ public class CargoManipulator
     public void runDispense()
     {
 
-        intakeControl.set(-0.8);
+        intakeControl.set(-1);
 
     }
 
+    public void stop()
+    {
+        intakeControl.set(0);
+    }
     //TODO Hinge-related stuff. Methods still need to be made.
 
     public void runHinge(double amount)
@@ -45,12 +49,11 @@ public class CargoManipulator
         hingeLeft.set(amount);
 
     }
+    
 
     public double getHingeLocation()
     {
-
-        return hingeRight.getSelectedSensorPosition();
-
+        return hingeRight.getSensorCollection().getAnalogInRaw();
     }
 
 }

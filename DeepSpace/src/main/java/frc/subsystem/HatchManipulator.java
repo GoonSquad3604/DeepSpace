@@ -1,74 +1,31 @@
 package frc.subsystem;
 
-import frc.robot.Constants;
+import static frc.robot.Constants.*;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 public class HatchManipulator 
 {
-    private WPI_TalonSRX openClose, forwardBackwards;
+    private WPI_TalonSRX hatch;
     private boolean open = true;
     private boolean forward = true;
 
-    public HatchManipulator(int openCloseID, int forwardBackwardsID)
+    public HatchManipulator(int hatchID)
     {
-        openClose = new WPI_TalonSRX(openCloseID);
-        openClose.setInverted(true);
-        forwardBackwards = new WPI_TalonSRX(forwardBackwardsID);
-        forwardBackwards.setInverted(true);
+        hatch = new WPI_TalonSRX(hatchID);
+        hatch.setInverted(true);
     } 
 
-    //Opens the blackLotus
-    public void runOpen(double amount)
+    //Opens the hatch
+    public void runHatch(double amount)
     {
-        openClose.set(amount);
+        hatch.set(amount);
     }
 
-    //Closes the blackLotus
-    public void runClose(double amount)
+    public int getLocation()
     {
-        openClose.set(amount);
-    }
-
-
-    //pushes the manipulator forwards and pulls it back in back
-    public void moveForwardBackwards(double amount)
-    {
-        forwardBackwards.set(amount);
-    }
-
-
-    public boolean getOpen()
-    {
-        return open;
-    }
-
-    public void setOpen(boolean b)
-    {
-        this.open = b;
-    }
-
-    //@return the encoder position of the blackLotus.
-    public double getOpenCloseLocation()
-    {
-        return 0;
+        return hatch.getSelectedSensorPosition();
     }
     
-    //@return the encoder position of the  forward backwords blackLotus moter .
-    public double getforwardBackwardsLocation()
-    {
-        return 0;
-    }
-
-    public boolean getForward()
-    {
-        return forward;
-    }
-
-    public void setForward(boolean f)
-    {
-        this.forward = f;
-    }
-   
 }
 

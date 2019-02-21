@@ -11,5 +11,3 @@ public class LockOnAuton
         //auton.addCommand(new CmdMerge(new CmdDriveTime(2,auton.getDrive()),new CmdTurnToAngle(auton.getDrive(),auton.getGyro(),auton.getLimelight())));
     }
 }
-//What happens in Niko's basement stays in Niko's basement
-//-Tony

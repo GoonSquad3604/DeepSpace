@@ -45,10 +45,10 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     
 		//Drivetrain
-    leftMain = new CANSparkMax(61, MotorType.kBrushless);
-    leftSlave = new CANSparkMax(51, MotorType.kBrushless);
-    rightMain = new CANSparkMax(22, MotorType.kBrushless);
-    rightSlave = new CANSparkMax(33, MotorType.kBrushless);
+    leftMain = new CANSparkMax(10, MotorType.kBrushless);
+    leftSlave = new CANSparkMax(13, MotorType.kBrushless);
+    rightMain = new CANSparkMax(11, MotorType.kBrushless);
+    rightSlave = new CANSparkMax(12, MotorType.kBrushless);
     intake = new Spark(intakeId);
     hatchManipulator = new Spark(hmId);
     elevator  = new Spark(elevatorID);
@@ -111,6 +111,7 @@ public class Robot extends TimedRobot {
     {
       elevator.set(-0.5);
       System.out.println("never gonna give you up");
+      
     }
     else if(driveStick.getPOV() == 180)
     {
