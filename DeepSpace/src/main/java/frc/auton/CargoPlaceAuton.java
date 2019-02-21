@@ -20,7 +20,7 @@ public class CargoPlaceAuton
 
         auton.addCommand(new CmdMergeOnStatus(0,
             new CmdDriveSonar(10,auton.getSonar(),auton.getDrive()),
-            new CmdMoveElevator(elevatorHeight, auton.getElevator())));\
+            new CmdMoveElevator(elevatorHeight, auton.getElevator())));
 
         auton.addCommand(new CmdRotateHinge(kHingeOut, 0.5, auton.getCargoManipulator()));
         auton.addCommand(new CmdDispenseForTime( 0.2, auton.getCargoManipulator()));
