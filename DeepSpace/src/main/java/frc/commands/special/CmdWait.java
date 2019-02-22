@@ -7,20 +7,19 @@ public class CmdWait implements AutonCommand
 {
     
     //Just waits
-    private Timer t;
+    private Timer timer;
     private double time;
     
-    public CmdWait(double time)
+    public CmdWait(double iTime)
     {
-        t = new Timer();
-        t.start();
-        this.time = time;
+        timer = new Timer();
+        time = iTime;
     }
 
     @Override
     public boolean isFinished() 
     {
-        return t.get() > time;
+        return timer.get() > time;
     }
 
     @Override
@@ -38,7 +37,8 @@ public class CmdWait implements AutonCommand
     @Override
     public void init() 
     {
-        t.reset();
+        timer.start();
+        timer.reset();
     }
 
 }

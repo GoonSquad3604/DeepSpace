@@ -11,24 +11,24 @@ public class CmdDriveReverse implements AutonCommand
     private double time;
     private DriveTrain drive;
     
-    public CmdDriveReverse(double time, DriveTrain drive)
+    public CmdDriveReverse(double iTime, DriveTrain iDrive)
     {
         t = new Timer();
-        this.time = time;
-        this.drive = drive;
+        time = iTime;
+        drive = iDrive;
 
     }
     
     @Override
     public boolean isFinished() {
         
-        return t.get()>time;
+        return t.get() > time;
        
     }
 
     @Override
     public void runTask() {
-        drive.arcadeDrive(-0.6,0);
+        drive.arcadeDrive(-0.6, 0);
     }
 
     @Override
@@ -38,8 +38,8 @@ public class CmdDriveReverse implements AutonCommand
 
     @Override
     public void init() {
-        t.reset();
         t.start();
+        t.reset();
     }
 
 }
