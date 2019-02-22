@@ -8,9 +8,9 @@ public class CmdDumbSpin implements AutonCommand
     //Spins the bot dumbly. !!!ONLY FOR USE IN TESTS!!!
     private DriveTrain drive;
     
-    public CmdDumbSpin(DriveTrain drive)
+    public CmdDumbSpin(DriveTrain iDrive)
     {
-        this.drive = drive;
+        drive = iDrive;
     }
     
     @Override

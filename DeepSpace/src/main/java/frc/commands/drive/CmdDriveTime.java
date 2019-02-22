@@ -8,21 +8,20 @@ import frc.subsystem.drivetrain.DriveTrain;
 public class CmdDriveTime implements AutonCommand
 {
     //Drives the robot forwards based on a timer.
-    private Timer t;
+    private Timer timer;
     private double time;
     private DriveTrain drive;
     
-    public CmdDriveTime(double time, DriveTrain drive)
+    public CmdDriveTime(double iTime, DriveTrain iDriveTrain)
     {
-        t = new Timer();
-        t.start();
-        this.time = time;
-        this.drive = drive;
+        timer = new Timer();
+        time = iTime;
+        drive = iDriveTrain;
     }
 
     @Override
     public boolean isFinished() {
-        if(t.get()>time)
+        if(timer.get()>time)
         {
             drive.arcadeDrive(0,0);
             System.out.println("TAAAAAAAKE ONNNNNNNN MEEEEE");
@@ -46,7 +45,8 @@ public class CmdDriveTime implements AutonCommand
 
     @Override
     public void init() {
-        t.reset();
+        timer.start();
+        timer.reset();
     }
     @Override
     public void end()

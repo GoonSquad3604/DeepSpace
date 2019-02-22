@@ -30,27 +30,27 @@ public class CmdTurnToAngle implements AutonCommand
     private double integral = 0;
     private double derivative = 0;
     private double previous_error = 0; 
-    private Limelight lime;
+    private Limelight limelight;
     private double[] ypr = new double[3];
     private Timer correctTime;
     private boolean runningTimer = false;
 
-    public CmdTurnToAngle(DriveTrain driveTrain, PigeonIMU gyro, double targetAngle)
+    public CmdTurnToAngle(DriveTrain iDriveTrain, PigeonIMU iGyro, double iTargetAngle)
     {
-        this.driveTrain = driveTrain;
-        this.targetAngle = targetAngle;
-        this.gyro = gyro;
+        driveTrain = iDriveTrain;
+        targetAngle = iTargetAngle;
+        gyro = iGyro;
         correctTime = new Timer();
     }
 
-    public CmdTurnToAngle(DriveTrain driveTrain, PigeonIMU gyro, Limelight lime)
+    public CmdTurnToAngle(DriveTrain iDriveTrain, PigeonIMU iGyro, Limelight iLimelight)
     {
-        this.driveTrain = driveTrain;
-        this.targetAngle = -2000;
-        this.gyro = gyro;
-        this.lime = lime;
+        driveTrain = iDriveTrain;
+        targetAngle = -2000;
+        gyro = iGyro;
+        limelight = iLimelight;
         correctTime = new Timer();
-        this.lime.setPipeline(kReflectiveTapePipeline);
+        limelight.setPipeline(kReflectiveTapePipeline);
     }
 
     @Override
@@ -94,9 +94,9 @@ public class CmdTurnToAngle implements AutonCommand
     {
         gyro.setYaw(0.0);
         gyro.getYawPitchRoll(ypr);
-        if(lime != null)
+        if(limelight != null)
         {
-            targetAngle = lime.getTargetX();
+            targetAngle = limelight.getTargetX();
         }
     }
 

@@ -13,18 +13,18 @@ public class DriveTrain_TalonSRX extends DriveTrain
     /*Constructors*/
     /**************/
 
-    private DriveTrain_TalonSRX(WPI_TalonSRX leftFront, WPI_TalonSRX leftRear, WPI_TalonSRX rightFront, WPI_TalonSRX rightRear)
+    private DriveTrain_TalonSRX(WPI_TalonSRX iLeftFront, WPI_TalonSRX iLeftRear, WPI_TalonSRX iRightFront, WPI_TalonSRX iRightRear)
     {
 
-        super(leftFront, rightFront);
+        super(iLeftFront, iRightFront);
         
-        this.leftFront = leftFront;
-        this.leftRear = leftRear;
-        this.rightFront = rightFront;
-        this.rightRear = rightRear;
+        leftFront = iLeftFront;
+        leftRear = iLeftRear;
+        rightFront = iRightFront;
+        rightRear = iRightRear;
 
-        this.leftRear.follow(leftFront);
-        this.rightRear.follow(rightFront);
+        leftRear.follow(leftFront);
+        rightRear.follow(rightFront);
             
     }
 

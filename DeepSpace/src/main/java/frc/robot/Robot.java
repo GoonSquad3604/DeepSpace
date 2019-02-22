@@ -50,13 +50,15 @@ public class Robot extends TimedRobot
     @Override
     public void robotPeriodic()
     {
+        System.out.println(this.getPeriod());
         double[] ypr = new double[3];
         pigeon.getYawPitchRoll(ypr);
         yaw = ypr[0];
         /*
         System.out.println(pillars.getHeight());
         System.out.println("FRONT:" + pillars.getFrontHeight());
-        System.out.println("BACK:" + pillars.getRearHeight());*/
+        System.out.println("BACK:" + pillars.getRearHeight());
+        */
     } 
     
     public DifferentialDrive getDriveTrain()
