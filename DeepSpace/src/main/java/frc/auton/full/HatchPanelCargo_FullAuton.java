@@ -9,7 +9,7 @@ public class HatchPanelCargo_FullAuton
 {
     public static void addCommands(Auton auton)
     {
-        auton.addCommand(new CmdMoveToWaypoint(auton.getDrive(),null)); //TODO specify waypoints
+        auton.addCommand(new CmdMoveToWaypoint(auton.getDrive(),null,"a")); //TODO specify waypoints
         HatchPlaceAuton.addCommands(auton, kCargoLevelHatch);
     }
 }

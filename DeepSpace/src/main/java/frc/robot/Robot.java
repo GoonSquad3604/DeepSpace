@@ -95,7 +95,7 @@ public class Robot extends TimedRobot
     }
 
     private void run()
-    {  
+    {
         if(runningAuton != null && !runningAuton.isFinished())
         {
             runningAuton.runAuton();
