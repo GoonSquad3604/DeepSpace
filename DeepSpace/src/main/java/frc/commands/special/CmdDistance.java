@@ -20,10 +20,11 @@ public class CmdDistance implements AutonCommand
     private Limelight limelight;
     private DriveTrain driveTrain;
     private double desiredDistance;
-    public CmdDistance(double desiredDistance, Limelight limelight, DriveTrain driveTrain){
-        this.limelight = limelight;
-        this.driveTrain = driveTrain;
-        this.desiredDistance = desiredDistance;
+
+    public CmdDistance(double iDesiredDistance, Limelight iLimelight, DriveTrain iDriveTrain){
+        limelight = iLimelight;
+        driveTrain = iDriveTrain;
+        desiredDistance = iDesiredDistance;
     }
 
     @Override

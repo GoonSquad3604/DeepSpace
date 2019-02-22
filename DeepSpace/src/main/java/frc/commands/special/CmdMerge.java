@@ -8,9 +8,9 @@ public class CmdMerge implements AutonCommand
     //A command that runs several commands at the same time.
     private AutonCommand[] commands;
     
-    public CmdMerge(AutonCommand... commands)
+    public CmdMerge(AutonCommand... iCommands)
     {
-        this.commands = commands;
+        commands = iCommands;
     }
     
     @Override
