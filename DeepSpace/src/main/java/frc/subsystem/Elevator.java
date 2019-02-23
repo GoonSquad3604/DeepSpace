@@ -31,6 +31,7 @@ public class Elevator
         leftElevator.set(ControlMode.MotionMagic, height);
         //rightElevator.set(ControlMode.MotionMagic, height);
     }
+    
     public void setPower(double pwr)
     {
         leftElevator.set(pwr);
@@ -40,6 +41,7 @@ public class Elevator
     //Resets the sensor to a height.
     public void setHeight(double height)
     {
+        System.out.println("RESET THE ELEVATOR");
         leftElevator.setSelectedSensorPosition((int)height, 0, kTimeoutMs);
         rightElevator.setSelectedSensorPosition((int)height, 0, kTimeoutMs);
     }

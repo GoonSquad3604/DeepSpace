@@ -1,6 +1,5 @@
 package frc.subsystem.drivetrain;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import static frc.robot.Constants.*;
 
@@ -94,12 +93,6 @@ public class DriveTrain_TalonSRX extends DriveTrain
         leftRear.configFactoryDefault(kTimeoutMs);
         rightFront.configFactoryDefault(kTimeoutMs);
         rightRear.configFactoryDefault(kTimeoutMs);
-    }
-
-    @Override
-    public WPI_TalonSRX gyroTest() 
-    {
-        return rightRear;
     }
 
     

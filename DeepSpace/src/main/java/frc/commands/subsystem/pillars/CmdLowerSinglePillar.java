@@ -10,18 +10,20 @@ public class CmdLowerSinglePillar implements AutonCommand
     private Pillars pillars;
     private double height;
     private double speed;
-    private boolean front;
-    public CmdLowerSinglePillar(boolean iFront, double iHeight, double iSpeed, Pillars iPillars)
+    private PillarType pillarType;
+
+    public CmdLowerSinglePillar(PillarType iType, double iHeight, double iSpeed, Pillars iPillars)
     {
         pillars = iPillars;
-        speed = -Math.abs(iSpeed);
-        height = iSpeed;
-        front = iFront;
+        speed = Math.abs(iSpeed);
+        height = iHeight;
+        pillarType = iType;
     }
+
     @Override
     public boolean isFinished() 
     {
-        if(front)
+        if(pillarType == PillarType.kFrontPillar)
         {
             return pillars.getFrontHeight() <= height;
         }
@@ -34,7 +36,7 @@ public class CmdLowerSinglePillar implements AutonCommand
     @Override
     public void runTask() 
     {
-        if(front)
+        if(pillarType == PillarType.kFrontPillar)
         {
             pillars.setFrontPillar(-speed);
         }
@@ -54,6 +56,7 @@ public class CmdLowerSinglePillar implements AutonCommand
     public void init() {
 
     }
+    
     @Override
     public void end()
     {

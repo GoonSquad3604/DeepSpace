@@ -99,10 +99,4 @@ public class DriveTrain_SparkMAX extends DriveTrain
 
     }
 
-    @Override
-    public WPI_TalonSRX gyroTest() 
-    {
-        return null;
-    }
-
 }

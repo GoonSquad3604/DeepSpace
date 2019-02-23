@@ -15,9 +15,6 @@ import static frc.robot.Constants.*;
 import frc.subsystem.drivetrain.*;
 import frc.vision.Limelight;
 
-/**
- * Add your docs here.
- */
 public class CmdTurnToAngle implements AutonCommand
 {
 
@@ -35,6 +32,9 @@ public class CmdTurnToAngle implements AutonCommand
     private Timer correctTime;
     private boolean runningTimer = false;
 
+    /*
+    Turns to set angle
+    */
     public CmdTurnToAngle(DriveTrain iDriveTrain, PigeonIMU iGyro, double iTargetAngle)
     {
         driveTrain = iDriveTrain;
@@ -43,6 +43,9 @@ public class CmdTurnToAngle implements AutonCommand
         correctTime = new Timer();
     }
 
+    /**
+     * Turn to limelight angle
+     */
     public CmdTurnToAngle(DriveTrain iDriveTrain, PigeonIMU iGyro, Limelight iLimelight)
     {
         driveTrain = iDriveTrain;
@@ -94,9 +97,9 @@ public class CmdTurnToAngle implements AutonCommand
     {
         gyro.setYaw(0.0);
         gyro.getYawPitchRoll(ypr);
-        if(lime != null)
+        if(limelight != null)
         {
-            targetAngle = lime.getTargetX();
+            targetAngle = limelight.getTargetX();
         }
     }
 
@@ -107,7 +110,5 @@ public class CmdTurnToAngle implements AutonCommand
         derivative = (error - previous_error) / .02;
         return P*error + I*integral + D*derivative;
     }
-
-
 
 }
