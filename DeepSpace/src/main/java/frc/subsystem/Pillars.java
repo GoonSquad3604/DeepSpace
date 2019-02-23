@@ -6,6 +6,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.CANSparkMax;
 
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 
 import static frc.robot.Constants.*;
 import frc.subsystem.drivetrain.DriveTrain;
@@ -24,11 +25,11 @@ public class Pillars {
 
     public Pillars(int frontSideID, int rearSideID, int wheelsID) {
         frontSide = new CANSparkMax(frontSideID,com.revrobotics.CANSparkMaxLowLevel.MotorType.kBrushless);
-        frontSide.setInverted(true);
+        frontSide.setInverted(false);
         rearSide = new CANSparkMax(rearSideID,com.revrobotics.CANSparkMaxLowLevel.MotorType.kBrushless);
-        rearSide.setInverted(true);
+        rearSide.setInverted(false);
         wheels = new WPI_TalonSRX(wheelsID);
-        wheels.setInverted(false);
+        wheels.setInverted(true);
         frontInitPos = frontSide.getEncoder().getPosition();
         rearInitPos = frontSide.getEncoder().getPosition();
 
@@ -69,24 +70,23 @@ public class Pillars {
     //@return the height of the pillars 
     public double getFrontHeight()
     {
-        return frontInitPos - (frontSide.getEncoder().getPosition()*kInchPerRotationPillar);
+        return (frontSide.getEncoder().getPosition()) - frontInitPos;
     }
     public double getRearHeight()
     {
-        return rearInitPos - (rearSide.getEncoder().getPosition()*kInchPerRotationPillar);
+        return (rearSide.getEncoder().getPosition()) - rearInitPos;
     }
 
     //Resets the pillar subsystem.
     public void reset()
     { 
         
-        frontInitPos = frontSide.getEncoder().getPosition()*kInchPerRotationPillar;
-        rearInitPos = rearSide.getEncoder().getPosition()*kInchPerRotationPillar;
+        frontInitPos = frontSide.getEncoder().getPosition();
+        rearInitPos = rearSide.getEncoder().getPosition();
 
     }
     public void runOldChadCode(XboxController driveStick)
     {
-
         if(driveStick.getPOV() == 0){
           
           if((rearPos - rearInitPos) - (frontPos - frontInitPos) > 1){
@@ -149,6 +149,18 @@ public class Pillars {
         else{
           frontSide.set(0);
           rearSide.set(0);
+        }
+        if(driveStick.getTriggerAxis(Hand.kLeft)>0.2)
+        {
+          wheels.set(driveStick.getTriggerAxis(Hand.kLeft));
+        }
+        else if(driveStick.getTriggerAxis(Hand.kRight)>0.2)
+        {
+          wheels.set(-driveStick.getTriggerAxis(Hand.kRight));
+        }
+        else
+        {
+          wheels.set(0);
         }
     }
 

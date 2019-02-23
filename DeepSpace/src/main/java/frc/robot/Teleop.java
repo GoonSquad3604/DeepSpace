@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Watchdog;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import frc.auton.*;
 import frc.commands.AutonCommand;
 import frc.subsystem.drivetrain.*;
@@ -40,6 +41,11 @@ public class Teleop implements AutonCommand
     @Override
     public void runTask() 
     {
+        
+        auton.getOperateStick().setRumble(RumbleType.kLeftRumble,0);
+        auton.getOperateStick().setRumble(RumbleType.kRightRumble,0);
+        auton.getDriveStick().setRumble(RumbleType.kLeftRumble,0);
+        auton.getDriveStick().setRumble(RumbleType.kRightRumble,0);
         auton.getGyro().getYawPitchRoll(ypr);
         //System.out.println(ypr[0] + "::" + limelightAngle);
         //System.out.println(auton.getHatchManipulator().getLocation());
@@ -129,6 +135,20 @@ public class Teleop implements AutonCommand
 
         if(auton.getSize() == 0 && running)
         {
+            auton.getPillars().runOldChadCode(driveStick);
+            if(driveStick.getStartButton() && driveStick.getBackButton())
+            {
+                PillarsAuton.addCommands(auton);
+                endTeleop();
+            }
+            else if(driveStick.getStartButton())
+            {
+                auton.getPillars().reset();
+            }
+            if(operateStick.getStartButton())
+            {
+                auton.getElevator().setHeight(0);
+            }
             //When the operator presses A and a directional button, place a cargo.
             if(operateStick.getAButton() && operateStick.getPOV() != kDpadNone)
             {
@@ -178,7 +198,7 @@ public class Teleop implements AutonCommand
                 }
                 else if(operateStick.getPOV() == kDpadUp)
                 {
-                    auton.getElevator().setPower(1);
+                    auton.getElevator().setPower(0.75);
                 }
                 else if(operateStick.getPOV() == kDpadDown)
                 {
@@ -187,7 +207,7 @@ public class Teleop implements AutonCommand
             }
             else
             {
-                //auton.getPillars().runOldChadCode(driveStick);
+               // auton.getPillars().runOldChadCode(driveStick);
                 auton.getElevator().setPower(0);
 
                 /*
