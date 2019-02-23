@@ -41,7 +41,6 @@ public class Teleop implements AutonCommand
     @Override
     public void runTask() 
     {
-        
         auton.getOperateStick().setRumble(RumbleType.kLeftRumble,0);
         auton.getOperateStick().setRumble(RumbleType.kRightRumble,0);
         auton.getDriveStick().setRumble(RumbleType.kLeftRumble,0);
@@ -145,12 +144,13 @@ public class Teleop implements AutonCommand
             {
                 auton.getPillars().resetPosition();
             }
+
             if(operateStick.getStartButton())
             {
                 auton.getElevator().setHeight(0);
             }
             //When the operator presses A and a directional button, place a cargo.
-            if(operateStick.getAButton() && operateStick.getPOV() != kDpadNone)
+            if(operateStick.getAButton())
             {
                 if(operateStick.getPOV() == kDpadUp)
                 {
@@ -170,7 +170,7 @@ public class Teleop implements AutonCommand
                 }
                 endTeleop();
             }
-            else if(operateStick.getBButton() && operateStick.getPOV() != kDpadNone)
+            else if(operateStick.getBButton())
             {
                 if(operateStick.getPOV() == kDpadUp)
                 {
