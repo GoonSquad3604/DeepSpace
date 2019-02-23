@@ -99,6 +99,9 @@ public class Pillars {
         rearInitPos = rearSide.getEncoder().getPosition();
     }
 
+    /**
+     * @param driveStick Driver XboxController
+     */
     public void runOldChadCode(XboxController driveStick)
     {
         if(driveStick.getPOV() == 0){
