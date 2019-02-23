@@ -45,6 +45,7 @@ public class CmdDispenseForTime implements AutonCommand
         timer.start();
         timer.reset();
     }
+    
     public double getTime(){
         return time;
     }

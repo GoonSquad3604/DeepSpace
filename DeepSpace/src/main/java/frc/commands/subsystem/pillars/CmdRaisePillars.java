@@ -1,6 +1,5 @@
 package frc.commands.subsystem.pillars;
 
-
 import frc.commands.AutonCommand;
 import frc.subsystem.Pillars;
 
@@ -9,9 +8,6 @@ public class CmdRaisePillars implements AutonCommand
     //Raises pillars to a specific height at a specific speed.
     private Pillars pillars;
     private double height;
-
-    private double initPositionFront;
-    private double initPositionRear;
     private double positionFront;
     private double positionRear;
 
@@ -19,9 +15,8 @@ public class CmdRaisePillars implements AutonCommand
     {
         height = iHeight;
         pillars = iPillars;
-        initPositionFront = pillars.getFrontHeight();
-        initPositionRear = pillars.getRearHeight();
     }
+
     @Override
     public boolean isFinished() 
     {   
@@ -35,6 +30,7 @@ public class CmdRaisePillars implements AutonCommand
         
         positionFront = pillars.getFrontHeight();
         positionRear = pillars.getRearHeight();
+
         if(positionRear - positionFront > 1)
         {
             pillars.setFrontPillar(1);
@@ -62,8 +58,7 @@ public class CmdRaisePillars implements AutonCommand
 
     @Override
     public void init() {
-        initPositionFront = pillars.getFrontHeight();
-        initPositionRear = pillars.getRearHeight();
+
     }
 
     @Override

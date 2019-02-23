@@ -143,7 +143,7 @@ public class Teleop implements AutonCommand
             }
             else if(driveStick.getStartButton())
             {
-                auton.getPillars().reset();
+                auton.getPillars().resetPosition();
             }
             if(operateStick.getStartButton())
             {
@@ -292,6 +292,7 @@ public class Teleop implements AutonCommand
         //drive.setLeftPosition(0);
         //drive.setRightPosition(0);
     }
+
     private void endTeleop()
     {   
         this.running = false;
