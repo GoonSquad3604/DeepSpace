@@ -1,7 +1,6 @@
 package frc.commands.drive;
 
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.commands.AutonCommand;
 import frc.subsystem.drivetrain.DriveTrain;
 
@@ -10,32 +9,33 @@ public class CmdDriveTime implements AutonCommand
     //Drives the robot forwards based on a timer.
     private Timer timer;
     private double time;
-    private DriveTrain drive;
+    private DriveTrain driveTrain;
     
     public CmdDriveTime(double iTime, DriveTrain iDriveTrain)
     {
         timer = new Timer();
         time = iTime;
-        drive = iDriveTrain;
+        driveTrain = iDriveTrain;
     }
 
     @Override
     public boolean isFinished() {
-        if(timer.get()>time)
+        
+        if(timer.get() > time)
         {
-            drive.arcadeDrive(0,0);
-            System.out.println("TAAAAAAAKE ONNNNNNNN MEEEEE");
+            driveTrain.arcadeDrive(0,0);
             return true;
         }
         else
         {
             return false;
         }
+
     }
 
     @Override
     public void runTask() {
-        drive.arcadeDrive(0.3,0);
+        driveTrain.arcadeDrive(0.3,0);
     }
 
     @Override
@@ -48,10 +48,11 @@ public class CmdDriveTime implements AutonCommand
         timer.start();
         timer.reset();
     }
+    
     @Override
     public void end()
     {
-        drive.arcadeDrive(0,0);
+        driveTrain.arcadeDrive(0,0);
     }
 
 }
