@@ -1,10 +1,11 @@
 package frc.auton;
-import static frc.robot.Constants.*;
 
+import static frc.robot.Constants.*;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import frc.commands.subsystem.pillars.*;
 import frc.commands.drive.*;
 import frc.commands.special.*;
+
 public class PillarsAuton
 {
     public static void addCommands(Auton auton)
