@@ -69,9 +69,9 @@ public class Pillars {
         return 0;//wheels.getSelectedSensorPosition() * kPulsesPerInchPillarWheels;
     }
 
-    //@return the distance the pillars have travelled.
-
-    //@return the height of the pillars 
+    /**
+     * @return Height of the front pillars
+     */
     public double getFrontHeight()
     {
         return (frontSide.getEncoder().getPosition()) - frontInitPos;
@@ -99,6 +99,9 @@ public class Pillars {
         rearInitPos = rearSide.getEncoder().getPosition();
     }
 
+    /**
+     * @param driveStick Driver XboxController
+     */
     public void runOldChadCode(XboxController driveStick)
     {
         if(driveStick.getPOV() == 0){
