@@ -10,10 +10,12 @@ public class CmdLevelPillars implements AutonCommand
     private double positionFront;
     private double initPositionRear;
     private double positionRear;
+    
     public CmdLevelPillars(Pillars iPillars)
     {
         pillars = iPillars;
     }
+    
     @Override
     public boolean isFinished() 
     {

@@ -7,15 +7,10 @@
 
 package frc.subsystem.drivetrain;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
-/**
- * Add your docs here.
- */
 public abstract class DriveTrain extends DifferentialDrive
 {
 
@@ -33,6 +28,5 @@ public abstract class DriveTrain extends DifferentialDrive
     public abstract double getLeftInches();
     public abstract double getRightInches();
     public abstract void resetDriveTrain();
-    public abstract WPI_TalonSRX gyroTest();
 
 }

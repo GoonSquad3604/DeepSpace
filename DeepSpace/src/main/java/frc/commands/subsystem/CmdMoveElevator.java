@@ -37,6 +37,7 @@ public class CmdMoveElevator implements AutonCommand
     {      
         elevator.setPower(0);
     }
+
     @Override
     public void runTask() 
     {
@@ -53,6 +54,7 @@ public class CmdMoveElevator implements AutonCommand
     {
         return height;
     }
+    
     @Override
     public void init() 
     {

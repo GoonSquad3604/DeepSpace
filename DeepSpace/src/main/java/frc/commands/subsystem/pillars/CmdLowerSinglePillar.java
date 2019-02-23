@@ -11,6 +11,7 @@ public class CmdLowerSinglePillar implements AutonCommand
     private double height;
     private double speed;
     private PillarType pillarType;
+
     public CmdLowerSinglePillar(PillarType iType, double iHeight, double iSpeed, Pillars iPillars)
     {
         pillars = iPillars;
@@ -18,6 +19,7 @@ public class CmdLowerSinglePillar implements AutonCommand
         height = iHeight;
         pillarType = iType;
     }
+
     @Override
     public boolean isFinished() 
     {
@@ -54,6 +56,7 @@ public class CmdLowerSinglePillar implements AutonCommand
     public void init() {
 
     }
+    
     @Override
     public void end()
     {

@@ -48,18 +48,22 @@ public class Pillars {
       frontSide.set(speed);
       rearSide.set(speed);  
     }
+
     public void setFrontPillar(double speed)
     {
         frontSide.set(speed);
     }
+
     public void setRearPillar(double speed)
     {
         rearSide.set(speed);
     }
+
     public double getHeight()
     {
         return (getFrontHeight() + getRearHeight()) / 2.0;
     }
+
     public double getDistance()
     {
         return 0;//wheels.getSelectedSensorPosition() * kPulsesPerInchPillarWheels;
@@ -72,19 +76,29 @@ public class Pillars {
     {
         return (frontSide.getEncoder().getPosition()) - frontInitPos;
     }
+
     public double getRearHeight()
     {
         return (rearSide.getEncoder().getPosition()) - rearInitPos;
     }
 
-    //Resets the pillar subsystem.
-    public void reset()
+    //Resets the pillar encoders
+    public void resetPosition()
     { 
-        
         frontInitPos = frontSide.getEncoder().getPosition();
         rearInitPos = rearSide.getEncoder().getPosition();
-
     }
+
+    public void resetFrontPosition()
+    { 
+        frontInitPos = frontSide.getEncoder().getPosition();
+    }
+
+    public void resetRearPosition()
+    { 
+        rearInitPos = rearSide.getEncoder().getPosition();
+    }
+
     public void runOldChadCode(XboxController driveStick)
     {
         if(driveStick.getPOV() == 0){
@@ -150,6 +164,7 @@ public class Pillars {
           frontSide.set(0);
           rearSide.set(0);
         }
+
         if(driveStick.getTriggerAxis(Hand.kLeft)>0.2)
         {
           wheels.set(driveStick.getTriggerAxis(Hand.kLeft));
