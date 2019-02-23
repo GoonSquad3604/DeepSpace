@@ -1,6 +1,5 @@
 package frc.commands.subsystem.pillars;
 
-import java.util.ArrayList;
 
 import frc.commands.AutonCommand;
 import frc.subsystem.Pillars;
@@ -36,7 +35,7 @@ public class CmdRaisePillars implements AutonCommand
         
         positionFront = pillars.getFrontHeight();
         positionRear = pillars.getRearHeight();
-        if((positionRear - initPositionRear) - (positionFront - initPositionFront) > 1)
+        if(positionRear - positionFront > 1)
         {
             pillars.setFrontPillar(1);
         }
@@ -45,7 +44,7 @@ public class CmdRaisePillars implements AutonCommand
             pillars.setFrontPillar(0.9);
         }
         
-        if( (positionFront - initPositionFront) - (positionRear - initPositionRear) > 1)
+        if(positionFront - positionRear > 1)
         {
             pillars.setRearPillar(1);
         }

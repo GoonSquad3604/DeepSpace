@@ -10,10 +10,10 @@ public class CmdMergeOnStatus implements AutonCommand
     private double desiredStatus;
     private boolean runningAll;
     
-    public CmdMergeOnStatus(double desiredStatus,AutonCommand... commands)
+    public CmdMergeOnStatus(double iDesiredStatus, AutonCommand... iCommands)
     {
-        this.commands = commands;
-        this.desiredStatus = desiredStatus;
+        commands = iCommands;
+        desiredStatus = iDesiredStatus;
         runningAll = false;
     }
     

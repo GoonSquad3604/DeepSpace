@@ -8,16 +8,17 @@ public class CmdMovePillarWheels implements AutonCommand
 
     private Pillars pillars;
     private double distance;
-    private final double speed;
-    public CmdMovePillarWheels(double distance, double speed, Pillars pillars)
+    private double speed;
+    
+    public CmdMovePillarWheels(double iDistance, double iSpeed, Pillars iPillars)
     {
         if(pillars == null)
         {
             throw new NullPointerException("PILLARS NOT FOUND");
         }
-        this.pillars = pillars;
-        this.distance = distance;
-        this.speed = speed;
+        pillars = iPillars;
+        distance = iDistance;
+        speed = iSpeed;
     }
     @Override
     public boolean isFinished() 

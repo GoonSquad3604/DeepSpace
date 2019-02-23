@@ -9,7 +9,7 @@ public class HatchPanelRocket_FullAuton
 {
     public static void addCommands(Auton auton)
     {
-        auton.addCommand(new CmdMoveToWaypoint(auton.getDrive(),null,"a")); //TODO specify waypoints
-        HatchPlaceAuton.addCommands(auton, kRocketFirstLevelHatch);
+        //auton.addCommand(new CmdMoveToWaypoint(auton.getDrive(),null)); //TODO specify waypoints
+        HatchPlaceAuton.addCommands(auton, kBottomRocketHatch);
     }
 }

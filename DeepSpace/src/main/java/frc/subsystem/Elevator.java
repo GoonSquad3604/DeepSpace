@@ -14,7 +14,7 @@ public class Elevator
         
         leftElevator = new WPI_TalonSRX(elevatorLeftID);
         rightElevator = new WPI_TalonSRX(elevatorRightID);
-        rightElevator.setInverted(true);
+        leftElevator.setInverted(true);
         rightElevator.follow(leftElevator);
 
         //PID Settings
@@ -40,6 +40,7 @@ public class Elevator
     //Resets the sensor to a height.
     public void setHeight(double height)
     {
+        System.out.println("RESET THE ELEVATOR");
         leftElevator.setSelectedSensorPosition((int)height, 0, kTimeoutMs);
         rightElevator.setSelectedSensorPosition((int)height, 0, kTimeoutMs);
     }
