@@ -7,7 +7,12 @@ public class CargoManipulator
 {
 
     private WPI_TalonSRX intakeControl, hingeRight, hingeLeft; 
-
+    /**
+     *  sets int IDs for motors
+     * @param intakeControlID sets ID cargo intake/output
+     * @param hingeRightID sets ID hindge right motor
+     * @param hingeLeftID sets ID hindge left motor
+     */
     public CargoManipulator(int intakeControlID, int hingeRightID, int hingeLeftID)
     {
 
@@ -20,7 +25,7 @@ public class CargoManipulator
 
     }
 
-    //Intakes cargo
+    // Intakes cargo
     public void runIntake()
     {
 
@@ -28,29 +33,34 @@ public class CargoManipulator
         
     }
 
-    //Dispenses cargo
+    
+    // Dispenses cargo
     public void runDispense()
     {
 
         intakeControl.set(-1);
 
     }
-
+    // Intake/outputs set zero
     public void stop()
     {
         intakeControl.set(0);
     }
-    //TODO Hinge-related stuff. Methods still need to be made.
 
-    public void runHinge(double amount)
+    /**
+     * runs the Hindge
+     * @param speed amount from -1 to 1
+     */
+    public void runHinge(double speed)
     {
-
-        hingeRight.set(amount);
-        hingeLeft.set(amount);
-
+        hingeRight.set(speed);
+        hingeLeft.set(speed);
     }
     
-
+    /**
+     * gets the Hindge location
+     * @return Hinge location
+     */
     public double getHingeLocation()
     {
         return hingeRight.getSensorCollection().getAnalogInRaw();
