@@ -31,6 +31,7 @@ public class Elevator
         leftElevator.set(ControlMode.MotionMagic, height);
         //rightElevator.set(ControlMode.MotionMagic, height);
     }
+    
     public void setPower(double pwr)
     {
         leftElevator.set(pwr);

@@ -95,11 +95,5 @@ public class DriveTrain_TalonSRX extends DriveTrain
         rightRear.configFactoryDefault(kTimeoutMs);
     }
 
-    @Override
-    public WPI_TalonSRX gyroTest() 
-    {
-        return rightRear;
-    }
-
     
 }

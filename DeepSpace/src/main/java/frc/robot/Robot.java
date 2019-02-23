@@ -22,7 +22,7 @@ import static frc.robot.Constants.*;
 public class Robot extends TimedRobot 
 {
     
-    private DriveTrain drive;
+    private DriveTrain driveTrain;
     private XboxController driveStick;
     private XboxController operateStick; 
     private Auton runningAuton;
@@ -34,38 +34,33 @@ public class Robot extends TimedRobot
     private HatchManipulator blackLotus;
     private Sonar sonar;
     private double yaw;  
+
     @Override
     public void robotInit() 
     {
-        drive = new DriveTrain_SparkMAX(kLeftFrontID, kLeftRearID, kRightFrontID, kRightRearID);
+        driveTrain = new DriveTrain_SparkMAX(kLeftFrontID, kLeftRearID, kRightFrontID, kRightRearID);
         pigeon = new PigeonIMU(0);
         driveStick = new XboxController(0);
         operateStick = new XboxController(1);
         limelight = new Limelight("limelight");
         addFinalBotSubsystems();
         sonar = new Sonar(0);
-        runningAuton = new Auton(drive,driveStick,operateStick,pigeon,limelight,elevator/*,blackLotus*/,pillars,sonar,cargo);
+        runningAuton = new Auton(driveTrain, driveStick, operateStick, pigeon, limelight, elevator/*,blackLotus*/, pillars, sonar, cargo);
     }
     
     @Override
     public void robotPeriodic()
     {
-        //System.out.println(this.getPeriod());
         double[] ypr = new double[3];
         pigeon.getYawPitchRoll(ypr);
         yaw = ypr[0];
-        drive.feedWatchdog();
+        driveTrain.feedWatchdog();
         /*
         System.out.print("FRONT:" + pillars.getFrontHeight());
-        System.out.println(" || BACK:" + pillars.getRearHeight());*/
-        System.out.println("ELEVATOR:" + elevator.getHeight());
-        
+        System.out.println(" || BACK:" + pillars.getRearHeight());
+        */
+        System.out.println("ELEVATOR:" + elevator.getHeight());   
     } 
-    
-    public DifferentialDrive getDriveTrain()
-    {
-        return drive;
-    }
 
     @Override
     public void autonomousInit() 
@@ -92,7 +87,25 @@ public class Robot extends TimedRobot
     }
 
     @Override
+    public void disabledInit()
+    {
+      
+    }
+
+    @Override
     public void disabledPeriodic()
+    {
+      
+    }
+
+    @Override
+    public void testInit()
+    {
+      
+    }
+
+    @Override
+    public void testPeriodic()
     {
       
     }
@@ -110,10 +123,15 @@ public class Robot extends TimedRobot
     }
     private void addFinalBotSubsystems()
     {
-        cargo = new CargoManipulator(kIntakeControlID,kHingeRightID,kHingeLeftID);
-        //blackLotus = new HatchManipulator(kHatchLeftRightID,kHatchForwardBackID);
-        elevator = new Elevator(kElevatorLeftID,kElevatorRightID);
-        pillars = new Pillars(kPillarsFront,kPillarsBack,kPillarWheels);
+        cargo = new CargoManipulator(kIntakeControlID, kHingeRightID, kHingeLeftID);
+        //blackLotus = new HatchManipulator(kHatchLeftRightID, kHatchForwardBackID);
+        elevator = new Elevator(kElevatorLeftID, kElevatorRightID);
+        pillars = new Pillars(kPillarsFront, kPillarsBack, kPillarWheels);
+    }
+
+    public DriveTrain getDriveTrain()
+    {
+        return driveTrain;
     }
 
 }
