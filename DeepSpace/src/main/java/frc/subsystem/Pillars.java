@@ -1,17 +1,9 @@
 package frc.subsystem;
 
-import com.ctre.phoenix.motorcontrol.IMotorController;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.CANSparkMax;
-
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
-
-import static frc.robot.Constants.*;
-import frc.subsystem.drivetrain.DriveTrain;
-import frc.subsystem.drivetrain.DriveTrain_TalonSRX;
-
 import static frc.robot.Constants.*;
 
 public class Pillars {
@@ -23,7 +15,14 @@ public class Pillars {
     private double frontPos;
     private double rearPos;
 
+    /**
+     * Pillars to lift the robot up
+     * @param frontSideID Motor ID of front pillar
+     * @param rearSideID Motor ID of rear pillar
+     * @param wheelsID Motor ID of pillar wheels
+     */
     public Pillars(int frontSideID, int rearSideID, int wheelsID) {
+        
         frontSide = new CANSparkMax(frontSideID,com.revrobotics.CANSparkMaxLowLevel.MotorType.kBrushless);
         frontSide.setInverted(false);
         rearSide = new CANSparkMax(rearSideID,com.revrobotics.CANSparkMaxLowLevel.MotorType.kBrushless);
@@ -33,32 +32,49 @@ public class Pillars {
         frontInitPos = frontSide.getEncoder().getPosition();
         rearInitPos = frontSide.getEncoder().getPosition();
 
-
     }
 
-    // Moves the wheels to a specific speed.
+    /**
+     * Drive pillar wheels
+     * @param speed Speed from -1 to 1
+     */
     public void moveWheels(double speed) 
     {
         wheels.set(speed);    
     }
     
-    //Sets the pillars themselves to a specific speed.
+    /**
+     * Run both pillars
+     * @param speed Speed from -1 to 1
+     */
     public void setPillars(double speed)
     {
       frontSide.set(speed);
       rearSide.set(speed);  
     }
 
+    /**
+     * Run front pillar
+     * @param speed Speed from -1 to 1
+     */
     public void setFrontPillar(double speed)
     {
         frontSide.set(speed);
     }
 
+    /**
+     * Run rear pillar
+     * @param speed Speed from -1 to 1
+     */
     public void setRearPillar(double speed)
     {
         rearSide.set(speed);
     }
 
+    /**
+     * The height of the robot
+     * @return Average amount of pillar motor rotations
+     */
     public double getHeight()
     {
         return (getFrontHeight() + getRearHeight()) / 2.0;
@@ -69,14 +85,19 @@ public class Pillars {
         return 0;//wheels.getSelectedSensorPosition() * kPulsesPerInchPillarWheels;
     }
 
-    //@return the distance the pillars have travelled.
-
-    //@return the height of the pillars 
+    /**
+     * The height of the front of the robot
+     * @return Amount of the front pillar motor rotations
+     */
     public double getFrontHeight()
     {
         return (frontSide.getEncoder().getPosition()) - frontInitPos;
     }
 
+    /**
+     * The height of the rear of the robot
+     * @return Amount of the rear pillar motor rotations
+     */
     public double getRearHeight()
     {
         return (rearSide.getEncoder().getPosition()) - rearInitPos;
@@ -99,6 +120,9 @@ public class Pillars {
         rearInitPos = rearSide.getEncoder().getPosition();
     }
 
+    /**
+     * @param driveStick Driver XboxController
+     */
     public void runOldChadCode(XboxController driveStick)
     {
         if(driveStick.getPOV() == 0){

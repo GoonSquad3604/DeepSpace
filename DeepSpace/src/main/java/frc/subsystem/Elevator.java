@@ -8,7 +8,11 @@ public class Elevator
 {
 
     private WPI_TalonSRX leftElevator, rightElevator;
-
+    /**
+     * sets IDs, left Inverted, right follow left, and Pid settings
+     * @param elevatorLeftID sets ID for left elevator motor
+     * @param elevatorRightID sets ID for right elevator motor
+     */
     public Elevator(int elevatorLeftID, int elevatorRightID)
     {
         
@@ -25,33 +29,49 @@ public class Elevator
 
     }
 
-    //Moves the elevator to the height.
+    /**
+     * Moves the elevator to the height
+     * @param height defines height of elevator
+     */
     public void moveElevator(double height)
     {
         leftElevator.set(ControlMode.MotionMagic, height);
         //rightElevator.set(ControlMode.MotionMagic, height);
     }
-    
+
+    /**
+     * Moves the elevator to the height
+     * @param pwr defines power of elevator 
+     */
     public void setPower(double pwr)
     {
         leftElevator.set(pwr);
         //rightElevator.set(ControlMode.MotionMagic, height);
     }
 
-    //Resets the sensor to a height.
+    /**
+     * Resets the sensor to a height.
+     * @param height defines height of elevator
+     */
     public void setHeight(double height)
     {
         System.out.println("RESET THE ELEVATOR");
         leftElevator.setSelectedSensorPosition((int)height, 0, kTimeoutMs);
         rightElevator.setSelectedSensorPosition((int)height, 0, kTimeoutMs);
     }
-
+    /**
+     * returns left elevator
+     * @return Left elevator
+     */
     public WPI_TalonSRX getElevator()
     {
         return leftElevator;
     }
 
-    //Returns the height of the sensor.
+    /**
+     * Returns the height of the sensor.
+     * @return hieight of sensor
+     */
     public double getHeight()
     {
         return leftElevator.getSelectedSensorPosition();

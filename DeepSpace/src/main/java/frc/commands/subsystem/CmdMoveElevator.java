@@ -10,7 +10,7 @@ public class CmdMoveElevator implements AutonCommand
     private Elevator elevator;
     private double height;
     private boolean moved;
-
+    
     public CmdMoveElevator(double iHeight, Elevator iElevator)
     {
         height = iHeight;
@@ -23,7 +23,6 @@ public class CmdMoveElevator implements AutonCommand
         {
             elevator = iElevator;
         }
-        moved = false;
     }
     
     @Override

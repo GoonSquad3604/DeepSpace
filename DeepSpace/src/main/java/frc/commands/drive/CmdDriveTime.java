@@ -6,11 +6,17 @@ import frc.subsystem.drivetrain.DriveTrain;
 
 public class CmdDriveTime implements AutonCommand
 {
-    //Drives the robot forwards based on a timer.
+    
     private Timer timer;
     private double time;
     private DriveTrain driveTrain;
     
+    
+    /**
+     * Drives the robot forwards based on a timer
+     * @param iTime Amount of time to drive (seconds)
+     * @param iDriveTrain Drive Train Object
+     */
     public CmdDriveTime(double iTime, DriveTrain iDriveTrain)
     {
         timer = new Timer();
@@ -48,7 +54,7 @@ public class CmdDriveTime implements AutonCommand
         timer.start();
         timer.reset();
     }
-    
+
     @Override
     public void end()
     {

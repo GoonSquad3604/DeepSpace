@@ -32,9 +32,9 @@ public class CmdTurnToAngle implements AutonCommand
     private Timer correctTime;
     private boolean runningTimer = false;
 
-    /*
-    Turns to set angle
-    */
+    /**
+     * Turns to set angle
+     */
     public CmdTurnToAngle(DriveTrain iDriveTrain, PigeonIMU iGyro, double iTargetAngle)
     {
         driveTrain = iDriveTrain;
@@ -66,7 +66,7 @@ public class CmdTurnToAngle implements AutonCommand
                 correctTime.start();
                 runningTimer = true;
             }
-            else if(correctTime.get()>.2)
+            else if(correctTime.get() > 0.2)
             {
                 return true;
             }
