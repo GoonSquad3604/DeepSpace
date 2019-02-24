@@ -64,6 +64,8 @@ public class Constants
     public static final double kBottomRocketCargo = 1250;
     public static final double kCargoShip = 8750;
 
+    public static final int kElevatorLimitSensor = 0;
+
     /*************/
     /*Drive Train*/
     /*************/
@@ -107,10 +109,7 @@ public class Constants
     /**********/
 
     public static final double kElevatorError = 0;
-    public static final int kOpenHatch = 0;
-    public static final int kClosedHatch = 0;
-    public static final int kForwardHatch = 0;
-    public static final int kBackwardHatch = 0;
+    public static final double kHingeError = 10;
     
     public static final int kReflectiveTapePipeline = 0;
 

@@ -10,8 +10,8 @@ public class CargoManipulator
     /**
      *  sets int IDs for motors
      * @param intakeControlID sets ID cargo intake/output
-     * @param hingeRightID sets ID hindge right motor
-     * @param hingeLeftID sets ID hindge left motor
+     * @param hingeRightID sets ID hinge right motor
+     * @param hingeLeftID sets ID hinge left motor
      */
     public CargoManipulator(int intakeControlID, int hingeRightID, int hingeLeftID)
     {
@@ -48,7 +48,7 @@ public class CargoManipulator
     }
 
     /**
-     * runs the Hindge
+     * runs the hinge
      * @param speed amount from -1 to 1
      */
     public void runHinge(double speed)
@@ -58,7 +58,7 @@ public class CargoManipulator
     }
     
     /**
-     * gets the Hindge location
+     * gets the hinge location
      * @return Hinge location
      */
     public double getHingeLocation()

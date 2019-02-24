@@ -8,6 +8,8 @@
 package frc.robot;
 
 import com.ctre.phoenix.sensors.PigeonIMU;
+
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -38,6 +40,7 @@ public class Robot extends TimedRobot
     private HatchManipulator blackLotus;
     private Sonar sonar;
     private double yaw;  
+    private DigitalInput elevatorLimit;
 
     @Override
     public void robotInit() 
@@ -52,6 +55,7 @@ public class Robot extends TimedRobot
         runningAuton = new Auton(driveTrain, driveStick, operateStick, pigeon, limelight, elevator/*,blackLotus*/, pillars, sonar, cargo);
         limelight.setCamMode(0);
         limelight.setLEDMode(0);
+        elevatorLimit = new DigitalInput(0);
     }
     
     @Override
@@ -65,7 +69,7 @@ public class Robot extends TimedRobot
         System.out.print("FRONT:" + pillars.getFrontHeight());
         System.out.println(" || BACK:" + pillars.getRearHeight());
         */
-        System.out.println("ELEVATOR1: " + elevator.getElevator().getSelectedSensorPosition());   
+        System.out.println(elevatorLimit.get());   
     } 
 
     @Override
