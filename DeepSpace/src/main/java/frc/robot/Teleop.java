@@ -150,7 +150,7 @@ public class Teleop implements AutonCommand
                 auton.getElevator().setHeight(0);
             }
             //When the operator presses A and a directional button, place a cargo.
-            if(operateStick.getAButton())
+            if(operateStick.getAButton() && operateStick.getPOV() != -1)
             {
                 if(operateStick.getPOV() == kDpadUp)
                 {
@@ -170,7 +170,7 @@ public class Teleop implements AutonCommand
                 }
                 endTeleop();
             }
-            else if(operateStick.getBButton())
+            else if(operateStick.getBButton() && operateStick.getPOV() != -1)
             {
                 if(operateStick.getPOV() == kDpadUp)
                 {
@@ -198,7 +198,7 @@ public class Teleop implements AutonCommand
                 }
                 else if(operateStick.getPOV() == kDpadUp)
                 {
-                    auton.getElevator().setPower(0.75);
+                    auton.getElevator().setPower(1);
                 }
                 else if(operateStick.getPOV() == kDpadDown)
                 {
