@@ -44,8 +44,8 @@ public class Constants
     public static final double kElevatorI = 0.0;
     public static final double kElevatorD = 0.0;
     public static final double kElevatorF = 0.0;
-    public static final int kElevatorCargoVel = 950;
-    public static final int kElevatorCargoAcc = 2800;
+    public static final int kElevatorCargoVel = 1350;
+    public static final int kElevatorCargoAcc = 3200;
 
     public static final double kopenCloseP = 0.0;
     public static final double kopenCloseI = 0.0;
@@ -56,13 +56,15 @@ public class Constants
     public static final double kTopRocketHatch = 0;
     public static final double kMiddleRocketHatch = 0;
     public static final double kBottomRocketHatch = 0;
-    public static final double kHatchFeeder = 4800;
+    public static final double kHatchFeeder = 5000;
 
     //Rocket cargo encoder positions
-    public static final double kTopRocketCargo = 27000;
-    public static final double kMiddleRocketCargo = 14000;
-    public static final double kBottomRocketCargo = 2000;
-    public static final double kCargoShip = 9000;
+    public static final double kTopRocketCargo = 21000;
+    public static final double kMiddleRocketCargo = 11100;
+    public static final double kBottomRocketCargo = 1250;
+    public static final double kCargoShip = 8750;
+
+    public static final int kElevatorLimitSensor = 0;
 
     /*************/
     /*Drive Train*/
@@ -107,10 +109,7 @@ public class Constants
     /**********/
 
     public static final double kElevatorError = 0;
-    public static final int kOpenHatch = 0;
-    public static final int kClosedHatch = 0;
-    public static final int kForwardHatch = 0;
-    public static final int kBackwardHatch = 0;
+    public static final double kHingeError = 10;
     
     public static final int kReflectiveTapePipeline = 0;
 

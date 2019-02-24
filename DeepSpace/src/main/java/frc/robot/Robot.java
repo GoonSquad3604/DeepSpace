@@ -8,6 +8,8 @@
 package frc.robot;
 
 import com.ctre.phoenix.sensors.PigeonIMU;
+
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -16,6 +18,10 @@ import frc.subsystem.*;
 import frc.subsystem.drivetrain.*;
 import frc.vision.Limelight;
 import frc.vision.Sonar;
+import frc.auton.sandstorm.lvl1.left.*;
+import frc.auton.sandstorm.lvl1.right.*;
+import frc.auton.sandstorm.lvl2.left.*;
+import frc.auton.sandstorm.lvl2.right.*;
 
 import static frc.robot.Constants.*;
 
@@ -34,6 +40,7 @@ public class Robot extends TimedRobot
     private HatchManipulator blackLotus;
     private Sonar sonar;
     private double yaw;  
+    private DigitalInput elevatorLimit;
 
     @Override
     public void robotInit() 
@@ -46,6 +53,9 @@ public class Robot extends TimedRobot
         addFinalBotSubsystems();
         sonar = new Sonar(0);
         runningAuton = new Auton(driveTrain, driveStick, operateStick, pigeon, limelight, elevator/*,blackLotus*/, pillars, sonar, cargo);
+        limelight.setCamMode(0);
+        limelight.setLEDMode(0);
+        elevatorLimit = new DigitalInput(0);
     }
     
     @Override
@@ -59,12 +69,13 @@ public class Robot extends TimedRobot
         System.out.print("FRONT:" + pillars.getFrontHeight());
         System.out.println(" || BACK:" + pillars.getRearHeight());
         */
+        System.out.println(elevatorLimit.get());   
     } 
 
     @Override
     public void autonomousInit() 
     {
-        HatchPlaceAuton.addCommands(runningAuton);
+        //HatchPlaceAuton.addCommands(runningAuton);
     }
 
     @Override
