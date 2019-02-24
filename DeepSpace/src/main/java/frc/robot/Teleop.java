@@ -46,7 +46,7 @@ public class Teleop implements AutonCommand
     @Override
     public void runTask() 
     {
-        System.out.println("TIME: " + driveStation.getMatchTime());
+        System.out.println("ELEVATOR: " + auton.getElevator().getHeight());
         auton.getOperateStick().setRumble(RumbleType.kLeftRumble,0);
         auton.getOperateStick().setRumble(RumbleType.kRightRumble,0);
         auton.getDriveStick().setRumble(RumbleType.kLeftRumble,0);
@@ -140,7 +140,7 @@ public class Teleop implements AutonCommand
 
         if(auton.getSize() == 0 && running)
         {
-            auton.getPillars().runOldChadCode(driveStick);
+            auton.getPillars().runManualPillars(driveStick);
             if(driveStick.getStartButton() && driveStick.getBackButton())
             {
                 PillarsAuton.addCommands(auton);
@@ -202,11 +202,11 @@ public class Teleop implements AutonCommand
                 }
                 else if(operateStick.getPOV() == kDpadUp)
                 {
-                    auton.getElevator().setPower(1);
+                    auton.getElevator().setPower(.6);
                 }
                 else if(operateStick.getPOV() == kDpadDown)
                 {
-                    auton.getElevator().setPower(-1);
+                    auton.getElevator().setPower(-.7);
                 }
             }
             else
@@ -261,6 +261,12 @@ public class Teleop implements AutonCommand
                 auton.getCargoManipulator().stop();
             }
 
+            if(operateStick.getStickButton(Hand.kRight))
+            {
+                ResetElevatorAuton.addCommands(auton);
+                endTeleop();
+            }
+
         }
     }
 
@@ -282,6 +288,10 @@ public class Teleop implements AutonCommand
         driveStick.getBButtonPressed();
         driveStick.getXButtonPressed();
         driveStick.getYButtonPressed();
+        operateStick.getAButtonPressed();
+        operateStick.getBButtonPressed();
+        operateStick.getXButtonPressed();
+        operateStick.getYButtonPressed();
         operateStick.getStartButtonPressed();
     }
     
