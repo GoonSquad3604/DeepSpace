@@ -234,11 +234,11 @@ public class Auton
     public String toString()
     {
         String s = this.getClass().getName() + " WITH SIZE " + getSize() + "\n";
-        /*
+        
         for(int i=0; i<autonQueue.size();i++)
         {
             s += autonQueue.getClass().getName() + "\n";
-        }*/
+        }
         return s;
     }
     

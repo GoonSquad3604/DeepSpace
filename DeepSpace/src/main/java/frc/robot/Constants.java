@@ -45,7 +45,7 @@ public class Constants
     public static final double kElevatorD = 0.0;
     public static final double kElevatorF = 0.0;
     public static final int kElevatorCargoVel = 1350;
-    public static final int kElevatorCargoAcc = 3000;
+    public static final int kElevatorCargoAcc = 2900;
 
     public static final double kopenCloseP = 0.0;
     public static final double kopenCloseI = 0.0;
@@ -59,10 +59,21 @@ public class Constants
     public static final double kHatchFeeder = 5000;
 
     //Rocket cargo encoder positions
-    public static final double kTopRocketCargo = 21000;
-    public static final double kMiddleRocketCargo = 11100;
-    public static final double kBottomRocketCargo = 1250;
-    public static final double kCargoShip = 8750;
+
+    public static final double kTopRocketCargoA = 26500;
+    public static final double kMiddleRocketCargoA = 15000;
+    public static final double kBottomRocketCargoA = 2000;
+    public static final double kCargoShipA = 8750;
+
+    public static final double kTopRocketCargoB = 21000;
+    public static final double kMiddleRocketCargoB = 11100;
+    public static final double kBottomRocketCargoB = 1250;
+    public static final double kCargoShipB = 8750;
+
+    public static final double kTopRocketCargo = kTopRocketCargoA;
+    public static final double kMiddleRocketCargo = kMiddleRocketCargoA;
+    public static final double kBottomRocketCargo = kBottomRocketCargoA;
+    public static final double kCargoShip = kCargoShipA;
 
     public static final int kElevatorLimitSensor = 0;
 

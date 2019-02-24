@@ -17,6 +17,13 @@ public class CmdManualDrive implements AutonCommand
     private double[] ypr = new double[3];
     private double limelightAngle;
     
+    /**
+     * Allows you to manually drive the robot during a command.
+     * @param iDrive The DriveTrain
+     * @param iDriveStick the driver's controller
+     * @param iOperateStick the operator's controller
+     * @param iAuton the autonomous queue object
+     */
     public CmdManualDrive(DriveTrain iDrive, XboxController iDriveStick, XboxController iOperateStick, Auton iAuton)
     {
         drive = iDrive;

@@ -40,7 +40,7 @@ public class Robot extends TimedRobot
     private HatchManipulator blackLotus;
     private Sonar sonar;
     private double yaw;  
-
+    
     @Override
     public void robotInit() 
     {
@@ -67,7 +67,6 @@ public class Robot extends TimedRobot
         System.out.print("FRONT:" + pillars.getFrontHeight());
         System.out.println(" || BACK:" + pillars.getRearHeight());
         */
-        System.out.println(elevator.getLimit());   
     } 
 
     @Override

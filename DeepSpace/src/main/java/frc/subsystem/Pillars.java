@@ -120,11 +120,15 @@ public class Pillars {
         rearInitPos = rearSide.getEncoder().getPosition();
     }
 
-    /**
+    /**Runs the pillars under the driver's control
      * @param driveStick Driver XboxController
      */
-    public void runOldChadCode(XboxController driveStick)
+    public void runManualPillars(XboxController driveStick)
     {
+      if(driveStick == null)
+      {
+        return;
+      }
         if(driveStick.getPOV() == 0){
           
           if((rearPos - rearInitPos) - (frontPos - frontInitPos) > 1){

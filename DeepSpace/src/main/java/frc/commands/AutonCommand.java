@@ -8,7 +8,9 @@ public interface AutonCommand
     //Will be called in a loop when this command is being run. Will not be called when this command is not being run (I hope).
     void runTask();
 
-    //Returns an int. May be useful at times where you need to get feedback.
+    /**Custom defined status from command
+     * @return The status as a double
+     */
     double getStatus();
 
     //Called when this command begins
