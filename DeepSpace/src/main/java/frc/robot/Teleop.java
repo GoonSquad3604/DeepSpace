@@ -198,11 +198,11 @@ public class Teleop implements AutonCommand
                 }
                 else if(operateStick.getPOV() == kDpadUp)
                 {
-                    auton.getElevator().setPower(1);
+                    auton.getElevator().setPower(0.6);
                 }
                 else if(operateStick.getPOV() == kDpadDown)
                 {
-                    auton.getElevator().setPower(-1);
+                    auton.getElevator().setPower(-0.7);
                 }
             }
             else

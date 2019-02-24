@@ -45,7 +45,7 @@ public class Constants
     public static final double kElevatorD = 0.0;
     public static final double kElevatorF = 0.0;
     public static final int kElevatorCargoVel = 1350;
-    public static final int kElevatorCargoAcc = 3200;
+    public static final int kElevatorCargoAcc = 3000;
 
     public static final double kopenCloseP = 0.0;
     public static final double kopenCloseI = 0.0;
