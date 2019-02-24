@@ -59,7 +59,6 @@ public class Robot extends TimedRobot
         System.out.print("FRONT:" + pillars.getFrontHeight());
         System.out.println(" || BACK:" + pillars.getRearHeight());
         */
-        System.out.println("ELEVATOR:" + elevator.getHeight());   
     } 
 
     @Override

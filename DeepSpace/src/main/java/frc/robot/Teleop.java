@@ -1,5 +1,6 @@
 package frc.robot;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Watchdog;
 import edu.wpi.first.wpilibj.XboxController;
@@ -9,6 +10,8 @@ import frc.auton.*;
 import frc.commands.AutonCommand;
 import frc.subsystem.drivetrain.*;
 import static frc.robot.Constants.*;
+
+import java.util.ArrayList;
 
 public class Teleop implements AutonCommand
 {
@@ -22,6 +25,7 @@ public class Teleop implements AutonCommand
     private double limelightAngle;
     private double[] ypr = new double[3];
     private Timer delayTimer;
+    private DriverStation driveStation;
 
     public Teleop(DriveTrain iDriveTrain, XboxController iDriveStick, XboxController iOperateStick, Auton iAuton)
     {
@@ -30,6 +34,7 @@ public class Teleop implements AutonCommand
         driveTrain = iDriveTrain;
         auton = iAuton;
         delayTimer = new Timer();
+        driveStation = DriverStation.getInstance();
     }
     
     @Override
@@ -41,6 +46,7 @@ public class Teleop implements AutonCommand
     @Override
     public void runTask() 
     {
+        System.out.println("TIME: " + driveStation.getMatchTime());
         auton.getOperateStick().setRumble(RumbleType.kLeftRumble,0);
         auton.getOperateStick().setRumble(RumbleType.kRightRumble,0);
         auton.getDriveStick().setRumble(RumbleType.kLeftRumble,0);
@@ -152,41 +158,39 @@ public class Teleop implements AutonCommand
             //When the operator presses A and a directional button, place a cargo.
             if(operateStick.getAButton())
             {
-                if(operateStick.getPOV() == kDpadUp)
+                switch(operateStick.getPOV())
                 {
-                    CargoPlaceAuton2.addCommands(auton, kTopRocketCargo);
-                }
-                else if(operateStick.getPOV() == kDpadRight)
-                {
-                    CargoPlaceAuton2.addCommands(auton, kMiddleRocketCargo);
-                }
-                else if(operateStick.getPOV() == kDpadDown)
-                {
-                    CargoPlaceAuton2.addCommands(auton, kBottomRocketCargo);
-                }
-                else if(operateStick.getPOV() == kDpadLeft)
-                {
-                    CargoPlaceAuton2.addCommands(auton, kCargoShip);
+                    case kDpadUp:
+                        CargoPlaceAuton2.addCommands(auton, kTopRocketCargo);
+                        break;
+                    case kDpadRight:
+                        CargoPlaceAuton2.addCommands(auton, kMiddleRocketCargo);
+                        break;
+                    case kDpadDown:
+                        CargoPlaceAuton2.addCommands(auton, kBottomRocketCargo);
+                        break;
+                    case kDpadLeft:
+                        CargoPlaceAuton2.addCommands(auton, kCargoShip);
+                        break;
                 }
                 endTeleop();
             }
             else if(operateStick.getBButton())
             {
-                if(operateStick.getPOV() == kDpadUp)
+                switch(operateStick.getPOV())
                 {
-                    CargoPlaceAuton2.addCommands(auton, kTopRocketHatch);
-                }
-                else if(operateStick.getPOV() == kDpadRight)
-                {
-                    CargoPlaceAuton2.addCommands(auton, kMiddleRocketHatch);
-                }
-                else if(operateStick.getPOV() == kDpadDown)
-                {
-                    CargoPlaceAuton2.addCommands(auton, kBottomRocketHatch);
-                }
-                else if(operateStick.getPOV() == kDpadLeft)
-                {
-                    CargoPlaceAuton2.addCommands(auton, kHatchFeeder);
+                    case kDpadUp:
+                        CargoPlaceAuton2.addCommands(auton, kTopRocketHatch);
+                        break;
+                    case kDpadRight:
+                        CargoPlaceAuton2.addCommands(auton, kMiddleRocketHatch);
+                        break;
+                    case kDpadDown:
+                        CargoPlaceAuton2.addCommands(auton, kBottomRocketHatch);
+                        break;
+                    case kDpadLeft:
+                        CargoPlaceAuton2.addCommands(auton, kHatchFeeder);
+                        break;
                 }
                 endTeleop();
             }
