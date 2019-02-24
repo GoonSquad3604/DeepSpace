@@ -15,7 +15,7 @@ public class PillarsAuton
         auton.getDriveStick().setRumble(RumbleType.kLeftRumble,1);
         auton.getDriveStick().setRumble(RumbleType.kRightRumble,1);
         auton.addCommand(new CmdRaisePillars(kThirdLevel,auton.getPillars()));
-        auton.addCommand(new CmdMovePillarWheelsTime(3, 0.5, auton.getPillars()));
+        auton.addCommand(new CmdMovePillarWheelsTime(1.5, 1, auton.getPillars()));
         auton.addCommand(new CmdLowerSinglePillar(PillarType.kFrontPillar, 0, 1, auton.getPillars()));
         auton.addCommand(new CmdDriveTime(1, auton.getDrive()));
         auton.addCommand(new CmdLowerSinglePillar(PillarType.kRearPillar, 0, 1, auton.getPillars()));

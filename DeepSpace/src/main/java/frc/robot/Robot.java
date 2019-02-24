@@ -46,6 +46,8 @@ public class Robot extends TimedRobot
         addFinalBotSubsystems();
         sonar = new Sonar(0);
         runningAuton = new Auton(driveTrain, driveStick, operateStick, pigeon, limelight, elevator/*,blackLotus*/, pillars, sonar, cargo);
+        limelight.setCamMode(0);
+        limelight.setLEDMode(0);
     }
     
     @Override
@@ -59,13 +61,13 @@ public class Robot extends TimedRobot
         System.out.print("FRONT:" + pillars.getFrontHeight());
         System.out.println(" || BACK:" + pillars.getRearHeight());
         */
-        System.out.println("ELEVATOR:" + elevator.getHeight());   
+        System.out.println("ELEVATOR1: " + elevator.getElevator().getSelectedSensorPosition());   
     } 
 
     @Override
     public void autonomousInit() 
     {
-        HatchPlaceAuton.addCommands(runningAuton);
+        //HatchPlaceAuton.addCommands(runningAuton);
     }
 
     @Override

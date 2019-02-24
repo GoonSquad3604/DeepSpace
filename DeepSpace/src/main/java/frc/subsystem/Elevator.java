@@ -27,6 +27,9 @@ public class Elevator
         leftElevator.config_kD(0, kElevatorD, kTimeoutMs);
         leftElevator.config_kF(0, kElevatorF, kTimeoutMs);
 
+        leftElevator.configMotionCruiseVelocity(kElevatorCargoVel, kTimeoutMs);
+        leftElevator.configMotionAcceleration(kElevatorCargoAcc, kTimeoutMs);
+
     }
 
     /**
