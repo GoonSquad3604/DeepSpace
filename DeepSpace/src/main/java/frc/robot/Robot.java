@@ -16,6 +16,10 @@ import frc.subsystem.*;
 import frc.subsystem.drivetrain.*;
 import frc.vision.Limelight;
 import frc.vision.Sonar;
+import frc.auton.sandstorm.lvl1.left.*;
+import frc.auton.sandstorm.lvl1.right.*;
+import frc.auton.sandstorm.lvl2.left.*;
+import frc.auton.sandstorm.lvl2.right.*;
 
 import static frc.robot.Constants.*;
 
