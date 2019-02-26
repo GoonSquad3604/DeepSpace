@@ -70,10 +70,10 @@ public class Constants
     public static final double kBottomRocketCargoB = 1250;
     public static final double kCargoShipB = 8750;
 
-    public static final double kTopRocketCargo = kTopRocketCargoA;
-    public static final double kMiddleRocketCargo = kMiddleRocketCargoA;
-    public static final double kBottomRocketCargo = kBottomRocketCargoA;
-    public static final double kCargoShip = kCargoShipA;
+    public static final double kTopRocketCargo = kTopRocketCargoB;
+    public static final double kMiddleRocketCargo = kMiddleRocketCargoB;
+    public static final double kBottomRocketCargo = kBottomRocketCargoB;
+    public static final double kCargoShip = kCargoShipB;
 
     public static final int kElevatorLimitSensor = 0;
 
@@ -81,30 +81,26 @@ public class Constants
     /*Drive Train*/
     /*************/
 
-    public static final double kRobotWidth = 0.0; //Meters
+    public static final double kDriveP = 0;
+    public static final double kDriveI = 0;
+    public static final double kDriveD = 0;
+    public static final double kVelocityRatio = 0;
+    public static final double kAccelerationRatio = 0;
+    public static final double kRobotWidth = 0.5476875; //Meters
     public static final double kWheelDiameter = 6.0; //Inches
     public static final double kGearRatio = 10.12; //Number of motor revs per wheel rev
-
-    //DO NOT CHANGE
-    public static final double kWheelCircumference = kWheelDiameter * Math.PI;
-    public static final double kInchesPerMotorRev = kWheelCircumference / kGearRatio;
-
     public static final double kDt = 0;
     public static final double kVelocity = 0;
     public static final double kAcceleration = 0;
     public static final double kJerk = 0;
+
+
 
     //Turn PID
     public static final double kTurnP = 0.08;
     public static final double kTurnI = 0.0;
     public static final double kTurnD = 0.0;
 
-    //Drive PID
-    public static final double kDriveP = 0;
-    public static final double kDriveI = 0;
-    public static final double kDriveD = 0;
-    public static final double kVelocityRatio = 0;
-    public static final double kAccelerationRatio = 0;
 
     /*******/
     /*Auton*/

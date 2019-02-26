@@ -12,6 +12,7 @@ import com.ctre.phoenix.sensors.PigeonIMU;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.auton.*;
 import frc.subsystem.*;
@@ -59,10 +60,19 @@ public class Robot extends TimedRobot
     @Override
     public void robotPeriodic()
     {
+        limelight.setCamMode(1);
+        limelight.setLEDMode(1);
         double[] ypr = new double[3];
         pigeon.getYawPitchRoll(ypr);
         yaw = ypr[0];
         driveTrain.feedWatchdog();
+        System.out.println(cargo.getHingeLocation());
+        if(driveStick.getStickButton(Hand.kLeft)){
+            limelight.setStreamMode(2);
+        }
+        else{
+            limelight.setStreamMode(1);
+        }
         /*
         System.out.print("FRONT:" + pillars.getFrontHeight());
         System.out.println(" || BACK:" + pillars.getRearHeight());

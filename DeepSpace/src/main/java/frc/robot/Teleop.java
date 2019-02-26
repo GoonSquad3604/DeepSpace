@@ -10,7 +10,6 @@ import frc.auton.*;
 import frc.commands.AutonCommand;
 import frc.subsystem.drivetrain.*;
 import static frc.robot.Constants.*;
-
 import java.util.ArrayList;
 
 public class Teleop implements AutonCommand
@@ -26,6 +25,8 @@ public class Teleop implements AutonCommand
     private double[] ypr = new double[3];
     private Timer delayTimer;
     private DriverStation driveStation;
+    private Timer testTime;
+    double distance = 0;
 
     public Teleop(DriveTrain iDriveTrain, XboxController iDriveStick, XboxController iOperateStick, Auton iAuton)
     {
@@ -35,6 +36,8 @@ public class Teleop implements AutonCommand
         auton = iAuton;
         delayTimer = new Timer();
         driveStation = DriverStation.getInstance();
+        testTime = new Timer();
+        testTime.start();
     }
     
     @Override
@@ -46,7 +49,7 @@ public class Teleop implements AutonCommand
     @Override
     public void runTask() 
     {
-        System.out.println("ELEVATOR: " + auton.getElevator().getHeight());
+        //System.out.println("ELEVATOR: " + auton.getElevator().getHeight());
         auton.getOperateStick().setRumble(RumbleType.kLeftRumble,0);
         auton.getOperateStick().setRumble(RumbleType.kRightRumble,0);
         auton.getDriveStick().setRumble(RumbleType.kLeftRumble,0);
@@ -128,8 +131,28 @@ public class Teleop implements AutonCommand
 
             driveTrain.arcadeDrive(-drv,turn);
         }
-        else
+        else if(driveStick.getStickButton(Hand.kRight) && false){
+            if(testTime.get() >= 1 && testTime.get() <= 2){
+                distance = (driveTrain.getLeftPosition() + driveTrain.getRightPosition()) / 2;
+                driveTrain.arcadeDrive(1, 0);
+            }
+            else if(testTime.get() < 1 && testTime.get() > 0){
+                driveTrain.setRightPosition(0);
+                driveTrain.setLeftPosition(0);
+                driveTrain.arcadeDrive(1, 0);
+            }
+            else{
+                driveTrain.arcadeDrive(0, 0);
+            }
+            System.out.println(distance);
+        }
+        else if(driveStick.getStickButton(Hand.kLeft)){
+           auton.getLimelight().setStreamMode(2);
+        }
+        else 
         {
+            auton.getLimelight().setStreamMode(1);
+            testTime.reset();
             limelightAngle = 0;
             auton.getLimelight().setCamMode(1);
             auton.getLimelight().setLEDMode(1);

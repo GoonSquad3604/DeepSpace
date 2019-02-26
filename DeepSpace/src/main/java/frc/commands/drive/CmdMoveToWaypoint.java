@@ -28,13 +28,13 @@ public class CmdMoveToWaypoint implements AutonCommand
     public CmdMoveToWaypoint(DriveTrain iDrive,PigeonIMU iGyro, String pathName)
     {
         drive = iDrive;
-        leftTrajectory = PathfinderFRC.getTrajectory(pathName + ".right");
-        rightTrajectory = PathfinderFRC.getTrajectory(pathName + ".left");
+        leftTrajectory = PathfinderFRC.getTrajectory(pathName + ".left");
+        rightTrajectory = PathfinderFRC.getTrajectory(pathName + ".right");
         leftFollow = new EncoderFollower(leftTrajectory);
-        leftFollow.configureEncoder(0, 1024, kWheelDiameter);
+        leftFollow.configureEncoder(0, 1012, kWheelDiameter);
         leftFollow.configurePIDVA(kDriveP, kDriveI, kDriveD, kVelocityRatio, kAccelerationRatio);
         rightFollow = new EncoderFollower(rightTrajectory);
-        rightFollow.configureEncoder(0, 1024, kWheelDiameter);
+        rightFollow.configureEncoder(0, 1012, kWheelDiameter);
         rightFollow.configurePIDVA(kDriveP, kDriveI, kDriveD, kVelocityRatio, kAccelerationRatio);
         gyro = iGyro;
         notifier = new Notifier(this::followPath);
@@ -51,8 +51,7 @@ public class CmdMoveToWaypoint implements AutonCommand
     @Override
     public void runTask() 
     {
-        drive.setLeft(leftFollow.calculate((int)drive.getLeftPosition()));
-        drive.setRight(rightFollow.calculate((int)drive.getRightPosition()));
+        
     }
 
     @Override
@@ -82,8 +81,8 @@ public class CmdMoveToWaypoint implements AutonCommand
         } 
         else 
         {
-            double left_speed = leftFollow.calculate((int)drive.getLeftPosition());
-            double right_speed = leftFollow.calculate((int)drive.getRightPosition());
+            double left_speed = leftFollow.calculate((int)(drive.getLeftPosition() * 1012));
+            double right_speed = leftFollow.calculate((int)(drive.getRightPosition() * 1012));
             double[] ypr = new double[3];
             gyro.getYawPitchRoll(ypr);
             double heading = ypr[0];
