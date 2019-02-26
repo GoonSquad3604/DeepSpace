@@ -103,6 +103,11 @@ public class Limelight
     {
         table.getEntry("ledMode").setNumber(LEDMode);
     }
+    
+    public void setStreamMode(Number stream)
+    {
+        table.getEntry("stream").setNumber(stream);
+    }
 
     @Override
     public String toString()
