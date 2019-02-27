@@ -120,18 +120,20 @@ public class DriveTrain_SparkMAX extends DriveTrain
      * gets the inched for left
      * @return Inches for left
      */
+    @Deprecated
     public double getLeftInches() 
     {
-        return getLeftPosition() * kInchesPerMotorRev;
+        return getLeftPosition();
     }
 
     /**
      * gets inches for right
      * @return Inches for right
      */
+    @Deprecated
     public double getRightInches() 
     {
-        return getRightPosition() * kInchesPerMotorRev;
+        return getRightPosition();
     }
 
     /**
@@ -144,4 +146,5 @@ public class DriveTrain_SparkMAX extends DriveTrain
 
     }
 
+    
 }

@@ -24,8 +24,7 @@ public class CmdDriveDistance implements AutonCommand
     {
         if((Math.abs(drive.getLeftInches())+Math.abs(drive.getRightInches())) / 2 >= distance)
         {
-            drive.arcadeDrive(0,0);
-            System.out.println("TAAAAAAAKE ONNNNNNNN MEEEEE");
+            drive.arcadeDrive(0, 0);
             return true;
         }
         return false;
@@ -34,7 +33,7 @@ public class CmdDriveDistance implements AutonCommand
     @Override
     public void runTask() 
     {
-        drive.arcadeDrive(0.35,0);
+        drive.arcadeDrive(0.35, 0);
     }
 
     @Override
@@ -50,7 +49,7 @@ public class CmdDriveDistance implements AutonCommand
     @Override
     public void end()
     {
-        drive.arcadeDrive(0,0);
+        drive.arcadeDrive(0, 0);
     }
 
 }

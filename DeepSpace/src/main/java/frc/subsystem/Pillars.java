@@ -2,6 +2,8 @@ package frc.subsystem;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import static frc.robot.Constants.*;
@@ -23,10 +25,10 @@ public class Pillars {
      */
     public Pillars(int frontSideID, int rearSideID, int wheelsID) {
         
-        frontSide = new CANSparkMax(frontSideID,com.revrobotics.CANSparkMaxLowLevel.MotorType.kBrushless);
+        frontSide = new CANSparkMax(frontSideID, MotorType.kBrushless);
         frontSide.setInverted(false);
-        rearSide = new CANSparkMax(rearSideID,com.revrobotics.CANSparkMaxLowLevel.MotorType.kBrushless);
-        rearSide.setInverted(false);
+        rearSide = new CANSparkMax(rearSideID, MotorType.kBrushless);
+        rearSide.setInverted(isABot);
         wheels = new WPI_TalonSRX(wheelsID);
         wheels.setInverted(true);
         frontInitPos = frontSide.getEncoder().getPosition();
@@ -132,14 +134,14 @@ public class Pillars {
         if(driveStick.getPOV() == 0){
           
           if((rearPos - rearInitPos) - (frontPos - frontInitPos) > 1){
-            rearSide.set(.9);
+            rearSide.set(.85);
           }
           else{
             rearSide.set(1);
           }
           
           if((frontPos - frontInitPos) - (rearPos - rearInitPos) > 1){
-            frontSide.set(0.9);
+            frontSide.set(0.85);
           }
           else{
             frontSide.set(1);

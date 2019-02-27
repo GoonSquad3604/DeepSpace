@@ -20,17 +20,17 @@ public class CmdMoveHinge implements AutonCommand
     @Override
     public boolean isFinished() 
     {
-        return cargo.getHingeLocation() < (amount + kHingeError) && cargo.getHingeLocation() > (amount - kHingeError);
+        return cargo.getHingeAngle() < (amount + kHingeError) && cargo.getHingeAngle() > (amount - kHingeError);
     }
 
     @Override
     public void runTask() 
     {
-        if(cargo.getHingeLocation() < amount)
+        if(cargo.getHingeAngle() > amount)
         {
             cargo.runHinge(speed);
         }
-        else if(cargo.getHingeLocation() > amount)
+        else if(cargo.getHingeAngle() < amount)
         {
             cargo.runHinge(-speed);
         }

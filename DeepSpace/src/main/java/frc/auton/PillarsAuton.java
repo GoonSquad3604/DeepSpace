@@ -18,9 +18,9 @@ public class PillarsAuton
         //Actul Climb Stuff
         auton.addCommand(new CmdRaisePillars(kThirdLevel,auton.getPillars()));
         auton.addCommand(new CmdMovePillarWheelsTime(1.5, 1, auton.getPillars()));
-        auton.addCommand(new CmdLowerSinglePillar(PillarType.kFrontPillar, .5, 1, auton.getPillars()));
+        auton.addCommand(new CmdLowerSinglePillar(PillarType.kFrontPillar, 0.5, 1, auton.getPillars()));
         auton.addCommand(new CmdDriveTime(1, auton.getDrive()));
-        auton.addCommand(new CmdLowerSinglePillar(PillarType.kRearPillar, .5, 1, auton.getPillars()));
+        auton.addCommand(new CmdLowerSinglePillar(PillarType.kRearPillar, 0.5, 1, auton.getPillars()));
         auton.addCommand(new CmdDriveTime(1, auton.getDrive()));
     }
 }

@@ -58,10 +58,16 @@ public class CargoManipulator
     }
     
     /**
-     * gets the hinge location
-     * @return Hinge location
+     * Gets the hinge angle
+     * @return Hinge angle (degrees) starting from straight up
      */
-    public double getHingeLocation()
+    public double getHingeAngle()
+    {
+        double slope = 90.0 / (sensorAt90 - sensorAt0);
+        return (slope * hingeRight.getSensorCollection().getAnalogInRaw()) + (slope * -sensorAt0);
+    }
+
+    public double getSensorValue()
     {
         return hingeRight.getSensorCollection().getAnalogInRaw();
     }
