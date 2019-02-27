@@ -26,7 +26,7 @@ public class Teleop implements AutonCommand
     private double[] ypr = new double[3];
     private Timer delayTimer;
     private DriverStation driveStation;
-
+    private boolean isAuton;
     public Teleop(DriveTrain iDriveTrain, XboxController iDriveStick, XboxController iOperateStick, Auton iAuton)
     {
         driveStick = iDriveStick;
@@ -37,6 +37,10 @@ public class Teleop implements AutonCommand
         driveStation = DriverStation.getInstance();
     }
     
+    public void setAuton(boolean iAuton)
+    {
+        isAuton = iAuton;
+    }
     @Override
     public boolean isFinished() 
     {
@@ -202,11 +206,11 @@ public class Teleop implements AutonCommand
                 }
                 else if(operateStick.getPOV() == kDpadUp)
                 {
-                    auton.getElevator().setPower(.6);
+                    auton.getElevator().setPower(.5);
                 }
                 else if(operateStick.getPOV() == kDpadDown)
                 {
-                    auton.getElevator().setPower(-.7);
+                    auton.getElevator().setPower(-.5);
                 }
             }
             else
