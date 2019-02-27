@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.auton.*;
 import frc.subsystem.*;
@@ -66,13 +67,7 @@ public class Robot extends TimedRobot
         pigeon.getYawPitchRoll(ypr);
         yaw = ypr[0];
         driveTrain.feedWatchdog();
-        System.out.println(cargo.getHingeLocation());
-        if(driveStick.getStickButton(Hand.kLeft)){
-            limelight.setStreamMode(2);
-        }
-        else{
-            limelight.setStreamMode(1);
-        }
+        System.out.println(cargo.getHingeAngle());
         /*
         System.out.print("FRONT:" + pillars.getFrontHeight());
         System.out.println(" || BACK:" + pillars.getRearHeight());
@@ -82,7 +77,7 @@ public class Robot extends TimedRobot
     @Override
     public void autonomousInit() 
     {
-        //HatchPlaceAuton.addCommands(runningAuton);
+
     }
 
     @Override
@@ -94,7 +89,7 @@ public class Robot extends TimedRobot
     @Override
     public void teleopInit() 
     {
-        BlankAuton.addCommands(runningAuton);
+
     }
 
     @Override
@@ -112,7 +107,10 @@ public class Robot extends TimedRobot
     @Override
     public void disabledPeriodic()
     {
-      
+        operateStick.setRumble(RumbleType.kLeftRumble, 0);
+        operateStick.setRumble(RumbleType.kRightRumble, 0);
+        driveStick.setRumble(RumbleType.kLeftRumble, 0);
+        driveStick.setRumble(RumbleType.kRightRumble, 0);
     }
 
     @Override

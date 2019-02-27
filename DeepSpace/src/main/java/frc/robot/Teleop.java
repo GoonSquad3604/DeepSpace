@@ -49,14 +49,11 @@ public class Teleop implements AutonCommand
     @Override
     public void runTask() 
     {
-        //System.out.println("ELEVATOR: " + auton.getElevator().getHeight());
         auton.getOperateStick().setRumble(RumbleType.kLeftRumble,0);
         auton.getOperateStick().setRumble(RumbleType.kRightRumble,0);
         auton.getDriveStick().setRumble(RumbleType.kLeftRumble,0);
         auton.getDriveStick().setRumble(RumbleType.kRightRumble,0);
         auton.getGyro().getYawPitchRoll(ypr);
-        //System.out.println(ypr[0] + "::" + limelightAngle);
-        //System.out.println(auton.getHatchManipulator().getLocation());
         double axis1 = (Math.abs(driveStick.getRawAxis(1)) > 0.1) ? driveStick.getRawAxis(1) : 0;
         double axis4 = (Math.abs(driveStick.getRawAxis(4)) > 0.1) ? driveStick.getRawAxis(4) : 0;
 
@@ -131,24 +128,21 @@ public class Teleop implements AutonCommand
 
             driveTrain.arcadeDrive(-drv,turn);
         }
-        else if(driveStick.getStickButton(Hand.kRight) && false){
-            if(testTime.get() >= 1 && testTime.get() <= 2){
-                distance = (driveTrain.getLeftPosition() + driveTrain.getRightPosition()) / 2;
-                driveTrain.arcadeDrive(1, 0);
-            }
-            else if(testTime.get() < 1 && testTime.get() > 0){
-                driveTrain.setRightPosition(0);
-                driveTrain.setLeftPosition(0);
-                driveTrain.arcadeDrive(1, 0);
-            }
-            else{
-                driveTrain.arcadeDrive(0, 0);
-            }
-            System.out.println(distance);
-        }
-        else if(driveStick.getStickButton(Hand.kLeft)){
-           auton.getLimelight().setStreamMode(2);
-        }
+        // else if(driveStick.getStickButton(Hand.kRight)){
+        //     if(testTime.get() >= 1 && testTime.get() <= 2){
+        //         distance = (driveTrain.getLeftPosition() + driveTrain.getRightPosition()) / 2;
+        //         driveTrain.arcadeDrive(1, 0);
+        //     }
+        //     else if(testTime.get() < 1 && testTime.get() > 0){
+        //         driveTrain.setRightPosition(0);
+        //         driveTrain.setLeftPosition(0);
+        //         driveTrain.arcadeDrive(1, 0);
+        //     }
+        //     else{
+        //         driveTrain.arcadeDrive(0, 0);
+        //     }
+        //     System.out.println(distance);
+        // }
         else 
         {
             auton.getLimelight().setStreamMode(1);

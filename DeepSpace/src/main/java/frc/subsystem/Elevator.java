@@ -35,7 +35,7 @@ public class Elevator
         leftElevator.configMotionCruiseVelocity(kElevatorCargoVel, kTimeoutMs);
         leftElevator.configMotionAcceleration(kElevatorCargoAcc, kTimeoutMs);
 
-        lowerLimit = new DigitalInput(kElevatorLimitSensor);
+        lowerLimit = new DigitalInput(kElevatorLimitSensorID);
 
     }
 
