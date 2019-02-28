@@ -70,8 +70,8 @@ public class Elevator
         rightElevator.setSelectedSensorPosition((int)height, 0, kTimeoutMs);
     }
     /**
-     * returns left elevator
-     * @return Left elevator
+     * Getter for elevator
+     * @return Left elevator object
      */
     public WPI_TalonSRX getElevator()
     {
