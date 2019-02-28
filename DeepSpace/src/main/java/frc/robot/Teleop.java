@@ -8,6 +8,8 @@ import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import frc.auton.*;
 import frc.commands.AutonCommand;
+import frc.commands.subsystem.cargo.CmdMoveHinge;
+import frc.commands.subsystem.pillars.CmdZeroPillars;
 import frc.subsystem.drivetrain.*;
 import static frc.robot.Constants.*;
 import java.util.ArrayList;
@@ -61,6 +63,7 @@ public class Teleop implements AutonCommand
         {
             limelightAngle = -auton.getLimelight().getTargetX();
         }
+
         if(driveStick.getBumper(Hand.kLeft))
         {
             auton.getLimelight().setCamMode(0);
@@ -145,7 +148,7 @@ public class Teleop implements AutonCommand
         // }
         else 
         {
-            auton.getLimelight().setStreamMode(1);
+            //auton.getLimelight().setStreamMode(1);
             testTime.reset();
             limelightAngle = 0;
             auton.getLimelight().setCamMode(1);
@@ -165,6 +168,11 @@ public class Teleop implements AutonCommand
             }
             else if(driveStick.getStartButton())
             {
+                auton.addCommand(new CmdZeroPillars(auton.getPillars()));
+                //auton.getPillars().resetPosition();
+            }
+            else if(driveStick.getStickButton(Hand.kRight))
+            {
                 auton.getPillars().resetPosition();
             }
 
@@ -172,6 +180,7 @@ public class Teleop implements AutonCommand
             {
                 auton.getElevator().setHeight(0);
             }
+
             //When the operator presses A and a directional button, place a cargo.
             if(operateStick.getAButton() && operateStick.getPOV() != -1)
             {
@@ -197,16 +206,16 @@ public class Teleop implements AutonCommand
                 switch(operateStick.getPOV())
                 {
                     case kDpadUp:
-                        CargoPlaceAuton2.addCommands(auton, kTopRocketHatch);
+                        HatchPlaceAuton2.addCommands(auton, kTopRocketHatch, kTopRocketHatchAngle);
                         break;
                     case kDpadRight:
-                        CargoPlaceAuton2.addCommands(auton, kMiddleRocketHatch);
+                        HatchPlaceAuton2.addCommands(auton, kMiddleRocketHatch, kMiddleRocketHatchAngle);
                         break;
                     case kDpadDown:
-                        CargoPlaceAuton2.addCommands(auton, kBottomRocketHatch);
+                        HatchPlaceAuton2.addCommands(auton, kBottomRocketHatch, kBottomRocketHatchAngle);
                         break;
                     case kDpadLeft:
-                        CargoPlaceAuton2.addCommands(auton, kHatchFeeder);
+                        HatchPlaceAuton2.addCommands(auton, kHatchFeeder, kHatchFeederAngle);
                         break;
                 }
                 endTeleop();
@@ -281,6 +290,11 @@ public class Teleop implements AutonCommand
             if(operateStick.getStickButton(Hand.kRight))
             {
                 ResetElevatorAuton.addCommands(auton);
+                endTeleop();
+            }
+            else if(operateStick.getStickButton(Hand.kLeft))
+            {
+                auton.addCommand(new CmdMoveHinge(85, 0.4, auton.getCargoManipulator()));
                 endTeleop();
             }
 

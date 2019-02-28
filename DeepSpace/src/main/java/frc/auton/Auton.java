@@ -88,7 +88,7 @@ public class Auton
     {
         autonQueue = new LinkedList<AutonCommand>();
          //You can put subsystems into the constructor. This handles the subsystems added.
-        for(int i=0; i<subsystems.length; i++)
+        for(int i = 0; i < subsystems.length; i++)
         {
             loadSubsystem(subsystems[i]);
         }
@@ -235,7 +235,7 @@ public class Auton
     {
         String s = this.getClass().getName() + " WITH SIZE " + getSize() + "\n";
         
-        for(int i=0; i<autonQueue.size();i++)
+        for(int i = 0; i < autonQueue.size(); i++)
         {
             s += autonQueue.getClass().getName() + "\n";
         }

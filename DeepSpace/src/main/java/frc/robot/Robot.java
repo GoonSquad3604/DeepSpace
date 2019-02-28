@@ -8,13 +8,14 @@
 package frc.robot;
 
 import com.ctre.phoenix.sensors.PigeonIMU;
-
+import com.revrobotics.CANSparkMax.IdleMode;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.auton.*;
 import frc.subsystem.*;
 import frc.subsystem.drivetrain.*;
@@ -41,7 +42,6 @@ public class Robot extends TimedRobot
     private Elevator elevator;
     private HatchManipulator blackLotus;
     private Sonar sonar;
-    private double yaw;  
     
     @Override
     public void robotInit() 
@@ -54,21 +54,22 @@ public class Robot extends TimedRobot
         addFinalBotSubsystems();
         sonar = new Sonar(0);
         runningAuton = new Auton(driveTrain, driveStick, operateStick, pigeon, limelight, elevator/*,blackLotus*/, pillars, sonar, cargo);
-        limelight.setCamMode(0);
-        limelight.setLEDMode(0);
+        
+        driveTrain.setMotorMode(IdleMode.kCoast);
+        limelight.setCamMode(1);
+        limelight.setLEDMode(1);
+
+        SmartDashboard.putNumber("Angle", 0);
     }
     
     @Override
     public void robotPeriodic()
     {
-        limelight.setCamMode(1);
-        limelight.setLEDMode(1);
-        double[] ypr = new double[3];
-        pigeon.getYawPitchRoll(ypr);
-        yaw = ypr[0];
-        driveTrain.feedWatchdog();
-        System.out.println(cargo.getHingeAngle());
+        
+        SmartDashboard.putNumber("Angle", cargo.getHingeAngle());
+        
         /*
+        System.out.println(pillars.getHeight());
         System.out.print("FRONT:" + pillars.getFrontHeight());
         System.out.println(" || BACK:" + pillars.getRearHeight());
         */
@@ -136,6 +137,7 @@ public class Robot extends TimedRobot
             runningAuton.runTeleop();
         }
     }
+
     private void addFinalBotSubsystems()
     {
         cargo = new CargoManipulator(kIntakeControlID, kHingeRightID, kHingeLeftID);

@@ -81,7 +81,7 @@ public class Limelight
     //Returns if the target is in fact on the screen
     public boolean doesTargetExist()
     {
-        if(tv.getDouble(0.0)<0.1)
+        if(tv.getDouble(0.0) < 0.1)
         {
             return false;
         }
@@ -99,6 +99,14 @@ public class Limelight
         table.getEntry("camMode").setNumber(camMode);
     }
 
+    // @param LEDMode 0: use the LED Mode set in the current pipeline
+    // * @param LEDMode 1: force off
+    // * @param LEDMode 2: force blink
+    // * @param LEDMode 3: force on
+
+    /**
+     * Sets limelight
+     */
     public void setLEDMode(Number LEDMode)
     {
         table.getEntry("ledMode").setNumber(LEDMode);
