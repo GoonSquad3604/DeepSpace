@@ -88,6 +88,10 @@ public class Limelight
         return true;
     }
 
+    /**
+     * Sets limelight current pipeline
+     * @param pipeline Select pipeline 0..9
+     */
     public void setPipeline(Number pipeline)
     {
         NetworkTableEntry pipe = table.getEntry("pipeline");
@@ -95,7 +99,7 @@ public class Limelight
     }
 
     /**
-     * Sets limelight’s operation mode
+     * Sets limelight operation mode
      * @param camMode 0: Vision processor
      * @param camMode 1: Driver Camera (Increases exposure, disables vision processing)
      */
@@ -117,7 +121,7 @@ public class Limelight
     }
     
     /**
-     * Sets limelight’s streaming mode
+     * Sets limelight streaming mode
      * @param stream 0: Standard - Side-by-side streams if a webcam is attached to Limelight
      * @param stream 1: PiP Main - The secondary camera stream is placed in the lower-right corner of the primary camera stream
      * @param stream 2: PiP Secondary - The primary camera stream is placed in the lower-right corner of the secondary camera stream

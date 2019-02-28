@@ -51,11 +51,12 @@ public class Robot extends TimedRobot
         driveStick = new XboxController(0);
         operateStick = new XboxController(1);
         limelight = new Limelight("limelight");
-        addFinalBotSubsystems();
         sonar = new Sonar(0);
+        addFinalBotSubsystems();
         runningAuton = new Auton(driveTrain, driveStick, operateStick, pigeon, limelight, elevator/*,blackLotus*/, pillars, sonar, cargo);
         
         driveTrain.setMotorMode(IdleMode.kCoast);
+        
         limelight.setCamMode(1);
         limelight.setLEDMode(1);
 
