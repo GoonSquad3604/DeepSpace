@@ -68,32 +68,41 @@ public class Teleop implements AutonCommand
         {
             auton.getLimelight().setCamMode(0);
             auton.getLimelight().setLEDMode(0);
-            if(Math.abs(Math.abs(ypr[0]) - Math.abs(limelightAngle)) < 2)
+
+            if(limelightAngle != 0)
             {
-                driveTrain.arcadeDrive(0,0);
-            }
-            else if(ypr[0] > limelightAngle)
-            {
-                driveTrain.arcadeDrive(0,0.4);
-            }
-            else if(ypr[0] < limelightAngle)
-            {
-                driveTrain.arcadeDrive(0,-0.4);
+                if(Math.abs(ypr[0] - limelightAngle) < 2)
+                {
+                    driveTrain.arcadeDrive(0,0);
+                }
+                else if(ypr[0] > limelightAngle)
+                {
+                    driveTrain.arcadeDrive(0, 0.4);
+                }
+                else if(ypr[0] < limelightAngle)
+                {
+                    driveTrain.arcadeDrive(0, -0.4);
+                }
+                else
+                {
+                    driveTrain.arcadeDrive(0,0);
+                }
             }
             else
             {
                 driveTrain.arcadeDrive(0,0);
             }
+            
         }
         else if(driveStick.getBumper(Hand.kRight))
         {
             if(auton.getSonar().getInches() >= 2)
             {
-                driveTrain.arcadeDrive(0.7,0);
+                driveTrain.arcadeDrive(0.7, 0);
             }
             else
             {
-                driveTrain.arcadeDrive(0,0);
+                driveTrain.arcadeDrive(0, 0);
             }
         }
         else if(driveStick.getBumper(Hand.kRight) && driveStick.getBumper(Hand.kLeft))

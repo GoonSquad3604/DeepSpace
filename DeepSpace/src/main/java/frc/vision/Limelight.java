@@ -16,7 +16,7 @@ public class Limelight
     private NetworkTableEntry ts;   //Target skew
     private NetworkTableEntry thoriz;   //Target width
     private NetworkTableEntry tvert;   //Target width
-//1350
+
     //Inintializes all variables
     @Deprecated
     public Limelight()
@@ -81,11 +81,7 @@ public class Limelight
     //Returns if the target is in fact on the screen
     public boolean doesTargetExist()
     {
-        if(tv.getDouble(0.0) < 0.1)
-        {
-            return false;
-        }
-        return true;
+        return !(tv.getDouble(0.0) < 0.1);
     }
 
     /**
