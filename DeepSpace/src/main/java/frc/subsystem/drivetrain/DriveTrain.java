@@ -8,6 +8,8 @@
 package frc.subsystem.drivetrain;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.revrobotics.CANSparkMax.IdleMode;
+
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
@@ -28,5 +30,6 @@ public abstract class DriveTrain extends DifferentialDrive
     public abstract double getLeftInches();
     public abstract double getRightInches();
     public abstract void resetDriveTrain();
+    public abstract void setMotorMode(IdleMode mode);
 
 }

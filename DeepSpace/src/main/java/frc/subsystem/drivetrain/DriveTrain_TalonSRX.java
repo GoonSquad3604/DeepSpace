@@ -1,6 +1,8 @@
 package frc.subsystem.drivetrain;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.revrobotics.CANSparkMax.IdleMode;
+
 import static frc.robot.Constants.*;
 
 public class DriveTrain_TalonSRX extends DriveTrain
@@ -79,7 +81,7 @@ public class DriveTrain_TalonSRX extends DriveTrain
     @Override
     public void setLeftPosition(double position) 
     {
-        leftFront.setSelectedSensorPosition((int)position);
+        leftFront.setSelectedSensorPosition((int)position, 0, kTimeoutMs);
     }
 
     /**
@@ -89,7 +91,7 @@ public class DriveTrain_TalonSRX extends DriveTrain
     @Override
     public void setRightPosition(double position) 
     {
-        rightFront.setSelectedSensorPosition((int)position);
+        rightFront.setSelectedSensorPosition((int)position, 0, kTimeoutMs);
     }
 
     /**
@@ -142,6 +144,11 @@ public class DriveTrain_TalonSRX extends DriveTrain
         rightFront.configFactoryDefault(kTimeoutMs);
         rightRear.configFactoryDefault(kTimeoutMs);
     }
+
+    @Override
+    public void setMotorMode(IdleMode mode) {
+		
+	}
 
     
 }
