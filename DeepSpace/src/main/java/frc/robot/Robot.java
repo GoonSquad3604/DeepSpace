@@ -52,7 +52,11 @@ public class Robot extends TimedRobot
         operateStick = new XboxController(1);
         limelight = new Limelight("limelight");
         sonar = new Sonar(0);
-        addFinalBotSubsystems();
+        cargo = new CargoManipulator(kIntakeControlID, kHingeRightID, kHingeLeftID);
+        //blackLotus = new HatchManipulator(kHatchLeftRightID, kHatchForwardBackID);
+        elevator = new Elevator(kElevatorLeftID, kElevatorRightID);
+        pillars = new Pillars(kPillarsFront, kPillarsBack, kPillarWheels);
+
         runningAuton = new Auton(driveTrain, driveStick, operateStick, pigeon, limelight, elevator/*,blackLotus*/, pillars, sonar, cargo);
         
         driveTrain.setMotorMode(IdleMode.kCoast);
@@ -68,12 +72,16 @@ public class Robot extends TimedRobot
     {
         
         SmartDashboard.putNumber("Angle", cargo.getHingeAngle());
+        SmartDashboard.putNumber("Front Pillar", pillars.getFrontHeight());
+        SmartDashboard.putNumber("Rear Pillar", pillars.getRearHeight());
+
+        driveTrain.feedWatchdog();
+        //System.out.println(pillars.);
         
-        /*
-        System.out.println(pillars.getHeight());
-        System.out.print("FRONT:" + pillars.getFrontHeight());
-        System.out.println(" || BACK:" + pillars.getRearHeight());
-        */
+        System.out.println(cargo.getSensorValue());
+        // System.out.print("FRONT:" + pillars.getFrontHeight());
+        // System.out.println(" || BACK:" + pillars.getRearHeight());
+        
     } 
 
     @Override
@@ -137,14 +145,6 @@ public class Robot extends TimedRobot
         {
             runningAuton.runTeleop();
         }
-    }
-
-    private void addFinalBotSubsystems()
-    {
-        cargo = new CargoManipulator(kIntakeControlID, kHingeRightID, kHingeLeftID);
-        //blackLotus = new HatchManipulator(kHatchLeftRightID, kHatchForwardBackID);
-        elevator = new Elevator(kElevatorLeftID, kElevatorRightID);
-        pillars = new Pillars(kPillarsFront, kPillarsBack, kPillarWheels);
     }
 
     public DriveTrain getDriveTrain()

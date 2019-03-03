@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import frc.auton.*;
 import frc.commands.AutonCommand;
 import frc.commands.subsystem.cargo.CmdMoveHinge;
-import frc.commands.subsystem.pillars.CmdZeroPillars;
+import frc.commands.subsystem.pillars.*;
 import frc.subsystem.drivetrain.*;
 import static frc.robot.Constants.*;
 import java.util.ArrayList;
@@ -174,15 +174,6 @@ public class Teleop implements AutonCommand
             {
                 PillarsAuton.addCommands(auton);
                 endTeleop();
-            }
-            else if(driveStick.getStartButton())
-            {
-                auton.addCommand(new CmdZeroPillars(auton.getPillars()));
-                //auton.getPillars().resetPosition();
-            }
-            else if(driveStick.getStickButton(Hand.kRight))
-            {
-                auton.getPillars().resetPosition();
             }
 
             if(operateStick.getStartButton())

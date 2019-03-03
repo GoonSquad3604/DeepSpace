@@ -18,14 +18,14 @@ public class PillarsAuton
         auton.getOperateStick().setRumble(RumbleType.kRightRumble, 1);
         auton.getDriveStick().setRumble(RumbleType.kLeftRumble, 1);
         auton.getDriveStick().setRumble(RumbleType.kRightRumble, 1);
-        //auton.getDrive().setMotorMode(IdleMode.kBrake);
+        auton.getDrive().setMotorMode(IdleMode.kBrake);
         //Actul Climb Stuff
-        auton.addCommand(new CmdZeroPillars(auton.getPillars()));
-        auton.addCommand(new CmdRaisePillars(kSecondLevel, auton.getPillars()));
+        //auton.addCommand(new CmdZeroPillars(auton.getPillars()));
+        auton.addCommand(new CmdRaisePillars(kThirdLevel, auton.getPillars()));
         auton.addCommand(new CmdMovePillarWheelsTime(1.5, 1, auton.getPillars()));
-        auton.addCommand(new CmdLowerSinglePillar(PillarType.kFrontPillar, 0.5, 1, auton.getPillars()));
-        auton.addCommand(new CmdDriveTime(1.2, auton.getDrive()));
-        auton.addCommand(new CmdLowerSinglePillar(PillarType.kRearPillar, 0.5, 1, auton.getPillars()));
+        auton.addCommand(new CmdLowerSinglePillar(PillarType.kFrontPillar, 8, 1, auton.getPillars()));
+        auton.addCommand(new CmdDriveTime(1.5, auton.getDrive()));
+        auton.addCommand(new CmdLowerSinglePillar(PillarType.kRearPillar, 8, 1, auton.getPillars()));
         auton.addCommand(new CmdDriveTime(2, auton.getDrive()));
     }
 }

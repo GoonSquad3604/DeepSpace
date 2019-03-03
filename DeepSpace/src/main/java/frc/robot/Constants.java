@@ -7,7 +7,7 @@ public class Constants
     /*General*/
     /*********/
 
-    public static boolean isABot = false;
+    public static boolean isABot = true;
     public static int kTimeoutMs = 10;
 
     /***********/
@@ -53,7 +53,7 @@ public class Constants
 
     public static final double kTopRocketHatchAngle = 60;
     public static final double kMiddleRocketHatchAngle = 60;
-    public static final double kBottomRocketHatchAngle = 60;
+    public static final double kBottomRocketHatchAngle = 70;
     public static final double kHatchFeederAngle = 90;
 
     //Rocket cargo encoder positions
@@ -101,7 +101,7 @@ public class Constants
     /*Pillars*/
     /*********/
     
-    public static final double kThirdLevel = 155;
+    public static final double kThirdLevel = 153;
     public static final double kSecondLevel = 60;
     //public static final double kInchPerRotationPillar = 0.132040647405376;
     
@@ -117,8 +117,11 @@ public class Constants
     /*Cargo*/
     /*******/
 
-    public static final double kHingeError = 3; //(Degrees)
-    public static int sensorAt0 = 848;
-    public static int sensorAt90 = 642;
+    public static final double kHingeError = 4; //(Degrees)
+    public static int sensorAt0 = 810;
+    public static int sensorAt90 = 612;
 
+    //B Bot
+    // public static int sensorAt0 = 848;
+    // public static int sensorAt90 = 642;
 }
