@@ -27,6 +27,7 @@ public class Teleop implements AutonCommand
     private DriverStation driveStation;
     private Timer testTime;
     double distance = 0;
+    private boolean isAuton;
 
     public Teleop(DriveTrain iDriveTrain, XboxController iDriveStick, XboxController iOperateStick, Auton iAuton)
     {
