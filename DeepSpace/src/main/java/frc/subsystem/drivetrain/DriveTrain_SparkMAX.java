@@ -2,6 +2,8 @@ package frc.subsystem.drivetrain;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.IdleMode;
+
 import static frc.robot.Constants.*;
 
 public class DriveTrain_SparkMAX extends DriveTrain
@@ -146,5 +148,13 @@ public class DriveTrain_SparkMAX extends DriveTrain
 
     }
 
+    @Override
+    public void setMotorMode(IdleMode mode)
+    {
+        leftFront.setIdleMode(mode);
+        leftRear.setIdleMode(mode);
+        rightFront.setIdleMode(mode);
+        rightRear.setIdleMode(mode);
+    }
     
 }

@@ -16,7 +16,7 @@ public class Limelight
     private NetworkTableEntry ts;   //Target skew
     private NetworkTableEntry thoriz;   //Target width
     private NetworkTableEntry tvert;   //Target width
-//1350
+
     //Inintializes all variables
     @Deprecated
     public Limelight()
@@ -81,29 +81,47 @@ public class Limelight
     //Returns if the target is in fact on the screen
     public boolean doesTargetExist()
     {
-        if(tv.getDouble(0.0)<0.1)
-        {
-            return false;
-        }
-        return true;
+        return !(tv.getDouble(0.0) < 0.1);
     }
 
+    /**
+     * Sets limelight current pipeline
+     * @param pipeline Select pipeline 0..9
+     */
     public void setPipeline(Number pipeline)
     {
         NetworkTableEntry pipe = table.getEntry("pipeline");
         pipe.setNumber(pipeline);
     }
 
+    /**
+     * Sets limelight operation mode
+     * @param camMode 0: Vision processor
+     * @param camMode 1: Driver Camera (Increases exposure, disables vision processing)
+     */
     public void setCamMode(Number camMode)
     {
         table.getEntry("camMode").setNumber(camMode);
     }
 
+    /**
+     * Sets limelight dual camera stream mode
+     * @param LEDMode 0: use the LED Mode set in the current pipeline
+     * @param LEDMode 1: force off
+     * @param LEDMode 2: force blink
+     * @param LEDMode 3: force on
+     */
     public void setLEDMode(Number LEDMode)
     {
         table.getEntry("ledMode").setNumber(LEDMode);
     }
     
+    /**
+     * Sets limelight streaming mode
+     * @param stream 0: Standard - Side-by-side streams if a webcam is attached to Limelight
+     * @param stream 1: PiP Main - The secondary camera stream is placed in the lower-right corner of the primary camera stream
+     * @param stream 2: PiP Secondary - The primary camera stream is placed in the lower-right corner of the secondary camera stream
+     */
     public void setStreamMode(Number stream)
     {
         table.getEntry("stream").setNumber(stream);

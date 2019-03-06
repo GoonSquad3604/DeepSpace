@@ -70,8 +70,8 @@ public class Elevator
         rightElevator.setSelectedSensorPosition((int)height, 0, kTimeoutMs);
     }
     /**
-     * returns left elevator
-     * @return Left elevator
+     * Getter for elevator
+     * @return Left elevator object
      */
     public WPI_TalonSRX getElevator()
     {
@@ -79,14 +79,18 @@ public class Elevator
     }
 
     /**
-     * Returns the height of the sensor.
-     * @return hieight of sensor
+     * Height of elevator
+     * @return Height of left elevator sensor in pulses
      */
     public double getHeight()
     {
         return leftElevator.getSelectedSensorPosition();
     }
 
+    /**
+     * Checks if elevator is all the way down
+     * @return True if the elevator is all the way down
+     */
     public boolean getLimit()
     {
         return !lowerLimit.get();

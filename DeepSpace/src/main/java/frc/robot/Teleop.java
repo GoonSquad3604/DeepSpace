@@ -8,6 +8,8 @@ import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import frc.auton.*;
 import frc.commands.AutonCommand;
+import frc.commands.subsystem.cargo.CmdMoveHinge;
+import frc.commands.subsystem.pillars.*;
 import frc.subsystem.drivetrain.*;
 import static frc.robot.Constants.*;
 import java.util.ArrayList;
@@ -59,43 +61,53 @@ public class Teleop implements AutonCommand
         auton.getDriveStick().setRumble(RumbleType.kLeftRumble,0);
         auton.getDriveStick().setRumble(RumbleType.kRightRumble,0);
         auton.getGyro().getYawPitchRoll(ypr);
-        double axis1 = (Math.abs(driveStick.getRawAxis(1)) > 0.1) ? driveStick.getRawAxis(1) : 0;
-        double axis4 = (Math.abs(driveStick.getRawAxis(4)) > 0.1) ? driveStick.getRawAxis(4) : 0;
+        double axis1 = (Math.abs(driveStick.getRawAxis(1)) > 0.1) ? 0.8 * driveStick.getRawAxis(1) : 0;
+        double axis4 = (Math.abs(driveStick.getRawAxis(4)) > 0.1) ? 0.8 * driveStick.getRawAxis(4) : 0;
 
         if(delayTimer.get() > 0.25 && auton.getLimelight().doesTargetExist() && limelightAngle == 0)
         {
             limelightAngle = -auton.getLimelight().getTargetX();
         }
+
         if(driveStick.getBumper(Hand.kLeft))
         {
             auton.getLimelight().setCamMode(0);
             auton.getLimelight().setLEDMode(0);
-            if(Math.abs(Math.abs(ypr[0]) - Math.abs(limelightAngle)) < 2)
+
+            if(limelightAngle != 0)
             {
-                driveTrain.arcadeDrive(0,0);
-            }
-            else if(ypr[0] > limelightAngle)
-            {
-                driveTrain.arcadeDrive(0,0.4);
-            }
-            else if(ypr[0] < limelightAngle)
-            {
-                driveTrain.arcadeDrive(0,-0.4);
+                if(Math.abs(ypr[0] - limelightAngle) < 2)
+                {
+                    driveTrain.arcadeDrive(0,0);
+                }
+                else if(ypr[0] > limelightAngle)
+                {
+                    driveTrain.arcadeDrive(0, 0.4);
+                }
+                else if(ypr[0] < limelightAngle)
+                {
+                    driveTrain.arcadeDrive(0, -0.4);
+                }
+                else
+                {
+                    driveTrain.arcadeDrive(0,0);
+                }
             }
             else
             {
-                driveTrain.arcadeDrive(0,0);
+                driveTrain.arcadeDrive(0, 0);
             }
+            
         }
         else if(driveStick.getBumper(Hand.kRight))
         {
             if(auton.getSonar().getInches() >= 2)
             {
-                driveTrain.arcadeDrive(0.7,0);
+                driveTrain.arcadeDrive(0.7, 0);
             }
             else
             {
-                driveTrain.arcadeDrive(0,0);
+                driveTrain.arcadeDrive(0, 0);
             }
         }
         else if(driveStick.getBumper(Hand.kRight) && driveStick.getBumper(Hand.kLeft))
@@ -131,7 +143,7 @@ public class Teleop implements AutonCommand
                 drv = 0;
             }
 
-            driveTrain.arcadeDrive(-drv,turn);
+            driveTrain.arcadeDrive(-drv, turn);
         }
         // else if(driveStick.getStickButton(Hand.kRight)){
         //     if(testTime.get() >= 1 && testTime.get() <= 2){
@@ -150,12 +162,12 @@ public class Teleop implements AutonCommand
         // }
         else 
         {
-            auton.getLimelight().setStreamMode(1);
+            //auton.getLimelight().setStreamMode(1);
             testTime.reset();
             limelightAngle = 0;
             auton.getLimelight().setCamMode(1);
             auton.getLimelight().setLEDMode(1);
-            driveTrain.arcadeDrive(-axis1,axis4);
+            driveTrain.arcadeDrive(-axis1, axis4);
             auton.getGyro().setYaw(0, kTimeoutMs);
             delayTimer.reset();
         }
@@ -168,15 +180,12 @@ public class Teleop implements AutonCommand
                 PillarsAuton.addCommands(auton);
                 endTeleop();
             }
-            else if(driveStick.getStartButton())
-            {
-                auton.getPillars().resetPosition();
-            }
 
             if(operateStick.getStartButton())
             {
                 auton.getElevator().setHeight(0);
             }
+
             //When the operator presses A and a directional button, place a cargo.
             if(operateStick.getAButton() && operateStick.getPOV() != -1)
             {
@@ -202,16 +211,16 @@ public class Teleop implements AutonCommand
                 switch(operateStick.getPOV())
                 {
                     case kDpadUp:
-                        CargoPlaceAuton2.addCommands(auton, kTopRocketHatch);
+                        HatchPlaceAuton2.addCommands(auton, kTopRocketHatch, kTopRocketHatchAngle);
                         break;
                     case kDpadRight:
-                        CargoPlaceAuton2.addCommands(auton, kMiddleRocketHatch);
+                        HatchPlaceAuton2.addCommands(auton, kMiddleRocketHatch, kMiddleRocketHatchAngle);
                         break;
                     case kDpadDown:
-                        CargoPlaceAuton2.addCommands(auton, kBottomRocketHatch);
+                        HatchPlaceAuton2.addCommands(auton, kBottomRocketHatch, kBottomRocketHatchAngle);
                         break;
                     case kDpadLeft:
-                        CargoPlaceAuton2.addCommands(auton, kHatchFeeder);
+                        HatchPlaceAuton2.addCommands(auton, kHatchFeeder, kHatchFeederAngle);
                         break;
                 }
                 endTeleop();
@@ -286,6 +295,11 @@ public class Teleop implements AutonCommand
             if(operateStick.getStickButton(Hand.kRight))
             {
                 ResetElevatorAuton.addCommands(auton);
+                endTeleop();
+            }
+            else if(operateStick.getStickButton(Hand.kLeft))
+            {
+                auton.addCommand(new CmdMoveHinge(85, 0.4, auton.getCargoManipulator()));
                 endTeleop();
             }
 

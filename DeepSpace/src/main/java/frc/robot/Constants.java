@@ -43,13 +43,18 @@ public class Constants
     public static final double kElevatorD = 0.0;
     public static final double kElevatorF = 0.0;
     public static final int kElevatorCargoVel = 1350;
-    public static final int kElevatorCargoAcc = 2900;
+    public static final int kElevatorCargoAcc = 2400;
 
     //Rocket hatch encoder positions
-    public static final double kTopRocketHatch = 0;
-    public static final double kMiddleRocketHatch = 0;
+    public static final double kTopRocketHatch = 23500;
+    public static final double kMiddleRocketHatch = 11500;
     public static final double kBottomRocketHatch = 0;
-    public static final double kHatchFeeder = 5000;
+    public static final double kHatchFeeder = 4000;
+
+    public static final double kTopRocketHatchAngle = 60;
+    public static final double kMiddleRocketHatchAngle = 60;
+    public static final double kBottomRocketHatchAngle = 70;
+    public static final double kHatchFeederAngle = 90;
 
     //Rocket cargo encoder positions
     public static final double kTopRocketCargo = 26500;
@@ -96,8 +101,8 @@ public class Constants
     /*Pillars*/
     /*********/
     
-    public static final double kThirdLevel = 155;
-    public static final double kSecondLevel = 0;
+    public static final double kThirdLevel = 153;
+    public static final double kSecondLevel = 60;
     //public static final double kInchPerRotationPillar = 0.132040647405376;
     
     //D-Pad
@@ -112,8 +117,11 @@ public class Constants
     /*Cargo*/
     /*******/
 
-    public static final double kHingeError = 1; //(Degrees)
-    public static int sensorAt0 = 848;
-    public static int sensorAt90 = 642;
+    public static final double kHingeError = 4; //(Degrees)
+    public static int sensorAt0 = 810;
+    public static int sensorAt90 = 612;
 
+    //B Bot
+    // public static int sensorAt0 = 848;
+    // public static int sensorAt90 = 642;
 }

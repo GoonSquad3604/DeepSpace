@@ -8,13 +8,15 @@
 package frc.robot;
 
 import com.ctre.phoenix.sensors.PigeonIMU;
-
+import com.revrobotics.CANSparkMax.IdleMode;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.auton.*;
 import frc.subsystem.*;
 import frc.subsystem.drivetrain.*;
@@ -41,7 +43,7 @@ public class Robot extends TimedRobot
     private Elevator elevator;
     private HatchManipulator blackLotus;
     private Sonar sonar;
-    private double yaw;  
+    private DriverStation driverStation;
     
     @Override
     public void robotInit() 
@@ -51,27 +53,35 @@ public class Robot extends TimedRobot
         driveStick = new XboxController(0);
         operateStick = new XboxController(1);
         limelight = new Limelight("limelight");
-        addFinalBotSubsystems();
         sonar = new Sonar(0);
+        cargo = new CargoManipulator(kIntakeControlID, kHingeRightID, kHingeLeftID);
+        //blackLotus = new HatchManipulator(kHatchLeftRightID, kHatchForwardBackID);
+        elevator = new Elevator(kElevatorLeftID, kElevatorRightID);
+        pillars = new Pillars(kPillarsFront, kPillarsBack, kPillarWheels);
+
         runningAuton = new Auton(driveTrain, driveStick, operateStick, pigeon, limelight, elevator/*,blackLotus*/, pillars, sonar, cargo);
-        limelight.setCamMode(0);
-        limelight.setLEDMode(0);
+        
+        driveTrain.setMotorMode(IdleMode.kCoast);
+        
+        limelight.setCamMode(1);
+        limelight.setLEDMode(1);
+
+        SmartDashboard.putNumber("Angle", 0);
+        driverStation = DriverStation.getInstance();
     }
     
     @Override
     public void robotPeriodic()
     {
-        limelight.setCamMode(1);
-        limelight.setLEDMode(1);
-        double[] ypr = new double[3];
-        pigeon.getYawPitchRoll(ypr);
-        yaw = ypr[0];
+        
+        SmartDashboard.putNumber("Angle", cargo.getHingeAngle());
+        SmartDashboard.putNumber("Front Pillar", pillars.getFrontHeight());
+        SmartDashboard.putNumber("Rear Pillar", pillars.getRearHeight());
         driveTrain.feedWatchdog();
-        System.out.println(cargo.getHingeAngle());
-        /*
-        System.out.print("FRONT:" + pillars.getFrontHeight());
-        System.out.println(" || BACK:" + pillars.getRearHeight());
-        */
+        System.out.println(driverStation.getMatchTime());
+        // System.out.print("FRONT:" + pillars.getFrontHeight());
+        // System.out.println(" || BACK:" + pillars.getRearHeight());
+        
     } 
 
     @Override
@@ -135,13 +145,6 @@ public class Robot extends TimedRobot
         {
             runningAuton.runTeleop(auton);
         }
-    }
-    private void addFinalBotSubsystems()
-    {
-        cargo = new CargoManipulator(kIntakeControlID, kHingeRightID, kHingeLeftID);
-        //blackLotus = new HatchManipulator(kHatchLeftRightID, kHatchForwardBackID);
-        elevator = new Elevator(kElevatorLeftID, kElevatorRightID);
-        pillars = new Pillars(kPillarsFront, kPillarsBack, kPillarWheels);
     }
 
     public DriveTrain getDriveTrain()
