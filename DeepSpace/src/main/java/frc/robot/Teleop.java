@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import frc.auton.*;
 import frc.commands.AutonCommand;
 import frc.commands.subsystem.cargo.CmdMoveHinge;
-import frc.commands.subsystem.pillars.CmdZeroPillars;
+import frc.commands.subsystem.pillars.*;
 import frc.subsystem.drivetrain.*;
 import static frc.robot.Constants.*;
 import java.util.ArrayList;
@@ -56,8 +56,8 @@ public class Teleop implements AutonCommand
         auton.getDriveStick().setRumble(RumbleType.kLeftRumble,0);
         auton.getDriveStick().setRumble(RumbleType.kRightRumble,0);
         auton.getGyro().getYawPitchRoll(ypr);
-        double axis1 = (Math.abs(driveStick.getRawAxis(1)) > 0.1) ? driveStick.getRawAxis(1) : 0;
-        double axis4 = (Math.abs(driveStick.getRawAxis(4)) > 0.1) ? driveStick.getRawAxis(4) : 0;
+        double axis1 = (Math.abs(driveStick.getRawAxis(1)) > 0.1) ? 0.8 * driveStick.getRawAxis(1) : 0;
+        double axis4 = (Math.abs(driveStick.getRawAxis(4)) > 0.1) ? 0.8 * driveStick.getRawAxis(4) : 0;
 
         if(delayTimer.get() > 0.25 && auton.getLimelight().doesTargetExist() && limelightAngle == 0)
         {
@@ -90,7 +90,7 @@ public class Teleop implements AutonCommand
             }
             else
             {
-                driveTrain.arcadeDrive(0,0);
+                driveTrain.arcadeDrive(0, 0);
             }
             
         }
@@ -138,7 +138,7 @@ public class Teleop implements AutonCommand
                 drv = 0;
             }
 
-            driveTrain.arcadeDrive(-drv,turn);
+            driveTrain.arcadeDrive(-drv, turn);
         }
         // else if(driveStick.getStickButton(Hand.kRight)){
         //     if(testTime.get() >= 1 && testTime.get() <= 2){
@@ -162,7 +162,7 @@ public class Teleop implements AutonCommand
             limelightAngle = 0;
             auton.getLimelight().setCamMode(1);
             auton.getLimelight().setLEDMode(1);
-            driveTrain.arcadeDrive(-axis1,axis4);
+            driveTrain.arcadeDrive(-axis1, axis4);
             auton.getGyro().setYaw(0, kTimeoutMs);
             delayTimer.reset();
         }
@@ -174,15 +174,6 @@ public class Teleop implements AutonCommand
             {
                 PillarsAuton.addCommands(auton);
                 endTeleop();
-            }
-            else if(driveStick.getStartButton())
-            {
-                auton.addCommand(new CmdZeroPillars(auton.getPillars()));
-                //auton.getPillars().resetPosition();
-            }
-            else if(driveStick.getStickButton(Hand.kRight))
-            {
-                auton.getPillars().resetPosition();
             }
 
             if(operateStick.getStartButton())
