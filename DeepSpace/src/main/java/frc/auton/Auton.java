@@ -187,6 +187,10 @@ public class Auton
             aCommand.runTask();
             if(operateStick.getXButton()) //Stops queue when X is pressed.
             {
+                if(!autonQueue.isEmpty())
+                {
+                    getCargoManipulator().runHinge(0);
+                }
                 aCommand.end();
                 autonQueue.clear();
             }
