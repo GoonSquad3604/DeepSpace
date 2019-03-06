@@ -10,6 +10,7 @@ package frc.robot;
 import com.ctre.phoenix.sensors.PigeonIMU;
 import com.revrobotics.CANSparkMax.IdleMode;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
@@ -42,6 +43,7 @@ public class Robot extends TimedRobot
     private Elevator elevator;
     private HatchManipulator blackLotus;
     private Sonar sonar;
+    private DriverStation driverStation;
     
     @Override
     public void robotInit() 
@@ -65,6 +67,7 @@ public class Robot extends TimedRobot
         limelight.setLEDMode(1);
 
         SmartDashboard.putNumber("Angle", 0);
+        driverStation = DriverStation.getInstance();
     }
     
     @Override
@@ -74,11 +77,8 @@ public class Robot extends TimedRobot
         SmartDashboard.putNumber("Angle", cargo.getHingeAngle());
         SmartDashboard.putNumber("Front Pillar", pillars.getFrontHeight());
         SmartDashboard.putNumber("Rear Pillar", pillars.getRearHeight());
-
         driveTrain.feedWatchdog();
-        //System.out.println(pillars.);
-        
-        System.out.println(cargo.getSensorValue());
+        System.out.println(driverStation.getMatchTime());
         // System.out.print("FRONT:" + pillars.getFrontHeight());
         // System.out.println(" || BACK:" + pillars.getRearHeight());
         

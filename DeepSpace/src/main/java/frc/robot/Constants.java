@@ -7,7 +7,7 @@ public class Constants
     /*General*/
     /*********/
 
-    public static boolean isABot = true;
+    public static boolean isABot = false;
     public static int kTimeoutMs = 10;
 
     /***********/
