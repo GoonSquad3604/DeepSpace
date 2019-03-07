@@ -1,6 +1,7 @@
 package frc.commands.drive;
 
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import frc.auton.Auton;
 import frc.commands.AutonCommand;
 import frc.subsystem.drivetrain.DriveTrain;
@@ -17,6 +18,13 @@ public class CmdManualDrive implements AutonCommand
     private double[] ypr = new double[3];
     private double limelightAngle;
     
+    /**
+     * Allows you to manually drive the robot during a command.
+     * @param iDrive The DriveTrain
+     * @param iDriveStick the driver's controller
+     * @param iOperateStick the operator's controller
+     * @param iAuton the autonomous queue object
+     */
     public CmdManualDrive(DriveTrain iDrive, XboxController iDriveStick, XboxController iOperateStick, Auton iAuton)
     {
         drive = iDrive;
@@ -44,6 +52,20 @@ public class CmdManualDrive implements AutonCommand
                 auton.getCargoManipulator().runHinge(0);
             }
         }
+
+        if(operateStick.getBumper(Hand.kLeft))
+        {
+            auton.getCargoManipulator().runDispense();
+        }
+        else if(operateStick.getBumper(Hand.kRight))
+        {
+            auton.getCargoManipulator().runIntake();
+        }
+        else
+        {
+            auton.getCargoManipulator().stop();
+        }
+
         //Code is highly similar to teleop driving auton. The operator may not operate while this is running.
         auton.getGyro().getYawPitchRoll(ypr);
         double axis1 = (Math.abs(driveStick.getRawAxis(1)) > 0.1) ? driveStick.getRawAxis(1) : 0;

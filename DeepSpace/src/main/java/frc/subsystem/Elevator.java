@@ -2,12 +2,17 @@ package frc.subsystem;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
+import edu.wpi.first.wpilibj.DigitalInput;
+
 import static frc.robot.Constants.*;
 
 public class Elevator
 {
 
     private WPI_TalonSRX leftElevator, rightElevator;
+    private DigitalInput lowerLimit;
+
     /**
      * sets IDs, left Inverted, right follow left, and Pid settings
      * @param elevatorLeftID sets ID for left elevator motor
@@ -29,6 +34,8 @@ public class Elevator
 
         leftElevator.configMotionCruiseVelocity(kElevatorCargoVel, kTimeoutMs);
         leftElevator.configMotionAcceleration(kElevatorCargoAcc, kTimeoutMs);
+
+        lowerLimit = new DigitalInput(kElevatorLimitSensorID);
 
     }
 
@@ -63,8 +70,8 @@ public class Elevator
         rightElevator.setSelectedSensorPosition((int)height, 0, kTimeoutMs);
     }
     /**
-     * returns left elevator
-     * @return Left elevator
+     * Getter for elevator
+     * @return Left elevator object
      */
     public WPI_TalonSRX getElevator()
     {
@@ -72,12 +79,21 @@ public class Elevator
     }
 
     /**
-     * Returns the height of the sensor.
-     * @return hieight of sensor
+     * Height of elevator
+     * @return Height of left elevator sensor in pulses
      */
     public double getHeight()
     {
         return leftElevator.getSelectedSensorPosition();
+    }
+
+    /**
+     * Checks if elevator is all the way down
+     * @return True if the elevator is all the way down
+     */
+    public boolean getLimit()
+    {
+        return !lowerLimit.get();
     }
 
 }

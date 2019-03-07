@@ -2,12 +2,14 @@ package frc.commands.subsystem.cargo;
 
 import frc.commands.AutonCommand;
 import frc.subsystem.CargoManipulator;
+import static frc.robot.Constants.*;
 
 public class CmdMoveHinge implements AutonCommand
 {
     private CargoManipulator cargo;
     private double amount;
     private double speed;
+
     public CmdMoveHinge(double iAmount, double iSpeed, CargoManipulator iCargo)
     {
         cargo = iCargo;
@@ -18,13 +20,25 @@ public class CmdMoveHinge implements AutonCommand
     @Override
     public boolean isFinished() 
     {
-        return Math.abs(cargo.getHingeLocation()) >= Math.abs(amount);
+        return cargo.getHingeAngle() < (amount + kHingeError) && cargo.getHingeAngle() > (amount - kHingeError);
     }
 
     @Override
     public void runTask() 
     {
-        cargo.runHinge(speed);
+        if(cargo.getHingeAngle() > amount)
+        {
+            cargo.runHinge(speed);
+        }
+        else if(cargo.getHingeAngle() < amount)
+        {
+            cargo.runHinge(-speed);
+        }
+        else
+        {
+            cargo.runHinge(0);
+        }
+        
     }
 
     @Override

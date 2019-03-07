@@ -41,7 +41,7 @@ public class CmdDriveTime implements AutonCommand
 
     @Override
     public void runTask() {
-        driveTrain.arcadeDrive(0.3,0);
+        driveTrain.arcadeDrive(0.25, 0);
     }
 
     @Override

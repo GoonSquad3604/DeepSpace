@@ -2,6 +2,8 @@ package frc.subsystem;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import static frc.robot.Constants.*;
@@ -23,9 +25,9 @@ public class Pillars {
      */
     public Pillars(int frontSideID, int rearSideID, int wheelsID) {
         
-        frontSide = new CANSparkMax(frontSideID,com.revrobotics.CANSparkMaxLowLevel.MotorType.kBrushless);
-        frontSide.setInverted(false);
-        rearSide = new CANSparkMax(rearSideID,com.revrobotics.CANSparkMaxLowLevel.MotorType.kBrushless);
+        frontSide = new CANSparkMax(frontSideID, MotorType.kBrushless);
+        frontSide.setInverted(isABot);
+        rearSide = new CANSparkMax(rearSideID, MotorType.kBrushless);
         rearSide.setInverted(false);
         wheels = new WPI_TalonSRX(wheelsID);
         wheels.setInverted(true);
@@ -120,87 +122,109 @@ public class Pillars {
         rearInitPos = rearSide.getEncoder().getPosition();
     }
 
-    /**
+    /**Runs the pillars under the driver's control
      * @param driveStick Driver XboxController
      */
-    public void runOldChadCode(XboxController driveStick)
+    public void runManualPillars(XboxController driveStick)
     {
-        if(driveStick.getPOV() == 0){
-          
-          if((rearPos - rearInitPos) - (frontPos - frontInitPos) > 1){
-            rearSide.set(.9);
-          }
-          else{
-            rearSide.set(1);
-          }
-          
-          if((frontPos - frontInitPos) - (rearPos - rearInitPos) > 1){
-            frontSide.set(0.9);
-          }
-          else{
-            frontSide.set(1);
-          }
-
-         
-          rearPos = rearSide.getEncoder().getPosition();
-          frontPos = frontSide.getEncoder().getPosition();
-        }
-        else if(driveStick.getBackButton()){
-          
-            if((rearPos - rearInitPos) - (frontPos - frontInitPos) > 1){
-              frontSide.set(0.4);
-            }
-            else{
-              frontSide.set(0.0);
-            }
+        if(driveStick.getPOVCount() != 0)
+        {
             
-            if((rearPos - rearInitPos) - (frontPos - frontInitPos) > 1){
-                rearSide.set(0.4);
-            }
-            else{
-                rearSide.set(0.0);
-            }
+            if(driveStick.getPOV() == 0)
+            {
             
-            rearPos = rearSide.getEncoder().getPosition();
-            frontPos = frontSide.getEncoder().getPosition();
-          }
-        else if(driveStick.getPOV() == 180){
-          frontSide.set(-0.5);
-          rearSide.set(-0.5);
-        }
-        else if(driveStick.getAButton()){
-          frontSide.set(0);
-          rearSide.set(-0.5);
-        }
-        else if(driveStick.getBButton()){
-          frontSide.set(0);
-          rearSide.set(0.5);
-        }
-        else if(driveStick.getXButton()){
-          frontSide.set(-0.5);
-          rearSide.set(0);
-        }
-        else if(driveStick.getYButton()){
-          frontSide.set(0.5);
-          rearSide.set(0);
-        }
-        else{
-          frontSide.set(0);
-          rearSide.set(0);
-        }
+                if((rearPos - rearInitPos) - (frontPos - frontInitPos) > 1)
+                {
+                    rearSide.set(.85);
+                }
+                else
+                {
+                    rearSide.set(1);
+                }
+            
+                if((frontPos - frontInitPos) - (rearPos - rearInitPos) > 1)
+                {
+                    frontSide.set(0.85);
+                }
+                else
+                {
+                    frontSide.set(1);
+                }
 
-        if(driveStick.getTriggerAxis(Hand.kLeft)>0.2)
-        {
-          wheels.set(driveStick.getTriggerAxis(Hand.kLeft));
+                rearPos = rearSide.getEncoder().getPosition();
+                frontPos = frontSide.getEncoder().getPosition();
+            
+            }
+            else if(driveStick.getBackButton())
+            {
+            
+                if((rearPos - rearInitPos) - (frontPos - frontInitPos) > 1)
+                {
+                    frontSide.set(0.4);
+                }
+                else
+                {
+                    frontSide.set(0.0);
+                }
+                
+                if((rearPos - rearInitPos) - (frontPos - frontInitPos) > 1)
+                {
+                    rearSide.set(0.4);
+                }
+                else
+                {
+                    rearSide.set(0.0);
+                }
+                
+                rearPos = rearSide.getEncoder().getPosition();
+                frontPos = frontSide.getEncoder().getPosition();
+            }
+            else if(driveStick.getPOV() == 180)
+            {
+            frontSide.set(-0.5);
+            rearSide.set(-0.5);
+            }
+            else if(driveStick.getAButton())
+            {
+                frontSide.set(0);
+                rearSide.set(-0.5);
+            }
+            else if(driveStick.getBButton())
+            {
+                frontSide.set(0);
+                rearSide.set(0.5);
+            }
+            else if(driveStick.getXButton())
+            {
+                frontSide.set(-0.5);
+                rearSide.set(0);
+            }
+            else if(driveStick.getYButton())
+            {
+                frontSide.set(0.5);
+                rearSide.set(0);
+            }
+            else
+            {
+                frontSide.set(0);
+                rearSide.set(0);
+            }
+
+            if(driveStick.getTriggerAxis(Hand.kLeft)>0.2)
+            {
+                wheels.set(driveStick.getTriggerAxis(Hand.kLeft));
+            }
+            else if(driveStick.getTriggerAxis(Hand.kRight)>0.2)
+            {
+                wheels.set(-driveStick.getTriggerAxis(Hand.kRight));
+            }
+            else
+            {
+                wheels.set(0);
+            }
+
         }
-        else if(driveStick.getTriggerAxis(Hand.kRight)>0.2)
-        {
-          wheels.set(-driveStick.getTriggerAxis(Hand.kRight));
-        }
-        else
-        {
-          wheels.set(0);
-        }
+        
     }
 
 }

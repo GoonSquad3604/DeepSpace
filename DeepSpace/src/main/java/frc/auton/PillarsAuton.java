@@ -1,6 +1,9 @@
 package frc.auton;
 
 import static frc.robot.Constants.*;
+
+import com.revrobotics.CANSparkMax.IdleMode;
+
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import frc.commands.subsystem.pillars.*;
 import frc.commands.drive.*;
@@ -10,15 +13,19 @@ public class PillarsAuton
 {
     public static void addCommands(Auton auton)
     {
-        auton.getOperateStick().setRumble(RumbleType.kLeftRumble,1);
-        auton.getOperateStick().setRumble(RumbleType.kRightRumble,1);
-        auton.getDriveStick().setRumble(RumbleType.kLeftRumble,1);
-        auton.getDriveStick().setRumble(RumbleType.kRightRumble,1);
-        auton.addCommand(new CmdRaisePillars(kThirdLevel,auton.getPillars()));
+        //Rumbles Sticks
+        auton.getOperateStick().setRumble(RumbleType.kLeftRumble, 1);
+        auton.getOperateStick().setRumble(RumbleType.kRightRumble, 1);
+        auton.getDriveStick().setRumble(RumbleType.kLeftRumble, 1);
+        auton.getDriveStick().setRumble(RumbleType.kRightRumble, 1);
+        auton.getDrive().setMotorMode(IdleMode.kBrake);
+        //Actul Climb Stuff
+        //auton.addCommand(new CmdZeroPillars(auton.getPillars()));
+        auton.addCommand(new CmdRaisePillars(kThirdLevel, auton.getPillars()));
         auton.addCommand(new CmdMovePillarWheelsTime(1.5, 1, auton.getPillars()));
-        auton.addCommand(new CmdLowerSinglePillar(PillarType.kFrontPillar, 0, 1, auton.getPillars()));
-        auton.addCommand(new CmdDriveTime(1, auton.getDrive()));
-        auton.addCommand(new CmdLowerSinglePillar(PillarType.kRearPillar, 0, 1, auton.getPillars()));
-        auton.addCommand(new CmdDriveTime(1, auton.getDrive()));
+        auton.addCommand(new CmdLowerSinglePillar(PillarType.kFrontPillar, 8, 1, auton.getPillars()));
+        auton.addCommand(new CmdDriveTime(1.5, auton.getDrive()));
+        auton.addCommand(new CmdLowerSinglePillar(PillarType.kRearPillar, 8, 1, auton.getPillars()));
+        auton.addCommand(new CmdDriveTime(2, auton.getDrive()));
     }
 }
