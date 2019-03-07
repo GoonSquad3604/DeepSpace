@@ -50,7 +50,7 @@ public class Elevator
     }
 
     /**
-     * Moves the elevator to the height
+     * Moves the elevator at the power
      * @param pwr defines power of elevator 
      */
     public void setPower(double pwr)

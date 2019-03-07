@@ -187,15 +187,24 @@ public class Auton
             aCommand.runTask();
             if(operateStick.getXButton()) //Stops queue when X is pressed.
             {
+                if(!autonQueue.isEmpty())
+                {
+                    getCargoManipulator().runHinge(0);
+                }
                 aCommand.end();
                 autonQueue.clear();
             }
         }
     }
 
-    public void runTeleop()
+    public void runTeleop(boolean auton)
     {
         defaultCommand.runTask();
+        if(defaultCommand instanceof Teleop)
+        {
+            Teleop teleop = (Teleop)defaultCommand;
+            teleop.setAuton(auton);
+        }
     }
 
     //Returns true if the auton is complete.
