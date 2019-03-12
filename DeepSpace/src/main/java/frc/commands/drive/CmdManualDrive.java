@@ -117,6 +117,11 @@ public class CmdManualDrive implements AutonCommand
                 auton.getCargoManipulator().runHinge(0);
             }
         }
+        else
+        {
+            auton.getCargoManipulator().runHinge(0);
+        }
+        
         return true;
     }
 
