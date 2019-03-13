@@ -25,7 +25,7 @@ public class PickupPanelAuton
             new CmdMoveElevator(destination,auton.getElevator()),
             new CmdManualDrive(auton.getDrive(),auton.getDriveStick(),auton.getOperateStick(),auton,false)
         ));
-        //Deploy Hook
+        //Retract Hook
         auton.addCommand(new CmdMerge(
             null /*TODO replace with retract hook*/,
             new CmdManualDrive(auton.getDrive(),auton.getDriveStick(),auton.getOperateStick(),auton,false)
