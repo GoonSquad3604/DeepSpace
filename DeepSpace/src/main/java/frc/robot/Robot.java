@@ -93,7 +93,7 @@ public class Robot extends TimedRobot
     @Override
     public void autonomousPeriodic() 
     {
-        run();
+        run(true);
     }
 
     @Override
@@ -105,7 +105,7 @@ public class Robot extends TimedRobot
     @Override
     public void teleopPeriodic() 
     {
-        run();
+        run(false);
     }
 
     @Override
@@ -135,7 +135,7 @@ public class Robot extends TimedRobot
       
     }
 
-    private void run()
+    private void run(boolean auton)
     {
         if(runningAuton != null && !runningAuton.isFinished())
         {
@@ -143,7 +143,7 @@ public class Robot extends TimedRobot
         }
         else if(runningAuton != null)
         {
-            runningAuton.runTeleop();
+            runningAuton.runTeleop(auton);
         }
     }
 
