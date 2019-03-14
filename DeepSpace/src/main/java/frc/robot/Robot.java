@@ -78,7 +78,7 @@ public class Robot extends TimedRobot
         SmartDashboard.putNumber("Front Pillar", pillars.getFrontHeight());
         SmartDashboard.putNumber("Rear Pillar", pillars.getRearHeight());
         driveTrain.feedWatchdog();
-        System.out.println(cargo.getSensorValue());
+        System.out.println(elevator.getHeight());
         // System.out.print("FRONT:" + pillars.getFrontHeight());
         // System.out.println(" || BACK:" + pillars.getRearHeight());
         

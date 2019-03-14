@@ -155,30 +155,30 @@ public class Pillars {
                 frontPos = frontSide.getEncoder().getPosition();
             
             }
-            else if(driveStick.getBackButton())
-            {
+            // else if(driveStick.getBackButton())
+            // {
             
-                if((rearPos - rearInitPos) - (frontPos - frontInitPos) > 1)
-                {
-                    frontSide.set(0.4);
-                }
-                else
-                {
-                    frontSide.set(0.0);
-                }
+            //     if((rearPos - rearInitPos) - (frontPos - frontInitPos) > 1)
+            //     {
+            //         frontSide.set(0.4);
+            //     }
+            //     else
+            //     {
+            //         frontSide.set(0.0);
+            //     }
                 
-                if((rearPos - rearInitPos) - (frontPos - frontInitPos) > 1)
-                {
-                    rearSide.set(0.4);
-                }
-                else
-                {
-                    rearSide.set(0.0);
-                }
+            //     if((rearPos - rearInitPos) - (frontPos - frontInitPos) > 1)
+            //     {
+            //         rearSide.set(0.4);
+            //     }
+            //     else
+            //     {
+            //         rearSide.set(0.0);
+            //     }
                 
-                rearPos = rearSide.getEncoder().getPosition();
-                frontPos = frontSide.getEncoder().getPosition();
-            }
+            //     rearPos = rearSide.getEncoder().getPosition();
+            //     frontPos = frontSide.getEncoder().getPosition();
+            // }
             else if(driveStick.getPOV() == 180)
             {
             frontSide.set(-0.5);

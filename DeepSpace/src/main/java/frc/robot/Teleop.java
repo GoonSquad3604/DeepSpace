@@ -12,7 +12,6 @@ import frc.commands.subsystem.cargo.CmdMoveHinge;
 import frc.commands.subsystem.pillars.*;
 import frc.subsystem.drivetrain.*;
 import static frc.robot.Constants.*;
-import java.util.ArrayList;
 
 public class Teleop implements AutonCommand
 {
@@ -56,8 +55,8 @@ public class Teleop implements AutonCommand
         auton.getDriveStick().setRumble(RumbleType.kLeftRumble,0);
         auton.getDriveStick().setRumble(RumbleType.kRightRumble,0);
         auton.getGyro().getYawPitchRoll(ypr);
-        double axis1 = (Math.abs(driveStick.getRawAxis(1)) > 0.1) ? 0.8 * driveStick.getRawAxis(1) : 0;
-        double axis4 = (Math.abs(driveStick.getRawAxis(4)) > 0.1) ? 0.8 * driveStick.getRawAxis(4) : 0;
+        double axis1 = (Math.abs(driveStick.getRawAxis(1)) > 0.1) ? driveStick.getRawAxis(1) : 0;
+        double axis4 = (Math.abs(driveStick.getRawAxis(4)) > 0.1) ? driveStick.getRawAxis(4) : 0;
 
         if(delayTimer.get() > 0.25 && auton.getLimelight().doesTargetExist() && limelightAngle == 0)
         {
@@ -206,16 +205,16 @@ public class Teleop implements AutonCommand
                 switch(operateStick.getPOV())
                 {
                     case kDpadUp:
-                        HatchPlaceAuton2.addCommands(auton, kTopRocketHatch, kTopRocketHatchAngle);
+                        HatchPlaceAuton2.addCommands(auton, kTopRocketHatch);
                         break;
                     case kDpadRight:
-                        HatchPlaceAuton2.addCommands(auton, kMiddleRocketHatch, kMiddleRocketHatchAngle);
+                        HatchPlaceAuton2.addCommands(auton, kMiddleRocketHatch);
                         break;
                     case kDpadDown:
-                        HatchPlaceAuton2.addCommands(auton, kBottomRocketHatch, kBottomRocketHatchAngle);
+                        HatchPlaceAuton2.addCommands(auton, kBottomRocketHatch);
                         break;
                     case kDpadLeft:
-                        HatchPlaceAuton2.addCommands(auton, kHatchFeeder, kHatchFeederAngle);
+                        HatchPlaceAuton2.addCommands(auton, kHatchFeeder);
                         break;
                 }
                 endTeleop();

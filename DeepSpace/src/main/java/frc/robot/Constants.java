@@ -46,15 +46,10 @@ public class Constants
     public static final int kElevatorCargoAcc = 2400;
 
     //Rocket hatch encoder positions
-    public static final double kTopRocketHatch = 23500;
-    public static final double kMiddleRocketHatch = 11500;
-    public static final double kBottomRocketHatch = 0;
-    public static final double kHatchFeeder = 4000;
-
-    public static final double kTopRocketHatchAngle = 60;
-    public static final double kMiddleRocketHatchAngle = 60;
-    public static final double kBottomRocketHatchAngle = 70;
-    public static final double kHatchFeederAngle = 90;
+    public static final double kTopRocketHatch = 27500;
+    public static final double kMiddleRocketHatch = 18500;
+    public static final double kBottomRocketHatch = 4500;
+    public static final double kHatchFeeder = 4500;
 
     //Rocket cargo encoder positions
     public static final double kTopRocketCargo = 26500;
@@ -102,7 +97,7 @@ public class Constants
     /*********/
     
     public static final double kThirdLevel = 153;
-    public static final double kSecondLevel = 60;
+    public static final double kSecondLevel = 53;
     //public static final double kInchPerRotationPillar = 0.132040647405376;
     
     //D-Pad
