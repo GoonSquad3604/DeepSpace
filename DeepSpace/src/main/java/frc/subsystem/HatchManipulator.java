@@ -1,41 +1,60 @@
 package frc.subsystem;
 
-import static frc.robot.Constants.*;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 public class HatchManipulator 
 {
-    private WPI_TalonSRX hatch;
-    private boolean open = true;
-    private boolean forward = true;
-
+    private WPI_TalonSRX articulator;
+    private ArticulatorState articulatorState;
     /**
      * sets ID for hatch and inverts it
-     * @param hatchID sets ID for the hatch manipulator
+     * @param hatchID sets ID for the hatch articulator
      */
     public HatchManipulator(int hatchID)
     {
-        hatch = new WPI_TalonSRX(hatchID);
-        hatch.setInverted(true);
+        articulator = new WPI_TalonSRX(hatchID);
+        articulator.setInverted(true);
+        articulatorState = ArticulatorState.kOut;
     } 
 
+
     /**
-     * Opens the hatch
-     * @param speed sets motor 1 to -1
+     * Moves the articulator
+     * @param speed sets motor of articulator
      */
-    public void runHatch(double speed)
+    public void runArticulator(double speed)
     {
-        hatch.set(speed);
+        articulator.set(speed);
     }
+
+
+    
     /**
-     * gets the location of sensor
-     * @return location of the sensor
+     * Gets the current state of the articulator.
+     * @return the articulator's state
+     */
+    public ArticulatorState getState()
+    {
+        return articulatorState;
+    }
+
+    
+    /**
+     * Gets the current location of the articulator.
+     * @return the articulator's location
      */
     public int getLocation()
     {
-        return hatch.getSelectedSensorPosition();
+        return articulator.getSelectedSensorPosition();
     }
     
+    /**
+     * Sets the articulator's state
+     * @param state the state to set the articulator to
+     */
+    public void setState(ArticulatorState state)
+    {
+        articulatorState = state;
+    }
 }
 

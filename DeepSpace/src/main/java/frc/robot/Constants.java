@@ -125,6 +125,11 @@ public class Constants
     // public static int sensorAt0 = 848;
     // public static int sensorAt90 = 642;
 
+    /*******/
+    /*Hatch*/
+    /*******/
     public static final int kHatchMovementPlace = 2000;
     public static final int kHatchMovementPickUp = 2000;
+    public static final int kArticulatorIn = 0;
+    public static final int kArticulatorOut = 0;
 }
