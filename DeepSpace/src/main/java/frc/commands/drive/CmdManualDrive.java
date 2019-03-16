@@ -17,7 +17,7 @@ public class CmdManualDrive implements AutonCommand
     private Auton auton;
     private double[] ypr = new double[3];
     private double limelightAngle;
-    
+    private boolean operatorAllowed;
     /**
      * Allows you to manually drive the robot during a command.
      * @param iDrive The DriveTrain
@@ -27,48 +27,66 @@ public class CmdManualDrive implements AutonCommand
      */
     public CmdManualDrive(DriveTrain iDrive, XboxController iDriveStick, XboxController iOperateStick, Auton iAuton)
     {
+        this(iDrive,iDriveStick,iOperateStick,iAuton,true);
+    }
+
+    /**
+     * Allows you to manually drive the robot during a command.
+     * @param iDrive The DriveTrain
+     * @param iDriveStick the driver's controller
+     * @param iOperateStick the operator's controller
+     * @param iAuton the autonomous queue object
+     * @param iOperatorAllowed whether or not the operator may operate during the drive
+     */
+    public CmdManualDrive(DriveTrain iDrive, XboxController iDriveStick, XboxController iOperateStick, Auton iAuton, boolean iOperatorAllowed)
+    {
         drive = iDrive;
         driveStick = iDriveStick;
         operateStick = iOperateStick;
         auton = iAuton;
+        operatorAllowed = iOperatorAllowed;
     }
+
     @Override
     public boolean isFinished() 
     {
     
-        
-        if(operateStick.getYButton())
+        if(operatorAllowed)
         {
-            if(operateStick.getPOV() == 0)
+            if(operateStick.getYButton())
             {
-                auton.getCargoManipulator().runHinge(1);
-            }
-            else if(operateStick.getPOV() == 180)
-            {
-                auton.getCargoManipulator().runHinge(-1);
+                if(operateStick.getPOV() == 0)
+                {
+                    auton.getCargoManipulator().runHinge(1);
+                }
+                else if(operateStick.getPOV() == 180)
+                {
+                    auton.getCargoManipulator().runHinge(-1);
+                }
+                else
+                {
+                    auton.getCargoManipulator().runHinge(0);
+                }
             }
             else
             {
                 auton.getCargoManipulator().runHinge(0);
             }
-        }
-        else
-        {
-            auton.getCargoManipulator().runHinge(0);
-        }
 
-        if(operateStick.getBumper(Hand.kLeft))
-        {
-            auton.getCargoManipulator().runDispense();
-        }
-        else if(operateStick.getBumper(Hand.kRight))
-        {
-            auton.getCargoManipulator().runIntake();
-        }
-        else
-        {
-            auton.getCargoManipulator().stop();
-        }
+            if(operateStick.getBumper(Hand.kLeft))
+            {
+                auton.getCargoManipulator().runDispense();
+            }
+            else if(operateStick.getBumper(Hand.kRight))
+            {
+                auton.getCargoManipulator().runIntake();
+            }
+            else
+            {
+                auton.getCargoManipulator().stop();
+            }
+        }    
+        
 
         //Code is highly similar to teleop driving auton. The operator may not operate while this is running.
         auton.getGyro().getYawPitchRoll(ypr);
@@ -121,6 +139,11 @@ public class CmdManualDrive implements AutonCommand
                 auton.getCargoManipulator().runHinge(0);
             }
         }
+        else
+        {
+            auton.getCargoManipulator().runHinge(0);
+        }
+        
         return true;
     }
 
