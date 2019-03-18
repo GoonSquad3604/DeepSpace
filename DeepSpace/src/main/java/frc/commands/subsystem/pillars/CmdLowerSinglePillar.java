@@ -38,11 +38,24 @@ public class CmdLowerSinglePillar implements AutonCommand
     {
         if(pillarType == PillarType.kFrontPillar)
         {
-            pillars.setFrontPillar(-speed);
+            if(pillars.getFrontHeight() > height)
+            {
+                pillars.setFrontPillar(-speed);
+            }
+            else{
+                pillars.setFrontPillar(0);
+            }
+            
         }
         else
         {
-            pillars.setRearPillar(-speed);
+            if(pillars.getRearHeight() > height)
+            {
+                pillars.setRearPillar(-speed);
+            }
+            else{
+                pillars.setRearPillar(0);
+            }
         }
     }
 
