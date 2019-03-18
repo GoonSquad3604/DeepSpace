@@ -12,7 +12,8 @@ public class CmdToggleHatch implements AutonCommand
         hatchManipulator = iManipulator;
     }
     @Override
-    public boolean isFinished() {
+    public boolean isFinished() 
+    {
         if(in)
         {
             return hatchManipulator.getLocation() >= kArticulatorOut;
@@ -24,12 +25,14 @@ public class CmdToggleHatch implements AutonCommand
     }
 
     @Override
-    public void runTask() {
+    public void runTask() 
+    {
         hatchManipulator.runArticulator(in ? 0.5 : -0.5);
     }
 
     @Override
-    public double getStatus() {
+    public double getStatus() 
+    {
         return 0;
     }
 
