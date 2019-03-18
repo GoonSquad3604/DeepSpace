@@ -13,8 +13,8 @@ public class HatchManipulator
     public HatchManipulator(int hatchID)
     {
         articulator = new WPI_TalonSRX(hatchID);
-        articulator.setInverted(true);
-        articulatorState = ArticulatorState.kOut;
+        articulator.setInverted(false);
+        articulatorState = ArticulatorState.kIn;
     } 
 
 
@@ -45,7 +45,7 @@ public class HatchManipulator
      */
     public int getLocation()
     {
-        return articulator.getSelectedSensorPosition();
+        return -articulator.getSelectedSensorPosition();
     }
     
     /**

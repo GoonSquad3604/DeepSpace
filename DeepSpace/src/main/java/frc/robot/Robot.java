@@ -41,7 +41,7 @@ public class Robot extends TimedRobot
     private Pillars pillars;
     private CargoManipulator cargo;
     private Elevator elevator;
-    private HatchManipulator blackLotus;
+    private HatchManipulator hatch;
     private Sonar sonar;
     private DriverStation driverStation;
     
@@ -55,11 +55,11 @@ public class Robot extends TimedRobot
         limelight = new Limelight("limelight");
         sonar = new Sonar(0);
         cargo = new CargoManipulator(kIntakeControlID, kHingeRightID, kHingeLeftID);
-        //blackLotus = new HatchManipulator(kHatchLeftRightID, kHatchForwardBackID);
+        hatch = new HatchManipulator(kHatchID);
         elevator = new Elevator(kElevatorLeftID, kElevatorRightID);
         pillars = new Pillars(kPillarsFront, kPillarsBack, kPillarWheels);
 
-        runningAuton = new Auton(driveTrain, driveStick, operateStick, pigeon, limelight, elevator/*,blackLotus*/, pillars, sonar, cargo);
+        runningAuton = new Auton(driveTrain, driveStick, operateStick, pigeon, limelight, elevator, hatch, pillars, sonar, cargo);
         
         driveTrain.setMotorMode(IdleMode.kCoast);
         
@@ -78,7 +78,7 @@ public class Robot extends TimedRobot
         SmartDashboard.putNumber("Front Pillar", pillars.getFrontHeight());
         SmartDashboard.putNumber("Rear Pillar", pillars.getRearHeight());
         driveTrain.feedWatchdog();
-        System.out.println(elevator.getHeight());
+        System.out.println(hatch.getLocation());
         // System.out.print("FRONT:" + pillars.getFrontHeight());
         // System.out.println(" || BACK:" + pillars.getRearHeight());
         

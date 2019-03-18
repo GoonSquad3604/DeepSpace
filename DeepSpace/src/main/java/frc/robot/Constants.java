@@ -27,7 +27,6 @@ public class Constants
     public static final int kHingeLeftID = 7;
     
     public static final int kHatchID = 9;
-    public static final int kHatchForwardBackID = 0;
 
     public static final int kPillarsFront = 12;
     public static final int kPillarsBack = 13;
@@ -50,6 +49,7 @@ public class Constants
     public static final double kMiddleRocketHatch = 18500;
     public static final double kBottomRocketHatch = 4500;
     public static final double kHatchFeeder = 4500;
+    public static final double kHatchFeederUp = 6000;
 
     //Rocket cargo encoder positions
     public static final double kTopRocketCargo = 26500;
@@ -123,8 +123,8 @@ public class Constants
     /*******/
     /*Hatch*/
     /*******/
-    public static final int kHatchMovementPlace = 2000;
+    public static final int kHatchMovementPlace = 1500;
     public static final int kHatchMovementPickUp = 2000;
-    public static final int kArticulatorIn = 0;
-    public static final int kArticulatorOut = 0;
+    public static final int kArticulatorIn = 40;
+    public static final int kArticulatorOut = 390;
 }
