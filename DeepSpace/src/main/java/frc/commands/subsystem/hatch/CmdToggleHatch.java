@@ -10,7 +10,9 @@ public class CmdToggleHatch implements AutonCommand
     public CmdToggleHatch(HatchManipulator iManipulator)
     {
         hatchManipulator = iManipulator;
+        in = hatchManipulator.getState() == ArticulatorState.kIn;
     }
+    
     @Override
     public boolean isFinished() 
     {
@@ -25,9 +27,8 @@ public class CmdToggleHatch implements AutonCommand
     }
 
     @Override
-    public void runTask() 
-    {
-        hatchManipulator.runArticulator(in ? 0.5 : -0.5);
+    public void runTask() {
+        hatchManipulator.runArticulator(in ? 1 : -1);
     }
 
     @Override

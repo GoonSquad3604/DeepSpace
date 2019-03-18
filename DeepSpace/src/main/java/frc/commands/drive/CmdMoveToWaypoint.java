@@ -28,8 +28,7 @@ public class CmdMoveToWaypoint implements AutonCommand
     private boolean ret;
     private PigeonIMU gyro;
 
-    public CmdMoveToWaypoint(DriveTrain iDrive,PigeonIMU iGyro, String pathName)
-    {
+    public CmdMoveToWaypoint(DriveTrain iDrive, PigeonIMU iGyro, String pathName) {
         drive = iDrive;
         try 
         {

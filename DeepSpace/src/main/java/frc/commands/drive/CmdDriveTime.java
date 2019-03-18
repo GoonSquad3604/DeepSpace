@@ -9,6 +9,7 @@ public class CmdDriveTime implements AutonCommand
     
     private Timer timer;
     private double time;
+    private double speed;
     private DriveTrain driveTrain;
     
     
@@ -17,10 +18,11 @@ public class CmdDriveTime implements AutonCommand
      * @param iTime Amount of time to drive (seconds)
      * @param iDriveTrain Drive Train Object
      */
-    public CmdDriveTime(double iTime, DriveTrain iDriveTrain)
+    public CmdDriveTime(double iTime, double iSpeed, DriveTrain iDriveTrain)
     {
         timer = new Timer();
         time = iTime;
+        speed = iSpeed;
         driveTrain = iDriveTrain;
     }
 
@@ -29,7 +31,7 @@ public class CmdDriveTime implements AutonCommand
         
         if(timer.get() > time)
         {
-            driveTrain.arcadeDrive(0,0);
+            driveTrain.arcadeDrive(0, 0);
             return true;
         }
         else
@@ -41,7 +43,7 @@ public class CmdDriveTime implements AutonCommand
 
     @Override
     public void runTask() {
-        driveTrain.arcadeDrive(0.35, 0);
+        driveTrain.arcadeDrive(speed, 0);
     }
 
     @Override
