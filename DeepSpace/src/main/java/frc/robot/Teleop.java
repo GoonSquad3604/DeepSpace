@@ -325,11 +325,11 @@ public class Teleop implements AutonCommand
             }
             else if(operateStick.getStartButton())
             {
-                auton.getHatchManipulator().runArticulator(1);
+                auton.getHatchManipulator().runArticulator(-1);
             }
             else if(operateStick.getBackButton())
             {
-                auton.getHatchManipulator().runArticulator(-1);
+                auton.getHatchManipulator().runArticulator(1);
             }
             else{
                 auton.getHatchManipulator().runArticulator(0);
