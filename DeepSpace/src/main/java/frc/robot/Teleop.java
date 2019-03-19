@@ -1,5 +1,6 @@
 package frc.robot;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Watchdog;
@@ -33,6 +34,7 @@ public class Teleop implements AutonCommand
     private Timer testTime;
     double distance = 0;
     private boolean isAuton;
+    private DigitalInput hatchSensor;
 
     public Teleop(DriveTrain iDriveTrain, XboxController iDriveStick, XboxController iOperateStick, Auton iAuton)
     {
@@ -43,6 +45,7 @@ public class Teleop implements AutonCommand
         delayTimer = new Timer();
         driveStation = DriverStation.getInstance();
         testTime = new Timer();
+        hatchSensor = new DigitalInput(1);
         testTime.start();
     }
     
@@ -77,7 +80,7 @@ public class Teleop implements AutonCommand
             PlacePanelAuton.addCommands(auton);
             endTeleop();
         }
-        else if(driveStick.getBumper(Hand.kRight))
+        else if(driveStick.getBumper(Hand.kRight) || (!hatchSensor.get() && operateStick.getStickButton(Hand.kRight)))
         {
             PickupPanelAuton.addCommands(auton);
             endTeleop();
@@ -302,33 +305,21 @@ public class Teleop implements AutonCommand
                 auton.getCargoManipulator().stop();
             }
 
-            if(operateStick.getStickButton(Hand.kRight))
-            {
-                ResetElevatorAuton.addCommands(auton);
-                endTeleop();
-            }
-
             if(operateStick.getTriggerAxis(Hand.kRight) > 0.8)
             {
-                auton.addCommand(new CmdMerge(
-                    new CmdToggleHatch(auton.getHatchManipulator()),
-                    new CmdManualDrive(auton.getDrive(),auton.getDriveStick(),auton.getOperateStick(),auton)
-                    ));
+                ToggleHatch.addCommands(auton);
                 endTeleop();
-            }
-            else if(operateStick.getStickButton(Hand.kLeft))
-            {
-                auton.addCommand(new CmdMovePickup(auton.getHatchManipulator()));
             }
             else if(operateStick.getStartButton())
             {
-                auton.getHatchManipulator().runArticulator(1);
+                auton.getHatchManipulator().runArticulator(-1);
             }
             else if(operateStick.getBackButton())
             {
-                auton.getHatchManipulator().runArticulator(-1);
+                auton.getHatchManipulator().runArticulator(1);
             }
-            else{
+            else
+            {
                 auton.getHatchManipulator().runArticulator(0);
             }
 
