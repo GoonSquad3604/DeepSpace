@@ -1,5 +1,6 @@
 package frc.robot;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Watchdog;
@@ -33,6 +34,7 @@ public class Teleop implements AutonCommand
     private Timer testTime;
     double distance = 0;
     private boolean isAuton;
+    private DigitalInput hatchSensor;
 
     public Teleop(DriveTrain iDriveTrain, XboxController iDriveStick, XboxController iOperateStick, Auton iAuton)
     {
@@ -43,6 +45,7 @@ public class Teleop implements AutonCommand
         delayTimer = new Timer();
         driveStation = DriverStation.getInstance();
         testTime = new Timer();
+        hatchSensor = new DigitalInput(1);
         testTime.start();
     }
     
@@ -77,7 +80,7 @@ public class Teleop implements AutonCommand
             PlacePanelAuton.addCommands(auton);
             endTeleop();
         }
-        else if(driveStick.getBumper(Hand.kRight))
+        else if(driveStick.getBumper(Hand.kRight) || !hatchSensor.get())
         {
             PickupPanelAuton.addCommands(auton);
             endTeleop();
