@@ -44,7 +44,7 @@ public class Robot extends TimedRobot
     private HatchManipulator hatch;
     private Sonar sonar;
     private DriverStation driverStation;
-    
+
     @Override
     public void robotInit() 
     {
@@ -68,6 +68,7 @@ public class Robot extends TimedRobot
 
         SmartDashboard.putNumber("Angle", 0);
         driverStation = DriverStation.getInstance();
+        
     }
     
     @Override
