@@ -192,7 +192,7 @@ public class Teleop implements AutonCommand
         if(auton.getSize() == 0 && running)
         {
             
-            if(driveStick.getPOVCount() != 0 && driveStick.getBackButton())
+            if(driveStick.getPOVCount() != 0 && driveStick.getStartButton())
             {
                 switch(driveStick.getPOV())
                 {
@@ -358,11 +358,24 @@ public class Teleop implements AutonCommand
         driveStick.getBButtonPressed();
         driveStick.getXButtonPressed();
         driveStick.getYButtonPressed();
+        driveStick.getStartButtonPressed();
+        driveStick.getBackButtonPressed();
+        driveStick.getBumperPressed(Hand.kLeft);
+        driveStick.getBumperPressed(Hand.kRight);
+        driveStick.getStickButtonPressed(Hand.kLeft);
+        driveStick.getStickButtonPressed(Hand.kRight);
+
         operateStick.getAButtonPressed();
         operateStick.getBButtonPressed();
         operateStick.getXButtonPressed();
         operateStick.getYButtonPressed();
         operateStick.getStartButtonPressed();
+        operateStick.getBackButtonPressed();
+        operateStick.getBumperPressed(Hand.kLeft);
+        operateStick.getBumperPressed(Hand.kRight);
+        operateStick.getStickButtonPressed(Hand.kLeft);
+        operateStick.getStickButtonPressed(Hand.kRight);
+
     }
     
     public boolean getRunning()
