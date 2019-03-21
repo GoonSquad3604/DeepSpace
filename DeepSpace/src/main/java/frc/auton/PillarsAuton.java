@@ -11,7 +11,7 @@ import frc.commands.special.*;
 
 public class PillarsAuton
 {
-    public static void addCommands(Auton auton)
+    public static void addCommands(Auton auton, double height)
     {
         //Rumbles Sticks
         auton.getOperateStick().setRumble(RumbleType.kLeftRumble, 1);
@@ -21,7 +21,7 @@ public class PillarsAuton
         //auton.getDrive().setMotorMode(IdleMode.kBrake);
         //Actul Climb Stuff
         //auton.addCommand(new CmdZeroPillars(auton.getPillars()));
-        auton.addCommand(new CmdRaisePillars(kSecondLevel, auton.getPillars()));
+        auton.addCommand(new CmdRaisePillars(height, auton.getPillars()));
         auton.addCommand(new CmdMovePillarWheelsTime(1.5, 1, auton.getPillars()));
         auton.addCommand(new CmdLowerSinglePillar(PillarType.kFrontPillar, 8, 1, auton.getPillars()));
         auton.addCommand(new CmdDriveTime(1.25, 0.35, auton.getDrive()));

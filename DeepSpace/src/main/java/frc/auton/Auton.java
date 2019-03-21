@@ -197,14 +197,9 @@ public class Auton
         }
     }
 
-    public void runTeleop(boolean auton)
+    public void runTeleop()
     {
         defaultCommand.runTask();
-        if(defaultCommand instanceof Teleop)
-        {
-            Teleop teleop = (Teleop)defaultCommand;
-            teleop.setAuton(auton);
-        }
     }
 
     //Returns true if the auton is complete.

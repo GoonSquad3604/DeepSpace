@@ -78,6 +78,7 @@ public class Robot extends TimedRobot
         SmartDashboard.putNumber("Angle", cargo.getHingeAngle());
         SmartDashboard.putNumber("Front Pillar", pillars.getFrontHeight());
         SmartDashboard.putNumber("Rear Pillar", pillars.getRearHeight());
+        SmartDashboard.putBoolean("Hatch", hatch.getSensor());
         driveTrain.feedWatchdog();
         System.out.println(hatch.getLocation());
         // System.out.print("FRONT:" + pillars.getFrontHeight());
@@ -94,7 +95,7 @@ public class Robot extends TimedRobot
     @Override
     public void autonomousPeriodic() 
     {
-        run(true);
+        run();
     }
 
     @Override
@@ -106,7 +107,7 @@ public class Robot extends TimedRobot
     @Override
     public void teleopPeriodic() 
     {
-        run(false);
+        run();
     }
 
     @Override
@@ -136,7 +137,7 @@ public class Robot extends TimedRobot
       
     }
 
-    private void run(boolean auton)
+    private void run()
     {
         if(runningAuton != null && !runningAuton.isFinished())
         {
@@ -144,7 +145,7 @@ public class Robot extends TimedRobot
         }
         else if(runningAuton != null)
         {
-            runningAuton.runTeleop(auton);
+            runningAuton.runTeleop();
         }
     }
 
