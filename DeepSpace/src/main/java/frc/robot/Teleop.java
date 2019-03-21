@@ -34,7 +34,6 @@ public class Teleop implements AutonCommand
     private Timer testTime;
     double distance = 0;
     private boolean isAuton;
-    private DigitalInput hatchSensor;
 
     public Teleop(DriveTrain iDriveTrain, XboxController iDriveStick, XboxController iOperateStick, Auton iAuton)
     {
@@ -45,14 +44,9 @@ public class Teleop implements AutonCommand
         delayTimer = new Timer();
         driveStation = DriverStation.getInstance();
         testTime = new Timer();
-        hatchSensor = new DigitalInput(1);
         testTime.start();
     }
     
-    public void setAuton(boolean iAuton)
-    {
-        isAuton = iAuton;
-    }
     @Override
     public boolean isFinished() 
     {
@@ -80,9 +74,15 @@ public class Teleop implements AutonCommand
             PlacePanelAuton.addCommands(auton);
             endTeleop();
         }
-        else if(driveStick.getBumper(Hand.kRight) || (!hatchSensor.get() && operateStick.getStickButton(Hand.kRight)))
+        else if(driveStick.getBumper(Hand.kRight) || (auton.getHatchManipulator().getSensor() && operateStick.getStickButton(Hand.kRight)))
         {
             PickupPanelAuton.addCommands(auton);
+            endTeleop();
+        }
+
+        if(operateStick.getStickButton(Hand.kLeft))
+        {
+            ResetElevatorAuton.addCommands(auton);
             endTeleop();
         }
 
@@ -191,13 +191,27 @@ public class Teleop implements AutonCommand
 
         if(auton.getSize() == 0 && running)
         {
-            auton.getPillars().runManualPillars(driveStick);
-            if(driveStick.getStartButton() && driveStick.getBackButton())
+            
+            if(driveStick.getPOVCount() != 0 && driveStick.getBackButton())
             {
-                PillarsAuton.addCommands(auton);
-                endTeleop();
+                switch(driveStick.getPOV())
+                {
+                    case kDpadUp:
+                        PillarsAuton.addCommands(auton, kThirdLevel);
+                        endTeleop();
+                        break;
+                    case kDpadDown:
+                        PillarsAuton.addCommands(auton, kSecondLevel);
+                        endTeleop();
+                        break;
+                    default:
+                        break;
+                }
             }
-
+            else
+            {
+                auton.getPillars().runManualPillars(driveStick);
+            }
 
             //When the operator presses A and a directional button, place a cargo.
             if(operateStick.getAButton() && operateStick.getPOV() != -1)
