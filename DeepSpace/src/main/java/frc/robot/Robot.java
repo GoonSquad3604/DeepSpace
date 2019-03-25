@@ -79,6 +79,7 @@ public class Robot extends TimedRobot
         SmartDashboard.putNumber("Front Pillar", pillars.getFrontHeight());
         SmartDashboard.putNumber("Rear Pillar", pillars.getRearHeight());
         SmartDashboard.putBoolean("Hatch", hatch.getSensor());
+        SmartDashboard.putString("Hatch Distance", "Max: " + kArticulatorOut + " Current: " + hatch.getLocation());
         driveTrain.feedWatchdog();
         System.out.println(hatch.getLocation());
         // System.out.print("FRONT:" + pillars.getFrontHeight());
@@ -135,6 +136,33 @@ public class Robot extends TimedRobot
     public void testPeriodic()
     {
       
+        if(driveStick.getAButton())
+        {
+            runningAuton.getPillars().setRearPillar(-0.2);
+        }
+        else if(driveStick.getBButton())
+        {
+            runningAuton.getPillars().setRearPillar(0.2);
+        }
+        else
+        {
+            runningAuton.getPillars().setRearPillar(0);
+        }
+        
+        if(driveStick.getXButton())
+        {
+            runningAuton.getPillars().setFrontPillar(-0.2);
+        }
+        else if(driveStick.getYButton())
+        {
+            runningAuton.getPillars().setFrontPillar(0.2);
+        }
+        else
+        {
+            runningAuton.getPillars().setFrontPillar(0);
+        }
+
+
     }
 
     private void run()
