@@ -133,28 +133,28 @@ public class Pillars {
 
             if(driveStick.getAButton())
             {
-                frontSide.set(0);
                 rearSide.set(-0.5);
             }
             else if(driveStick.getBButton())
             {
-                frontSide.set(0);
                 rearSide.set(0.5);
             }
-            else if(driveStick.getXButton())
+            else
+            {
+                rearSide.set(0);
+            }
+            
+            if(driveStick.getXButton())
             {
                 frontSide.set(-0.5);
-                rearSide.set(0);
             }
             else if(driveStick.getYButton())
             {
                 frontSide.set(0.5);
-                rearSide.set(0);
             }
             else
             {
                 frontSide.set(0);
-                rearSide.set(0);
             }
 
             if(driveStick.getTriggerAxis(Hand.kLeft)>0.2)

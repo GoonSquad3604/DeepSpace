@@ -61,8 +61,8 @@ public class Teleop implements AutonCommand
         auton.getDriveStick().setRumble(RumbleType.kLeftRumble,0);
         auton.getDriveStick().setRumble(RumbleType.kRightRumble,0);
         auton.getGyro().getYawPitchRoll(ypr);
-        double axis1 = (Math.abs(driveStick.getRawAxis(1)) > 0.1) ? driveStick.getRawAxis(1) : 0;
-        double axis4 = (Math.abs(driveStick.getRawAxis(4)) > 0.1) ? driveStick.getRawAxis(4) : 0;
+        double axis1 = (Math.abs(driveStick.getRawAxis(1)) > 0.1) ? 0.95 * driveStick.getRawAxis(1) : 0;
+        double axis4 = (Math.abs(driveStick.getRawAxis(4)) > 0.1) ? 0.95 * driveStick.getRawAxis(4) : 0;
 
         if(delayTimer.get() > 0.25 && auton.getLimelight().doesTargetExist() && limelightAngle == 0)
         {
@@ -184,6 +184,11 @@ public class Teleop implements AutonCommand
             limelightAngle = 0;
             auton.getLimelight().setCamMode(1);
             auton.getLimelight().setLEDMode(1);
+            // if(operateStick.getStickButton(Hand.kRight))
+            // {
+            //     axis1 *= 0.5;
+            //     axis4 *= 0.5;
+            // }
             driveTrain.arcadeDrive(-axis1, axis4);
             auton.getGyro().setYaw(0, kTimeoutMs);
             delayTimer.reset();
@@ -192,7 +197,7 @@ public class Teleop implements AutonCommand
         if(auton.getSize() == 0 && running)
         {
             
-            if(driveStick.getPOVCount() != 0 && driveStick.getBackButton())
+            if(driveStick.getPOVCount() != 0 && driveStick.getStartButton())
             {
                 switch(driveStick.getPOV())
                 {
@@ -319,7 +324,7 @@ public class Teleop implements AutonCommand
                 auton.getCargoManipulator().stop();
             }
 
-            if(operateStick.getTriggerAxis(Hand.kRight) > 0.8)
+            if(operateStick.getTriggerAxis(Hand.kRight) >= 0.6)
             {
                 ToggleHatch.addCommands(auton);
                 endTeleop();
@@ -358,11 +363,24 @@ public class Teleop implements AutonCommand
         driveStick.getBButtonPressed();
         driveStick.getXButtonPressed();
         driveStick.getYButtonPressed();
+        driveStick.getStartButtonPressed();
+        driveStick.getBackButtonPressed();
+        driveStick.getBumperPressed(Hand.kLeft);
+        driveStick.getBumperPressed(Hand.kRight);
+        driveStick.getStickButtonPressed(Hand.kLeft);
+        driveStick.getStickButtonPressed(Hand.kRight);
+
         operateStick.getAButtonPressed();
         operateStick.getBButtonPressed();
         operateStick.getXButtonPressed();
         operateStick.getYButtonPressed();
         operateStick.getStartButtonPressed();
+        operateStick.getBackButtonPressed();
+        operateStick.getBumperPressed(Hand.kLeft);
+        operateStick.getBumperPressed(Hand.kRight);
+        operateStick.getStickButtonPressed(Hand.kLeft);
+        operateStick.getStickButtonPressed(Hand.kRight);
+
     }
     
     public boolean getRunning()
