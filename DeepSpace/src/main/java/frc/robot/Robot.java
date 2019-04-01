@@ -41,10 +41,10 @@ public class Robot extends TimedRobot
     private Pillars pillars;
     private CargoManipulator cargo;
     private Elevator elevator;
-    private HatchManipulator blackLotus;
+    private HatchManipulator hatch;
     private Sonar sonar;
     private DriverStation driverStation;
-    
+
     @Override
     public void robotInit() 
     {
@@ -55,11 +55,11 @@ public class Robot extends TimedRobot
         limelight = new Limelight("limelight");
         sonar = new Sonar(0);
         cargo = new CargoManipulator(kIntakeControlID, kHingeRightID, kHingeLeftID);
-        //blackLotus = new HatchManipulator(kHatchLeftRightID, kHatchForwardBackID);
+        hatch = new HatchManipulator(kHatchID);
         elevator = new Elevator(kElevatorLeftID, kElevatorRightID);
         pillars = new Pillars(kPillarsFront, kPillarsBack, kPillarWheels);
 
-        runningAuton = new Auton(driveTrain, driveStick, operateStick, pigeon, limelight, elevator/*,blackLotus*/, pillars, sonar, cargo);
+        runningAuton = new Auton(driveTrain, driveStick, operateStick, pigeon, limelight, elevator, hatch, pillars, sonar, cargo);
         
         driveTrain.setMotorMode(IdleMode.kCoast);
         
@@ -68,6 +68,7 @@ public class Robot extends TimedRobot
 
         SmartDashboard.putNumber("Angle", 0);
         driverStation = DriverStation.getInstance();
+        
     }
     
     @Override
@@ -77,8 +78,10 @@ public class Robot extends TimedRobot
         SmartDashboard.putNumber("Angle", cargo.getHingeAngle());
         SmartDashboard.putNumber("Front Pillar", pillars.getFrontHeight());
         SmartDashboard.putNumber("Rear Pillar", pillars.getRearHeight());
+        SmartDashboard.putBoolean("Hatch", hatch.getSensor());
+        SmartDashboard.putString("Hatch Distance", "Max: " + kArticulatorOut + " Current: " + hatch.getLocation());
         driveTrain.feedWatchdog();
-        System.out.println(cargo.getSensorValue());
+        System.out.println(hatch.getLocation());
         // System.out.print("FRONT:" + pillars.getFrontHeight());
         // System.out.println(" || BACK:" + pillars.getRearHeight());
         
@@ -93,7 +96,7 @@ public class Robot extends TimedRobot
     @Override
     public void autonomousPeriodic() 
     {
-        run(true);
+        run();
     }
 
     @Override
@@ -105,7 +108,7 @@ public class Robot extends TimedRobot
     @Override
     public void teleopPeriodic() 
     {
-        run(false);
+        run();
     }
 
     @Override
@@ -133,9 +136,36 @@ public class Robot extends TimedRobot
     public void testPeriodic()
     {
       
+        if(driveStick.getAButton())
+        {
+            runningAuton.getPillars().setRearPillar(-0.2);
+        }
+        else if(driveStick.getBButton())
+        {
+            runningAuton.getPillars().setRearPillar(0.2);
+        }
+        else
+        {
+            runningAuton.getPillars().setRearPillar(0);
+        }
+        
+        if(driveStick.getXButton())
+        {
+            runningAuton.getPillars().setFrontPillar(-0.2);
+        }
+        else if(driveStick.getYButton())
+        {
+            runningAuton.getPillars().setFrontPillar(0.2);
+        }
+        else
+        {
+            runningAuton.getPillars().setFrontPillar(0);
+        }
+
+
     }
 
-    private void run(boolean auton)
+    private void run()
     {
         if(runningAuton != null && !runningAuton.isFinished())
         {
@@ -143,7 +173,7 @@ public class Robot extends TimedRobot
         }
         else if(runningAuton != null)
         {
-            runningAuton.runTeleop(auton);
+            runningAuton.runTeleop();
         }
     }
 

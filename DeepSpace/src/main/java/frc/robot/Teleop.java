@@ -1,18 +1,27 @@
 package frc.robot;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Watchdog;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.auton.*;
 import frc.commands.AutonCommand;
+import frc.commands.drive.CmdManualDrive;
+import frc.commands.special.CmdMerge;
 import frc.commands.subsystem.cargo.CmdMoveHinge;
+import frc.commands.subsystem.hatch.CmdToggleHatch;
 import frc.commands.subsystem.pillars.*;
+import frc.subsystem.Sucker;
 import frc.subsystem.drivetrain.*;
 import static frc.robot.Constants.*;
-import java.util.ArrayList;
+
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
+import frc.commands.subsystem.hatch.CmdMovePickup;
 
 public class Teleop implements AutonCommand
 {
@@ -30,6 +39,7 @@ public class Teleop implements AutonCommand
     private Timer testTime;
     double distance = 0;
     private boolean isAuton;
+    Sucker sucker;
 
     public Teleop(DriveTrain iDriveTrain, XboxController iDriveStick, XboxController iOperateStick, Auton iAuton)
     {
@@ -41,12 +51,9 @@ public class Teleop implements AutonCommand
         driveStation = DriverStation.getInstance();
         testTime = new Timer();
         testTime.start();
+        sucker = new Sucker(10);
     }
     
-    public void setAuton(boolean iAuton)
-    {
-        isAuton = iAuton;
-    }
     @Override
     public boolean isFinished() 
     {
@@ -61,8 +68,19 @@ public class Teleop implements AutonCommand
         auton.getDriveStick().setRumble(RumbleType.kLeftRumble,0);
         auton.getDriveStick().setRumble(RumbleType.kRightRumble,0);
         auton.getGyro().getYawPitchRoll(ypr);
-        double axis1 = (Math.abs(driveStick.getRawAxis(1)) > 0.1) ? 0.8 * driveStick.getRawAxis(1) : 0;
-        double axis4 = (Math.abs(driveStick.getRawAxis(4)) > 0.1) ? 0.8 * driveStick.getRawAxis(4) : 0;
+        double axis1 = (Math.abs(driveStick.getRawAxis(1)) > 0.1) ? 0.95 * driveStick.getRawAxis(1) : 0;
+        double axis4 = (Math.abs(driveStick.getRawAxis(4)) > 0.1) ? 0.95 * driveStick.getRawAxis(4) : 0;
+
+        SmartDashboard.putNumber("Suck Current", sucker.getCurrent());
+
+        if(operateStick.getStickButton(Hand.kRight))
+        {
+            sucker.set(0.65);
+        }
+        else
+        {
+            sucker.set(0);
+        }
 
         if(delayTimer.get() > 0.25 && auton.getLimelight().doesTargetExist() && limelightAngle == 0)
         {
@@ -71,80 +89,97 @@ public class Teleop implements AutonCommand
 
         if(driveStick.getBumper(Hand.kLeft))
         {
-            auton.getLimelight().setCamMode(0);
-            auton.getLimelight().setLEDMode(0);
+            PlacePanelAuton.addCommands(auton);
+            endTeleop();
+        }
+        else if(false && driveStick.getBumper(Hand.kRight) || (auton.getHatchManipulator().getSensor() && operateStick.getStickButton(Hand.kRight)))
+        {
+            PickupPanelAuton.addCommands(auton);
+            endTeleop();
+        }
 
-            if(limelightAngle != 0)
-            {
-                if(Math.abs(ypr[0] - limelightAngle) < 2)
-                {
-                    driveTrain.arcadeDrive(0,0);
-                }
-                else if(ypr[0] > limelightAngle)
-                {
-                    driveTrain.arcadeDrive(0, 0.4);
-                }
-                else if(ypr[0] < limelightAngle)
-                {
-                    driveTrain.arcadeDrive(0, -0.4);
-                }
-                else
-                {
-                    driveTrain.arcadeDrive(0,0);
-                }
-            }
-            else
-            {
-                driveTrain.arcadeDrive(0, 0);
-            }
+        if(operateStick.getStickButton(Hand.kLeft))
+        {
+            ResetElevatorAuton.addCommands(auton);
+            endTeleop();
+        }
+
+        // if(driveStick.getBumper(Hand.kLeft))
+        // {
+        //     auton.getLimelight().setCamMode(0);
+        //     auton.getLimelight().setLEDMode(0);
+
+        //     if(limelightAngle != 0)
+        //     {
+        //         if(Math.abs(ypr[0] - limelightAngle) < 2)
+        //         {
+        //             driveTrain.arcadeDrive(0,0);
+        //         }
+        //         else if(ypr[0] > limelightAngle)
+        //         {
+        //             driveTrain.arcadeDrive(0, 0.4);
+        //         }
+        //         else if(ypr[0] < limelightAngle)
+        //         {
+        //             driveTrain.arcadeDrive(0, -0.4);
+        //         }
+        //         else
+        //         {
+        //             driveTrain.arcadeDrive(0,0);
+        //         }
+        //     }
+        //     else
+        //     {
+        //         driveTrain.arcadeDrive(0, 0);
+        //     }
             
-        }
-        else if(driveStick.getBumper(Hand.kRight))
-        {
-            if(auton.getSonar().getInches() >= 2)
-            {
-                driveTrain.arcadeDrive(0.7, 0);
-            }
-            else
-            {
-                driveTrain.arcadeDrive(0, 0);
-            }
-        }
-        else if(driveStick.getBumper(Hand.kRight) && driveStick.getBumper(Hand.kLeft))
-        {
-            double drv;
-            double turn;
-            auton.getLimelight().setCamMode(0);
-            auton.getLimelight().setLEDMode(0);
+        // }
+        // else if(driveStick.getBumper(Hand.kRight))
+        // {
+        //     if(auton.getSonar().getInches() >= 2)
+        //     {
+        //         driveTrain.arcadeDrive(0.7, 0);
+        //     }
+        //     else
+        //     {
+        //         driveTrain.arcadeDrive(0, 0);
+        //     }
+        // }
+        // else if(driveStick.getBumper(Hand.kRight) && driveStick.getBumper(Hand.kLeft))
+        // {
+        //     double drv;
+        //     double turn;
+        //     auton.getLimelight().setCamMode(0);
+        //     auton.getLimelight().setLEDMode(0);
 
-            if(Math.abs(ypr[0] - limelightAngle) < 2)
-            {
-                turn = 0;
-            }
-            else if(ypr[0] < limelightAngle)
-            {
-                turn = .35;
-            }
-            else if(ypr[0] > limelightAngle)
-            {
-                turn = -.35;
-            }
-            else
-            {
-                turn = 0;
-            }
+        //     if(Math.abs(ypr[0] - limelightAngle) < 2)
+        //     {
+        //         turn = 0;
+        //     }
+        //     else if(ypr[0] < limelightAngle)
+        //     {
+        //         turn = .35;
+        //     }
+        //     else if(ypr[0] > limelightAngle)
+        //     {
+        //         turn = -.35;
+        //     }
+        //     else
+        //     {
+        //         turn = 0;
+        //     }
 
-            if(auton.getSonar().getInches() >= 2)
-            {
-                drv = 0.7;
-            }
-            else
-            {
-                drv = 0;
-            }
+        //     if(auton.getSonar().getInches() >= 2)
+        //     {
+        //         drv = 0.7;
+        //     }
+        //     else
+        //     {
+        //         drv = 0;
+        //     }
 
-            driveTrain.arcadeDrive(-drv, turn);
-        }
+        //     driveTrain.arcadeDrive(-drv, turn);
+        // }
         // else if(driveStick.getStickButton(Hand.kRight)){
         //     if(testTime.get() >= 1 && testTime.get() <= 2){
         //         distance = (driveTrain.getLeftPosition() + driveTrain.getRightPosition()) / 2;
@@ -167,6 +202,11 @@ public class Teleop implements AutonCommand
             limelightAngle = 0;
             auton.getLimelight().setCamMode(1);
             auton.getLimelight().setLEDMode(1);
+            // if(operateStick.getStickButton(Hand.kRight))
+            // {
+            //     axis1 *= 0.5;
+            //     axis4 *= 0.5;
+            // }
             driveTrain.arcadeDrive(-axis1, axis4);
             auton.getGyro().setYaw(0, kTimeoutMs);
             delayTimer.reset();
@@ -174,16 +214,26 @@ public class Teleop implements AutonCommand
 
         if(auton.getSize() == 0 && running)
         {
-            auton.getPillars().runManualPillars(driveStick);
-            if(driveStick.getStartButton() && driveStick.getBackButton())
+            
+            if(driveStick.getPOVCount() != 0 && driveStick.getStartButton())
             {
-                PillarsAuton.addCommands(auton);
-                endTeleop();
+                switch(driveStick.getPOV())
+                {
+                    case kDpadUp:
+                        PillarsAuton.addCommands(auton, kThirdLevel);
+                        endTeleop();
+                        break;
+                    case kDpadDown:
+                        PillarsAuton.addCommands(auton, kSecondLevel);
+                        endTeleop();
+                        break;
+                    default:
+                        break;
+                }
             }
-
-            if(operateStick.getStartButton())
+            else
             {
-                auton.getElevator().setHeight(0);
+                auton.getPillars().runManualPillars(driveStick);
             }
 
             //When the operator presses A and a directional button, place a cargo.
@@ -211,16 +261,16 @@ public class Teleop implements AutonCommand
                 switch(operateStick.getPOV())
                 {
                     case kDpadUp:
-                        HatchPlaceAuton2.addCommands(auton, kTopRocketHatch, kTopRocketHatchAngle);
+                        HatchPlaceAuton2.addCommands(auton, kTopRocketHatch);
                         break;
                     case kDpadRight:
-                        HatchPlaceAuton2.addCommands(auton, kMiddleRocketHatch, kMiddleRocketHatchAngle);
+                        HatchPlaceAuton2.addCommands(auton, kMiddleRocketHatch);
                         break;
                     case kDpadDown:
-                        HatchPlaceAuton2.addCommands(auton, kBottomRocketHatch, kBottomRocketHatchAngle);
+                        HatchPlaceAuton2.addCommands(auton, kBottomRocketHatch);
                         break;
                     case kDpadLeft:
-                        HatchPlaceAuton2.addCommands(auton, kHatchFeeder, kHatchFeederAngle);
+                        HatchPlaceAuton2.addCommands(auton, kHatchFeeder);
                         break;
                 }
                 endTeleop();
@@ -292,15 +342,22 @@ public class Teleop implements AutonCommand
                 auton.getCargoManipulator().stop();
             }
 
-            if(operateStick.getStickButton(Hand.kRight))
+            if(operateStick.getTriggerAxis(Hand.kRight) >= 0.6)
             {
-                ResetElevatorAuton.addCommands(auton);
+                ToggleHatch.addCommands(auton);
                 endTeleop();
             }
-            else if(operateStick.getStickButton(Hand.kLeft))
+            else if(operateStick.getStartButton())
             {
-                auton.addCommand(new CmdMoveHinge(85, 0.4, auton.getCargoManipulator()));
-                endTeleop();
+                auton.getHatchManipulator().runArticulator(-1);
+            }
+            else if(operateStick.getBackButton())
+            {
+                auton.getHatchManipulator().runArticulator(1);
+            }
+            else
+            {
+                auton.getHatchManipulator().runArticulator(0);
             }
 
         }
@@ -324,11 +381,24 @@ public class Teleop implements AutonCommand
         driveStick.getBButtonPressed();
         driveStick.getXButtonPressed();
         driveStick.getYButtonPressed();
+        driveStick.getStartButtonPressed();
+        driveStick.getBackButtonPressed();
+        driveStick.getBumperPressed(Hand.kLeft);
+        driveStick.getBumperPressed(Hand.kRight);
+        driveStick.getStickButtonPressed(Hand.kLeft);
+        driveStick.getStickButtonPressed(Hand.kRight);
+
         operateStick.getAButtonPressed();
         operateStick.getBButtonPressed();
         operateStick.getXButtonPressed();
         operateStick.getYButtonPressed();
         operateStick.getStartButtonPressed();
+        operateStick.getBackButtonPressed();
+        operateStick.getBumperPressed(Hand.kLeft);
+        operateStick.getBumperPressed(Hand.kRight);
+        operateStick.getStickButtonPressed(Hand.kLeft);
+        operateStick.getStickButtonPressed(Hand.kRight);
+
     }
     
     public boolean getRunning()

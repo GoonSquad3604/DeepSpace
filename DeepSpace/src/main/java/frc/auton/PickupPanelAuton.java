@@ -1,34 +1,24 @@
 package frc.auton;
 import static frc.robot.Constants.*;
 
-import frc.commands.special.CmdMerge;
+import com.revrobotics.CANSparkMax.IdleMode;
+
 import frc.commands.subsystem.CmdMoveElevator;
-import frc.commands.subsystem.cargo.CmdMoveHinge;
-import frc.commands.drive.CmdManualDrive;
+import frc.commands.drive.CmdDriveTime;
+
 public class PickupPanelAuton
 {
     public static void addCommands(Auton auton)
     {
-        //Sets Hinge to 0
-        auton.addCommand(new CmdMerge(
-            new CmdMoveHinge(0,1,auton.getCargoManipulator()),
-            new CmdManualDrive(auton.getDrive(),auton.getDriveStick(),auton.getOperateStick(),auton,false)
-        ));
-        //Deploy Hook
-        auton.addCommand(new CmdMerge(
-            null /*TODO replace with deploy hook*/,
-            new CmdManualDrive(auton.getDrive(),auton.getDriveStick(),auton.getOperateStick(),auton,false)
-        ));
-        //Slightly Moves Elevator
-        double destination = auton.getElevator().getHeight() + kHatchMovementPickUp;
-        auton.addCommand(new CmdMerge(
-            new CmdMoveElevator(destination,auton.getElevator()),
-            new CmdManualDrive(auton.getDrive(),auton.getDriveStick(),auton.getOperateStick(),auton,false)
-        ));
-        //Retract Hook
-        auton.addCommand(new CmdMerge(
-            null /*TODO replace with retract hook*/,
-            new CmdManualDrive(auton.getDrive(),auton.getDriveStick(),auton.getOperateStick(),auton,false)
-        ));
+        //auton.addCommand(new CmdDriveTime(0.5, 0.5, auton.getDrive()));
+        // auton.addCommand(new CmdMerge(            
+        //     new CmdManualDrive(auton.getDrive(),auton.getDriveStick(),auton.getOperateStick(),auton),
+        //     new CmdMovePickup(auton.getHatchManipulator())
+                                    
+        // ));
+        auton.getDrive().setMotorMode(IdleMode.kBrake);
+        auton.addCommand(new CmdMoveElevator(kHatchFeederUp, auton.getElevator()));
+        auton.addCommand(new CmdDriveTime(0.5, -0.5, auton.getDrive()));
+        auton.getDrive().setMotorMode(IdleMode.kCoast);
     } 
 }

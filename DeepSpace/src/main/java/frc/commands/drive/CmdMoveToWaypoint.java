@@ -6,6 +6,9 @@ import com.ctre.phoenix.sensors.PigeonIMU;
 import edu.wpi.first.wpilibj.Notifier;
 import frc.commands.AutonCommand;
 import static frc.robot.Constants.*;
+
+import java.io.IOException;
+
 import frc.subsystem.drivetrain.*;
 import jaci.pathfinder.*;
 import jaci.pathfinder.followers.EncoderFollower;
@@ -25,9 +28,9 @@ public class CmdMoveToWaypoint implements AutonCommand
     private boolean ret;
     private PigeonIMU gyro;
 
-    public CmdMoveToWaypoint(DriveTrain iDrive,PigeonIMU iGyro, String pathName)
-    {
+    public CmdMoveToWaypoint(DriveTrain iDrive, PigeonIMU iGyro, String pathName) {
         drive = iDrive;
+<<<<<<< HEAD
         try
         {
             leftTrajectory = PathfinderFRC.getTrajectory(pathName + ".left");
@@ -37,6 +40,15 @@ public class CmdMoveToWaypoint implements AutonCommand
         {
 
         }
+=======
+        try {
+            leftTrajectory = PathfinderFRC.getTrajectory(pathName + ".left");
+            rightTrajectory = PathfinderFRC.getTrajectory(pathName + ".right");
+        } catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+>>>>>>> 328ecc54bb7190712268cbf700302389904944ae
         leftFollow = new EncoderFollower(leftTrajectory);
         leftFollow.configureEncoder(0, 1012, kWheelDiameter);
         leftFollow.configurePIDVA(kDriveP, kDriveI, kDriveD, kVelocityRatio, kAccelerationRatio);

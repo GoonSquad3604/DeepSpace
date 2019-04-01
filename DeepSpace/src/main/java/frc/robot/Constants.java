@@ -7,7 +7,7 @@ public class Constants
     /*General*/
     /*********/
 
-    public static boolean isABot = false;
+    public static boolean isABot = true;
     public static int kTimeoutMs = 10;
 
     /***********/
@@ -27,7 +27,6 @@ public class Constants
     public static final int kHingeLeftID = 7;
     
     public static final int kHatchID = 9;
-    public static final int kHatchForwardBackID = 0;
 
     public static final int kPillarsFront = 12;
     public static final int kPillarsBack = 13;
@@ -46,15 +45,11 @@ public class Constants
     public static final int kElevatorCargoAcc = 2400;
 
     //Rocket hatch encoder positions
-    public static final double kTopRocketHatch = 23500;
-    public static final double kMiddleRocketHatch = 11500;
-    public static final double kBottomRocketHatch = 0;
-    public static final double kHatchFeeder = 4000;
-
-    public static final double kTopRocketHatchAngle = 60;
-    public static final double kMiddleRocketHatchAngle = 60;
-    public static final double kBottomRocketHatchAngle = 70;
-    public static final double kHatchFeederAngle = 90;
+    public static final double kTopRocketHatch = 27500;
+    public static final double kMiddleRocketHatch = 18500;
+    public static final double kBottomRocketHatch = 4500;
+    public static final double kHatchFeeder = 4500;
+    public static final double kHatchFeederUp = 6500;
 
     //Rocket cargo encoder positions
     public static final double kTopRocketCargo = 26500;
@@ -102,7 +97,7 @@ public class Constants
     /*********/
     
     public static final double kThirdLevel = 153;
-    public static final double kSecondLevel = 60;
+    public static final double kSecondLevel = 53;
     //public static final double kInchPerRotationPillar = 0.132040647405376;
     
     //D-Pad
@@ -118,8 +113,8 @@ public class Constants
     /*******/
 
     public static final double kHingeError = 4; //(Degrees)
-    public static int sensorAt0 = 810;
-    public static int sensorAt90 = 612;
+    public static int sensorAt0 = 524;
+    public static int sensorAt90 = 739;
 
     //B Bot
     // public static int sensorAt0 = 848;
@@ -128,8 +123,8 @@ public class Constants
     /*******/
     /*Hatch*/
     /*******/
-    public static final int kHatchMovementPlace = 2000;
+    public static final int kHatchMovementPlace = 1500;
     public static final int kHatchMovementPickUp = 2000;
-    public static final int kArticulatorIn = 0;
-    public static final int kArticulatorOut = 0;
+    public static final int kArticulatorIn = 40;
+    public static final int kArticulatorOut = 390;
 }
