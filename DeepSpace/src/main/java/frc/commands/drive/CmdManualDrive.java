@@ -13,7 +13,7 @@ public class CmdManualDrive implements AutonCommand
     //other subsystems are doing other things.
     private DriveTrain drive;
     private XboxController driveStick;
-    private XboxController operateStick;
+    protected XboxController operateStick;
     private Auton auton;
     private double[] ypr = new double[3];
     private double limelightAngle;

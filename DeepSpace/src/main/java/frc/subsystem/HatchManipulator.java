@@ -51,7 +51,7 @@ public class HatchManipulator
      */
     public int getLocation()
     {
-        return -articulator.getSelectedSensorPosition();
+        return articulator.getSelectedSensorPosition();
     }
     
     /**

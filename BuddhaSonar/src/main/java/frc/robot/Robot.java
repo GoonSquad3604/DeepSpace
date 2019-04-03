@@ -9,11 +9,11 @@ package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.Rev2mDistanceSensor;
-import com.revrobotics.Rev2mDistanceSensor.Port;
-import com.revrobotics.Rev2mDistanceSensor.Unit;
 
+import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
 
@@ -34,7 +34,8 @@ public class Robot extends TimedRobot
   private DifferentialDrive drive;
   private XboxController stick;
   private final double kDistanceToStopFar = 123.0;
-  private Rev2mDistanceSensor sensor;
+  private LIDAR lidar;
+  private Rev2mDistanceSensor distanceSensor;
   @Override
   public void robotInit() 
   {
@@ -47,13 +48,18 @@ public class Robot extends TimedRobot
     rightRear.follow(rightFront);
     drive = new DifferentialDrive(leftFront,rightFront);
     stick = new XboxController(0);
-    sensor = new Rev2mDistanceSensor(Port.kOnboard);
+    lidar = new LIDAR();
+    //distanceSensor = new Rev2mDistanceSensor(Rev2mDistanceSensor.Port.kMXP);
     //sensor.setAutomaticMode(true);
   }
 
   @Override
   public void robotPeriodic()
   {
+    stick.setRumble(RumbleType.kLeftRumble, 1);
+    stick.setRumble(RumbleType.kRightRumble, 1);
+    //var distance = lidar.getDistance();
+    //System.out.println(distanceSensor.getRange());
     //System.out.println(sensor.getRange(Unit.kInches));
   }
   @Override
