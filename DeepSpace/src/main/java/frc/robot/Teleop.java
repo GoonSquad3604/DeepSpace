@@ -1,22 +1,18 @@
 package frc.robot;
 
-import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.Watchdog;
-import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.GenericHID.Hand;
-import edu.wpi.first.wpilibj.GenericHID.RumbleType;
+import edu.wpi.first.wpilibj.*;
+import edu.wpi.first.wpilibj.GenericHID.*;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.auton.*;
+import frc.auton.cargo.*;
+import frc.auton.elevator.*;
+import frc.auton.hatch.*;
+import frc.auton.pillars.*;
 import frc.commands.AutonCommand;
-import frc.commands.drive.CmdManualDrive;
-import frc.commands.special.CmdMerge;
-import frc.commands.subsystem.cargo.CmdMoveHinge;
-import frc.commands.subsystem.hatch.CmdToggleHatch;
-import frc.commands.subsystem.pillars.*;
+import frc.subsystem.*;
 import frc.subsystem.drivetrain.*;
+import frc.vision.*;
 import static frc.robot.Constants.*;
-import frc.commands.subsystem.hatch.CmdMovePickup;
 
 public class Teleop implements AutonCommand
 {
@@ -33,9 +29,11 @@ public class Teleop implements AutonCommand
     private DriverStation driveStation;
     private Timer testTime;
     double distance = 0;
-    private boolean isAuton;
+    private boolean isSucking = false;
+    Sucker sucker;
+    private Limelight limelight;
 
-    public Teleop(DriveTrain iDriveTrain, XboxController iDriveStick, XboxController iOperateStick, Auton iAuton)
+    public Teleop(DriveTrain iDriveTrain, XboxController iDriveStick, XboxController iOperateStick, Auton iAuton, Limelight iLimelight, Sucker iSucker)
     {
         driveStick = iDriveStick;
         operateStick = iOperateStick;
@@ -45,6 +43,10 @@ public class Teleop implements AutonCommand
         driveStation = DriverStation.getInstance();
         testTime = new Timer();
         testTime.start();
+        sucker = iSucker;
+
+        limelight = iLimelight;
+
     }
     
     @Override
@@ -64,6 +66,21 @@ public class Teleop implements AutonCommand
         double axis1 = (Math.abs(driveStick.getRawAxis(1)) > 0.1) ? 0.95 * driveStick.getRawAxis(1) : 0;
         double axis4 = (Math.abs(driveStick.getRawAxis(4)) > 0.1) ? 0.95 * driveStick.getRawAxis(4) : 0;
 
+        SmartDashboard.putNumber("Suck Current", sucker.getCurrent());
+
+        //System.out.print(determineLinedUp() ? "LINED UP\n" : "") ;
+
+        if(operateStick.getStickButtonPressed(Hand.kRight))
+        {
+            if(isSucking)
+            {
+                sucker.set(0);
+                PlacePanelAuton.addCommands(auton);
+            }
+            isSucking = !isSucking;
+        }
+        sucker.set(isSucking ? 0.65 : 0);
+
         if(delayTimer.get() > 0.25 && auton.getLimelight().doesTargetExist() && limelightAngle == 0)
         {
             limelightAngle = -auton.getLimelight().getTargetX();
@@ -74,7 +91,7 @@ public class Teleop implements AutonCommand
             PlacePanelAuton.addCommands(auton);
             endTeleop();
         }
-        else if(driveStick.getBumper(Hand.kRight) || (auton.getHatchManipulator().getSensor() && operateStick.getStickButton(Hand.kRight)))
+        else if(false && driveStick.getBumper(Hand.kRight) || (auton.getHatchManipulator().getSensor() && operateStick.getStickButton(Hand.kRight)))
         {
             PickupPanelAuton.addCommands(auton);
             endTeleop();
@@ -399,5 +416,10 @@ public class Teleop implements AutonCommand
     {   
         this.running = false;
         this.end();
+    }
+
+    private boolean determineLinedUp()
+    {
+        return (limelight.getTargetX() > -2 && limelight.getTargetX() < 2);
     }
 }

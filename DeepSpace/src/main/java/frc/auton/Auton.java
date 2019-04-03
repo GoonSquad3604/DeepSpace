@@ -33,6 +33,7 @@ public class Auton
     private Elevator elevator;
     private Pillars pillars;
     private Sonar sonar;
+    private Sucker sucker;
     
     public DriveTrain getDrive()
     {
@@ -84,6 +85,11 @@ public class Auton
         return sonar;
     }
 
+    public Sucker getSucker()
+    {
+        return sucker;
+    }
+
     public Auton(Object... subsystems)
     {
         autonQueue = new LinkedList<AutonCommand>();
@@ -92,7 +98,7 @@ public class Auton
         {
             loadSubsystem(subsystems[i]);
         }
-        defaultCommand = new Teleop(drive, driveStick, operateStick, this);
+        defaultCommand = new Teleop(drive, driveStick, operateStick, this, limelight,sucker);
         this.initted = false;
     }
 
@@ -147,6 +153,10 @@ public class Auton
             {
                 sonar = (Sonar)subsystem;
             }
+            else if(subsystem instanceof Sucker)
+            {
+                sucker = (Sucker)subsystem;
+            }
             else if(subsystem != null)
             {
                 throw new UnsupportedSubsystemException(subsystem);  //HELP! I DON'T KNOW WHAT SUBSYSTEM THIS IS!!!
@@ -193,6 +203,7 @@ public class Auton
                 }
                 aCommand.end();
                 autonQueue.clear();
+                sucker.relayOff();
             }
         }
     }

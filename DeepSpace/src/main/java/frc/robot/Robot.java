@@ -22,10 +22,6 @@ import frc.subsystem.*;
 import frc.subsystem.drivetrain.*;
 import frc.vision.Limelight;
 import frc.vision.Sonar;
-import frc.auton.sandstorm.lvl1.left.*;
-import frc.auton.sandstorm.lvl1.right.*;
-import frc.auton.sandstorm.lvl2.left.*;
-import frc.auton.sandstorm.lvl2.right.*;
 
 import static frc.robot.Constants.*;
 
@@ -44,6 +40,7 @@ public class Robot extends TimedRobot
     private HatchManipulator hatch;
     private Sonar sonar;
     private DriverStation driverStation;
+    private Sucker sucker;
 
     @Override
     public void robotInit() 
@@ -58,8 +55,9 @@ public class Robot extends TimedRobot
         hatch = new HatchManipulator(kHatchID);
         elevator = new Elevator(kElevatorLeftID, kElevatorRightID);
         pillars = new Pillars(kPillarsFront, kPillarsBack, kPillarWheels);
+        sucker = new Sucker(10);
 
-        runningAuton = new Auton(driveTrain, driveStick, operateStick, pigeon, limelight, elevator, hatch, pillars, sonar, cargo);
+        runningAuton = new Auton(driveTrain, driveStick, operateStick, pigeon, limelight, elevator, hatch, pillars, sonar, cargo, sucker);
         
         driveTrain.setMotorMode(IdleMode.kCoast);
         
