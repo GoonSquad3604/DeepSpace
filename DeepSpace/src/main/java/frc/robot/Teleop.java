@@ -17,6 +17,8 @@ import frc.commands.subsystem.hatch.CmdToggleHatch;
 import frc.commands.subsystem.pillars.*;
 import frc.subsystem.Sucker;
 import frc.subsystem.drivetrain.*;
+import frc.vision.Limelight;
+
 import static frc.robot.Constants.*;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
@@ -38,10 +40,11 @@ public class Teleop implements AutonCommand
     private DriverStation driveStation;
     private Timer testTime;
     double distance = 0;
-    private boolean isAuton;
+    private boolean isSucking = false;
     Sucker sucker;
+    private Limelight limelight;
 
-    public Teleop(DriveTrain iDriveTrain, XboxController iDriveStick, XboxController iOperateStick, Auton iAuton)
+    public Teleop(DriveTrain iDriveTrain, XboxController iDriveStick, XboxController iOperateStick, Auton iAuton, Limelight iLimelight, Sucker iSucker)
     {
         driveStick = iDriveStick;
         operateStick = iOperateStick;
@@ -51,7 +54,10 @@ public class Teleop implements AutonCommand
         driveStation = DriverStation.getInstance();
         testTime = new Timer();
         testTime.start();
-        sucker = new Sucker(10);
+        sucker = iSucker;
+
+        limelight = iLimelight;
+
     }
     
     @Override
@@ -73,14 +79,18 @@ public class Teleop implements AutonCommand
 
         SmartDashboard.putNumber("Suck Current", sucker.getCurrent());
 
-        if(operateStick.getStickButton(Hand.kRight))
+        //System.out.print(determineLinedUp() ? "LINED UP\n" : "") ;
+
+        if(operateStick.getStickButtonPressed(Hand.kRight))
         {
-            sucker.set(0.65);
+            if(isSucking)
+            {
+                sucker.set(0);
+                PlacePanelAuton.addCommands(auton);
+            }
+            isSucking = !isSucking;
         }
-        else
-        {
-            sucker.set(0);
-        }
+        sucker.set(isSucking ? 0.65 : 0);
 
         if(delayTimer.get() > 0.25 && auton.getLimelight().doesTargetExist() && limelightAngle == 0)
         {
@@ -417,5 +427,10 @@ public class Teleop implements AutonCommand
     {   
         this.running = false;
         this.end();
+    }
+
+    private boolean determineLinedUp()
+    {
+        return (limelight.getTargetX() > -2 && limelight.getTargetX() < 2);
     }
 }

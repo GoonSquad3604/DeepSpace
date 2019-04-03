@@ -44,6 +44,7 @@ public class Robot extends TimedRobot
     private HatchManipulator hatch;
     private Sonar sonar;
     private DriverStation driverStation;
+    private Sucker sucker;
 
     @Override
     public void robotInit() 
@@ -58,8 +59,9 @@ public class Robot extends TimedRobot
         hatch = new HatchManipulator(kHatchID);
         elevator = new Elevator(kElevatorLeftID, kElevatorRightID);
         pillars = new Pillars(kPillarsFront, kPillarsBack, kPillarWheels);
+        sucker = new Sucker(10);
 
-        runningAuton = new Auton(driveTrain, driveStick, operateStick, pigeon, limelight, elevator, hatch, pillars, sonar, cargo);
+        runningAuton = new Auton(driveTrain, driveStick, operateStick, pigeon, limelight, elevator, hatch, pillars, sonar, cargo, sucker);
         
         driveTrain.setMotorMode(IdleMode.kCoast);
         
