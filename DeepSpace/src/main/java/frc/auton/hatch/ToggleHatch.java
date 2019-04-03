@@ -1,8 +1,10 @@
-package frc.auton;
-import static frc.robot.Constants.*;
+package frc.auton.hatch;
+
 import frc.commands.drive.CmdManualDrive;
 import frc.commands.special.CmdMerge;
 import frc.commands.subsystem.hatch.CmdToggleHatch;
+import frc.auton.Auton;
+import static frc.robot.Constants.*;
 
 public class ToggleHatch
 {

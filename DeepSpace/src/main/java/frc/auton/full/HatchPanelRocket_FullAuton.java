@@ -1,10 +1,13 @@
 package frc.auton.full;
 
 import frc.auton.*;
+import frc.auton.hatch.*;
 import frc.commands.subsystem.*;
 import frc.commands.drive.*;
 import frc.commands.special.*;
+
 import static frc.robot.Constants.*;
+
 public class HatchPanelRocket_FullAuton
 {
     public static void addCommands(Auton auton)

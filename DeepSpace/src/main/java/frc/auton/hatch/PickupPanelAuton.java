@@ -1,10 +1,10 @@
-package frc.auton;
-import static frc.robot.Constants.*;
+package frc.auton.hatch;
 
 import com.revrobotics.CANSparkMax.IdleMode;
-
 import frc.commands.subsystem.CmdMoveElevator;
 import frc.commands.drive.CmdDriveTime;
+import frc.auton.Auton;
+import static frc.robot.Constants.*;
 
 public class PickupPanelAuton
 {

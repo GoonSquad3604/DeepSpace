@@ -1,5 +1,6 @@
-package frc.auton;
+package frc.auton.elevator;
 
+import frc.auton.Auton;
 import frc.commands.drive.CmdManualDrive;
 import frc.commands.special.CmdMerge;
 import frc.commands.subsystem.CmdResetElevator;

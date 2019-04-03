@@ -1,13 +1,12 @@
-package frc.auton;
-
-import static frc.robot.Constants.*;
+package frc.auton.pillars;
 
 import com.revrobotics.CANSparkMax.IdleMode;
-
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import frc.commands.subsystem.pillars.*;
 import frc.commands.drive.*;
 import frc.commands.special.*;
+import frc.auton.Auton;
+import static frc.robot.Constants.*;
 
 public class PillarsAuton
 {

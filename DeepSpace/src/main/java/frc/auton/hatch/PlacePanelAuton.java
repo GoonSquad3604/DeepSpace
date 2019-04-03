@@ -1,5 +1,5 @@
-package frc.auton;
-import static frc.robot.Constants.*;
+package frc.auton.hatch;
+
 
 import edu.wpi.first.wpilibj.Relay.Value;
 import frc.commands.special.CmdMerge;
@@ -7,6 +7,8 @@ import frc.commands.special.CmdWait;
 import frc.commands.subsystem.CmdMoveElevator;
 import frc.commands.subsystem.hatch.CmdToggleRelay;
 import frc.commands.drive.*;
+import frc.auton.Auton;
+import static frc.robot.Constants.*;
 
 public class PlacePanelAuton
 {

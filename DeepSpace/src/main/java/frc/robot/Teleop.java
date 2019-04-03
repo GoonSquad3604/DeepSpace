@@ -1,29 +1,18 @@
 package frc.robot;
 
-import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.Watchdog;
-import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.GenericHID.Hand;
-import edu.wpi.first.wpilibj.GenericHID.RumbleType;
+import edu.wpi.first.wpilibj.*;
+import edu.wpi.first.wpilibj.GenericHID.*;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.auton.*;
+import frc.auton.cargo.*;
+import frc.auton.elevator.*;
+import frc.auton.hatch.*;
+import frc.auton.pillars.*;
 import frc.commands.AutonCommand;
-import frc.commands.drive.CmdManualDrive;
-import frc.commands.special.CmdMerge;
-import frc.commands.subsystem.cargo.CmdMoveHinge;
-import frc.commands.subsystem.hatch.CmdToggleHatch;
-import frc.commands.subsystem.pillars.*;
-import frc.subsystem.Sucker;
+import frc.subsystem.*;
 import frc.subsystem.drivetrain.*;
-import frc.vision.Limelight;
-
+import frc.vision.*;
 import static frc.robot.Constants.*;
-
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-
-import frc.commands.subsystem.hatch.CmdMovePickup;
 
 public class Teleop implements AutonCommand
 {

@@ -1,8 +1,9 @@
-package frc.auton;
+package frc.auton.hatch;
 
 import frc.commands.drive.*;
 import frc.commands.special.CmdDistance;
 import frc.commands.special.CmdMergeOnStatus;
+import frc.auton.Auton;
 
 public class HatchPlaceAuton
 {
