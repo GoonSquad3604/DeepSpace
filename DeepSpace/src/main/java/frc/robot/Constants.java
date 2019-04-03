@@ -125,6 +125,6 @@ public class Constants
     /*******/
     public static final int kHatchMovementPlace = 1500;
     public static final int kHatchMovementPickUp = 2000;
-    public static final int kArticulatorIn = 40;
-    public static final int kArticulatorOut = 390;
+    public static final int kArticulatorIn = 400;
+    public static final int kArticulatorOut = 2800;
 }
