@@ -35,7 +35,9 @@ public class Robot extends TimedRobot
   private XboxController stick;
   private final double kDistanceToStopFar = 123.0;
   private LIDAR lidar;
+  private LidarSerial realLidar; 
   private Rev2mDistanceSensor distanceSensor;
+  private int distance;
   @Override
   public void robotInit() 
   {
@@ -49,6 +51,8 @@ public class Robot extends TimedRobot
     drive = new DifferentialDrive(leftFront,rightFront);
     stick = new XboxController(0);
     lidar = new LIDAR();
+    realLidar = new LidarSerial(); 
+    
     //distanceSensor = new Rev2mDistanceSensor(Rev2mDistanceSensor.Port.kMXP);
     //sensor.setAutomaticMode(true);
   }
@@ -85,6 +89,8 @@ public class Robot extends TimedRobot
     {
       drive.arcadeDrive(stick.getRawAxis(1)*0.75,-stick.getRawAxis(4)*0.75);
     }
+    distance = realLidar.getCentimeters();
+    System.out.println(distance);
   }
 
   @Override
