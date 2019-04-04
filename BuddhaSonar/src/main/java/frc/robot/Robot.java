@@ -8,7 +8,6 @@
 package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import com.revrobotics.Rev2mDistanceSensor;
 
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -36,7 +35,6 @@ public class Robot extends TimedRobot
   private final double kDistanceToStopFar = 123.0;
   private LIDAR lidar;
   private LidarSerial realLidar; 
-  private Rev2mDistanceSensor distanceSensor;
   private int distance;
   @Override
   public void robotInit() 
