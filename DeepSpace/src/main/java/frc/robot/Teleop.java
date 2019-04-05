@@ -66,149 +66,24 @@ public class Teleop implements AutonCommand
         double axis1 = (Math.abs(driveStick.getRawAxis(1)) > 0.1) ? 0.95 * driveStick.getRawAxis(1) : 0;
         double axis4 = (Math.abs(driveStick.getRawAxis(4)) > 0.1) ? 0.95 * driveStick.getRawAxis(4) : 0;
 
-        SmartDashboard.putNumber("Suck Current", sucker.getCurrent());
+        
 
         //System.out.print(determineLinedUp() ? "LINED UP\n" : "") ;
 
         if(operateStick.getStickButtonPressed(Hand.kRight))
         {
-            if(isSucking)
-            {
-                sucker.set(0);
-                PlacePanelAuton.addCommands(auton);
-            }
-            isSucking = !isSucking;
+            PanelAuton.addCommands(auton);
         }
-        sucker.set(isSucking ? 0.65 : 0);
 
         if(delayTimer.get() > 0.25 && auton.getLimelight().doesTargetExist() && limelightAngle == 0)
         {
             limelightAngle = -auton.getLimelight().getTargetX();
         }
 
-        if(driveStick.getBumper(Hand.kLeft))
-        {
-            PlacePanelAuton.addCommands(auton);
-            endTeleop();
-        }
-        else if(false && driveStick.getBumper(Hand.kRight) || (auton.getHatchManipulator().getSensor() && operateStick.getStickButton(Hand.kRight)))
-        {
-            PickupPanelAuton.addCommands(auton);
-            endTeleop();
-        }
-
         if(operateStick.getStickButton(Hand.kLeft))
         {
             ResetElevatorAuton.addCommands(auton);
             endTeleop();
-        }
-
-        // if(driveStick.getBumper(Hand.kLeft))
-        // {
-        //     auton.getLimelight().setCamMode(0);
-        //     auton.getLimelight().setLEDMode(0);
-
-        //     if(limelightAngle != 0)
-        //     {
-        //         if(Math.abs(ypr[0] - limelightAngle) < 2)
-        //         {
-        //             driveTrain.arcadeDrive(0,0);
-        //         }
-        //         else if(ypr[0] > limelightAngle)
-        //         {
-        //             driveTrain.arcadeDrive(0, 0.4);
-        //         }
-        //         else if(ypr[0] < limelightAngle)
-        //         {
-        //             driveTrain.arcadeDrive(0, -0.4);
-        //         }
-        //         else
-        //         {
-        //             driveTrain.arcadeDrive(0,0);
-        //         }
-        //     }
-        //     else
-        //     {
-        //         driveTrain.arcadeDrive(0, 0);
-        //     }
-            
-        // }
-        // else if(driveStick.getBumper(Hand.kRight))
-        // {
-        //     if(auton.getSonar().getInches() >= 2)
-        //     {
-        //         driveTrain.arcadeDrive(0.7, 0);
-        //     }
-        //     else
-        //     {
-        //         driveTrain.arcadeDrive(0, 0);
-        //     }
-        // }
-        // else if(driveStick.getBumper(Hand.kRight) && driveStick.getBumper(Hand.kLeft))
-        // {
-        //     double drv;
-        //     double turn;
-        //     auton.getLimelight().setCamMode(0);
-        //     auton.getLimelight().setLEDMode(0);
-
-        //     if(Math.abs(ypr[0] - limelightAngle) < 2)
-        //     {
-        //         turn = 0;
-        //     }
-        //     else if(ypr[0] < limelightAngle)
-        //     {
-        //         turn = .35;
-        //     }
-        //     else if(ypr[0] > limelightAngle)
-        //     {
-        //         turn = -.35;
-        //     }
-        //     else
-        //     {
-        //         turn = 0;
-        //     }
-
-        //     if(auton.getSonar().getInches() >= 2)
-        //     {
-        //         drv = 0.7;
-        //     }
-        //     else
-        //     {
-        //         drv = 0;
-        //     }
-
-        //     driveTrain.arcadeDrive(-drv, turn);
-        // }
-        // else if(driveStick.getStickButton(Hand.kRight)){
-        //     if(testTime.get() >= 1 && testTime.get() <= 2){
-        //         distance = (driveTrain.getLeftPosition() + driveTrain.getRightPosition()) / 2;
-        //         driveTrain.arcadeDrive(1, 0);
-        //     }
-        //     else if(testTime.get() < 1 && testTime.get() > 0){
-        //         driveTrain.setRightPosition(0);
-        //         driveTrain.setLeftPosition(0);
-        //         driveTrain.arcadeDrive(1, 0);
-        //     }
-        //     else{
-        //         driveTrain.arcadeDrive(0, 0);
-        //     }
-        //     System.out.println(distance);
-        // }
-        else 
-        {
-            //auton.getLimelight().setStreamMode(1);
-            testTime.reset();
-            limelightAngle = 0;
-            auton.getLimelight().setCamMode(1);
-            auton.getLimelight().setLEDMode(1);
-            // if(operateStick.getStickButton(Hand.kRight))
-            // {
-            //     axis1 *= 0.5;
-            //     axis4 *= 0.5;
-            // }
-            driveTrain.arcadeDrive(-axis1, axis4);
-            auton.getGyro().setYaw(0, kTimeoutMs);
-            delayTimer.reset();
         }
 
         if(auton.getSize() == 0 && running)
@@ -291,23 +166,9 @@ public class Teleop implements AutonCommand
             }
             else
             {
-               // auton.getPillars().runOldChadCode(driveStick);
                 auton.getElevator().setPower(0);
-
-                /*
-                if(operateStick.getPOV() == kDpadLeft)
-                {
-                    auton.getHatchManipulator().runHatch(-1);
-                }
-                else if(operateStick.getPOV() == kDpadRight)
-                {
-                    auton.getHatchManipulator().runHatch(1);
-                }
-                else if(operateStick.getPOV() == kDpadNone)
-                {
-                    auton.getHatchManipulator().runHatch(0);
-                }*/
             }
+
             if(operateStick.getYButton())
             {
                 if(operateStick.getPOV() == 0)
@@ -360,6 +221,12 @@ public class Teleop implements AutonCommand
             }
 
         }
+
+
+        auton.getLimelight().setCamMode(1);
+        auton.getLimelight().setLEDMode(1);
+        driveTrain.arcadeDrive(-axis1, axis4);
+
     }
 
     @Override

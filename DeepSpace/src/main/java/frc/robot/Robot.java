@@ -76,10 +76,11 @@ public class Robot extends TimedRobot
         SmartDashboard.putNumber("Angle", cargo.getHingeAngle());
         SmartDashboard.putNumber("Front Pillar", pillars.getFrontHeight());
         SmartDashboard.putNumber("Rear Pillar", pillars.getRearHeight());
-        SmartDashboard.putBoolean("Hatch", hatch.getSensor());
+        SmartDashboard.putBoolean("Hatch", hatch.getHatch());
         SmartDashboard.putString("Hatch Distance", "Max: " + kArticulatorOut + " Current: " + hatch.getLocation());
+        SmartDashboard.putNumber("Suck Current", sucker.getCurrent());
         driveTrain.feedWatchdog();
-        System.out.println(hatch.getLocation());
+        //System.out.println(hatch.getLocation());
         // System.out.print("FRONT:" + pillars.getFrontHeight());
         // System.out.println(" || BACK:" + pillars.getRearHeight());
         
