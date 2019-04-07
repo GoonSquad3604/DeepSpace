@@ -2,22 +2,27 @@ package frc.commands.subsystem.hatch;
 
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Relay.Value;
+import frc.auton.Auton;
 import frc.commands.AutonCommand;
 import frc.subsystem.Sucker;
 public class CmdToggleRelay implements AutonCommand
 {
-    Sucker sucker;
-    Value value;
-    public CmdToggleRelay(Sucker iSucker, Relay.Value iValue)
+    private Sucker sucker;
+    private Value value;
+    private Auton auton;
+
+    public CmdToggleRelay(Auton iAuton, Sucker iSucker, Relay.Value iValue)
     {
         sucker = iSucker;
         value = iValue;
+        auton = iAuton;
     }
 
     @Override
     public boolean isFinished() {
         if(value == Value.kForward)
         {
+            auton.getHatchManipulator().setHatch(false);
             sucker.relayOn();
         }
         else

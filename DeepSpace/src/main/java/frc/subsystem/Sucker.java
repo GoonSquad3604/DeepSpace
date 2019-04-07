@@ -43,7 +43,7 @@ public class Sucker
      */
     public double getCurrent()
     {
-        return pdp.getCurrent(sucker.getDeviceID());
+        return sucker.getOutputCurrent();
     }
 
     /** Turns on the release Relay

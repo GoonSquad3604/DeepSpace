@@ -8,7 +8,7 @@ public class HatchManipulator
 {
     private WPI_TalonSRX articulator;
     private ArticulatorState articulatorState;
-    private DigitalInput hatchSensor;
+    private boolean hasHatch = false;
 
     /**
      * sets ID for hatch and inverts it
@@ -19,7 +19,7 @@ public class HatchManipulator
         articulator = new WPI_TalonSRX(hatchID);
         articulator.setInverted(false);
         articulatorState = ArticulatorState.kIn;
-        hatchSensor = new DigitalInput(1);
+        
     } 
 
 
@@ -62,9 +62,14 @@ public class HatchManipulator
         articulatorState = state;
     }
 
-    public boolean getSensor()
+    public void setHatch(boolean hatch)
     {
-        return !hatchSensor.get();
+        hasHatch = hatch;
+    }
+
+    public boolean getHatch()
+    {
+        return hasHatch;
     }
 
 }
