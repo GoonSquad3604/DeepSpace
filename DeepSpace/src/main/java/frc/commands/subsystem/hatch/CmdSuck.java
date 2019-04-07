@@ -25,7 +25,7 @@ public class CmdSuck implements AutonCommand
     @Override
     public boolean isFinished() 
     {
-        return auton.getOperateStick().getStickButtonPressed(Hand.kRight);
+        return auton.getHatchManipulator().getHatch();
     }
 
     @Override
@@ -34,8 +34,6 @@ public class CmdSuck implements AutonCommand
         
         current = auton.getSucker().getCurrent();
         
-        System.out.println(current);
-
         if(current >= kMinHatchCurrent && current <= kMaxHatchCurrent)
         {
             if(time.get() > 0.25)
@@ -67,8 +65,6 @@ public class CmdSuck implements AutonCommand
 
     @Override
     public void end() {
-        auton.getSucker().set(0);
-        auton.getHatchManipulator().setHatch(false);
     }
 
 

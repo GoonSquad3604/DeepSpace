@@ -41,6 +41,7 @@ public class Robot extends TimedRobot
     private Sonar sonar;
     private DriverStation driverStation;
     private Sucker sucker;
+    private boolean[] test = new boolean[2];
 
     @Override
     public void robotInit() 
@@ -63,6 +64,7 @@ public class Robot extends TimedRobot
         
         limelight.setCamMode(1);
         limelight.setLEDMode(1);
+        limelight.setStreamMode(1);
 
         SmartDashboard.putNumber("Angle", 0);
         driverStation = DriverStation.getInstance();
@@ -79,6 +81,7 @@ public class Robot extends TimedRobot
         SmartDashboard.putBoolean("Hatch", hatch.getHatch());
         SmartDashboard.putString("Hatch Distance", "Max: " + kArticulatorOut + " Current: " + hatch.getLocation());
         SmartDashboard.putNumber("Suck Current", sucker.getCurrent());
+        SmartDashboard.putBooleanArray("Array", test);
         driveTrain.feedWatchdog();
         //System.out.println(hatch.getLocation());
         // System.out.print("FRONT:" + pillars.getFrontHeight());

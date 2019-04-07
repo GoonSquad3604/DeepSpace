@@ -72,8 +72,21 @@ public class Teleop implements AutonCommand
 
         if(operateStick.getStickButtonPressed(Hand.kRight))
         {
-            PanelAuton.addCommands(auton);
+            PanelAutonSuck.addCommands(auton);
+            endTeleop();
         }
+
+        if(driveStick.getBumperPressed(Hand.kRight))
+        {
+            PanelAutonPlace.addCommands(auton);
+            endTeleop();
+        }
+
+        if(!auton.getHatchManipulator().getHatch())
+        {
+            auton.getSucker().set(0);
+        }
+
 
         if(delayTimer.get() > 0.25 && auton.getLimelight().doesTargetExist() && limelightAngle == 0)
         {
@@ -202,9 +215,17 @@ public class Teleop implements AutonCommand
                 auton.getCargoManipulator().stop();
             }
 
-            if(operateStick.getTriggerAxis(Hand.kRight) >= 0.6)
+            if(operateStick.getTriggerAxis(Hand.kRight) >= 0.3 && operateStick.getPOV() != -1)
             {
-                ToggleHatch.addCommands(auton);
+                switch(operateStick.getPOV())
+                {
+                    case kDpadRight:
+                        SetHatch.addCommands(auton, ArticulatorState.kOut);
+                        break;
+                    case kDpadLeft:
+                        SetHatch.addCommands(auton, ArticulatorState.kIn);
+                        break;
+                }
                 endTeleop();
             }
             else if(operateStick.getStartButton())
