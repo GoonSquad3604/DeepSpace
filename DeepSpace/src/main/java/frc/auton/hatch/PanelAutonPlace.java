@@ -19,13 +19,13 @@ public class PanelAutonPlace
     public static void addCommands(Auton auton)
     {
 
+        auton.addCommand(new CmdDriveStop(auton.getDrive()));
+
         auton.addCommand(new CmdSetSuck(auton.getSucker(), 0));
 
         auton.addCommand(new CmdToggleRelay(auton, auton.getSucker(), Value.kForward));
 
-        //auton.addCommand(new CmdWait(1));
-
-        auton.addCommand(new CmdSetHatch(auton.getHatchManipulator(), ArticulatorState.kHatch));
+        auton.addCommand(new CmdSetHatch(auton.getHatchManipulator(), ArticulatorState.kHatch, auton));
 
         auton.addCommand(new CmdMerge(
             new CmdManualDrive(auton.getDrive(), auton.getDriveStick(), auton.getOperateStick(), auton),

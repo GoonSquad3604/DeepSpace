@@ -34,6 +34,7 @@ public class Auton
     private Pillars pillars;
     private Sonar sonar;
     private Sucker sucker;
+    private boolean isHatchCommand = false;
     
     public DriveTrain getDrive()
     {
@@ -88,6 +89,16 @@ public class Auton
     public Sucker getSucker()
     {
         return sucker;
+    }
+
+    public boolean getIsHatchCommand()
+    {
+        return isHatchCommand;
+    }
+
+    public void setIsHatchCommand(boolean hatchCommand)
+    {
+        isHatchCommand = hatchCommand;
     }
 
     public Auton(Object... subsystems)

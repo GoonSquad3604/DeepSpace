@@ -62,7 +62,7 @@ public class Teleop implements AutonCommand
         auton.getOperateStick().setRumble(RumbleType.kRightRumble,0);
         auton.getDriveStick().setRumble(RumbleType.kLeftRumble,0);
         auton.getDriveStick().setRumble(RumbleType.kRightRumble,0);
-        auton.getGyro().getYawPitchRoll(ypr);
+        //auton.getGyro().getYawPitchRoll(ypr);
         double axis1 = (Math.abs(driveStick.getRawAxis(1)) > 0.1) ? 0.95 * driveStick.getRawAxis(1) : 0;
         double axis4 = (Math.abs(driveStick.getRawAxis(4)) > 0.1) ? 0.95 * driveStick.getRawAxis(4) : 0;
 
@@ -221,6 +221,9 @@ public class Teleop implements AutonCommand
                 {
                     case kDpadRight:
                         SetHatch.addCommands(auton, ArticulatorState.kOut);
+                        break;
+                    case kDpadDown:
+                        SetHatch.addCommands(auton, ArticulatorState.kCargoShip);
                         break;
                     case kDpadLeft:
                         SetHatch.addCommands(auton, ArticulatorState.kIn);

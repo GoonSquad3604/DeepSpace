@@ -1,21 +1,28 @@
 package frc.commands.subsystem.hatch;
 import frc.commands.AutonCommand;
 import static frc.robot.Constants.*;
+
+import frc.auton.Auton;
 import frc.subsystem.HatchManipulator;
 import frc.subsystem.ArticulatorState;
 public class CmdToggleHatch implements AutonCommand
 {
     private HatchManipulator hatchManipulator;
     private boolean in;
-    public CmdToggleHatch(HatchManipulator iManipulator)
+    private Auton auton;
+
+    public CmdToggleHatch(HatchManipulator iManipulator, Auton iAuton)
     {
         hatchManipulator = iManipulator;
         in = hatchManipulator.getState() == ArticulatorState.kIn;
+        auton = iAuton;
     }
     
     @Override
     public boolean isFinished() 
     {
+        auton.setIsHatchCommand(true);
+        
         if(in)
         {
             return hatchManipulator.getLocation() >= kArticulatorOut;
@@ -46,6 +53,8 @@ public class CmdToggleHatch implements AutonCommand
     @Override
     public void end()
     {
+        auton.setIsHatchCommand(false);
+        
         if(in)
         {
             hatchManipulator.setState(ArticulatorState.kOut);

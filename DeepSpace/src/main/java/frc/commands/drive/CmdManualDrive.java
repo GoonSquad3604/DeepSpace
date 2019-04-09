@@ -120,7 +120,7 @@ public class CmdManualDrive implements AutonCommand
             auton.getLimelight().setLEDMode(1);
             drive.arcadeDrive(-axis1,axis4);
             limelightAngle = auton.getLimelight().getTargetX();
-            auton.getGyro().setYaw(0,10);
+            //auton.getGyro().setYaw(0,10);
         }
 
         
@@ -143,6 +143,24 @@ public class CmdManualDrive implements AutonCommand
         {
             auton.getCargoManipulator().runHinge(0);
         }
+
+        if(!auton.getIsHatchCommand())
+        {
+            if(operateStick.getStartButton())
+            {
+                auton.getHatchManipulator().runArticulator(-1);
+            }
+            else if(operateStick.getBackButton())
+            {
+                auton.getHatchManipulator().runArticulator(1);
+            }
+            else
+            {
+                auton.getHatchManipulator().runArticulator(0);
+            }
+        }
+
+
         
         return true;
     }

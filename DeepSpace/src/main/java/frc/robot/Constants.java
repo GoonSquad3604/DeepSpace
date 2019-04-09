@@ -128,7 +128,8 @@ public class Constants
     public static final int kArticulatorIn = 200;
     public static final int kArticulatorOut = 2600;
     public static final int kArticulatorHatch = 1000;
-    public static final double kMinHatchCurrent = 0;
-    public static final double kMaxHatchCurrent = 1;
+    public static final int kArticulatorCargoShip = 1500;
+    public static final double kMinHatchCurrent = 0.5;
+    public static final double kMaxHatchCurrent = 2;
 
 }

@@ -15,11 +15,10 @@ public class SetHatch
     {
         auton.addCommand(
             new CmdMerge(
-                new CmdSetHatch(auton.getHatchManipulator(), state),
+                new CmdSetHatch(auton.getHatchManipulator(), state, auton),
                 new CmdManualDrive(auton.getDrive(), auton.getDriveStick(), auton.getOperateStick(), auton)
             )
         );
-
     }
 
 }
