@@ -4,6 +4,7 @@ package frc.vision;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import frc.robot.Constants;
 
 public class Limelight 
 {
@@ -132,5 +133,25 @@ public class Limelight
     {
         return "LIMELIGHT DATA STARTS HERE: tx="+getTargetX()+" :: ty=" + getTargetY() + " :: ts=" + getTargetSkew() 
         + "\n thoriz=" + getTargetWidth() + " :: tvert=" + getTargetHeight(); 
+    }
+
+    /**
+     * Gets the color status of how well the driver is lined up.
+     * @return a BoxColor status. It is green when it is correctly lined up, yellow when almost lined up, and red when not lined up.
+     */
+    public BoxColor getLinedUp()
+    {
+        BoxColor color = BoxColor.kRed;
+        double limeValue = Math.abs(getTargetX());
+        if(limeValue < Constants.kGreenRange)
+        {
+            color = BoxColor.kGreen;
+        }
+        else if(limeValue < Constants.kYellowRange)
+        {
+            color = BoxColor.kYellow;
+        }
+        
+        return color;
     }
 }

@@ -127,4 +127,8 @@ public class Constants
     public static final int kHatchMovementPickUp = 2000;
     public static final int kArticulatorIn = 200;
     public static final int kArticulatorOut = 2800;
+
+
+    public static final double kGreenRange = 2.0;
+    public static final double kYellowRange = 5.0;
 }
