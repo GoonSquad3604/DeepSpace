@@ -5,37 +5,45 @@ import static frc.robot.Constants.*;
 import frc.auton.Auton;
 import frc.subsystem.HatchManipulator;
 import frc.subsystem.ArticulatorState;
-public class CmdToggleHatch implements AutonCommand
+public class CmdSetHatch implements AutonCommand
 {
     private HatchManipulator hatchManipulator;
-    private boolean in;
+    private ArticulatorState state;
     private Auton auton;
-
-    public CmdToggleHatch(HatchManipulator iManipulator, Auton iAuton)
+    
+    public CmdSetHatch(HatchManipulator iManipulator, ArticulatorState iState, Auton iAuton)
     {
         hatchManipulator = iManipulator;
-        in = hatchManipulator.getState() == ArticulatorState.kIn;
+        state = iState;
         auton = iAuton;
     }
     
     @Override
     public boolean isFinished() 
     {
-        auton.setIsHatchCommand(true);
-        
-        if(in)
+        if(state == ArticulatorState.kOut)
         {
             return hatchManipulator.getLocation() >= kArticulatorOut;
         }
-        else
+        else if(state == ArticulatorState.kIn)
         {
             return hatchManipulator.getLocation() <= kArticulatorIn;
+        }
+        else if(state == ArticulatorState.kCargoShip)
+        {
+            return hatchManipulator.getLocation() >= kArticulatorCargoShip;
+        }
+        else
+        {
+            return hatchManipulator.getLocation() <= kArticulatorHatch;
         }
     }
 
     @Override
-    public void runTask() {
-        hatchManipulator.runArticulator(in ? 1 : -1);
+    public void runTask() 
+    {
+        auton.setIsHatchCommand(true);
+        hatchManipulator.runArticulator(state == ArticulatorState.kIn || state == ArticulatorState.kHatch  ? -1 : 1);
     }
 
     @Override
@@ -47,22 +55,14 @@ public class CmdToggleHatch implements AutonCommand
     @Override
     public void init() 
     {
-        in = hatchManipulator.getState() == ArticulatorState.kIn;
+    
     }
 
     @Override
     public void end()
     {
+        hatchManipulator.setState(state);
         auton.setIsHatchCommand(false);
-        
-        if(in)
-        {
-            hatchManipulator.setState(ArticulatorState.kOut);
-        }
-        else
-        {
-            hatchManipulator.setState(ArticulatorState.kIn);
-        }
     }
 
 }
