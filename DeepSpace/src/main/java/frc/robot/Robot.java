@@ -82,6 +82,7 @@ public class Robot extends TimedRobot
         SmartDashboard.putString("Hatch Distance", "Max: " + kArticulatorOut + " Current: " + hatch.getLocation());
         SmartDashboard.putNumber("Suck Current", sucker.getCurrent());
         driveTrain.feedWatchdog();
+        System.out.println(limelight.getStreamMode());
         //System.out.println(hatch.getLocation());
         // System.out.print("FRONT:" + pillars.getFrontHeight());
         // System.out.println(" || BACK:" + pillars.getRearHeight());
@@ -91,7 +92,7 @@ public class Robot extends TimedRobot
     @Override
     public void autonomousInit() 
     {
-
+        limelight.setStreamMode(1);
     }
 
     @Override
@@ -103,7 +104,7 @@ public class Robot extends TimedRobot
     @Override
     public void teleopInit() 
     {
-
+        limelight.setStreamMode(1);
     }
 
     @Override

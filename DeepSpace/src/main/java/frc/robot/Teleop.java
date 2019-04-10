@@ -82,6 +82,17 @@ public class Teleop implements AutonCommand
             endTeleop();
         }
 
+        if(driveStick.getBumper(Hand.kLeft))
+        {
+            
+            limelight.setStreamMode(2);
+           
+        }
+        else
+        {
+            limelight.setStreamMode(1);
+        }
+
         if(!auton.getHatchManipulator().getHatch())
         {
             auton.getSucker().set(0);

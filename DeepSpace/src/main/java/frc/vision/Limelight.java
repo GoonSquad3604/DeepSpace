@@ -131,6 +131,11 @@ public class Limelight
         table.getEntry("stream").setNumber(stream);
     }
 
+    public Number getStreamMode()
+    {
+        return table.getEntry("stream").getNumber(-1);
+    }
+
     @Override
     public String toString()
     {
