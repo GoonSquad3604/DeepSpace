@@ -7,47 +7,70 @@ import frc.auton.Auton;
 import frc.commands.AutonCommand;
 import static frc.robot.Constants.*;
 
+import javax.lang.model.util.ElementScanner6;
+
 public class CmdSuck implements AutonCommand
 {
 
+    private boolean timerStarted = false;
     private Auton auton;
     private double current;
-    private Timer time;
+    private Timer waitTime;
+    private Timer verifyTime;
 
     public CmdSuck(Auton iAuton)
     {
-        time = new Timer();
+        waitTime = new Timer();
+        verifyTime = new Timer();
         auton = iAuton;
-        time.start();
-        time.reset();
     }
 
     @Override
     public boolean isFinished() 
     {
+        auton.getSucker().set(auton.getHatchManipulator().getHatch() ? 0.2 : 1);
         return auton.getHatchManipulator().getHatch();
     }
 
     @Override
     public void runTask() 
     {
-        
+        //System.out.println(time.get());
         current = auton.getSucker().getCurrent();
         
-        if(current >= kMinHatchCurrent && current <= kMaxHatchCurrent)
+        if(!timerStarted)
         {
-            if(time.get() > 0.25)
+            waitTime.start();
+            waitTime.reset();
+            verifyTime.start();
+            verifyTime.reset();
+            timerStarted = true;
+        }
+
+        if(waitTime.get() > 1)
+        {
+            if(current >= kMinHatchCurrent && current <= kMaxHatchCurrent)
             {
-                auton.getHatchManipulator().setHatch(true);
+                if(verifyTime.get() > 0.5)
+                {
+                    auton.getHatchManipulator().setHatch(true); 
+                }
+                
+            }
+            else
+            {
+                verifyTime.reset();
             }
         }
         else
         {
-            time.reset();
+            verifyTime.reset();
         }
         
-        auton.getSucker().set(auton.getHatchManipulator().getHatch() ? 0.2 : 0.65);
-        
+        if(auton.getOperateStick().getPOV() == kDpadUp)
+        {
+            auton.getHatchManipulator().setHatch(true);
+        } 
 
     }
 

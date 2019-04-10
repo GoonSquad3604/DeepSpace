@@ -9,6 +9,6 @@ public class Sonar extends AnalogInput
     }
     public double getInches()
     {
-        return (this.getVoltage()*118);
+        return (this.getVoltage()/512)*2.54;
     }
 }

@@ -41,7 +41,6 @@ public class Robot extends TimedRobot
     private Sonar sonar;
     private DriverStation driverStation;
     private Sucker sucker;
-    private boolean[] test = new boolean[2];
 
     @Override
     public void robotInit() 
@@ -74,15 +73,16 @@ public class Robot extends TimedRobot
     @Override
     public void robotPeriodic()
     {
-        
+        driveTrain.feedWatchdog();
         SmartDashboard.putNumber("Angle", cargo.getHingeAngle());
         SmartDashboard.putNumber("Front Pillar", pillars.getFrontHeight());
         SmartDashboard.putNumber("Rear Pillar", pillars.getRearHeight());
+        driveTrain.feedWatchdog();
         SmartDashboard.putBoolean("Hatch", hatch.getHatch());
         SmartDashboard.putString("Hatch Distance", "Max: " + kArticulatorOut + " Current: " + hatch.getLocation());
         SmartDashboard.putNumber("Suck Current", sucker.getCurrent());
-        SmartDashboard.putBooleanArray("Array", test);
         driveTrain.feedWatchdog();
+        System.out.println(limelight.getStreamMode());
         //System.out.println(hatch.getLocation());
         // System.out.print("FRONT:" + pillars.getFrontHeight());
         // System.out.println(" || BACK:" + pillars.getRearHeight());
@@ -92,7 +92,7 @@ public class Robot extends TimedRobot
     @Override
     public void autonomousInit() 
     {
-
+        limelight.setStreamMode(1);
     }
 
     @Override
@@ -104,7 +104,7 @@ public class Robot extends TimedRobot
     @Override
     public void teleopInit() 
     {
-
+        limelight.setStreamMode(1);
     }
 
     @Override
@@ -164,6 +164,19 @@ public class Robot extends TimedRobot
             runningAuton.getPillars().setFrontPillar(0);
         }
 
+        if(driveStick.getStartButton())
+        {
+            runningAuton.getHatchManipulator().runArticulator(-0.5);
+        }
+        else if(driveStick.getBackButton())
+        {
+            runningAuton.getHatchManipulator().runArticulator(0.5);
+        }
+        else
+        {
+            runningAuton.getHatchManipulator().runArticulator(0);
+        }
+
 
     }
 
@@ -177,11 +190,6 @@ public class Robot extends TimedRobot
         {
             runningAuton.runTeleop();
         }
-    }
-
-    public DriveTrain getDriveTrain()
-    {
-        return driveTrain;
     }
 
 }

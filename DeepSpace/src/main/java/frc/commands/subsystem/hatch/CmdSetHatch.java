@@ -1,17 +1,21 @@
 package frc.commands.subsystem.hatch;
 import frc.commands.AutonCommand;
 import static frc.robot.Constants.*;
+
+import frc.auton.Auton;
 import frc.subsystem.HatchManipulator;
 import frc.subsystem.ArticulatorState;
 public class CmdSetHatch implements AutonCommand
 {
     private HatchManipulator hatchManipulator;
     private ArticulatorState state;
+    private Auton auton;
     
-    public CmdSetHatch(HatchManipulator iManipulator, ArticulatorState iState)
+    public CmdSetHatch(HatchManipulator iManipulator, ArticulatorState iState, Auton iAuton)
     {
         hatchManipulator = iManipulator;
         state = iState;
+        auton = iAuton;
     }
     
     @Override
@@ -25,6 +29,10 @@ public class CmdSetHatch implements AutonCommand
         {
             return hatchManipulator.getLocation() <= kArticulatorIn;
         }
+        else if(state == ArticulatorState.kCargoShip)
+        {
+            return hatchManipulator.getLocation() >= kArticulatorCargoShip;
+        }
         else
         {
             return hatchManipulator.getLocation() <= kArticulatorHatch;
@@ -34,6 +42,7 @@ public class CmdSetHatch implements AutonCommand
     @Override
     public void runTask() 
     {
+        auton.setIsHatchCommand(true);
         hatchManipulator.runArticulator(state == ArticulatorState.kIn || state == ArticulatorState.kHatch  ? -1 : 1);
     }
 
@@ -53,6 +62,7 @@ public class CmdSetHatch implements AutonCommand
     public void end()
     {
         hatchManipulator.setState(state);
+        auton.setIsHatchCommand(false);
     }
 
 }

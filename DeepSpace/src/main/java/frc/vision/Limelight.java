@@ -4,6 +4,7 @@ package frc.vision;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import frc.robot.Constants;
 
 public class Limelight 
 {
@@ -96,8 +97,9 @@ public class Limelight
 
     /**
      * Sets limelight operation mode
-     * @param camMode 0: Vision processor
-     * @param camMode 1: Driver Camera (Increases exposure, disables vision processing)
+     * @param camMode 
+     * <p>0: Vision processor
+     * <p>1: Driver Camera (Increases exposure, disables vision processing)
      */
     public void setCamMode(Number camMode)
     {
@@ -106,10 +108,11 @@ public class Limelight
 
     /**
      * Sets limelight dual camera stream mode
-     * @param LEDMode 0: use the LED Mode set in the current pipeline
-     * @param LEDMode 1: force off
-     * @param LEDMode 2: force blink
-     * @param LEDMode 3: force on
+     * @param LEDMode 
+     * <p>0: use the LED Mode set in the current pipeline 
+     * <p>1: force off
+     * <p>2: force blink
+     * <p>3: force on
      */
     public void setLEDMode(Number LEDMode)
     {
@@ -118,13 +121,19 @@ public class Limelight
     
     /**
      * Sets limelight streaming mode
-     * @param stream 0: Standard - Side-by-side streams if a webcam is attached to Limelight
-     * @param stream 1: PiP Main - The secondary camera stream is placed in the lower-right corner of the primary camera stream
-     * @param stream 2: PiP Secondary - The primary camera stream is placed in the lower-right corner of the secondary camera stream
+     * @param stream 
+     * <p>0: Standard - Side-by-side streams if a webcam is attached to Limelight
+     * <p>1: PiP Main - The secondary camera stream is placed in the lower-right corner of the primary camera stream
+     * <p>2: PiP Secondary - The primary camera stream is placed in the lower-right corner of the secondary camera stream
      */
     public void setStreamMode(Number stream)
     {
         table.getEntry("stream").setNumber(stream);
+    }
+
+    public Number getStreamMode()
+    {
+        return table.getEntry("stream").getNumber(-1);
     }
 
     @Override
@@ -132,5 +141,25 @@ public class Limelight
     {
         return "LIMELIGHT DATA STARTS HERE: tx="+getTargetX()+" :: ty=" + getTargetY() + " :: ts=" + getTargetSkew() 
         + "\n thoriz=" + getTargetWidth() + " :: tvert=" + getTargetHeight(); 
+    }
+
+    /**
+     * Gets the color status of how well the driver is lined up.
+     * @return a BoxColor status. It is green when it is correctly lined up, yellow when almost lined up, and red when not lined up.
+     */
+    public BoxColor getLinedUp()
+    {
+        BoxColor color = BoxColor.kRed;
+        double limeValue = Math.abs(getTargetX());
+        if(limeValue < Constants.kGreenRange)
+        {
+            color = BoxColor.kGreen;
+        }
+        else if(limeValue < Constants.kYellowRange)
+        {
+            color = BoxColor.kYellow;
+        }
+        
+        return color;
     }
 }

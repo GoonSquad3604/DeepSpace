@@ -103,6 +103,7 @@ public class Robot extends TimedRobot
 
     private void run()
     {  
+        System.out.println("SONAR SAYS: " + sonar.getInches());
         if(runningAuton != null && !runningAuton.isFinished())
         {
             runningAuton.runAuton();
