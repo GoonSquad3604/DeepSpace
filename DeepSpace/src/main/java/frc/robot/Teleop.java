@@ -83,10 +83,8 @@ public class Teleop implements AutonCommand
         }
 
         if(driveStick.getBumper(Hand.kLeft))
-        {
-            
-            limelight.setStreamMode(2);
-           
+        {  
+            limelight.setStreamMode(2);  
         }
         else
         {

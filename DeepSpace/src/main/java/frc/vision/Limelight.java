@@ -147,17 +147,17 @@ public class Limelight
      * Gets the color status of how well the driver is lined up.
      * @return a BoxColor status. It is green when it is correctly lined up, yellow when almost lined up, and red when not lined up.
      */
-    public BoxColor getLinedUp()
+    public int getLinedUp()
     {
-        BoxColor color = BoxColor.kRed;
+        int color = 2;
         double limeValue = Math.abs(getTargetX());
         if(limeValue < Constants.kGreenRange)
         {
-            color = BoxColor.kGreen;
+            color = 0;
         }
         else if(limeValue < Constants.kYellowRange)
         {
-            color = BoxColor.kYellow;
+            color = 1;
         }
         
         return color;

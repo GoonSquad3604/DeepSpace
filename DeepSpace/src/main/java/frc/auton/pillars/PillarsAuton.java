@@ -23,9 +23,9 @@ public class PillarsAuton
         auton.addCommand(new CmdRaisePillars(height, auton.getPillars()));
         auton.addCommand(new CmdMovePillarWheelsTime(1.5, 1, auton.getPillars()));
         auton.addCommand(new CmdLowerSinglePillar(PillarType.kFrontPillar, 11, 1, auton.getPillars()));
-        auton.addCommand(new CmdDriveTime(1.5, 0.25, auton.getDrive()));
+        auton.addCommand(new CmdDriveTime(1.5, 0.3, auton.getDrive()));
         auton.addCommand(new CmdLowerSinglePillar(PillarType.kRearPillar, 12, 1, auton.getPillars()));
-        auton.addCommand(new CmdDriveTime(2, 0.25, auton.getDrive()));
+        auton.addCommand(new CmdDriveTime(2, 0.3, auton.getDrive()));
     }
 
 
