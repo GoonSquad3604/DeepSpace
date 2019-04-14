@@ -28,8 +28,9 @@ public class CmdSuck implements AutonCommand
     @Override
     public boolean isFinished() 
     {
-        auton.getSucker().set(auton.getHatchManipulator().getHatch() ? 0.2 : 1);
-        return auton.getHatchManipulator().getHatch();
+        boolean hasHatch = auton.getHatchManipulator().getHatch();
+        auton.getSucker().set(hasHatch ? 0.5 : 0.5);
+        return hasHatch;
     }
 
     @Override

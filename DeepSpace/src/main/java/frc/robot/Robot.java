@@ -83,16 +83,15 @@ public class Robot extends TimedRobot
 
         startingChooser.setDefaultOption("Cargo", "Cargo");
         startingChooser.addOption("Hatch", "Hatch");
-        SmartDashboard.putData("Start Choices", startingChooser);
 
         // CameraServer server = CameraServer.getInstance();
         // server.startAutomaticCapture();
 
         UsbCamera camera = CameraServer.getInstance().startAutomaticCapture(0);
-        camera.setExposureManual(45);
+        camera.setExposureManual(90);
         camera.setWhiteBalanceManual(60);
-        camera.setResolution(160, 120);
-        camera.setFPS(10);
+        camera.setResolution(250, 150);
+        camera.setFPS(30);
 
         // new Thread(() -> {
         //     UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
@@ -127,9 +126,10 @@ public class Robot extends TimedRobot
         SmartDashboard.putBoolean("Hatch", hatch.getHatch());
         SmartDashboard.putString("Hatch Distance", "Max: " + kArticulatorOut + " Current: " + hatch.getLocation());
         SmartDashboard.putNumber("Suck Current", sucker.getCurrent());
+        SmartDashboard.putData("Start Choice", startingChooser);
         //SmartDashboard.putNumber("Color Box", limelight.getLinedUp());
         driveTrain.feedWatchdog();
-        System.out.println(elevator.getHeight());
+        SmartDashboard.putNumber("Elevator", elevator.getHeight());
         //System.out.println(limelight.getStreamMode());
         //System.out.println(hatch.getLocation());
         // System.out.print("FRONT:" + pillars.getFrontHeight());
