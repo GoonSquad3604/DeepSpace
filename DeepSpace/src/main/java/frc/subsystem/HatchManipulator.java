@@ -52,6 +52,11 @@ public class HatchManipulator
     {
         return articulator.getSelectedSensorPosition();
     }
+
+    public void setLocation(int location)
+    {
+        articulator.setSelectedSensorPosition(location);
+    }
     
     /**
      * Sets the articulator's state

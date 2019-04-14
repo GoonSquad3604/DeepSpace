@@ -9,6 +9,15 @@ package frc.robot;
 
 import com.ctre.phoenix.sensors.PigeonIMU;
 import com.revrobotics.CANSparkMax.IdleMode;
+
+import org.opencv.core.Mat;
+import org.opencv.imgproc.Imgproc;
+
+import edu.wpi.cscore.CvSink;
+import edu.wpi.cscore.CvSource;
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.cameraserver.CameraServer;
+
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -16,6 +25,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.auton.*;
 import frc.subsystem.*;
@@ -42,6 +52,9 @@ public class Robot extends TimedRobot
     private DriverStation driverStation;
     private Sucker sucker;
 
+    
+    private final SendableChooser<String> startingChooser = new SendableChooser<>();
+
     @Override
     public void robotInit() 
     {
@@ -67,6 +80,38 @@ public class Robot extends TimedRobot
 
         SmartDashboard.putNumber("Angle", 0);
         driverStation = DriverStation.getInstance();
+
+        startingChooser.setDefaultOption("Cargo", "Cargo");
+        startingChooser.addOption("Hatch", "Hatch");
+
+        // CameraServer server = CameraServer.getInstance();
+        // server.startAutomaticCapture();
+
+        UsbCamera camera = CameraServer.getInstance().startAutomaticCapture(0);
+        camera.setExposureManual(90);
+        camera.setWhiteBalanceManual(60);
+        camera.setResolution(250, 150);
+        camera.setFPS(30);
+
+        // new Thread(() -> {
+        //     UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
+        //     camera.setResolution(640, 480);
+            
+        //     CvSink cvSink = CameraServer.getInstance().getVideo();
+        //     CvSource outputStream = CameraServer.getInstance().putVideo("Blur1", 640, 480);
+            
+        //     Mat source = new Mat();
+        //     Mat output = new Mat();
+            
+        //     while(!Thread.interrupted()) {
+        //         // cvSink.grabFrame(source);
+        //         // Imgproc.cvtColor(source, output, Imgproc.COLOR_BGR2GRAY);
+        //         outputStream.putFrame(output);
+        //     }
+        // }).start();
+
+
+        
         
     }
     
@@ -81,8 +126,11 @@ public class Robot extends TimedRobot
         SmartDashboard.putBoolean("Hatch", hatch.getHatch());
         SmartDashboard.putString("Hatch Distance", "Max: " + kArticulatorOut + " Current: " + hatch.getLocation());
         SmartDashboard.putNumber("Suck Current", sucker.getCurrent());
+        SmartDashboard.putData("Start Choice", startingChooser);
+        //SmartDashboard.putNumber("Color Box", limelight.getLinedUp());
         driveTrain.feedWatchdog();
-        System.out.println(limelight.getStreamMode());
+        SmartDashboard.putNumber("Elevator", elevator.getHeight());
+        //System.out.println(limelight.getStreamMode());
         //System.out.println(hatch.getLocation());
         // System.out.print("FRONT:" + pillars.getFrontHeight());
         // System.out.println(" || BACK:" + pillars.getRearHeight());
@@ -92,6 +140,18 @@ public class Robot extends TimedRobot
     @Override
     public void autonomousInit() 
     {
+        switch(startingChooser.getSelected())
+        {
+            case "Cargo":
+                hatch.setLocation(0);
+                break;
+            case "Hatch":
+                hatch.setLocation(100);
+                break;
+            default:
+                break;
+        }
+
         limelight.setStreamMode(1);
     }
 
@@ -126,6 +186,7 @@ public class Robot extends TimedRobot
         operateStick.setRumble(RumbleType.kRightRumble, 0);
         driveStick.setRumble(RumbleType.kLeftRumble, 0);
         driveStick.setRumble(RumbleType.kRightRumble, 0);
+        
     }
 
     @Override
@@ -166,11 +227,11 @@ public class Robot extends TimedRobot
 
         if(driveStick.getStartButton())
         {
-            runningAuton.getHatchManipulator().runArticulator(-0.5);
+            runningAuton.getHatchManipulator().runArticulator(-0.25);
         }
         else if(driveStick.getBackButton())
         {
-            runningAuton.getHatchManipulator().runArticulator(0.5);
+            runningAuton.getHatchManipulator().runArticulator(0.25);
         }
         else
         {

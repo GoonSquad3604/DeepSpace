@@ -7,7 +7,7 @@ public class Constants
     /*General*/
     /*********/
 
-    public static boolean isABot = false;
+    public static boolean isABot = true;
     public static int kTimeoutMs = 10;
 
     /***********/
@@ -46,7 +46,7 @@ public class Constants
 
     //Rocket hatch encoder positions
     public static final double kTopRocketHatch = 27500;
-    public static final double kMiddleRocketHatch = 18500;
+    public static final double kMiddleRocketHatch = 17000;
     public static final double kBottomRocketHatch = 4500;
     public static final double kHatchFeeder = 4500;
     public static final double kHatchFeederUp = 6500;
@@ -126,11 +126,12 @@ public class Constants
     public static final int kHatchMovementPlace = 1500;
     public static final int kHatchMovementPickUp = 2000;
     public static final int kArticulatorIn = 200;
-    public static final int kArticulatorOut = 2600;
+    //2600 B Bot
+    public static final int kArticulatorOut = 3000;
     public static final int kArticulatorHatch = 1000;
     public static final int kArticulatorCargoShip = 1500;
-    public static final double kMinHatchCurrent = 0.5;
-    public static final double kMaxHatchCurrent = 2;
+    public static final double kMinHatchCurrent = 0.125;
+    public static final double kMaxHatchCurrent = 1.25;
     public static final double kGreenRange = 2.0;
     public static final double kYellowRange = 5.0;
 
