@@ -113,8 +113,8 @@ public class Constants
     /*******/
 
     public static final double kHingeError = 4; //(Degrees)
-    public static int sensorAt0 = 524;
-    public static int sensorAt90 = 739;
+    public static int sensorAt0 = 810;
+    public static int sensorAt90 = 612;
 
     //B Bot
     // public static int sensorAt0 = 848;

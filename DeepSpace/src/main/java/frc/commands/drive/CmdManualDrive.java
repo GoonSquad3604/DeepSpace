@@ -4,6 +4,8 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import frc.auton.Auton;
 import frc.commands.AutonCommand;
+import frc.commands.special.CmdMergeAdd;
+import frc.commands.subsystem.hatch.CmdToggleHatch;
 import frc.subsystem.drivetrain.DriveTrain;
 
 public class CmdManualDrive implements AutonCommand
@@ -18,6 +20,8 @@ public class CmdManualDrive implements AutonCommand
     private double[] ypr = new double[3];
     private double limelightAngle;
     private boolean operatorAllowed;
+    private CmdMergeAdd cmdMergeAdd;
+
     /**
      * Allows you to manually drive the robot during a command.
      * @param iDrive The DriveTrain
@@ -27,7 +31,13 @@ public class CmdManualDrive implements AutonCommand
      */
     public CmdManualDrive(DriveTrain iDrive, XboxController iDriveStick, XboxController iOperateStick, Auton iAuton)
     {
-        this(iDrive,iDriveStick,iOperateStick,iAuton,true);
+        this(iDrive, iDriveStick, iOperateStick, iAuton, true);
+    }
+
+    public CmdManualDrive(DriveTrain iDrive, XboxController iDriveStick, XboxController iOperateStick, Auton iAuton, CmdMergeAdd iCmdMergeAdd)
+    {
+        this(iDrive, iDriveStick, iOperateStick, iAuton, true);
+        cmdMergeAdd = iCmdMergeAdd;
     }
 
     /**
@@ -144,6 +154,15 @@ public class CmdManualDrive implements AutonCommand
             auton.getCargoManipulator().runHinge(0);
         }
         
+        if(cmdMergeAdd != null)
+        {
+            if(operateStick.getTriggerAxis(Hand.kRight) > 0.8)
+            {
+                cmdMergeAdd.addCommand(new CmdToggleHatch(auton.getHatchManipulator()));
+            }
+        }
+        
+
         return true;
     }
 

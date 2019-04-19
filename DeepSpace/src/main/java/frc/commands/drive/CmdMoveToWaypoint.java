@@ -30,17 +30,6 @@ public class CmdMoveToWaypoint implements AutonCommand
 
     public CmdMoveToWaypoint(DriveTrain iDrive, PigeonIMU iGyro, String pathName) {
         drive = iDrive;
-<<<<<<< HEAD
-        try
-        {
-            leftTrajectory = PathfinderFRC.getTrajectory(pathName + ".left");
-            rightTrajectory = PathfinderFRC.getTrajectory(pathName + ".right");
-        }
-        catch(Exception e)
-        {
-
-        }
-=======
         try {
             leftTrajectory = PathfinderFRC.getTrajectory(pathName + ".left");
             rightTrajectory = PathfinderFRC.getTrajectory(pathName + ".right");
@@ -48,7 +37,6 @@ public class CmdMoveToWaypoint implements AutonCommand
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
->>>>>>> 328ecc54bb7190712268cbf700302389904944ae
         leftFollow = new EncoderFollower(leftTrajectory);
         leftFollow.configureEncoder(0, 1012, kWheelDiameter);
         leftFollow.configurePIDVA(kDriveP, kDriveI, kDriveD, kVelocityRatio, kAccelerationRatio);
