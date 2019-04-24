@@ -14,13 +14,13 @@ public class CargoPlaceAuton2
     {
         auton.addCommand(new CmdMerge(
             new CmdManualDrive(auton.getDrive(),auton.getDriveStick(),auton.getOperateStick(),auton),
-            new CmdMoveElevator(elevatorHeight, auton.getElevator())));
+            new CmdMoveElevator(elevatorHeight, auton.getElevator(), auton)));
     }
     public static void addCommands(Auton auton, double elevatorHeight, double hingeAngle)
     {
         auton.addCommand(new CmdMerge(
             new CmdManualDrive(auton.getDrive(),auton.getDriveStick(),auton.getOperateStick(),auton),
-            new CmdMoveElevator(elevatorHeight, auton.getElevator()),
+            new CmdMoveElevator(elevatorHeight, auton.getElevator(), auton),
             new CmdMoveHinge(hingeAngle,0.5,auton.getCargoManipulator())));
     }
 

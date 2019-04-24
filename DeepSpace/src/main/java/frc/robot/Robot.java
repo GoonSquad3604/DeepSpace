@@ -84,35 +84,11 @@ public class Robot extends TimedRobot
         startingChooser.setDefaultOption("Cargo", "Cargo");
         startingChooser.addOption("Hatch", "Hatch");
 
-        // CameraServer server = CameraServer.getInstance();
-        // server.startAutomaticCapture();
-
         UsbCamera camera = CameraServer.getInstance().startAutomaticCapture(0);
         camera.setExposureManual(90);
         camera.setWhiteBalanceManual(60);
         camera.setResolution(250, 150);
         camera.setFPS(30);
-
-        // new Thread(() -> {
-        //     UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
-        //     camera.setResolution(640, 480);
-            
-        //     CvSink cvSink = CameraServer.getInstance().getVideo();
-        //     CvSource outputStream = CameraServer.getInstance().putVideo("Blur1", 640, 480);
-            
-        //     Mat source = new Mat();
-        //     Mat output = new Mat();
-            
-        //     while(!Thread.interrupted()) {
-        //         // cvSink.grabFrame(source);
-        //         // Imgproc.cvtColor(source, output, Imgproc.COLOR_BGR2GRAY);
-        //         outputStream.putFrame(output);
-        //     }
-        // }).start();
-
-
-        
-        
     }
     
     @Override
@@ -236,6 +212,19 @@ public class Robot extends TimedRobot
         else
         {
             runningAuton.getHatchManipulator().runArticulator(0);
+        }
+
+        if(driveStick.getBumper(Hand.kLeft))
+        {
+            runningAuton.getCargoManipulator().run(-0.1);
+        }
+        else if(driveStick.getBumper(Hand.kRight))
+        {
+            runningAuton.getCargoManipulator().run(0.1);
+        }
+        else
+        {
+            runningAuton.getCargoManipulator().run(0);
         }
 
 

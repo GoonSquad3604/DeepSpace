@@ -28,11 +28,14 @@ public class CargoManipulator
     // Intakes cargo
     public void runIntake()
     {
-
         intakeControl.set(1);
         
     }
 
+    public void run(double speed)
+    {
+        intakeControl.set(speed);
+    }
     
     // Dispenses cargo
     public void runDispense()

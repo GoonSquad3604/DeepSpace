@@ -3,6 +3,7 @@ package frc.auton.hatch;
 
 import edu.wpi.first.wpilibj.Relay.Value;
 import frc.commands.special.CmdMerge;
+import frc.commands.special.CmdMergeOneDone;
 import frc.commands.special.CmdWait;
 import frc.commands.subsystem.CmdMoveElevator;
 import frc.commands.subsystem.hatch.CmdSetHatch;
@@ -25,7 +26,15 @@ public class PanelAutonPlace
 
         auton.addCommand(new CmdToggleRelay(auton, auton.getSucker(), Value.kForward));
 
-        auton.addCommand(new CmdSetHatch(auton.getHatchManipulator(), ArticulatorState.kHatch, auton));
+        auton.addCommand(new CmdMergeOneDone(
+            new CmdWait(0.25),
+            new CmdSetHatch(auton.getHatchManipulator(), ArticulatorState.kHatch, auton)
+        ));
+
+        auton.addCommand(new CmdMerge(
+            new CmdManualDrive(auton.getDrive(), auton.getDriveStick(), auton.getOperateStick(), auton),   
+            new CmdSetHatch(auton.getHatchManipulator(), ArticulatorState.kHatch, auton)
+        ));
 
         auton.addCommand(new CmdMerge(
             new CmdManualDrive(auton.getDrive(), auton.getDriveStick(), auton.getOperateStick(), auton),

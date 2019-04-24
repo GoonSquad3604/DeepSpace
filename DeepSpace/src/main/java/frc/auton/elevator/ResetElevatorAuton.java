@@ -11,7 +11,7 @@ public class ResetElevatorAuton
     {
         auton.addCommand(new CmdMerge(
             new CmdManualDrive(auton.getDrive(),auton.getDriveStick(),auton.getOperateStick(),auton),
-            new CmdResetElevator(auton.getElevator()))
+            new CmdResetElevator(auton.getElevator(), auton))
         );
     }
 }

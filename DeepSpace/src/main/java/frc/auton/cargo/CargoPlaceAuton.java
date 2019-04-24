@@ -13,13 +13,13 @@ public class CargoPlaceAuton
     {
         auton.addCommand(new CmdMerge(
             new CmdManualDrive(auton.getDrive(),auton.getDriveStick(),auton.getOperateStick(),auton),
-            new CmdMoveElevator(elevatorHeight, auton.getElevator())));
+            new CmdMoveElevator(elevatorHeight, auton.getElevator(), auton)));
         auton.addCommand(new CmdMerge(
             new CmdManualDrive(auton.getDrive(),auton.getDriveStick(),auton.getOperateStick(),auton),
             new CmdDispenseForTime( 0.25, auton.getCargoManipulator())));
         auton.addCommand(new CmdMerge(
             new CmdManualDrive(auton.getDrive(),auton.getDriveStick(),auton.getOperateStick(),auton),
-            new CmdMoveElevator(100, auton.getElevator())));
+            new CmdMoveElevator(100, auton.getElevator(), auton)));
     }
 
 }
