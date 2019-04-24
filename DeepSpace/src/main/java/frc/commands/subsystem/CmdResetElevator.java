@@ -1,14 +1,19 @@
 package frc.commands.subsystem;
 
+import frc.auton.Auton;
 import frc.commands.AutonCommand;
 import frc.subsystem.Elevator;
 
 public class CmdResetElevator implements AutonCommand
 {
     private Elevator elevator;
-    public CmdResetElevator(Elevator iElevator)
+    private Auton auton;
+
+    public CmdResetElevator(Elevator iElevator, Auton iAuton)
     {
+        auton = iAuton;
         elevator = iElevator;
+        auton.setIsElevatorCommand(true);
     }
 
     @Override
@@ -38,6 +43,7 @@ public class CmdResetElevator implements AutonCommand
     @Override
     public void end()
     {
+        auton.setIsElevatorCommand(false);
         elevator.setPower(0);
     }
 }

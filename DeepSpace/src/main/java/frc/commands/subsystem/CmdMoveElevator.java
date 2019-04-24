@@ -2,6 +2,8 @@ package frc.commands.subsystem;
 
 import frc.commands.AutonCommand;
 import static frc.robot.Constants.*;
+
+import frc.auton.Auton;
 import frc.subsystem.Elevator;
 
 //Moves the elevator to a predefined height.
@@ -10,9 +12,11 @@ public class CmdMoveElevator implements AutonCommand
     private Elevator elevator;
     private double height;
     private boolean moved;
+    private Auton auton;
     
-    public CmdMoveElevator(double iHeight, Elevator iElevator)
+    public CmdMoveElevator(double iHeight, Elevator iElevator, Auton iAuton)
     {
+        auton = iAuton;
         height = iHeight;
         moved = false;
         if(iElevator == null)
@@ -21,6 +25,7 @@ public class CmdMoveElevator implements AutonCommand
         }
         else
         {
+            auton.setIsElevatorCommand(true);
             elevator = iElevator;
         }
     }
@@ -34,6 +39,7 @@ public class CmdMoveElevator implements AutonCommand
     @Override
     public void end()
     {      
+        auton.setIsElevatorCommand(false);
         elevator.setPower(0);
     }
 

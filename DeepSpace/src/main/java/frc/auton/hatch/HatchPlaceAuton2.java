@@ -14,7 +14,7 @@ public class HatchPlaceAuton2
     {
         auton.addCommand(new CmdMerge(
             new CmdManualDrive(auton.getDrive(),auton.getDriveStick(),auton.getOperateStick(),auton),
-            new CmdMoveElevator(elevatorHeight, auton.getElevator())));
+            new CmdMoveElevator(elevatorHeight, auton.getElevator(), auton)));
     }
 
 }

@@ -7,7 +7,7 @@ public class Constants
     /*General*/
     /*********/
 
-    public static boolean isABot = true;
+    public static boolean isABot = false;
     public static int kTimeoutMs = 10;
 
     /***********/
@@ -130,8 +130,12 @@ public class Constants
     public static final int kArticulatorOut = 3000;
     public static final int kArticulatorHatch = 1000;
     public static final int kArticulatorCargoShip = 1500;
+    //A BOT
+    // public static final double kMinHatchCurrent = 0.125;
+    // public static final double kMaxHatchCurrent = 1.25;
     public static final double kMinHatchCurrent = 0.125;
-    public static final double kMaxHatchCurrent = 1.25;
+    public static final double kMaxHatchCurrent = 0.875;
+    
     public static final double kGreenRange = 2.0;
     public static final double kYellowRange = 5.0;
 

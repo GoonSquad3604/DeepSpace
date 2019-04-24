@@ -82,15 +82,6 @@ public class Teleop implements AutonCommand
             endTeleop();
         }
 
-        if(driveStick.getBumper(Hand.kLeft))
-        {  
-            limelight.setStreamMode(2);  
-        }
-        else
-        {
-            limelight.setStreamMode(1);
-        }
-
         if(!auton.getHatchManipulator().getHatch())
         {
             auton.getSucker().set(0);
@@ -211,17 +202,21 @@ public class Teleop implements AutonCommand
                 auton.getCargoManipulator().runHinge(0);
             }
             
-            if(operateStick.getBumper(Hand.kLeft))
+            if(operateStick.getBumperReleased(Hand.kLeft))
             {
-                auton.getCargoManipulator().runDispense();
+                auton.getCargoManipulator().run(0);
+            }
+            else if(operateStick.getBumper(Hand.kLeft))
+            {
+                auton.getCargoManipulator().run(-1);
             }
             else if(operateStick.getBumper(Hand.kRight))
             {
-                auton.getCargoManipulator().runIntake();
+                auton.getCargoManipulator().run(1);
             }
-            else
+            else if(operateStick.getBumperReleased(Hand.kRight))
             {
-                auton.getCargoManipulator().stop();
+                auton.getCargoManipulator().run(0.1);
             }
 
             if(operateStick.getTriggerAxis(Hand.kRight) >= 0.3 && operateStick.getPOV() != -1)

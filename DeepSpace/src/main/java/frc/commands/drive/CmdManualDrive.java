@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.GenericHID.Hand;
 import frc.auton.Auton;
 import frc.commands.AutonCommand;
 import frc.subsystem.drivetrain.DriveTrain;
+import static frc.robot.Constants.*;
 
 public class CmdManualDrive implements AutonCommand
 {
@@ -73,18 +74,23 @@ public class CmdManualDrive implements AutonCommand
                 auton.getCargoManipulator().runHinge(0);
             }
 
-            if(operateStick.getBumper(Hand.kLeft))
+            if(operateStick.getBumperReleased(Hand.kLeft))
             {
-                auton.getCargoManipulator().runDispense();
+                auton.getCargoManipulator().run(0);
+            }
+            else if(operateStick.getBumper(Hand.kLeft))
+            {
+                auton.getCargoManipulator().run(-1);
             }
             else if(operateStick.getBumper(Hand.kRight))
             {
-                auton.getCargoManipulator().runIntake();
+                auton.getCargoManipulator().run(1);
             }
-            else
+            else if(operateStick.getBumperReleased(Hand.kRight))
             {
-                auton.getCargoManipulator().stop();
+                auton.getCargoManipulator().run(0.1);
             }
+
         }    
         
 
@@ -157,6 +163,25 @@ public class CmdManualDrive implements AutonCommand
             else
             {
                 auton.getHatchManipulator().runArticulator(0);
+            }
+        }
+
+        if(!auton.getIsElevatorCommand())
+        {
+            if(operateStick.getTriggerAxis(Hand.kLeft) >= 0.6)
+            {
+                if(operateStick.getPOV() == kDpadNone)
+                {
+                    auton.getElevator().setPower(0);
+                }
+                else if(operateStick.getPOV() == kDpadUp)
+                {
+                    auton.getElevator().setPower(.5);
+                }
+                else if(operateStick.getPOV() == kDpadDown)
+                {
+                    auton.getElevator().setPower(-.5);
+                }
             }
         }
 
