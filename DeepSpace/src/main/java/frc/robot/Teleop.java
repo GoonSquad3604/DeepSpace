@@ -111,7 +111,7 @@ public class Teleop implements AutonCommand
                         endTeleop();
                         break;
                     case kDpadDown:
-                        PillarsAuton.addCommands(auton, kSecondLevel);
+                        PillarsAutonLevel2.addCommands(auton, kSecondLevel);
                         endTeleop();
                         break;
                     default:
@@ -216,7 +216,7 @@ public class Teleop implements AutonCommand
             }
             else if(operateStick.getBumperReleased(Hand.kRight))
             {
-                auton.getCargoManipulator().run(0.1);
+                auton.getCargoManipulator().run(0.2);
             }
 
             if(operateStick.getTriggerAxis(Hand.kRight) >= 0.3 && operateStick.getPOV() != -1)

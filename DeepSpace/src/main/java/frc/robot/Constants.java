@@ -97,7 +97,7 @@ public class Constants
     /*********/
     
     public static final double kThirdLevel = 153;
-    public static final double kSecondLevel = 53;
+    public static final double kSecondLevel = 57;
     //public static final double kInchPerRotationPillar = 0.132040647405376;
     
     //D-Pad
