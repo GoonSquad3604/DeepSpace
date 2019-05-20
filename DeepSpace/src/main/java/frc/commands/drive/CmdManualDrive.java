@@ -88,7 +88,7 @@ public class CmdManualDrive implements AutonCommand
             }
             else if(operateStick.getBumperReleased(Hand.kRight))
             {
-                auton.getCargoManipulator().run(0.1);
+                auton.getCargoManipulator().run(0.2);
             }
 
         }    

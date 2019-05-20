@@ -85,10 +85,10 @@ public class Robot extends TimedRobot
         startingChooser.addOption("Hatch", "Hatch");
 
         UsbCamera camera = CameraServer.getInstance().startAutomaticCapture(0);
-        camera.setExposureManual(90);
+        camera.setExposureManual(45);
         camera.setWhiteBalanceManual(60);
-        camera.setResolution(250, 150);
-        camera.setFPS(30);
+        camera.setResolution(200, 100);
+        camera.setFPS(20);
     }
     
     @Override
@@ -214,17 +214,17 @@ public class Robot extends TimedRobot
             runningAuton.getHatchManipulator().runArticulator(0);
         }
 
-        if(driveStick.getBumper(Hand.kLeft))
+        if(driveStick.getTriggerAxis(Hand.kRight) >= 0.5 || driveStick.getTriggerAxis(Hand.kLeft) >= 0.5)
         {
-            runningAuton.getCargoManipulator().run(-0.1);
+            runningAuton.getCargoManipulator().run(0);
+        }
+        else if(driveStick.getBumper(Hand.kLeft))
+        {
+            runningAuton.getCargoManipulator().run(-0.15);
         }
         else if(driveStick.getBumper(Hand.kRight))
         {
-            runningAuton.getCargoManipulator().run(0.1);
-        }
-        else
-        {
-            runningAuton.getCargoManipulator().run(0);
+            runningAuton.getCargoManipulator().run(0.15);
         }
 
 
