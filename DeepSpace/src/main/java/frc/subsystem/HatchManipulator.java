@@ -2,12 +2,13 @@ package frc.subsystem;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DigitalInput;
 
 public class HatchManipulator 
 {
     private WPI_TalonSRX articulator;
     private ArticulatorState articulatorState;
-    private DigitalInput hatchSensor;
+    private boolean hasHatch = false;
 
     /**
      * sets ID for hatch and inverts it
@@ -18,7 +19,7 @@ public class HatchManipulator
         articulator = new WPI_TalonSRX(hatchID);
         articulator.setInverted(false);
         articulatorState = ArticulatorState.kIn;
-        hatchSensor = new DigitalInput(1);
+        
     } 
 
 
@@ -49,7 +50,12 @@ public class HatchManipulator
      */
     public int getLocation()
     {
-        return -articulator.getSelectedSensorPosition();
+        return articulator.getSelectedSensorPosition();
+    }
+
+    public void setLocation(int location)
+    {
+        articulator.setSelectedSensorPosition(location);
     }
     
     /**
@@ -61,9 +67,14 @@ public class HatchManipulator
         articulatorState = state;
     }
 
-    public boolean getSensor()
+    public void setHatch(boolean hatch)
     {
-        return !hatchSensor.get();
+        hasHatch = hatch;
+    }
+
+    public boolean getHatch()
+    {
+        return hasHatch;
     }
 
 }
